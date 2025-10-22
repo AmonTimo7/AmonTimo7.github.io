@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentina Engenharia - Soluções Integradas para seu Empreendimento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Link para o CSS da biblioteca de animação AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #333333;
+        }
+        .hero-bg {
+            /* Mantendo a classe hero-bg original */
+            background-color: #2c2a29;
+            /* Nota: A imagem de fundo deve ser responsiva. A propriedade background-size: cover já ajuda, mas garantimos que a altura mínima seja sempre aplicada no container. */
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/images/280570844_5023730064377983_2471003239207340447_n.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .section-title {
+            color: #C0A063;
+        }
+        /* Estilo base do card para transição suave */
+        .custom-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer; /* Indica que é clicável */
+        }
+        .custom-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        
+        @keyframes slide-infinite {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .client-logos-container {
+            animation: slide-infinite 30s linear infinite;
+        }
+
+        /* --- ESTILOS DA ANIMAÇÃO DO DRONE E MODAL --- */
+
+        /* 1. Animações de Rotação (Horário e Anti-Horário) */
+        @keyframes girar-cw { /* Clockwise (Sentido Horário) */
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes girar-ccw { /* Counter Clockwise (Sentido Anti-Horário) */
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+
+        /* 2. Container do Drone (Card e Flutuante) */
+        .drone-icon-container, #floating-drone {
+            position: relative;
+            margin: 0 auto 1rem;
+            transition: opacity 0.3s;
+        }
+        
+        /* Ajuste dos tamanhos */
+        .drone-icon-container { 
+            width: 40px; 
+            height: 40px; 
+            /* Ajuste responsivo para telas menores */
+            /* Tailwind classes w-10 h-10 */
+        }
+        #floating-drone { 
+            width: 120px; 
+            height: 120px; 
+            margin: 0; /* Remove margin para posicionamento fixo */
+        }
+        /* Ajuste de tamanho do drone flutuante para mobile */
+        @media (max-width: 640px) {
+            #floating-drone {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+
+        /* Estilo para as hélices (simulação em CSS) */
+        .propeller {
+            position: absolute;
+            width: 50%; /* Largura da hélice (simulada) */
+            height: 2px;
+            background-color: #333;
+            transform-origin: center center;
+            border-radius: 9999px;
+            /* Duplica a linha para formar um X */
+            box-shadow: 0 0 0 2px #333, 0 0 0 2px #333, 0 0 0 2px #333; /* Usando box-shadow para criar um X e ponto central */
+        }
+
+        /* Posicionamento e Rotação da Hélice Única (SIMULAÇÃO) */
+        .propeller-set {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Estrutura das 4 Hélices (em torno do corpo do drone) */
+        .propeller-item {
+            position: absolute;
+            width: 40%; /* AUMENTADO DE 30% PARA 40% */
+            height: 40%; /* AUMENTADO DE 30% PARA 40% */
+            z-index: 10;
+        }
+
+        /* Estilo e Posição da Hélice */
+        .propeller-blade {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .blade-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 4px; /* Espessura da pá */
+            background-color: black;
+            border-radius: 9999px;
+            transform: translateY(-50%);
+        }
+        /* Para simular a hélice cruzada */
+        .blade-line:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            border-radius: 9999px;
+            transform: rotate(90deg);
+        }
+
+        /* Posições das 4 hélices */
+        /* Canto Superior Esquerdo (CCW) */
+        .propeller-tl { top: 0; left: 0; transform: translate(-50%, -50%); }
+        /* Canto Superior Direito (TR) - Horário (CW) */
+        .propeller-tr { top: 0; right: 0; transform: translate(50%, -50%); }
+        /* Canto Inferior Esquerdo (BL) - Horário (CW) */
+        .propeller-bl { bottom: 0; left: 0; transform: translate(-50%, 50%); }
+        /* Canto Inferior Direito (BR) - Anti-Horário (CCW) */
+        .propeller-br { bottom: 0; right: 0; transform: translate(50%, 50%); }
+
+        /* Aplica as animações alternadas (CW: sentido horário, CCW: sentido anti-horário) */
+        .propeller-tl .propeller-blade, .propeller-br .propeller-blade { animation: girar-ccw 0.1s linear infinite; }
+        .propeller-tr .propeller-blade, .propeller-bl .propeller-blade { animation: girar-cw 0.1s linear infinite; }
+
+
+        /* 3. Drone Flutuante (Usado na Animação) */
+        #floating-drone {
+            position: fixed;
+            z-index: 1000;
+            pointer-events: none; /* Ignora cliques enquanto flutua */
+            opacity: 0;
+            visibility: hidden;
+            /* Transição CSS para o voo suave */
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
+        }
+
+        #floating-drone.flying {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Imagens do Corpo do Drone */
+        .drone-body {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 20;
+        }
+
+/* 4. Modal (Glassmorphism + Ouro) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro */
+    z-index: 990;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    backdrop-filter: blur(8px); /* Efeito Glassmorphism no overlay */
+    overflow-y: auto; 
+    padding: 20px; 
+    align-items: flex-start; 
+    justify-content: center;
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    /* Glassmorphism: Fundo semi-transparente e com blur interno */
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(15px); /* Efeito blur no conteúdo */
+    
+    padding: 2.5rem; 
+    border-radius: 16px; 
+    max-width: 960px; /* Aumentado para melhor visualização da grade de duas colunas */
+    width: 100%;
+    margin: 8vh auto 4vh; 
+    position: relative;
+    transform: scale(0.9);
+    opacity: 0;
+    /* Borda Dourada Sutil: #C0A063 */
+    border: 1px solid rgba(192, 160, 99, 0.4); 
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2), 0 0 15px rgba(192, 160, 99, 0.5); 
+
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modal-section-title {
+    color: #C0A063;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.125rem;
+    border-bottom: 2px solid #EEE;
+    padding-bottom: 4px;
+}
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Cabeçalho / Navegação (Ajustes de Responsividade no Menu Mobile) -->
+    <header class="bg-white/80 backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-sm">
+        <!-- O container e os itens flex já são responsivos, mas o menu é hidden no lg: -->
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center">
+                <!-- SUBSTITUA 'logo.png' PELO CAMINHO DO SEU ARQUIVO DE LOGO. TAMANHO RECOMENDADO: 128x32 PIXELS -->
+                <img src="/images/Valentina.png" alt="Logo da Valentina Engenharia" class="h-8 w-auto">
+            </a>
+            <nav class="hidden lg:flex items-center space-x-8">
+                <a href="#sobre" class="text-gray-600 hover:text-[#C0A063] transition-colors duration-300">Sobre Nós</a>
+                <a href="#servicos" class="text-gray-600 hover:text-[#C0A063] transition-colors duration-300">Serviços</a>
+                <a href="#portfolio" class="text-gray-600 hover:text-[#C0A063] transition-colors duration-300">Portfólio</a>
+                <a href="#contato" class="bg-[#C0A063] text-white font-bold py-2 px-5 rounded-lg hover:bg-[#b08f51] transition-colors">Contato</a>
+            </nav>
+            <div class="lg:hidden">
+                <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                    <!-- ÍCONE DE MENU - SUBSTITUA SE DESEJAR -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+                </button>
+            </div>
+        </div>
+        <!-- MENU MOBILE - Totalmente funcional, esconde no desktop -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white shadow-lg">
+            <a href="#sobre" class="block py-3 px-6 text-gray-700 hover:bg-gray-100">Sobre Nós</a>
+            <a href="#servicos" class="block py-3 px-6 text-gray-700 hover:bg-gray-100">Serviços</a>
+            <a href="#portfolio" class="block py-3 px-6 text-gray-700 hover:bg-gray-100">Portfólio</a>
+            <a href="#clientes" class="block py-3 px-6 text-gray-700 hover:bg-gray-100">Clientes</a>
+            <a href="#contato" class="block py-3 px-6 text-gray-700 hover:bg-gray-100">Contato</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção Hero (Ajuste de tamanhos de texto para responsividade) -->
+        <section class="hero-bg min-h-screen flex items-center pt-24 pb-12">
+            <div class="container mx-auto px-6 text-center text-white">
+                <!-- Ajuste de tamanho da fonte do H1: text-4xl no mobile, md:text-6xl no tablet/desktop -->
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 tracking-wide" data-aos="fade-up">Soluções Integradas para seu Empreendimento</h1>
+                <!-- Ajuste de tamanho da fonte do P: text-lg no mobile, md:text-xl no tablet/desktop -->
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-gray-200" data-aos="fade-up" data-aos-delay="200">Tecnologia, inovação e 15 anos de experiência para transformar seus projetos em realidade com excelência e segurança.</p>
+                <a href="#servicos" class="bg-[#C0A063] text-white font-bold py-3 px-8 rounded-lg hover:bg-[#b08f51] transition-colors shadow-lg" data-aos="fade-up" data-aos-delay="400">Conheça Nossas Soluções</a>
+            </div>
+        </section>
+
+        <!-- Seção Sobre Nós (Ajuste de grid para responsividade) -->
+        <section id="sobre" class="py-20 lg:py-28 overflow-hidden">
+            <div class="container mx-auto px-6">
+                <!-- Grid: 1 coluna no mobile, 2 colunas no desktop (lg:) -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    <!-- Coluna 1: Texto -->
+                    <div data-aos="fade-right">
+                        <span class="font-bold section-title tracking-widest">SOBRE NÓS</span>
+                        <!-- Ajuste de tamanho da fonte do H2: text-3xl no mobile, lg:text-4xl no desktop -->
+                        <h2 class="text-3xl lg:text-4xl font-bold mt-2 mb-6">15 anos construindo o futuro com inovação e confiança.</h2>
+                        <div class="space-y-4 text-gray-600">
+                            <p>Com 15 anos de experiência, a Valentina Engenharia destaca-se pela sua capacidade de oferecer soluções completas e integradas, desde a concepção de projetos arquitetônicos até a execução e gestão de obras de alta complexidade.</p>
+                            <p>Nosso compromisso é com a qualidade, a segurança e a satisfação total dos nossos clientes. Utilizamos tecnologia de ponta e uma equipe multidisciplinar para garantir que cada projeto seja único, sustentável e perfeitamente alinhado com as suas expectativas.</p>
+                        </div>
+                    </div>
+                    <!-- Coluna 2: Pilares (já responsivo) -->
+                    <div data-aos="fade-left">
+                        <div class="bg-white p-8 rounded-xl shadow-lg space-y-6">
+                            <h3 class="text-xl font-bold text-center mb-4 p-4 text-gray-800">Nossos Pilares</h3>
+                            <div class="flex items-center"><div class="bg-[#C0A063]/10 p-3 rounded-full"><!-- Ícone 24x24 --><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-column-icon lucide-chart-column"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div><span class="ml-4 font-semibold text-gray-700">Planejamento Estratégico</span></div>
+                            <div class="flex items-center"><div class="bg-[#C0A063]/10 p-3 rounded-full"><!-- Ícone 24x24 --><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-workflow-icon lucide-workflow"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg></div><span class="ml-4 font-semibold text-gray-700">Integração Completa</span></div>
+                            <div class="flex items-center"><div class="bg-[#C0A063]/10 p-3 rounded-full"><!-- Ícone 24x24 --><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-command-icon lucide-command"><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/></svg></div><span class="ml-4 font-semibold text-gray-700">Tecnologia e Inovação</span></div>
+                            <div class="flex items-center"><div class="bg-[#C0A063]/10 p-3 rounded-full"><!-- Ícone 24x24 --><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-vegan-icon lucide-vegan"><path d="M16 8q6 0 6-6-6 0-6 6"/><path d="M17.41 3.59a10 10 0 1 0 3 3"/><path d="M2 2a26.6 26.6 0 0 1 10 20c.9-6.82 1.5-9.5 4-14"/></svg></div><span class="ml-4 font-semibold text-gray-700">Sustentabilidade</span></div>
+                            <div class="flex items-center"><div class="bg-[#C0A063]/10 p-3 rounded-full"><!-- Ícone 24x24 --><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scale-icon lucide-scale"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></div><span class="ml-4 font-semibold text-gray-700">Segurança Jurídica</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Serviços Detalhada (Ajuste de grid para responsividade) -->
+        <section id="servicos" class="py-20 lg:py-28 bg-white overflow-hidden">
+                <div class="container mx-auto px-6 max-w-7xl">
+                    <div class="text-center mb-16" data-aos="fade-up">
+                        <span class="font-bold section-title tracking-widest">NOSSAS SOLUÇÕES</span>
+                         <!-- Ajuste de tamanho da fonte do H2: text-3xl no mobile, lg:text-4xl no desktop -->
+                        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mt-2">Engenharia completa para seu projeto</h2>
+                        <p class="max-w-2xl mx-auto text-gray-600 mt-4">Oferecemos um portfólio completo de serviços para atender a todas as fases do seu empreendimento.</p>
+                    </div>
+                    
+                    <!-- Grid: 1 coluna no mobile (col-span-1), 2 no sm, 3 no md, 4 no lg -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+                        <!-- Card 1: Arquitetura e Urbanismo -->
+                        <div class="custom-card flex flex-col text-center p-6" data-aos="fade-up" data-aos-delay="0">
+                            <!-- PNG Icon Placeholder: Arquitetura e Urbanismo -->
+                            <div class="drone-icon-container">
+                                <img src="/icons/buildings.png" alt="Ícone de Arquitetura e Urbanismo" class="mx-auto object-contain">
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-gray-800">Arquitetura e Urbanismo</h3>
+                            <p class="text-sm text-gray-600 mt-auto">Projetos residenciais, comerciais, urbanísticos e paisagísticos.</p>
+                        </div>
+
+                        <!-- Card 2: Engenharia Civil -->
+                        <div class="custom-card flex flex-col text-center p-6" data-aos="fade-up" data-aos-delay="100">
+                            <!-- PNG Icon Placeholder: Engenharia Civil -->
+                             <div class="drone-icon-container">
+                                <img src="/icons/engineer.png" alt="Ícone de Engenharia Civil" class="mx-auto object-contain">
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-gray-800">Engenharia Civil</h3>
+                            <p class="text-sm text-gray-600 mt-auto">Projetos de infraestrutura, superestrutura e instalações em BIM.</p>
+                        </div>
+
+                        <!-- Card 3: Mapeamento 3D (O CARD COM A ANIMAÇÃO) -->
+                        <div id="card-mapeamento-3d" class="custom-card flex flex-col text-center p-6" data-aos="fade-up" data-aos-delay="200">
+                            <!-- Estrutura do Drone no Card: corpo + hélices (AGORA 4 ELEMENTOS) -->
+                            <div id="drone-icon-mapeamento" class="drone-icon-container">
+                                <!-- Corpo do Drone -->
+                                <img id="drone-corpo-card" src="/icons/corpo.png" alt="Corpo do Drone" class="drone-body mx-auto object-contain">
+                                
+                                <!-- Hélices: 4 elementos, cada um com animação de giro diferente -->
+                                <div class="propeller-set">
+                                    <!-- Hélice Top-Left (TL) - Anti-Horário (CCW) -->
+                                    <div class="propeller-item propeller-tl">
+                                        <div class="propeller-blade"><div class="blade-line"></div></div>
+                                    </div>
+                                    <!-- Hélice Top-Right (TR) - Horário (CW) -->
+                                    <div class="propeller-item propeller-tr">
+                                        <div class="propeller-blade"><div class="blade-line"></div></div>
+                                    </div>
+                                    <!-- Hélice Bottom-Left (BL) - Horário (CW) -->
+                                    <div class="propeller-item propeller-bl">
+                                        <div class="propeller-blade"><div class="blade-line"></div></div>
+                                    </div>
+                                    <!-- Hélice Bottom-Right (BR) - Anti-Horário (CCW) -->
+                                    <div class="propeller-item propeller-br">
+                                        <div class="propeller-blade"><div class="blade-line"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-gray-800">Mapeamento 3D</h3>
+                            <p class="text-sm text-gray-600 mt-auto">Levantamentos com drones para modelos digitais e ortofotos.</p>
+                        </div>
+
+                        <!-- Card 4: Sistemas Contra Incêndio -->
+                        <div class="custom-card flex flex-col text-center p-6" data-aos="fade-up" data-aos-delay="300">
+                            <!-- PNG Icon Placeholder: Sistemas Contra Incêndio -->
+                            <div class="drone-icon-container">
+                                <img src="/icons/fire.png" alt="Ícone de Sistemas Contra Incêndio" class="mx-auto object-contain">
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-gray-800">Sistemas Contra Incêndio</h3>
+                            <p class="text-sm text-gray-600 mt-auto">Planejamento, dimensionamento e legalização de sistemas de proteção.</p>
+                        </div>
+
+                        <!-- Card 5: Regularização Fundiária -->
+                        <div class="custom-card flex flex-col text-center p-6" data-aos="fade-up" data-aos-delay="0">
+                            <!-- PNG Icon Placeholder: Regularização Fundiária -->
+                            <div class="drone-icon-container">
+                                <img src="/icons/document.png" alt="Ícone de Regularização Fundiária" class="mx-auto object-contain">
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-gray-800">Regularização Fundiária</h3>
+                            <p class="text-sm text-gray-600 mt-auto">Serviços técnicos completos desde o levantamento até a titulação.</p>
+                        </div>
+
+                        <!-- Card 6: Engenharia Diagnóstica -->
+                        <div class="custom-card flex flex-col text-center p-6" data-aos="fade-up" data-aos-delay="100">
+                            <!-- PNG Icon Placeholder: Engenharia Diagnóstica -->
+                            <div class="drone-icon-container">
+                                <img src="/icons/diagnostic.png" alt="Ícone de Engenharia Diagnóstica" class="mx-auto object-contain">
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-gray-800">Engenharia Diagnóstica</h3>
+                            <p class="text-sm text-gray-600 mt-auto">Investigação de anomalias com laudos técnicos para reparos eficazes.</p>
+                        </div>
+
+                        <!-- Card 7: SPDA - Para-raios -->
+                        <div class="custom-card flex flex-col text-center p-6" data-aos="fade-up" data-aos-delay="200">
+                            <!-- PNG Icon Placeholder: SPDA - Para-raios -->
+                            <div class="drone-icon-container">
+                                <img src="/icons/lightning-rod.png" alt="Ícone de SPDA - Para-raios" class="mx-auto object-contain">
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-gray-800">SPDA - Para-raios</h3>
+                            <p class="text-sm text-gray-600 mt-auto">Inspeção, laudos e manutenção de sistemas de proteção (NBR 5419).</p>
+                        </div>
+
+                        <!-- Card 8: Avaliações e Perícias -->
+                        <div class="custom-card flex flex-col text-center p-6" data-aos="fade-up" data-aos-delay="300">
+                            <!-- PNG Icon Placeholder: Avaliações e Perícias -->
+                            <div class="drone-icon-container">
+                                <img src="/icons/balance.png" alt="Ícone de Avaliações e Perícias" class="mx-auto object-contain">
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-gray-800">Avaliações e Perícias</h3>
+                            <p class="text-sm text-gray-600 mt-auto">Laudos de avaliação e atuação como peritos judiciais ou assistentes.</p>
+                        </div>
+
+                    </div>
+                </div>
+        </section>
+        
+        <!-- Seções Portfólio, Clientes e Condominios Atendidos (Ajuste de grid e coluna) -->
+        
+        <section id="portfolio" class="py-20 lg:py-28 overflow-hidden">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-16" data-aos="fade-up">
+                    <span class="font-bold section-title tracking-widest">PORTFÓLIO</span>
+                     <!-- Ajuste de tamanho da fonte do H2: text-3xl no mobile, lg:text-4xl no desktop -->
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mt-2">Obras Executadas</h2>
+                    <p class="text-gray-600 mt-2 max-w-2xl mx-auto">Conheça alguns dos nossos projetos que combinam técnica, design e funcionalidade.</p>
+                </div>
+                <!-- Grid: 1 coluna no mobile, 2 no md, 3 no lg -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="group relative rounded-lg overflow-hidden shadow-lg custom-card" data-aos="fade-up" data-aos-delay="0">
+                        <!-- SUBSTITUA PELO CAMINHO DA SUA IMAGEM. TAMANHO RECOMENDADO: 600x400 PIXELS -->
+                        <img src="/images/WhatsApp-Image-2022-07-05-at-13.23.04-1.jpeg" class="w-full h-80 object-cover transform group-hover:scale-105 transition-transform duration-500" alt="Fachada de uma casa residencial moderna com dois andares e jardim.">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <h3 class="text-xl font-bold text-white">CBMDF</h3>
+                            <p class="text-sm text-[#C0A063]">Área: 200m²</p>
+                        </div>
+                    </div>
+                    <div class="group relative rounded-lg overflow-hidden shadow-lg custom-card" data-aos="fade-up" data-aos-delay="150">
+                        <!-- SUBSTITUA PELO CAMINHO DA SUA IMAGEM. TAMANHO RECOMENDADO: 600x400 PIXELS -->
+                        <img src="/images/WhatsApp-Image-2022-07-05-at-13.28.31.jpeg" class="w-full h-80 object-cover transform group-hover:scale-105 transition-transform duration-500" alt="Interior de um apartamento elegante com sala de estar e decoração moderna.">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <h3 class="text-xl font-bold text-white">Reforma de Apartamento</h3>
+                            <p class="text-sm text-[#C0A063]">Área: 120m²</p>
+                        </div>
+                    </div>
+                    <div class="group relative rounded-lg overflow-hidden shadow-lg custom-card" data-aos="fade-up" data-aos-delay="300">
+                        <!-- SUBSTITUA PELO CAMINHO DA SUA IMAGEM. TAMANHO RECOMENDADO: 600x400 PIXELS -->
+                        <img src="/images/POSTOWhatsApp-Image-2022-07-05-at-13.31.07-2.jpeg" class="w-full h-80 object-cover transform group-hover:scale-105 transition-transform duration-500" alt="Fachada de um prédio comercial com design contemporâneo e vidros espelhados.">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <h3 class="text-xl font-bold text-white">Posto de Vistoria</h3>
+                            <p class="text-sm text-[#C0A063]">Serviço Especializado</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Clientes (Já usa animação de rolagem, mas garante o container responsivo) -->
+        <section id="clientes" class="py-20 lg:py-28 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <span class="font-bold section-title tracking-widest">NOSSOS CLIENTES E PARCEIROS</span>
+                     <!-- Ajuste de tamanho da fonte do H2: text-3xl no mobile, lg:text-4xl no desktop -->
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mt-2">Confiança que constrói grandes projetos</h2>
+                    <p class="text-gray-600 mt-2 max-w-2xl mx-auto">Orgulho de construir relações de confiança com grandes nomes do mercado.</p>
+                </div>
+                <!-- Container de Logos: O overflow-hidden e o w-max no child garantem a rolagem infinita responsiva -->
+                <div class="relative w-full overflow-hidden group [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]" data-aos="fade-in">
+                    <div class="flex w-max client-logos-container group-hover:[animation-play-state:paused]">
+                        <!-- Conjunto 1 -->
+                        <div class="flex items-center justify-center flex-shrink-0 space-x-16 px-8">
+                            <img src="/Parceiros/bancopam.png" alt="Logo Banco Pan" class="h-10 grayscale hover:grayscale-0 transition duration-300">
+                            
+                            <img src="/Parceiros/caesb.png" alt="Logo Caesb" class="h-10 grayscale hover:grayscale-0 transition duration-300">
+                            
+                            <img src="/Parceiros/carrefour.png" alt="Logo Carrefour" class="h-12 grayscale hover:grayscale-0 transition duration-300">
+                            
+                            <img src="/Parceiros/santander.png" alt="Logo Santander" class="h-12 grayscale hover:grayscale-0 transition duration-300">
+                            
+                            <img src="/Parceiros/sheel.png" alt="Logo Shell" class="h-12 grayscale hover:grayscale-0 transition duration-300">
+                            
+                            <img src="/Parceiros/universal.png" alt="Logo Igreja Universal do Reino de Deus" class="h-12 grayscale hover:grayscale-0 transition duration-300">
+
+                            <img src="/Parceiros/bancopam.png" alt="Logo Banco Pan" class="h-10 grayscale hover:grayscale-0 transition duration-300">
+                        </div>
+                        
+                        <!-- Conjunto 2 (Cópia para o loop) -->
+                        <div class="flex items-center justify-center flex-shrink-0 space-x-16 px-8" aria-hidden="true">
+                            <img src="/Parceiros/bancopam.png" alt="Logo Banco Pan" class="h-10 grayscale hover:grayscale-0 transition duration-300">
+
+                            <img src="/Parceiros/caesb.png" alt="Logo Caesb" class="h-10 grayscale hover:grayscale-0 transition duration-300">
+
+                            <img src="/Parceiros/carrefour.png" alt="Logo Carrefour" class="h-12 grayscale hover:grayscale-0 transition duration-300">
+
+                            <img src="/Parceiros/santander.png" alt="Logo Santander" class="h-12 grayscale hover:grayscale-0 transition duration-300">
+
+                            <img src="/Parceiros/shell.png" alt="Logo Shell" class="h-12 grayscale hover:grayscale-0 transition duration-300">
+
+                            <img src="/Parceiros/universal.png" alt="Logo Igreja Universal do Reino de Deus" class="h-12 grayscale hover:grayscale-0 transition duration-300">
+
+                            <img src="/Parceiros/bancopam.png" alt="Logo Banco Pan" class="h-10 grayscale hover:grayscale-0 transition duration-300">
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Condominios Atendidos (Ajuste de colunas para responsividade) -->
+        <section id="destaques" class="py-20 lg:py-28">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <span class="font-bold section-title tracking-widest">PROJETOS DE DESTAQUE</span>
+                     <!-- Ajuste de tamanho da fonte do H2: text-3xl no mobile, lg:text-4xl no desktop -->
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mt-2">Condomínios Atendidos</h2>
+                    <p class="text-gray-600 mt-2 max-w-3xl mx-auto">Temos orgulho de ter colaborado com diversos condomínios residenciais, entregando qualidade e segurança.</p>
+                </div>
+                <!-- Colunas: 2 no mobile, 3 no md, 4 no lg -->
+                <div class="max-w-6xl mx-auto columns-2 md:columns-3 lg:columns-4 gap-4 text-center" data-aos="fade-up" data-aos-delay="200">
+                    <p class="bg-white p-3 rounded-md mb-4 shadow-sm text-gray-700">Parque das Árvores</p>
+                    <p class="bg-white p-3 rounded-md mb-4 shadow-sm text-gray-700">Reserva Taguatinga</p>
+                    <p class="bg-white p-3 rounded-md mb-4 shadow-sm text-gray-700">Solar de Brasília</p>
+                    <p class="bg-white p-3 rounded-md mb-4 shadow-sm text-gray-700">Mansões Entre Lagos</p>
+                    <p class="bg-white p-3 rounded-md mb-4 shadow-sm text-gray-700">Rancho Karina - RK</p>
+                    <p class="bg-white p-3 rounded-md mb-4 shadow-sm text-gray-700">Damha I & II</p>
+                    <p class="bg-white p-3 rounded-md mb-4 shadow-sm text-gray-700">Bella Morada</p>
+                    <p class="bg-white p-3 rounded-md mb-4 shadow-sm text-gray-700">Nova Cidade 2</p>
+                    <p class="bg-white p-3 rounded-md mb-4 shadow-sm text-gray-700">Bello Stanza</p>
+                    <p class="bg-white p-3 rounded-md mb-4 shadow-sm text-gray-700">Reserva Parque</p>
+                    <p class="bg-white p-3 rounded-md mb-4 shadow-sm text-gray-700">Orion - Gama</p>
+                    <p class="bg-white p-3 rounded-md mb-4 shadow-sm text-gray-700">Green Park II</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <section id="contato" class="bg-white pt-16 pb-16">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12" data-aos="fade-up">
+                 <!-- Ajuste de tamanho da fonte do H2: text-3xl no mobile, lg:text-4xl no desktop -->
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">Vamos construir o seu sonho?</h2>
+                <p class="text-gray-600 mt-2 max-w-2xl mx-auto">Entre em contato. A nossa equipe de especialistas está pronta para o atender.</p>
+            </div>
+            <div class="max-w-4xl mx-auto bg-gray-50 border border-gray-200 rounded-lg p-8 lg:p-12" data-aos="fade-up" data-aos-delay="200">
+                <form id="contact-form">
+                    <!-- Grid: 1 coluna no mobile, 2 no md (para Nome e Email) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <input type="text" name="name" placeholder="O seu Nome" class="bg-white text-gray-800 p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#C0A063] transition duration-300" required>
+                        <input type="email" name="email" placeholder="O seu E-mail" class="bg-white text-gray-800 p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#C0A063] transition duration-300" required>
+                    </div>
+                    <textarea name="message" placeholder="A sua Mensagem" rows="6" class="w-full bg-white text-gray-800 p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#C0A063] transition duration-300 mb-6" required></textarea>
+                    <div class="text-center">
+                        <button type="submit" class="font-bold py-3 px-12 rounded-lg text-lg bg-[#C0A063] text-white hover:bg-[#b08f51] transition-colors">
+                            Enviar Mensagem
+                        </button>
+                    </div>
+                </form>
+                <div id="form-feedback" class="mt-4 text-center"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#1a1a1a] text-gray-300 pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <!-- Grid: 1 coluna no mobile (col-span-1), 3 no md -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <!-- Coluna 1 -->
+                <div data-aos="fade-up">
+                    <h3 class="text-lg font-semibold text-white mb-4">VALENTINA ENGENHARIA</h3>
+                    <p class="text-sm text-gray-400">Soluções integradas e inovadoras para o seu empreendimento, com a segurança e a experiência de 15 anos no mercado.</p>
+                </div>
+                <!-- Coluna 2 -->
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-lg font-semibold text-white mb-4">Links Rápidos</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#sobre" class="hover:text-[#C0A063] transition-colors">Sobre Nós</a></li>
+                        <li><a href="#servicos" class="hover:text-[#C0A063] transition-colors">Nossos Serviços</a></li>
+                        <li><a href="#portfolio" class="hover:text-[#C0A063] transition-colors">Portfólio</a></li>
+                        <li><a href="#clientes" class="hover:text-[#C0A063] transition-colors">Nossos Clientes</a></li>
+                    </ul>
+                </div>
+                <!-- Coluna 3 -->
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-lg font-semibold text-white mb-4">Contato</h3>
+                    <!-- Centralização no mobile, alinhamento à esquerda no desktop -->
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center justify-center md:justify-start"><!-- Ícone 16x16 --><img src="https://placehold.co/16x16/c0a063/1a1a1a?text= " alt="Ícone" class="w-4 h-4 mr-3"><span>Brasília - SAAN - Quadra 02, Lote 1150, sala 301</span></li>
+                         <li class="flex items-center justify-center md:justify-start"><!-- Ícone 16x16 --><img src="https://placehold.co/16x16/c0a063/1a1a1a?text= " alt="Ícone" class="w-4 h-4 mr-3"><a href="tel:+5561984180235" class="hover:text-[#C0A063] transition-colors">+55 61 98418-0235</a></li>
+                        <li class="flex items-center justify-center md:justify-start"><!-- Ícone 16x16 --><img src="https://placehold.co/16x16/c0a063/1a1a1a?text= " alt="Ícone" class="w-4 h-4 mr-3"><a href="tel:+5561993398228" class="hover:text-[#C0A063] transition-colors">+55 61 99339-8228</a></li>
+                        <li class="flex items-center justify-center md:justify-start"><!-- Ícone 16x16 --><img src="https://placehold.co/16x16/c0a063/1a1a1a?text= " alt="Ícone" class="w-4 h-4 mr-3"><a href="http://www.valentinaconstrutora.com.br" target="_blank" class="hover:text-[#C0A063] transition-colors">valentinaconstrutora.com.br</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-500">
+                <p>&copy; <span id="current-year"></span> Valentina Engenharia. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- 5. ELEMENTO DRONE FLUTUANTE (FORA DO FLUXO NORMAL) -->
+    <div id="floating-drone">
+        <!-- Corpo do Drone -->
+        <img id="floating-corpo" src="/icons/corpo.png" alt="Corpo do Drone" class="drone-body">
+        
+        <!-- Hélices Flutuantes -->
+        <div class="propeller-set">
+            <!-- Hélice Top-Left (TL) - Anti-Horário (CCW) -->
+            <div class="propeller-item propeller-tl">
+                <div class="propeller-blade"><div class="blade-line"></div></div>
+            </div>
+            <!-- Hélice Top-Right (TR) - Horário (CW) -->
+            <div class="propeller-item propeller-tr">
+                <div class="propeller-blade"><div class="blade-line"></div></div>
+            </div>
+            <!-- Hélice Bottom-Left (BL) - Horário (CW) -->
+            <div class="propeller-item propeller-bl">
+                <div class="propeller-blade"><div class="blade-line"></div></div>
+            </div>
+            <!-- Hélice Bottom-Right (BR) - Anti-Horário (CCW) -->
+            <div class="propeller-item propeller-br">
+                <div class="propeller-blade"><div class="blade-line"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. MODAL OVERLAY (MODERNIZADO E CORRIGIDO) -->
+    <div id="drone-modal-overlay" class="modal-overlay" onclick="closeModal()">
+        <!-- O clique no conteúdo impede que o modal seja fechado -->
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <!-- Botão de Fechar -->
+            <button class="absolute top-4 right-4 text-gray-500 hover:text-[#C0A063] transition-colors z-10" onclick="closeModal()" aria-label="Fechar Modal">
+                <!-- Ícone X -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+            
+            <h3 class="text-3xl font-extrabold text-[#333333] mb-6 border-b-2 pb-2 border-[#C0A063]/50">Mapeamento 3D com Drones</h3>
+
+            <!-- CONTAINER PRINCIPAL DO CONTEÚDO: GRID RESPONSIVO (2/3 + 1/3 no desktop, 1 coluna no mobile) -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- COLUNA 1: CONTEÚDO PRINCIPAL (2/3 da largura no desktop) -->
+                <div class="lg:col-span-2">
+                    
+                    <p class="text-gray-700 mb-6">Realizamos levantamentos aerofotogramétricos para construção de modelos digitais de terreno (DTM), superfície (DSM) e ortofotos georreferenciadas com acurácia centimétrica. Utilizamos os drones DJI Mavic Air 2 e Mini 3, controlados por missões automáticas, capturando sobreposições ideais (front 80 % / side 70 %) para processamento no Agisoft Metashape.</p>
+                    
+                    <!-- SEÇÃO DE APLICAÇÕES -->
+                    <div class="mt-8">
+                        <h4 class="modal-section-title">Aplicações Comuns</h4>
+                        <ul class="list-disc list-inside text-base text-gray-700 space-y-2 pl-4 mt-3">
+                            <li>Planejamento urbano, volumetria de terraplenagem e cálculos de estoque.</li>
+                            <li>Monitoramento contínuo de obras e inspeções de segurança.</li>
+                            <li>Geração de mapas de declividade, curvas de nível e análise de drenagem.</li>
+                            <li>Modelos 3D realistas para realidade aumentada e gemelo digital (digital twin).</li>
+                        </ul>
+                    </div>
+
+                    <!-- SEÇÃO DE ENTREGÁVEIS -->
+                    <div class="mt-8">
+                        <h4 class="modal-section-title">Entregáveis</h4>
+                        <ul class="list-disc list-inside text-base text-gray-700 space-y-2 pl-4 mt-3">
+                            <li>Ortofoto com GSD adequado ao projeto (até 1 cm/pixel).</li>
+                            <li>Nuvem de pontos densificada (LAS/LAZ).</li>
+                            <li>Modelos de superfície/terreno (GeoTIFF).</li>
+                            <li>Relatório técnico com metadata de voo, pontos de controle (GCPs) e estimativa de erro (RMSE).</li>
+                        </ul>
+                    </div>
+                    
+                </div>
+                
+                <!-- COLUNA 2: TECNOLOGIA & DIFERENCIAIS (1/3 da largura no desktop) -->
+                <div class="lg:col-span-1">
+                    <div class="bg-[#F8F7F4] p-6 rounded-xl border border-gray-200 shadow-inner">
+                        <h4 class="modal-section-title !mt-0 !mb-4 border-b-2 pb-2 border-gray-300">Tecnologia & Diferenciais</h4>
+                        <ul class="list-disc list-inside text-sm text-gray-700 space-y-3 pl-4">
+                            <li>Pilotos registrados na ANAC, cumprindo as normas RBAC-E94 e DECEA.</li>
+                            <li>Fluxo de trabalho validado por checkpoints topográficos com GNSS RTK.</li>
+                            <li>Processamento com GPUs dedicadas, acelerando entregas sem comprometer a qualidade.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <!-- Script da biblioteca de animação AOS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        
+        // --- INICIALIZAÇÃO DO AOS ---
+        AOS.init({
+            duration: 800, // Duração da animação em milissegundos
+            once: true, // Se a animação deve acontecer apenas uma vez
+            offset: 100, // Distância do elemento para o início da animação
+        });
+
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // --- CONTROLES DO MENU (Existentes) ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // --- CONTROLE DO FORMULÁRIO (Existente) ---
+        const contactForm = document.getElementById('contact-form');
+        const formFeedback = document.getElementById('form-feedback');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            formFeedback.innerHTML = `<p class="text-green-400">Mensagem enviada com sucesso! Entraremos em contato em breve.</p>`;
+            contactForm.reset();
+            setTimeout(() => {
+                formFeedback.innerHTML = '';
+            }, 5000);
+        });
+
+        // --- LÓGICA DA ANIMAÇÃO DO DRONE E MODAL ---
+        
+        const cardMapeamento = document.getElementById('card-mapeamento-3d');
+        const droneIconCard = document.getElementById('drone-icon-mapeamento');
+        const floatingDrone = document.getElementById('floating-drone');
+        const modalOverlay = document.getElementById('drone-modal-overlay');
+        const modalContent = modalOverlay.querySelector('.modal-content');
+
+        /**
+         * Ajusta a posição final do drone flutuante dinamicamente com base no tamanho da tela.
+         */
+        function getFinalDronePosition() {
+            // Se for mobile (largura < 640px), ajusta a posição final para não cobrir o botão de fechar.
+            if (window.innerWidth < 640) {
+                // Posição para mobile: Mais ao canto inferior (para evitar a barra de navegação superior)
+                return { x: '10px', y: '10px' };
+            } else if (window.innerWidth < 1024) {
+                 // Tablet (md)
+                return { x: '20px', y: '20px' };
+            } else {
+                // Desktop (lg e acima)
+                // Usando a posição original, mas convertendo para strings para CSS
+                return { x: '80px', y: '100px' }; 
+            }
+        }
+
+        /**
+         * Fecha o modal e retorna o drone flutuante para o canto superior esquerdo.
+         */
+        function closeModal() {
+            // 1. Remove a classe 'active' para fechar o modal com transição
+            modalOverlay.classList.remove('active');
+            
+            // Pega a posição final responsiva
+            const finalPos = getFinalDronePosition();
+
+            // 2. Move o drone para a posição final do voo no canto
+            floatingDrone.style.left = finalPos.x; 
+            floatingDrone.style.top = finalPos.y; 
+            
+            // 3. Após a transição do modal, desliga o drone e o move para fora da tela
+            setTimeout(() => {
+                // Desliga o modo de voo (hélice para de girar, opacidade 0)
+                floatingDrone.classList.remove('flying');
+
+                // Move o drone para fora da tela para garantir que ele não 'pule' da próxima vez que for ativado
+                floatingDrone.style.left = '-200px'; 
+                floatingDrone.style.top = '-200px'; 
+
+                // Restaura a opacidade do ícone no card
+                droneIconCard.style.opacity = '1'; 
+            }, 1000);
+        }
+
+        /**
+         * Inicia a sequência de animação do drone.
+         */
+        cardMapeamento.addEventListener('click', (e) => {
+            // Impede a propagação do clique para evitar erros
+            e.stopPropagation(); 
+            
+            // 1. Oculta o ícone no card
+            droneIconCard.style.opacity = '0'; 
+
+            // 2. Captura a posição inicial do ícone no card
+            const rect = droneIconCard.getBoundingClientRect();
+            
+            // Define a posição inicial do drone flutuante (onde o card estava)
+            // IMPORTANTE: Definir antes de adicionar 'flying' para que a transição comece do ponto correto.
+            floatingDrone.style.left = `${rect.left}px`;
+            floatingDrone.style.top = `${rect.top}px`;
+
+            // Ativa o modo de voo (hélice começa a girar rapidamente, opacidade 1)
+            floatingDrone.classList.add('flying');
+
+            // 3. Primeira etapa do voo: Card -> Centro da Tela
+            
+            // Calcula o centro da tela de forma responsiva
+            const centerX = window.innerWidth / 2 - floatingDrone.offsetWidth / 2;
+            const centerY = window.innerHeight / 2 - floatingDrone.offsetHeight / 2;
+
+            // Transfere o drone para o centro da tela
+            // O CSS fará a transição suave (0.8s)
+            floatingDrone.style.left = `${centerX}px`;
+            floatingDrone.style.top = `${centerY}px`;
+
+            // 4. Abertura do Modal e Segunda etapa do voo
+            setTimeout(() => {
+                // Abre o modal
+                modalOverlay.classList.add('active');
+                
+                // Pega a posição final responsiva
+                const finalPos = getFinalDronePosition();
+
+                // Segunda etapa do voo: Centro da Tela -> Posição Final (Canto ajustado)
+                // O CSS fará a transição suave (0.8s)
+                floatingDrone.style.left = finalPos.x; 
+                floatingDrone.style.top = finalPos.y; 
+
+            }, 800); // 800ms é o tempo de transição da primeira parte do voo
+        });
+        
+        // Chamada para ajustar a posição final do drone se a janela for redimensionada enquanto o modal estiver aberto (Embora o drone não devesse estar aberto durante resize, é uma boa prática)
+        window.addEventListener('resize', () => {
+             if (modalOverlay.classList.contains('active')) {
+                const finalPos = getFinalDronePosition();
+                // move o drone para a nova posição final responsiva
+                floatingDrone.style.left = finalPos.x; 
+                floatingDrone.style.top = finalPos.y; 
+            }
+        });
+
+
+    </script>
+</body>
+</html>
