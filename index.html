@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Amon Timo | Vibe Coding Portfolio</title>
     
     <!-- Tailwind CSS -->
@@ -38,11 +38,15 @@
             --py-comment: #6272a4;
         }
 
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         body {
             font-family: 'Outfit', sans-serif;
             background-color: var(--bg-dark);
             color: white;
-            overflow-x: hidden;
             cursor: default;
         }
 
@@ -57,7 +61,7 @@
             background: radial-gradient(circle at center, #0f172a 0%, #000000 100%);
         }
 
-        /* MOUSE GLOW EFFECT */
+        /* MOUSE GLOW EFFECT (Desktop Only via JS check usually, but CSS can hide on touch) */
         #cursor-glow {
             position: fixed;
             width: 400px;
@@ -192,13 +196,14 @@
         }
 
         /* =========================================
-           ESTILOS DA ANIMAÇÃO DO NOTEBOOK
+           ESTILOS DA ANIMAÇÃO DO NOTEBOOK (RESPONSIVO)
            ========================================= */
         .laptop-container {
             position: relative;
-            width: 800px;
-            max-width: 95vw;
-            height: 550px; 
+            width: 100%;
+            max-width: 800px;
+            /* Mantém a proporção correta baseada no SVG original (800x600) */
+            aspect-ratio: 4/3;
             margin: 0 auto;
             opacity: 0;
             transform: scale(0.95);
@@ -214,15 +219,18 @@
         .screen-content {
             position: absolute;
             z-index: 1; 
+            /* Porcentagens ajustadas para o SVG 800x600 */
             top: 21.5%;      
             left: 22.1%;     
             width: 55.8%;    
             height: 43.5%;   
             background-color: var(--screen-bg);
-            padding: 15px; 
+            padding: 2%; /* Padding relativo */
             box-sizing: border-box;
             font-family: 'Fira Code', 'Space Mono', monospace;
-            font-size: 11px; 
+            /* Tamanho da fonte responsivo usando container query unit ou vw se necessário, 
+               mas aqui usamos clamp para garantir legibilidade */
+            font-size: clamp(8px, 1.4vw, 11px); 
             overflow: hidden;
             opacity: 0; 
             box-shadow: inset 0 0 30px rgba(0,0,0,0.9); 
@@ -281,10 +289,10 @@
         .cursor {
             display: inline-block;
             width: 6px; 
-            height: 14px;
+            height: 1.2em;
             background-color: var(--laptop-stroke);
             animation: blink 1s infinite;
-            vertical-align: sub;
+            vertical-align: text-bottom;
             box-shadow: 0 0 5px var(--laptop-stroke);
         }
 
@@ -300,7 +308,7 @@
         }
 
         /* =========================================
-           WAVE ANIMATION STYLES (NEW)
+           WAVE ANIMATION STYLES
            ========================================= */
         .wave-container {
             position: absolute;
@@ -323,48 +331,39 @@
         .parallax > use {
             animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
         }
-        .parallax > use:nth-child(1) {
-            animation-delay: -2s;
-            animation-duration: 7s;
-        }
-        .parallax > use:nth-child(2) {
-            animation-delay: -3s;
-            animation-duration: 10s;
-        }
-        .parallax > use:nth-child(3) {
-            animation-delay: -4s;
-            animation-duration: 13s;
-        }
-        .parallax > use:nth-child(4) {
-            animation-delay: -5s;
-            animation-duration: 20s;
-        }
+        .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; }
+        .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
+        .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
+        .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; }
 
         @keyframes move-forever {
-            0% {
-                transform: translate3d(-90px, 0, 0);
-            }
-            100% {
-                transform: translate3d(85px, 0, 0);
-            }
+            0% { transform: translate3d(-90px, 0, 0); }
+            100% { transform: translate3d(85px, 0, 0); }
         }
 
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
+            #cursor-glow { display: none; } /* Disable cursor glow on touch devices to improve performance */
+            
             .laptop-container {
-                height: 350px;
+                width: 95%; /* Maximiza a largura no mobile */
             }
+            
             .screen-content {
-                font-size: 9px;
-                padding: 8px;
+                padding: 4px;
             }
+            
             .waves {
-                height: 40px;
-                min-height: 40px;
+                height: 60px;
+                min-height: 60px;
             }
+            
+            h1.text-6xl { font-size: 2.5rem; }
+            h1.text-8xl { font-size: 3.5rem; }
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased selection:bg-cyan-500 selection:text-black">
 
     <!-- Mouse Glow Element -->
     <div id="cursor-glow"></div>
@@ -373,25 +372,40 @@
     <div id="particles-js"></div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 top-0 left-0 p-6 glass-card border-b-0 border-t-0 border-l-0 border-r-0">
+    <nav class="fixed w-full z-50 top-0 left-0 p-4 md:p-6 glass-card border-b-0 border-t-0 border-l-0 border-r-0">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold tracking-tighter cursor-pointer hover:text-cyan-400 transition-colors" id="logo-anim">
+            <h1 class="text-xl md:text-2xl font-bold tracking-tighter cursor-pointer hover:text-cyan-400 transition-colors z-50 relative" id="logo-anim">
                 AMON.<span class="text-neon">TIMO</span>
             </h1>
+            
+            <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 text-sm font-mono tracking-widest">
                 <a href="#about" class="hover:text-cyan-400 transition-all nav-link">SOBRE</a>
                 <a href="#skills" class="hover:text-cyan-400 transition-all nav-link">SKILLS</a>
                 <a href="#projects" class="hover:text-cyan-400 transition-all nav-link">PROJETOS</a>
                 <a href="#contact" class="hover:text-cyan-400 transition-all nav-link">CONTATO</a>
             </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white z-50 focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-lg z-40 transform translate-x-full transition-transform duration-300 flex flex-col items-center justify-center space-y-8 md:hidden">
+            <a href="#about" class="text-2xl font-mono hover:text-cyan-400 transition-all mobile-link">SOBRE</a>
+            <a href="#skills" class="text-2xl font-mono hover:text-cyan-400 transition-all mobile-link">SKILLS</a>
+            <a href="#projects" class="text-2xl font-mono hover:text-cyan-400 transition-all mobile-link">PROJETOS</a>
+            <a href="#contact" class="text-2xl font-mono hover:text-cyan-400 transition-all mobile-link">CONTATO</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="h-screen flex items-center justify-center relative overflow-hidden">
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-10">
         <div class="absolute inset-0 z-0 opacity-20" id="hero-grid"></div>
         
-        <div class="text-center z-10 px-4">
+        <div class="text-center z-10 px-4 w-full">
             <!-- Waving Header Image -->
             <div class="mb-6 opacity-80 mix-blend-screen reveal-top">
                 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=header&text=&fontColor=ffffff" class="w-full max-w-lg mx-auto h-20 object-cover rounded-full blur-xl opacity-50 absolute top-0 left-0 right-0 mx-auto">
@@ -401,41 +415,41 @@
                 VIBE CODING // FRONTEND SPECIALIST
             </div>
             
-            <h1 class="text-6xl md:text-8xl font-black mb-6 tracking-tight leading-none ml11">
-                <span class="text-wrapper">
+            <h1 class="text-4xl md:text-6xl lg:text-8xl font-black mb-6 tracking-tight leading-none ml11">
+                <span class="text-wrapper block">
                     <span class="line line1"></span>
                     <span class="letters">AMON TIMO</span>
                 </span>
             </h1>
 
-            <!-- Typing SVG -->
-            <div class="mb-8 h-8 flex justify-center items-center reveal-bottom">
-                <img src="https://readme-typing-svg.herokuapp.com?font=Space+Mono&size=22&pause=1000&center=true&vCenter=true&width=600&lines=Desenvolvedor+Front-End;Especialista+em+Vibe+Coding+%F0%9F%8E%A7;Criando+interfaces+modernas" alt="Typing SVG" />
+            <!-- Typing SVG - Responsivo -->
+            <div class="mb-8 h-8 flex justify-center items-center reveal-bottom px-2">
+                <img src="https://readme-typing-svg.herokuapp.com?font=Space+Mono&size=20&pause=1000&center=true&vCenter=true&width=500&lines=Desenvolvedor+Front-End;Especialista+em+Vibe+Coding+%F0%9F%8E%A7;Criando+interfaces+modernas" alt="Typing SVG" class="w-full max-w-[90vw]" />
             </div>
 
-            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light reveal-bottom delay-100">
-                Cursando Análise e Desenvolvimento de Sistemas. <br>
+            <p class="text-gray-400 text-base md:text-xl max-w-2xl mx-auto mb-10 font-light reveal-bottom delay-100 px-4">
+                Cursando Análise e Desenvolvimento de Sistemas. <br class="hidden md:block">
                 Entusiasta de Design, Front-end e User Experience (UX).
             </p>
-            <div class="flex justify-center gap-4 reveal-bottom delay-200">
-                <a href="#projects" class="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-bold rounded shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all transform hover:scale-105 btn-anime">
+            <div class="flex flex-col md:flex-row justify-center gap-4 reveal-bottom delay-200 px-8">
+                <a href="#projects" class="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-bold rounded shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all transform hover:scale-105 btn-anime text-center">
                     VER PROJETOS
                 </a>
-                <a href="#contact" class="px-8 py-3 glass-card hover:bg-white/10 text-white font-bold rounded transition-all transform hover:scale-105 btn-anime">
+                <a href="#contact" class="px-8 py-3 glass-card hover:bg-white/10 text-white font-bold rounded transition-all transform hover:scale-105 btn-anime text-center">
                     FALE COMIGO
                 </a>
             </div>
         </div>
 
         <!-- Decorative Anime.js Elements -->
-        <div class="absolute bottom-10 left-10 w-20 h-20 border-l-2 border-b-2 border-cyan-500/30 floating-shape"></div>
-        <div class="absolute top-32 right-10 w-10 h-10 border-t-2 border-r-2 border-cyan-500/30 floating-shape" style="animation-delay: 1s;"></div>
+        <div class="absolute bottom-10 left-10 w-20 h-20 border-l-2 border-b-2 border-cyan-500/30 floating-shape hidden md:block"></div>
+        <div class="absolute top-32 right-10 w-10 h-10 border-t-2 border-r-2 border-cyan-500/30 floating-shape hidden md:block" style="animation-delay: 1s;"></div>
     </section>
 
     <!-- =========================================
-         NOVA SEÇÃO: ANIMAÇÃO DO LAPTOP
+         SEÇÃO: ANIMAÇÃO DO LAPTOP
          ========================================= -->
-    <section id="laptop-section" class="py-20 flex justify-center items-center relative z-10 overflow-hidden">
+    <section id="laptop-section" class="py-10 md:py-20 flex justify-center items-center relative z-10 overflow-hidden px-4">
         <div class="laptop-container" id="laptop-wrapper">
             
             <!-- Terminal (Camada do Fundo) -->
@@ -531,39 +545,39 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 relative">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div class="glass-card p-8 rounded-2xl reveal-left relative overflow-hidden group">
+    <section id="about" class="py-10 md:py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div class="glass-card p-6 md:p-8 rounded-2xl reveal-left relative overflow-hidden group">
                 <div class="absolute -right-10 -top-10 w-40 h-40 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/30 transition-all duration-700"></div>
                 
                 <!-- FOTO PLACEHOLDER -->
                 <div class="mb-8 flex justify-start">
-                    <div class="w-32 h-32 rounded-full p-1 bg-gradient-to-br from-cyan-400 to-blue-600 overflow-hidden shadow-[0_0_20px_rgba(0,243,255,0.3)]">
-                        <img src="/images/amon.jpeg" alt="Foto de Amon Timo" class="w-full h-full object-cover rounded-full bg-gray-900">
+                    <div class="w-24 h-24 md:w-32 md:h-32 rounded-full p-1 bg-gradient-to-br from-cyan-400 to-blue-600 overflow-hidden shadow-[0_0_20px_rgba(0,243,255,0.3)]">
+                        <img src="/images/amon.jpeg" onerror="this.src='https://ui-avatars.com/api/?name=Amon+Timo&background=0D8ABC&color=fff'" alt="Foto de Amon Timo" class="w-full h-full object-cover rounded-full bg-gray-900">
                     </div>
                 </div>
 
-                <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6 flex items-center">
                     <i class="fas fa-terminal text-neon mr-3"></i> SOBRE MIM
                 </h2>
                 
-                <ul class="space-y-4 text-gray-300 leading-relaxed font-light">
+                <ul class="space-y-4 text-gray-300 leading-relaxed font-light text-sm md:text-base">
                     <li class="flex items-start">
-                        <i class="fas fa-building text-neon mt-1 mr-3"></i>
+                        <i class="fas fa-building text-neon mt-1 mr-3 min-w-[20px]"></i>
                         <span><strong>Soluções Reais em Produção:</strong> Já desenvolvi projetos ativos para Gestão de Almoxarifado, Correios, Controle de Demandas e Relatórios de Vistoria.</span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-puzzle-piece text-purple-400 mt-1 mr-3"></i>
+                        <i class="fas fa-puzzle-piece text-purple-400 mt-1 mr-3 min-w-[20px]"></i>
                         <span><strong>Fascinado por Automação:</strong> Foco total em integração entre plataformas e otimização de processos.</span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-book-reader text-yellow-400 mt-1 mr-3"></i>
+                        <i class="fas fa-book-reader text-yellow-400 mt-1 mr-3 min-w-[20px]"></i>
                         <span><strong>Estudo Contínuo:</strong> Aprofundando em Programação, Interfaces Modernas e <strong>Inteligência Artificial</strong>.</span>
                     </li>
                 </ul>
 
                 <div class="mt-8 pt-6 border-t border-gray-700/50">
-                    <blockquote class="italic text-gray-400 font-mono text-sm border-l-2 border-neon-blue pl-4">
+                    <blockquote class="italic text-gray-400 font-mono text-xs md:text-sm border-l-2 border-neon-blue pl-4">
                         "Get Rich or Die Tryin'"
                     </blockquote>
                 </div>
@@ -572,7 +586,7 @@
             <div class="relative reveal-right space-y-6">
                 <!-- Learning Stack Card -->
                 <div class="glass-card p-6 rounded-2xl">
-                    <h3 class="text-xl font-bold mb-4 text-white flex items-center">
+                    <h3 class="text-lg md:text-xl font-bold mb-4 text-white flex items-center">
                         <i class="fas fa-brain text-neon mr-2"></i> O QUE ESTOU APRENDENDO
                     </h3>
                     <ul class="space-y-3 font-mono text-sm text-gray-300">
@@ -596,9 +610,9 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-20 bg-black/30">
-        <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16 reveal-top">
+    <section id="skills" class="py-10 md:py-20 bg-black/30">
+        <div class="max-w-5xl mx-auto px-4 md:px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-16 reveal-top">
                 DISTRIBUIÇÃO DE <span class="text-neon">SKILLS</span>
             </h2>
             
@@ -608,38 +622,38 @@
                 <div class="radar-bg-anim"></div>
                 <div class="radar-bg-mask"></div>
                 
-                <div class="relative z-10 p-6 md:p-10">
+                <div class="relative z-10 p-2 md:p-10 overflow-hidden">
                     <div id="chart-radar" class="w-full flex justify-center items-center"></div>
                 </div>
             </div>
             
-            <p class="text-center text-gray-400 mt-6 font-mono text-sm reveal-bottom delay-100">
+            <p class="text-center text-gray-400 mt-6 font-mono text-xs md:text-sm reveal-bottom delay-100">
                 <i class="fas fa-info-circle mr-2"></i> Passe o mouse sobre o gráfico para ver os detalhes
             </p>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-20 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="mb-16">
-                <h2 class="text-4xl font-bold mb-2 reveal-left">PROJETOS <span class="text-neon">REALIZADOS</span></h2>
-                <p class="text-gray-400 font-mono reveal-left delay-100">Softwares em produção e ferramentas utilitárias.</p>
+    <section id="projects" class="py-10 md:py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 md:px-6">
+            <div class="mb-10 md:mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-2 reveal-left">PROJETOS <span class="text-neon">REALIZADOS</span></h2>
+                <p class="text-gray-400 font-mono reveal-left delay-100 text-sm md:text-base">Softwares em produção e ferramentas utilitárias.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 
                 <!-- Project 1: Almoxarifado -->
                 <div class="glass-card rounded-xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300 project-card reveal-bottom cursor-pointer" data-project="almoxarifado">
-                    <div class="h-48 bg-gradient-to-br from-gray-800 to-blue-900 flex items-center justify-center relative overflow-hidden">
-                        <i class="fas fa-boxes text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                    <div class="h-40 md:h-48 bg-gradient-to-br from-gray-800 to-blue-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-boxes text-5xl md:text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-neon font-bold tracking-widest">VER DETALHES</span>
+                            <span class="text-neon font-bold tracking-widest text-sm md:text-base">VER DETALHES</span>
                         </div>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Sistema de Almoxarifado</h3>
-                        <p class="text-gray-400 text-sm mb-4">Controle total de entrada e saída de materiais. Interface otimizada para agilidade.</p>
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Sistema de Almoxarifado</h3>
+                        <p class="text-gray-400 text-xs md:text-sm mb-4">Controle total de entrada e saída de materiais. Interface otimizada para agilidade.</p>
                         <div class="flex flex-wrap gap-2">
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Backend</span>
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">SQL</span>
@@ -651,15 +665,15 @@
 
                 <!-- Project 2: Demandas -->
                 <div class="glass-card rounded-xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300 project-card reveal-bottom delay-100 cursor-pointer" data-project="demandas">
-                    <div class="h-48 bg-gradient-to-br from-gray-800 to-purple-900 flex items-center justify-center relative overflow-hidden">
-                        <i class="fas fa-tasks text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                    <div class="h-40 md:h-48 bg-gradient-to-br from-gray-800 to-purple-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-tasks text-5xl md:text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
                          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-neon font-bold tracking-widest">VER DETALHES</span>
+                            <span class="text-neon font-bold tracking-widest text-sm md:text-base">VER DETALHES</span>
                         </div>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Controle de Demandas</h3>
-                        <p class="text-gray-400 text-sm mb-4">Gestão de tarefas e tickets para equipes. Dashboard administrativo completo.</p>
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Controle de Demandas</h3>
+                        <p class="text-gray-400 text-xs md:text-sm mb-4">Gestão de tarefas e tickets para equipes. Dashboard administrativo completo.</p>
                         <div class="flex flex-wrap gap-2">
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Backend</span>
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">SQL</span>
@@ -671,15 +685,15 @@
 
                 <!-- Project 3: Correios -->
                 <div class="glass-card rounded-xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300 project-card reveal-bottom delay-200 cursor-pointer" data-project="correios">
-                    <div class="h-48 bg-gradient-to-br from-gray-800 to-yellow-900 flex items-center justify-center relative overflow-hidden">
-                        <i class="fas fa-truck text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                    <div class="h-40 md:h-48 bg-gradient-to-br from-gray-800 to-yellow-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-truck text-5xl md:text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
                          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-neon font-bold tracking-widest">VER DETALHES</span>
+                            <span class="text-neon font-bold tracking-widest text-sm md:text-base">VER DETALHES</span>
                         </div>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Integração Correios</h3>
-                        <p class="text-gray-400 text-sm mb-4">Sistema de rastreamento e cálculo de frete automatizado para e-commerce.</p>
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Integração Correios</h3>
+                        <p class="text-gray-400 text-xs md:text-sm mb-4">Sistema de rastreamento e cálculo de frete automatizado para e-commerce.</p>
                         <div class="flex flex-wrap gap-2">
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Backend</span>
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">API</span>
@@ -691,15 +705,15 @@
 
                 <!-- Project 4: Gestão Condominial -->
                 <div class="glass-card rounded-xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300 project-card reveal-bottom cursor-pointer" data-project="condominio">
-                    <div class="h-48 bg-gradient-to-br from-gray-800 to-green-900 flex items-center justify-center relative overflow-hidden">
-                        <i class="fas fa-building text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                    <div class="h-40 md:h-48 bg-gradient-to-br from-gray-800 to-green-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-building text-5xl md:text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
                          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-neon font-bold tracking-widest">VER DETALHES</span>
+                            <span class="text-neon font-bold tracking-widest text-sm md:text-base">VER DETALHES</span>
                         </div>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Gestão Condominial</h3>
-                        <p class="text-gray-400 text-sm mb-4">Plataforma para síndicos e moradores. Reservas, avisos e financeiro.</p>
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Gestão Condominial</h3>
+                        <p class="text-gray-400 text-xs md:text-sm mb-4">Plataforma para síndicos e moradores. Reservas, avisos e financeiro.</p>
                         <div class="flex flex-wrap gap-2">
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Backend</span>
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">SQL</span>
@@ -711,15 +725,15 @@
 
                 <!-- Project 5: Relatórios Vistoria -->
                 <div class="glass-card rounded-xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300 project-card reveal-bottom delay-100 cursor-pointer" data-project="vistorias">
-                    <div class="h-48 bg-gradient-to-br from-gray-800 to-red-900 flex items-center justify-center relative overflow-hidden">
-                        <i class="fas fa-file-pdf text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                    <div class="h-40 md:h-48 bg-gradient-to-br from-gray-800 to-red-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-file-pdf text-5xl md:text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
                          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-neon font-bold tracking-widest">VER DETALHES</span>
+                            <span class="text-neon font-bold tracking-widest text-sm md:text-base">VER DETALHES</span>
                         </div>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Aplicação web de relatórios de vistorias para construtora</h3>
-                        <p class="text-gray-400 text-sm mb-4">Web App que compila dados de vistorias e gera PDFs formatados automaticamente.</p>
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Relatórios de Vistorias</h3>
+                        <p class="text-gray-400 text-xs md:text-sm mb-4">Web App que compila dados de vistorias e gera PDFs formatados automaticamente.</p>
                         <div class="flex flex-wrap gap-2">
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Web System</span>
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Python</span>
@@ -730,15 +744,15 @@
 
                 <!-- Project 6: Figma / Prototipagem -->
                 <div class="glass-card rounded-xl overflow-hidden group hover:border-purple-500/50 transition-all duration-300 project-card reveal-bottom delay-100 cursor-pointer" data-project="figma">
-                    <div class="h-48 bg-gradient-to-br from-purple-900 to-black flex items-center justify-center relative overflow-hidden">
-                        <i class="fab fa-figma text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                    <div class="h-40 md:h-48 bg-gradient-to-br from-purple-900 to-black flex items-center justify-center relative overflow-hidden">
+                        <i class="fab fa-figma text-5xl md:text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
                          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-purple-400 font-bold tracking-widest">VER PROTÓTIPOS</span>
+                            <span class="text-purple-400 font-bold tracking-widest text-sm md:text-base">VER PROTÓTIPOS</span>
                         </div>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-purple-400 transition-colors">Prototipagem de Interfaces</h3>
-                        <p class="text-gray-400 text-sm mb-4">Projetos de alta fidelidade e estudos de usabilidade criados no Figma.</p>
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-white group-hover:text-purple-400 transition-colors">Prototipagem de Interfaces</h3>
+                        <p class="text-gray-400 text-xs md:text-sm mb-4">Projetos de alta fidelidade e estudos de usabilidade criados no Figma.</p>
                         <div class="flex flex-wrap gap-2">
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-purple-400">Figma</span>
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-purple-400">UI/UX</span>
@@ -751,27 +765,27 @@
         </div>
     </section>
     
-    <!-- College Works Section (NEW) -->
-    <section id="college" class="py-20 relative bg-black/20">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="mb-16">
-                <h2 class="text-4xl font-bold mb-2 reveal-left">TRABALHOS DA <span class="text-neon">FACULDADE</span></h2>
-                <p class="text-gray-400 font-mono reveal-left delay-100">Projetos acadêmicos e estudos de caso desenvolvidos durante o curso.</p>
+    <!-- College Works Section -->
+    <section id="college" class="py-10 md:py-20 relative bg-black/20">
+        <div class="max-w-7xl mx-auto px-4 md:px-6">
+            <div class="mb-10 md:mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-2 reveal-left">TRABALHOS DA <span class="text-neon">FACULDADE</span></h2>
+                <p class="text-gray-400 font-mono reveal-left delay-100 text-sm md:text-base">Projetos acadêmicos e estudos de caso desenvolvidos durante o curso.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 
                 <!-- College Project Placeholder 1 -->
                 <div class="glass-card rounded-xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300 project-card reveal-bottom cursor-pointer" data-project="faculdade1">
-                    <div class="h-48 bg-gradient-to-br from-gray-800 to-indigo-900 flex items-center justify-center relative overflow-hidden">
-                        <i class="fas fa-graduation-cap text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                    <div class="h-40 md:h-48 bg-gradient-to-br from-gray-800 to-indigo-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-graduation-cap text-5xl md:text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-neon font-bold tracking-widest">VER DETALHES</span>
+                            <span class="text-neon font-bold tracking-widest text-sm md:text-base">VER DETALHES</span>
                         </div>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Projeto Acadêmico 1</h3>
-                        <p class="text-gray-400 text-sm mb-4">Breve descrição do trabalho desenvolvido na faculdade.</p>
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Projeto Acadêmico 1</h3>
+                        <p class="text-gray-400 text-xs md:text-sm mb-4">Breve descrição do trabalho desenvolvido na faculdade.</p>
                         <div class="flex flex-wrap gap-2">
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">HTML</span>
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Python</span>
@@ -781,15 +795,15 @@
 
                 <!-- College Project Placeholder 2 -->
                 <div class="glass-card rounded-xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300 project-card reveal-bottom delay-100 cursor-pointer" data-project="faculdade2">
-                    <div class="h-48 bg-gradient-to-br from-gray-800 to-teal-900 flex items-center justify-center relative overflow-hidden">
-                        <i class="fas fa-book-open text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                    <div class="h-40 md:h-48 bg-gradient-to-br from-gray-800 to-teal-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-book-open text-5xl md:text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
                          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-neon font-bold tracking-widest">VER DETALHES</span>
+                            <span class="text-neon font-bold tracking-widest text-sm md:text-base">VER DETALHES</span>
                         </div>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Projeto Acadêmico 2</h3>
-                        <p class="text-gray-400 text-sm mb-4">Outro projeto importante realizado durante a graduação.</p>
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Projeto Acadêmico 2</h3>
+                        <p class="text-gray-400 text-xs md:text-sm mb-4">Outro projeto importante realizado durante a graduação.</p>
                         <div class="flex flex-wrap gap-2">
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">C</span>
                             <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Algoritmos</span>
@@ -802,28 +816,28 @@
     </section>
 
     <!-- PROJECT MODAL DINÂMICO -->
-    <div id="project-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-black/80 backdrop-blur-sm">
+    <div id="project-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-2 md:p-8 bg-black/80 backdrop-blur-sm">
         <div class="glass-card w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-2xl relative modal-content transform scale-90 opacity-0">
             <!-- Close Button -->
-            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-neon transition-colors z-10">
+            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-neon transition-colors z-10 bg-black/50 p-2 rounded-full md:bg-transparent">
                 <i class="fas fa-times text-2xl"></i>
             </button>
 
-            <div class="grid md:grid-cols-2 gap-8 p-8" id="modal-body-content">
+            <div class="grid md:grid-cols-2 gap-6 md:gap-8 p-6 md:p-8" id="modal-body-content">
                 <!-- O CONTEÚDO SERÁ INJETADO AQUI PELO JAVASCRIPT -->
             </div>
         </div>
     </div>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-5xl font-black mb-8 reveal-top">VAMOS CRIAR ALGO <br><span class="text-neon glitch-hover">EXTRAORDINÁRIO?</span></h2>
-            <p class="text-gray-400 mb-10 text-lg reveal-bottom">
+    <section id="contact" class="py-10 md:py-20">
+        <div class="max-w-4xl mx-auto px-4 md:px-6 text-center">
+            <h2 class="text-3xl md:text-5xl font-black mb-6 md:mb-8 reveal-top">VAMOS CRIAR ALGO <br><span class="text-neon glitch-hover">EXTRAORDINÁRIO?</span></h2>
+            <p class="text-gray-400 mb-8 md:mb-10 text-base md:text-lg reveal-bottom">
                 Estou disponível para networking, collabs e novos aprendizados.
             </p>
             
-            <div class="flex justify-center gap-6 mb-12 reveal-bottom delay-100">
+            <div class="flex justify-center gap-6 mb-10 md:mb-12 reveal-bottom delay-100">
                 <a href="https://github.com/AmonTimo7" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-800 hover:bg-white hover:text-black transition-all transform hover:scale-110">
                     <i class="fab fa-github text-xl"></i>
                 </a>
@@ -836,7 +850,7 @@
             </div>
 
             <!-- FORMULÁRIO FUNCIONAL (FORMSPREE) -->
-            <form action="https://formspree.io/f/xrbdrroa" method="POST" class="glass-card p-8 rounded-2xl text-left max-w-xl mx-auto reveal-bottom delay-200">
+            <form action="https://formspree.io/f/xrbdrroa" method="POST" class="glass-card p-6 md:p-8 rounded-2xl text-left max-w-xl mx-auto reveal-bottom delay-200">
                 <div class="mb-4">
                     <label class="block text-gray-400 text-sm font-mono mb-2">NOME</label>
                     <input type="text" name="name" required class="w-full bg-black/40 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors">
@@ -857,7 +871,7 @@
     </section>
 
     <!-- Footer with SVG Wave Animation -->
-    <footer class="relative pt-32 pb-8 overflow-hidden">
+    <footer class="relative pt-20 md:pt-32 pb-8 overflow-hidden">
         <!-- New Animated Waves -->
         <div class="wave-container">
             <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
@@ -873,13 +887,42 @@
             </svg>
         </div>
         
-        <div class="relative z-10 text-center text-gray-600 text-sm font-mono">
+        <div class="relative z-10 text-center text-gray-600 text-xs md:text-sm font-mono">
             <p>&copy; 2025 Amon Timo. Developed with Vibe Coding.</p>
         </div>
     </footer>
 
     <!-- Scripts Logic -->
     <script>
+        // --- MOBILE MENU LOGIC ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const icon = mobileMenuBtn.querySelector('i');
+        let isMenuOpen = false;
+
+        mobileMenuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if(isMenuOpen) {
+                mobileMenu.classList.remove('translate-x-full');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.add('translate-x-full');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
         // --- CONFIGURAÇÃO DOS PROJETOS ---
         const projectsData = {
             "almoxarifado": {
@@ -897,22 +940,22 @@
                 title: "Controle de Demandas",
                 description: "Gestão de tarefas e tickets para equipes. Dashboard administrativo completo com métricas de desempenho.",
                 techs: ["Backend", "SQL", "UX", "Front"],
-                mainImage: '<img src="/images/demanda1.png" class="w-full h-full object-cover">',
+                mainImage: '<img src="/images/demanda1.png" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML=\'<i class=\\\'fas fa-tasks text-5xl text-white/20\\\'></i>\'">',
                 thumbnails: [
-                    '<img src="/images/demanda2.png" class="w-full h-full object-cover">',
-                    '<img src="/images/demanda3.png" class="w-full h-full object-cover">',
-                    '<img src="/images/demanda4.png" class="w-full h-full object-cover">',
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>'
                 ]
             },
             "correios": {
                 title: "Integração Correios",
                 description: "Sistema de rastreamento e cálculo de frete automatizado para e-commerce. Conexão direta com API dos Correios.",
                 techs: ["Backend", "API", "UX", "Front"],
-                mainImage: '<img src="/images/correio1.png" class="w-full h-full object-cover">',
+                mainImage: '<img src="/images/correio1.png" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML=\'<i class=\\\'fas fa-truck text-5xl text-white/20\\\'></i>\'">',
                 thumbnails: [
-                    '<img src="/images/correio2.png" class="w-full h-full object-cover">',
-                    '<img src="/images/correio3.png" class="w-full h-full object-cover">',
-                    '<img src="/images/correio4.png" class="w-full h-full object-cover">',
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>'
                 ]
             },
             "condominio": {
@@ -930,11 +973,11 @@
                 title: "Aplicação web de relatórios",
                 description: "Web App que compila dados de vistorias de obras e gera PDFs formatados automaticamente para construtoras.",
                 techs: ["Web System", "Python", "UX"],
-                mainImage: '<img src="/images/vistorias1.png" class="w-full h-full object-cover">',
+                mainImage: '<img src="/images/vistorias1.png" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML=\'<i class=\\\'fas fa-file-pdf text-5xl text-white/20\\\'></i>\'">',
                 thumbnails: [
-                    '<img src="/images/vistorias2.png" class="w-full h-full object-cover">',
-                    '<img src="/images/vistorias3.png" class="w-full h-full object-cover">',
-                    '<img src="/images/vistorias4.png" class="w-full h-full object-cover">',
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>'
                 ]
             },
             "figma": {
@@ -952,11 +995,11 @@
                 title: "Projeto Acadêmico 1",
                 description: "Descrição detalhada do seu projeto acadêmico. Explique os desafios e aprendizados obtidos durante o desenvolvimento.",
                 techs: ["Python", "Html", "Academic"],
-                mainImage: '<img src="/images/trabalho1.png" class="w-full h-full object-cover">',
+                mainImage: '<img src="/images/trabalho1.png" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML=\'<i class=\\\'fas fa-graduation-cap text-5xl text-white/20\\\'></i>\'">',
                 thumbnails: [
-                    '<img src="/images/trabalho2.png" class="w-full h-full object-cover">',
-                    '<img src="/images/trabalho3.png" class="w-full h-full object-cover">',
-                    '<img src="/images/trabalho4.png" class="w-full h-full object-cover">',
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>'
                 ]
             },
             "faculdade2": {
@@ -972,12 +1015,16 @@
             }
         };
 
-        // MOUSE GLOW LOGIC
+        // MOUSE GLOW LOGIC (Only enable on non-touch for performance)
         const cursorGlow = document.getElementById('cursor-glow');
-        document.addEventListener('mousemove', (e) => {
-            cursorGlow.style.left = e.clientX + 'px';
-            cursorGlow.style.top = e.clientY + 'px';
-        });
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.addEventListener('mousemove', (e) => {
+                requestAnimationFrame(() => {
+                    cursorGlow.style.left = e.clientX + 'px';
+                    cursorGlow.style.top = e.clientY + 'px';
+                });
+            });
+        }
 
         // 1. PARTICLES.JS CONFIGURATION
         particlesJS("particles-js", {
@@ -1007,7 +1054,8 @@
             distance: '60px',
             duration: 1000,
             delay: 200,
-            reset: false
+            reset: false,
+            mobile: true // Ensure it works on mobile
         });
         sr.reveal('.reveal-top', { origin: 'top' });
         sr.reveal('.reveal-bottom', { origin: 'bottom' });
@@ -1017,6 +1065,7 @@
         // 3. ANIME.JS ANIMATIONS (Hero)
         var textWrapper = document.querySelector('.ml11 .letters');
         textWrapper.innerHTML = textWrapper.textContent.replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>");
+        
         anime.timeline({loop: false})
         .add({ targets: '.ml11 .line', scaleY: [0,1], opacity: [0.5,1], easing: "easeOutExpo", duration: 700 })
         .add({ targets: '.ml11 .line', translateX: [0, document.querySelector('.ml11 .letters').getBoundingClientRect().width + 10], easing: "easeOutExpo", duration: 700, delay: 100 })
@@ -1031,7 +1080,7 @@
                 data: [95, 85, 80, 90, 85, 75, 70]
             }],
             chart: {
-                height: 450,
+                height: 400, // Slightly reduced for better mobile fit
                 type: 'radar',
                 fontFamily: 'Outfit, sans-serif',
                 toolbar: { show: false },
@@ -1051,8 +1100,8 @@
                 categories: ['Frontend', 'UI/UX', 'Backend', 'Prototipagem', 'Database', 'Python', 'Java'],
                 labels: {
                     style: {
-                        colors: ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff'],
-                        fontSize: '13px',
+                        colors: Array(7).fill('#fff'),
+                        fontSize: '11px',
                         fontFamily: 'Space Mono, monospace',
                         fontWeight: 700
                     }
@@ -1076,11 +1125,11 @@
                 }
             },
             markers: {
-                size: 6,
+                size: 4,
                 colors: ['#fff'],
                 strokeColors: '#bc13fe',
                 strokeWidth: 2,
-                hover: { size: 9, strokeWidth: 3, strokeColors: '#fff' }
+                hover: { size: 6, strokeWidth: 3, strokeColors: '#fff' }
             },
             yaxis: { show: false },
             tooltip: {
@@ -1088,7 +1137,14 @@
                 marker: { show: true },
                 y: { formatter: function(val) { return val + "%"; } }
             },
-            theme: { mode: 'dark' }
+            theme: { mode: 'dark' },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: { height: 300 },
+                    xaxis: { labels: { style: { fontSize: '9px' } } }
+                }
+            }]
         };
         new ApexCharts(document.querySelector("#chart-radar"), optionsRadar).render();
 
@@ -1100,34 +1156,35 @@
         const projectCards = document.querySelectorAll('.project-card');
 
         function openModal(e) {
+            e.stopPropagation(); // Prevent event bubbling
             const projectId = e.currentTarget.getAttribute('data-project');
             const data = projectsData[projectId];
             if (!data) return; 
 
             const techsHtml = data.techs.map(tech => 
-                `<span class="px-3 py-1 bg-cyan-500/20 text-neon rounded text-sm border border-cyan-500/30 font-mono">${tech}</span>`
+                `<span class="px-3 py-1 bg-cyan-500/20 text-neon rounded text-xs md:text-sm border border-cyan-500/30 font-mono">${tech}</span>`
             ).join('');
 
             const thumbnailsHtml = data.thumbnails.map(thumb => 
-                `<div class="h-24 bg-white/5 rounded-lg flex items-center justify-center border border-white/10 hover:border-neon transition-colors cursor-pointer overflow-hidden relative project-thumb">
+                `<div class="h-16 md:h-24 bg-white/5 rounded-lg flex items-center justify-center border border-white/10 hover:border-neon transition-colors cursor-pointer overflow-hidden relative project-thumb">
                     ${thumb}
                 </div>`
             ).join('');
 
             modalBody.innerHTML = `
                 <div class="space-y-4">
-                    <div id="main-image-display" class="h-64 bg-gradient-to-tr from-cyan-900/50 to-blue-900/50 rounded-xl flex items-center justify-center border border-white/10 overflow-hidden relative group">
+                    <div id="main-image-display" class="h-48 md:h-64 bg-gradient-to-tr from-cyan-900/50 to-blue-900/50 rounded-xl flex items-center justify-center border border-white/10 overflow-hidden relative group">
                         ${data.mainImage}
                     </div>
-                    <div class="grid grid-cols-3 gap-4">
+                    <div class="grid grid-cols-3 gap-2 md:gap-4">
                         ${thumbnailsHtml}
                     </div>
                 </div>
-                <div>
-                    <h2 class="text-3xl font-bold mb-4 text-white flex items-center">
-                        ${data.title} <span class="ml-3 text-sm px-3 py-1 bg-cyan-500/20 text-neon rounded-full font-mono">Em Produção</span>
+                <div class="mt-4 md:mt-0">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4 text-white flex flex-col md:flex-row md:items-center">
+                        ${data.title} <span class="md:ml-3 mt-2 md:mt-0 w-fit text-xs px-3 py-1 bg-cyan-500/20 text-neon rounded-full font-mono">Em Produção</span>
                     </h2>
-                    <p class="text-gray-300 mb-6 leading-relaxed">
+                    <p class="text-gray-300 mb-6 leading-relaxed text-sm md:text-base">
                         ${data.description}
                     </p>
                     <div class="mb-8">
@@ -1144,13 +1201,14 @@
 
             thumbs.forEach(thumb => {
                 thumb.addEventListener('click', function() {
+                    const thumbContent = this.innerHTML;
                     anime({
                         targets: mainImageContainer,
                         opacity: [1, 0.5, 1],
                         duration: 400,
                         easing: 'easeInOutQuad',
                         begin: () => {
-                             mainImageContainer.innerHTML = this.innerHTML;
+                             mainImageContainer.innerHTML = thumbContent;
                         }
                     });
                 });
@@ -1178,14 +1236,14 @@
 
         // 6. NETWORK ANIMATION
         const networkContainer = document.getElementById('network-anim');
-        const nodeCount = 20; 
+        const nodeCount = 15; // Reduce node count slightly for mobile performance
         const nodes = [];
 
         for (let i = 0; i < nodeCount; i++) {
             const node = document.createElement('div');
             node.classList.add('node');
-            const x = Math.random() * 100;
-            const y = Math.random() * 100;
+            const x = Math.random() * 90 + 5; // Keep within bounds
+            const y = Math.random() * 90 + 5;
             node.style.left = `${x}%`;
             node.style.top = `${y}%`;
             networkContainer.appendChild(node);
@@ -1206,6 +1264,12 @@
                     line.style.width = `${length}%`;
                     line.style.left = `${p1.x}%`;
                     line.style.top = `${p1.y}%`;
+                    
+                    // Simple rotation calc
+                    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                    line.style.transform = `rotate(${angle}deg)`;
+                    
+                    networkContainer.appendChild(line);
                 }
             }
         }
@@ -1220,58 +1284,25 @@
             easing: 'easeInOutSine'
         });
 
-        for(let i=0; i<10; i++){
-            const packet = document.createElement('div');
-            packet.classList.add('packet');
-            networkContainer.appendChild(packet);
-            animatePacket(packet);
-        }
-
-        function animatePacket(el) {
-            const startX = Math.random() * 100;
-            const startY = Math.random() * 100;
-            const endX = Math.random() * 100;
-            const endY = Math.random() * 100;
-            
-            el.style.left = `${startX}%`;
-            el.style.top = `${startY}%`;
-            
-            anime({
-                targets: el,
-                left: `${endX}%`,
-                top: `${endY}%`,
-                opacity: [0, 1, 0],
-                duration: 2000 + Math.random() * 2000,
-                easing: 'linear',
-                complete: () => animatePacket(el)
-            });
-        }
-
-        // ===============================================
-        // 7. LÓGICA DA ANIMAÇÃO DO NOTEBOOK (INTEGRADO)
-        // ===============================================
+        // 7. LÓGICA DA ANIMAÇÃO DO NOTEBOOK (INTEGRADO E RESPONSIVO)
         let hasLaptopAnimated = false;
         const laptopSection = document.getElementById('laptop-section');
         const laptopWrapper = document.getElementById('laptop-wrapper');
         const terminal = document.getElementById('terminal');
 
         const codeLines = [
-            { text: 'print("Olá Mundo, Meu nome é Amon Timo esse é o meu Portifólio")', type: 'code' },
+            { text: 'print("Olá Mundo,")', type: 'code' },
+            { text: 'print("Sou Amon Timo")', type: 'code' },
             { text: '', type: 'break' },
-            { text: '# Carregando portifólio...', type: 'comment' },
-            { text: 'import portifolio_core as pc', type: 'code' },
-            { text: 'import creative_engine', type: 'code' },
+            { text: '# Carregando...', type: 'comment' },
+            { text: 'import portfolio as pf', type: 'code' },
             { text: '', type: 'break' },
-            { text: 'class Developer:', type: 'code' },
-            { text: '    def __init__(self):', type: 'code' },
-            { text: '        self.name = "Amon Timo"', type: 'code' },
-            { text: '        self.skills = ["Design", "Code", "Motion"]', type: 'code' },
+            { text: 'class Dev:', type: 'code' },
+            { text: '  def __init__(self):', type: 'code' },
+            { text: '    self.stack = "Full"', type: 'code' },
             { text: '', type: 'break' },
-            { text: '    def show_projects(self):', type: 'code' },
-            { text: '        return "Carregando Projetos..."', type: 'code' },
-            { text: '', type: 'break' },
-            { text: 'user = Developer()', type: 'code' },
-            { text: 'user.show_projects()', type: 'code' }
+            { text: 'user = Dev()', type: 'code' },
+            { text: 'user.init()', type: 'code' }
         ];
 
         function formatLineHTML(text, type) {
@@ -1281,7 +1312,7 @@
             let formatted = text
                 .replace(/(".+?")/g, '<span class="str">$1</span>')
                 .replace(/\b(print|import|class|def|self|return)\b/g, '<span class="kwd">$1</span>')
-                .replace(/\b(Developer|show_projects|__init__)\b/g, '<span class="func">$1</span>');
+                .replace(/\b(Dev|init|__init__)\b/g, '<span class="func">$1</span>');
             
             return `<span class="plain">${formatted}</span>`;
         }
@@ -1312,6 +1343,8 @@
                 }
 
                 lineContainer.innerHTML = formatLineHTML(currentText, line.type);
+                // Scroll to bottom if needed
+                terminal.scrollTop = terminal.scrollHeight;
                 await new Promise(r => setTimeout(r, 80)); 
             }
         }
@@ -1359,7 +1392,7 @@
                 }
             });
         }, {
-            threshold: 0.5 
+            threshold: 0.3 // Trigger a bit earlier on mobile
         });
 
         if (laptopSection) {
