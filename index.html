@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amon Timo | Vibe Coding Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Libraries CSS/JS -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --dark-blue: #004e92;
+            --bg-dark: #0a0a0a;
+            
+            /* Variáveis da Animação do Laptop */
+            --laptop-stroke: #00f3ff;
+            --screen-bg: #0d1117;
+            --code-text: #e6e6e6;
+            --py-keyword: #ff79c6;
+            --py-string: #f1fa8c;
+            --py-func: #8be9fd;
+            --py-comment: #6272a4;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: white;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Particles Container */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: radial-gradient(circle at center, #0f172a 0%, #000000 100%);
+        }
+
+        /* MOUSE GLOW EFFECT */
+        #cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Typography & Utilities */
+        .font-mono { font-family: 'Space Mono', monospace; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .text-neon {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        /* Anime.js Target Classes */
+        .letter { display: inline-block; opacity: 0; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--dark-blue); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-blue); }
+
+        .glitch-hover:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: var(--neon-blue);
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+
+        /* Modal Styles */
+        #project-modal {
+            display: none;
+            opacity: 0;
+        }
+        .modal-open {
+            overflow: hidden;
+        }
+
+        /* Animated Radar Background */
+        .radar-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .radar-bg-anim {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            background: conic-gradient(from 0deg, transparent 0deg, var(--neon-blue) 360deg);
+            transform: translate(-50%, -50%);
+            opacity: 0.1;
+            animation: radar-spin 10s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .radar-bg-mask {
+            position: absolute;
+            inset: 2px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 1rem;
+            z-index: 0;
+        }
+
+        @keyframes radar-spin {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* NETWORK DIAGRAM ANIMATION STYLES */
+        .network-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 1rem;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        
+        .node {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: var(--dark-blue);
+            border: 2px solid var(--neon-blue);
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .connection {
+            position: absolute;
+            height: 2px;
+            background-color: rgba(0, 243, 255, 0.2);
+            transform-origin: 0 50%;
+            z-index: 1;
+        }
+
+        .packet {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: #fff;
+            border-radius: 50%;
+            z-index: 3;
+            box-shadow: 0 0 5px #fff;
+            opacity: 0;
+        }
+
+        /* =========================================
+           ESTILOS DA ANIMAÇÃO DO NOTEBOOK
+           ========================================= */
+        .laptop-container {
+            position: relative;
+            width: 800px;
+            max-width: 95vw;
+            height: 550px; 
+            margin: 0 auto;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .laptop-container.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* O Terminal (Conteúdo da Tela) */
+        .screen-content {
+            position: absolute;
+            z-index: 1; 
+            top: 21.5%;      
+            left: 22.1%;     
+            width: 55.8%;    
+            height: 43.5%;   
+            background-color: var(--screen-bg);
+            padding: 15px; 
+            box-sizing: border-box;
+            font-family: 'Fira Code', 'Space Mono', monospace;
+            font-size: 11px; 
+            overflow: hidden;
+            opacity: 0; 
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.9); 
+            text-shadow: 0 0 2px rgba(0, 243, 255, 0.3); 
+            border-radius: 2px; 
+        }
+
+        /* Scanline */
+        .screen-content::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        /* SVG Hardware */
+        svg.laptop-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10; 
+            pointer-events: none; 
+            overflow: visible;
+        }
+
+        .draw-line, rect.key, path.key, circle.key, line.key {
+            fill: none; 
+            stroke: var(--laptop-stroke);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            vector-effect: non-scaling-stroke;
+        }
+
+        /* Estilos de Código */
+        .code-line {
+            display: block;
+            min-height: 1.4em;
+            margin-bottom: 2px;
+            white-space: pre-wrap;
+            position: relative;
+            z-index: 1; 
+            text-align: left;
+            line-height: 1.4; 
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 6px; 
+            height: 14px;
+            background-color: var(--laptop-stroke);
+            animation: blink 1s infinite;
+            vertical-align: sub;
+            box-shadow: 0 0 5px var(--laptop-stroke);
+        }
+
+        .kwd { color: var(--py-keyword); }
+        .str { color: var(--py-string); }
+        .func { color: var(--py-func); }
+        .com { color: var(--py-comment); }
+        .plain { color: var(--code-text); }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* =========================================
+           WAVE ANIMATION STYLES (NEW)
+           ========================================= */
+        .wave-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            z-index: 0;
+        }
+
+        .waves {
+            position: relative;
+            width: 100%;
+            height: 15vh;
+            min-height: 100px;
+            max-height: 150px;
+        }
+
+        .parallax > use {
+            animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+        }
+        .parallax > use:nth-child(1) {
+            animation-delay: -2s;
+            animation-duration: 7s;
+        }
+        .parallax > use:nth-child(2) {
+            animation-delay: -3s;
+            animation-duration: 10s;
+        }
+        .parallax > use:nth-child(3) {
+            animation-delay: -4s;
+            animation-duration: 13s;
+        }
+        .parallax > use:nth-child(4) {
+            animation-delay: -5s;
+            animation-duration: 20s;
+        }
+
+        @keyframes move-forever {
+            0% {
+                transform: translate3d(-90px, 0, 0);
+            }
+            100% {
+                transform: translate3d(85px, 0, 0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .laptop-container {
+                height: 350px;
+            }
+            .screen-content {
+                font-size: 9px;
+                padding: 8px;
+            }
+            .waves {
+                height: 40px;
+                min-height: 40px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Mouse Glow Element -->
+    <div id="cursor-glow"></div>
+
+    <!-- Background Animation -->
+    <div id="particles-js"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 left-0 p-6 glass-card border-b-0 border-t-0 border-l-0 border-r-0">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold tracking-tighter cursor-pointer hover:text-cyan-400 transition-colors" id="logo-anim">
+                AMON.<span class="text-neon">TIMO</span>
+            </h1>
+            <div class="hidden md:flex space-x-8 text-sm font-mono tracking-widest">
+                <a href="#about" class="hover:text-cyan-400 transition-all nav-link">SOBRE</a>
+                <a href="#skills" class="hover:text-cyan-400 transition-all nav-link">SKILLS</a>
+                <a href="#projects" class="hover:text-cyan-400 transition-all nav-link">PROJETOS</a>
+                <a href="#contact" class="hover:text-cyan-400 transition-all nav-link">CONTATO</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-20" id="hero-grid"></div>
+        
+        <div class="text-center z-10 px-4">
+            <!-- Waving Header Image -->
+            <div class="mb-6 opacity-80 mix-blend-screen reveal-top">
+                <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=header&text=&fontColor=ffffff" class="w-full max-w-lg mx-auto h-20 object-cover rounded-full blur-xl opacity-50 absolute top-0 left-0 right-0 mx-auto">
+            </div>
+
+            <div class="mb-4 inline-block px-4 py-1 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-xs font-mono tracking-widest reveal-top">
+                VIBE CODING // FRONTEND SPECIALIST
+            </div>
+            
+            <h1 class="text-6xl md:text-8xl font-black mb-6 tracking-tight leading-none ml11">
+                <span class="text-wrapper">
+                    <span class="line line1"></span>
+                    <span class="letters">AMON TIMO</span>
+                </span>
+            </h1>
+
+            <!-- Typing SVG -->
+            <div class="mb-8 h-8 flex justify-center items-center reveal-bottom">
+                <img src="https://readme-typing-svg.herokuapp.com?font=Space+Mono&size=22&pause=1000&center=true&vCenter=true&width=600&lines=Desenvolvedor+Front-End;Especialista+em+Vibe+Coding+%F0%9F%8E%A7;Criando+interfaces+modernas" alt="Typing SVG" />
+            </div>
+
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light reveal-bottom delay-100">
+                Cursando Análise e Desenvolvimento de Sistemas. <br>
+                Entusiasta de Design, Front-end e User Experience (UX).
+            </p>
+            <div class="flex justify-center gap-4 reveal-bottom delay-200">
+                <a href="#projects" class="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-bold rounded shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all transform hover:scale-105 btn-anime">
+                    VER PROJETOS
+                </a>
+                <a href="#contact" class="px-8 py-3 glass-card hover:bg-white/10 text-white font-bold rounded transition-all transform hover:scale-105 btn-anime">
+                    FALE COMIGO
+                </a>
+            </div>
+        </div>
+
+        <!-- Decorative Anime.js Elements -->
+        <div class="absolute bottom-10 left-10 w-20 h-20 border-l-2 border-b-2 border-cyan-500/30 floating-shape"></div>
+        <div class="absolute top-32 right-10 w-10 h-10 border-t-2 border-r-2 border-cyan-500/30 floating-shape" style="animation-delay: 1s;"></div>
+    </section>
+
+    <!-- =========================================
+         NOVA SEÇÃO: ANIMAÇÃO DO LAPTOP
+         ========================================= -->
+    <section id="laptop-section" class="py-20 flex justify-center items-center relative z-10 overflow-hidden">
+        <div class="laptop-container" id="laptop-wrapper">
+            
+            <!-- Terminal (Camada do Fundo) -->
+            <div class="screen-content" id="terminal">
+                <!-- Código entra aqui via JS -->
+            </div>
+
+            <!-- SVG Wireframe (Camada da Frente - Moldura) -->
+            <svg class="laptop-svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                <g filter="url(#glow)">
+                    <!-- 1. Tela e Tampa -->
+                    <path class="draw-line" d="M 150 100 L 650 100 Q 670 100 670 120 L 670 400 Q 670 420 650 420 L 150 420 Q 130 420 130 400 L 130 120 Q 130 100 150 100 Z" stroke-width="3"/>
+                    <path class="draw-line" d="M 160 115 L 640 115 Q 650 115 650 125 L 650 390 Q 650 400 640 400 L 160 400 Q 150 400 150 390 L 150 125 Q 150 115 160 115 Z" />
+                    <circle class="draw-line" cx="400" cy="108" r="3" />
+
+                    <!-- 2. Base e Corpo -->
+                    <path class="draw-line" d="M 130 420 L 70 520 Q 65 530 80 530 L 720 530 Q 735 530 730 520 L 670 420" stroke-width="3" />
+                    <line class="draw-line" x1="70" y1="520" x2="730" y2="520" />
+                    <path class="draw-line" d="M 320 480 L 480 480 L 485 515 L 315 515 Z" />
+
+                    <!-- 3. Teclado Detalhado -->
+                    <g id="keyboard-keys">
+                        <!-- Fileira 1 -->
+                        <rect class="draw-line key" x="145" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="175" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="205" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="235" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="265" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="295" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="325" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="355" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="385" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="415" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="445" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="475" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="505" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="535" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="565" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="595" y="430" width="25" height="10" rx="1" />
+                        <rect class="draw-line key" x="625" y="430" width="25" height="10" rx="1" />
+
+                        <!-- Fileira 2 -->
+                        <path class="draw-line key" d="M 140 445 L 170 445 L 170 460 L 139 460 Z" />
+                        <path class="draw-line key" d="M 175 445 L 205 445 L 205 460 L 175 460 Z" />
+                        <path class="draw-line key" d="M 210 445 L 240 445 L 240 460 L 210 460 Z" />
+                        <path class="draw-line key" d="M 245 445 L 275 445 L 275 460 L 245 460 Z" />
+                        <path class="draw-line key" d="M 280 445 L 310 445 L 310 460 L 280 460 Z" />
+                        <path class="draw-line key" d="M 315 445 L 345 445 L 345 460 L 315 460 Z" />
+                        <path class="draw-line key" d="M 350 445 L 380 445 L 380 460 L 350 460 Z" />
+                        <path class="draw-line key" d="M 385 445 L 415 445 L 415 460 L 385 460 Z" />
+                        <path class="draw-line key" d="M 420 445 L 450 445 L 450 460 L 420 460 Z" />
+                        <path class="draw-line key" d="M 455 445 L 485 445 L 485 460 L 455 460 Z" />
+                        <path class="draw-line key" d="M 490 445 L 520 445 L 520 460 L 490 460 Z" />
+                        <path class="draw-line key" d="M 525 445 L 555 445 L 555 460 L 525 460 Z" />
+                        <path class="draw-line key" d="M 560 445 L 590 445 L 590 460 L 560 460 Z" />
+                        <path class="draw-line key" d="M 595 445 L 660 445 L 662 460 L 595 460 Z" /> 
+
+                        <!-- Fileira 3 -->
+                        <path class="draw-line key" d="M 135 465 L 175 465 L 175 480 L 134 480 Z" /> 
+                        <path class="draw-line key" d="M 180 465 L 210 465 L 210 480 L 180 480 Z" />
+                        <path class="draw-line key" d="M 215 465 L 245 465 L 245 480 L 215 480 Z" />
+                        <path class="draw-line key" d="M 250 465 L 280 465 L 280 480 L 250 480 Z" />
+                        <path class="draw-line key" d="M 285 465 L 315 465 L 315 480 L 285 480 Z" />
+                        <path class="draw-line key" d="M 320 465 L 350 465 L 350 480 L 320 480 Z" />
+                        <path class="draw-line key" d="M 355 465 L 385 465 L 385 480 L 355 480 Z" />
+                        <path class="draw-line key" d="M 390 465 L 420 465 L 420 480 L 390 480 Z" />
+                        <path class="draw-line key" d="M 425 465 L 455 465 L 455 480 L 425 480 Z" />
+                        <path class="draw-line key" d="M 460 465 L 490 465 L 490 480 L 460 480 Z" />
+                        <path class="draw-line key" d="M 495 465 L 525 465 L 525 480 L 495 480 Z" />
+                        <path class="draw-line key" d="M 530 465 L 560 465 L 560 480 L 530 480 Z" />
+                        <path class="draw-line key" d="M 565 465 L 665 465 L 667 480 L 565 480 Z" /> 
+
+                        <!-- Fileira 4 -->
+                        <path class="draw-line key" d="M 130 485 L 170 485 L 169 500 L 128 500 Z" /> 
+                        <path class="draw-line key" d="M 175 485 L 215 485 L 214 500 L 174 500 Z" />
+                        <path class="draw-line key" d="M 220 485 L 580 485 L 582 500 L 219 500 Z" /> 
+                        <path class="draw-line key" d="M 585 485 L 625 485 L 627 500 L 587 500 Z" />
+                        <path class="draw-line key" d="M 630 485 L 670 485 L 672 500 L 632 500 Z" />
+                    </g>
+                </g>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="glass-card p-8 rounded-2xl reveal-left relative overflow-hidden group">
+                <div class="absolute -right-10 -top-10 w-40 h-40 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/30 transition-all duration-700"></div>
+                
+                <!-- FOTO PLACEHOLDER -->
+                <div class="mb-8 flex justify-start">
+                    <div class="w-32 h-32 rounded-full p-1 bg-gradient-to-br from-cyan-400 to-blue-600 overflow-hidden shadow-[0_0_20px_rgba(0,243,255,0.3)]">
+                        <img src="/images/amon.jpeg" alt="Foto de Amon Timo" class="w-full h-full object-cover rounded-full bg-gray-900">
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-terminal text-neon mr-3"></i> SOBRE MIM
+                </h2>
+                
+                <ul class="space-y-4 text-gray-300 leading-relaxed font-light">
+                    <li class="flex items-start">
+                        <i class="fas fa-building text-neon mt-1 mr-3"></i>
+                        <span><strong>Soluções Reais em Produção:</strong> Já desenvolvi projetos ativos para Gestão de Almoxarifado, Correios, Controle de Demandas e Relatórios de Vistoria.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-puzzle-piece text-purple-400 mt-1 mr-3"></i>
+                        <span><strong>Fascinado por Automação:</strong> Foco total em integração entre plataformas e otimização de processos.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-book-reader text-yellow-400 mt-1 mr-3"></i>
+                        <span><strong>Estudo Contínuo:</strong> Aprofundando em Programação, Interfaces Modernas e <strong>Inteligência Artificial</strong>.</span>
+                    </li>
+                </ul>
+
+                <div class="mt-8 pt-6 border-t border-gray-700/50">
+                    <blockquote class="italic text-gray-400 font-mono text-sm border-l-2 border-neon-blue pl-4">
+                        "Get Rich or Die Tryin'"
+                    </blockquote>
+                </div>
+            </div>
+
+            <div class="relative reveal-right space-y-6">
+                <!-- Learning Stack Card -->
+                <div class="glass-card p-6 rounded-2xl">
+                    <h3 class="text-xl font-bold mb-4 text-white flex items-center">
+                        <i class="fas fa-brain text-neon mr-2"></i> O QUE ESTOU APRENDENDO
+                    </h3>
+                    <ul class="space-y-3 font-mono text-sm text-gray-300">
+                        <li><span class="text-cyan-400">⚛️ Frontend Avançado:</span> Arquitetura de componentes</li>
+                        <li><span class="text-purple-400">🌌 Estilização:</span> Tailwind CSS e Design Systems</li>
+                        <li><span class="text-green-400">🌍 APIs:</span> Integrações RESTful complexas</li>
+                        <li><span class="text-blue-400">🤖 IA Generativa:</span> Implementação em soluções web</li>
+                        <li><span class="text-yellow-500">☕ Back-End:</span> Python & Java</li>
+                    </ul>
+                </div>
+
+                <!-- NEW ANIMATED DIAGRAM (Network Simulation) -->
+                <div class="glass-card p-4 rounded-2xl">
+                    <p class="text-xs font-mono text-gray-500 mb-2">SYSTEM ACTIVITY SIMULATION</p>
+                    <div class="network-container" id="network-anim">
+                        <!-- Nodes and lines generated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-black/30">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16 reveal-top">
+                DISTRIBUIÇÃO DE <span class="text-neon">SKILLS</span>
+            </h2>
+            
+            <!-- Radar Chart (Enhanced) -->
+            <div class="glass-card p-1 rounded-2xl reveal-bottom radar-container">
+                <!-- Animated Background Elements -->
+                <div class="radar-bg-anim"></div>
+                <div class="radar-bg-mask"></div>
+                
+                <div class="relative z-10 p-6 md:p-10">
+                    <div id="chart-radar" class="w-full flex justify-center items-center"></div>
+                </div>
+            </div>
+            
+            <p class="text-center text-gray-400 mt-6 font-mono text-sm reveal-bottom delay-100">
+                <i class="fas fa-info-circle mr-2"></i> Passe o mouse sobre o gráfico para ver os detalhes
+            </p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16">
+                <h2 class="text-4xl font-bold mb-2 reveal-left">PROJETOS <span class="text-neon">REALIZADOS</span></h2>
+                <p class="text-gray-400 font-mono reveal-left delay-100">Softwares em produção e ferramentas utilitárias.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1: Almoxarifado -->
+                <div class="glass-card rounded-xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300 project-card reveal-bottom cursor-pointer" data-project="almoxarifado">
+                    <div class="h-48 bg-gradient-to-br from-gray-800 to-blue-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-boxes text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-neon font-bold tracking-widest">VER DETALHES</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Sistema de Almoxarifado</h3>
+                        <p class="text-gray-400 text-sm mb-4">Controle total de entrada e saída de materiais. Interface otimizada para agilidade.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Backend</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">SQL</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">UX</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Front</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Demandas -->
+                <div class="glass-card rounded-xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300 project-card reveal-bottom delay-100 cursor-pointer" data-project="demandas">
+                    <div class="h-48 bg-gradient-to-br from-gray-800 to-purple-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-tasks text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-neon font-bold tracking-widest">VER DETALHES</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Controle de Demandas</h3>
+                        <p class="text-gray-400 text-sm mb-4">Gestão de tarefas e tickets para equipes. Dashboard administrativo completo.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Backend</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">SQL</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">UX</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Front</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Correios -->
+                <div class="glass-card rounded-xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300 project-card reveal-bottom delay-200 cursor-pointer" data-project="correios">
+                    <div class="h-48 bg-gradient-to-br from-gray-800 to-yellow-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-truck text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-neon font-bold tracking-widest">VER DETALHES</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Integração Correios</h3>
+                        <p class="text-gray-400 text-sm mb-4">Sistema de rastreamento e cálculo de frete automatizado para e-commerce.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Backend</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">API</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">UX</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Front</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Gestão Condominial -->
+                <div class="glass-card rounded-xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300 project-card reveal-bottom cursor-pointer" data-project="condominio">
+                    <div class="h-48 bg-gradient-to-br from-gray-800 to-green-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-building text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-neon font-bold tracking-widest">VER DETALHES</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Gestão Condominial</h3>
+                        <p class="text-gray-400 text-sm mb-4">Plataforma para síndicos e moradores. Reservas, avisos e financeiro.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Backend</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">SQL</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">UX</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Front</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: Relatórios Vistoria -->
+                <div class="glass-card rounded-xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300 project-card reveal-bottom delay-100 cursor-pointer" data-project="vistorias">
+                    <div class="h-48 bg-gradient-to-br from-gray-800 to-red-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-file-pdf text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-neon font-bold tracking-widest">VER DETALHES</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Aplicação web de relatórios de vistorias para construtora</h3>
+                        <p class="text-gray-400 text-sm mb-4">Web App que compila dados de vistorias e gera PDFs formatados automaticamente.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Web System</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Python</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">UX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6: Figma / Prototipagem -->
+                <div class="glass-card rounded-xl overflow-hidden group hover:border-purple-500/50 transition-all duration-300 project-card reveal-bottom delay-100 cursor-pointer" data-project="figma">
+                    <div class="h-48 bg-gradient-to-br from-purple-900 to-black flex items-center justify-center relative overflow-hidden">
+                        <i class="fab fa-figma text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-purple-400 font-bold tracking-widest">VER PROTÓTIPOS</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-purple-400 transition-colors">Prototipagem de Interfaces</h3>
+                        <p class="text-gray-400 text-sm mb-4">Projetos de alta fidelidade e estudos de usabilidade criados no Figma.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-purple-400">Figma</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-purple-400">UI/UX</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-purple-400">Design</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+    <!-- College Works Section (NEW) -->
+    <section id="college" class="py-20 relative bg-black/20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16">
+                <h2 class="text-4xl font-bold mb-2 reveal-left">TRABALHOS DA <span class="text-neon">FACULDADE</span></h2>
+                <p class="text-gray-400 font-mono reveal-left delay-100">Projetos acadêmicos e estudos de caso desenvolvidos durante o curso.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- College Project Placeholder 1 -->
+                <div class="glass-card rounded-xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300 project-card reveal-bottom cursor-pointer" data-project="faculdade1">
+                    <div class="h-48 bg-gradient-to-br from-gray-800 to-indigo-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-graduation-cap text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-neon font-bold tracking-widest">VER DETALHES</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Projeto Acadêmico 1</h3>
+                        <p class="text-gray-400 text-sm mb-4">Breve descrição do trabalho desenvolvido na faculdade.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">HTML</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Python</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- College Project Placeholder 2 -->
+                <div class="glass-card rounded-xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300 project-card reveal-bottom delay-100 cursor-pointer" data-project="faculdade2">
+                    <div class="h-48 bg-gradient-to-br from-gray-800 to-teal-900 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-book-open text-6xl text-white/20 group-hover:scale-125 transition-transform duration-500"></i>
+                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-neon font-bold tracking-widest">VER DETALHES</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon transition-colors">Projeto Acadêmico 2</h3>
+                        <p class="text-gray-400 text-sm mb-4">Outro projeto importante realizado durante a graduação.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">C</span>
+                            <span class="text-xs bg-gray-800 px-2 py-1 rounded text-cyan-400">Algoritmos</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECT MODAL DINÂMICO -->
+    <div id="project-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-black/80 backdrop-blur-sm">
+        <div class="glass-card w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-2xl relative modal-content transform scale-90 opacity-0">
+            <!-- Close Button -->
+            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-neon transition-colors z-10">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+
+            <div class="grid md:grid-cols-2 gap-8 p-8" id="modal-body-content">
+                <!-- O CONTEÚDO SERÁ INJETADO AQUI PELO JAVASCRIPT -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-5xl font-black mb-8 reveal-top">VAMOS CRIAR ALGO <br><span class="text-neon glitch-hover">EXTRAORDINÁRIO?</span></h2>
+            <p class="text-gray-400 mb-10 text-lg reveal-bottom">
+                Estou disponível para networking, collabs e novos aprendizados.
+            </p>
+            
+            <div class="flex justify-center gap-6 mb-12 reveal-bottom delay-100">
+                <a href="https://github.com/AmonTimo7" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-800 hover:bg-white hover:text-black transition-all transform hover:scale-110">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/amon-timo-523957380/" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-800 hover:bg-blue-600 hover:text-white transition-all transform hover:scale-110">
+                    <i class="fab fa-linkedin-in text-xl"></i>
+                </a>
+                <a href="mailto:amoncardosotimo@gmail.com" class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-800 hover:bg-red-500 hover:text-white transition-all transform hover:scale-110">
+                    <i class="fas fa-envelope text-xl"></i>
+                </a>
+            </div>
+
+            <!-- FORMULÁRIO FUNCIONAL (FORMSPREE) -->
+            <form action="https://formspree.io/f/xrbdrroa" method="POST" class="glass-card p-8 rounded-2xl text-left max-w-xl mx-auto reveal-bottom delay-200">
+                <div class="mb-4">
+                    <label class="block text-gray-400 text-sm font-mono mb-2">NOME</label>
+                    <input type="text" name="name" required class="w-full bg-black/40 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-400 text-sm font-mono mb-2">EMAIL</label>
+                    <input type="email" name="email" required class="w-full bg-black/40 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-400 text-sm font-mono mb-2">MENSAGEM</label>
+                    <textarea rows="4" name="message" required class="w-full bg-black/40 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors"></textarea>
+                </div>
+                <button type="submit" class="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded font-bold tracking-widest hover:shadow-[0_0_20px_rgba(6,182,212,0.6)] transition-all transform hover:-translate-y-1">
+                    ENVIAR MENSAGEM
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer with SVG Wave Animation -->
+    <footer class="relative pt-32 pb-8 overflow-hidden">
+        <!-- New Animated Waves -->
+        <div class="wave-container">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                <defs>
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g class="parallax">
+                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0, 243, 255, 0.2)" />
+                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(188, 19, 254, 0.2)" />
+                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(0, 78, 146, 0.2)" />
+                    <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(0, 243, 255, 0.05)" />
+                </g>
+            </svg>
+        </div>
+        
+        <div class="relative z-10 text-center text-gray-600 text-sm font-mono">
+            <p>&copy; 2025 Amon Timo. Developed with Vibe Coding.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts Logic -->
+    <script>
+        // --- CONFIGURAÇÃO DOS PROJETOS ---
+        const projectsData = {
+            "almoxarifado": {
+                title: "Sistema de Almoxarifado",
+                description: "Controle total de entrada e saída de materiais. Interface otimizada para agilidade e controle de estoque em tempo real.",
+                techs: ["Backend", "SQL", "UX", "Front"],
+                mainImage: '<i class="fas fa-boxes text-5xl text-white/20"></i>', 
+                thumbnails: [
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>'
+                ]
+            },
+            "demandas": {
+                title: "Controle de Demandas",
+                description: "Gestão de tarefas e tickets para equipes. Dashboard administrativo completo com métricas de desempenho.",
+                techs: ["Backend", "SQL", "UX", "Front"],
+                mainImage: '<img src="/images/demanda1.png" class="w-full h-full object-cover">',
+                thumbnails: [
+                    '<img src="/images/demanda2.png" class="w-full h-full object-cover">',
+                    '<img src="/images/demanda3.png" class="w-full h-full object-cover">',
+                    '<img src="/images/demanda4.png" class="w-full h-full object-cover">',
+                ]
+            },
+            "correios": {
+                title: "Integração Correios",
+                description: "Sistema de rastreamento e cálculo de frete automatizado para e-commerce. Conexão direta com API dos Correios.",
+                techs: ["Backend", "API", "UX", "Front"],
+                mainImage: '<img src="/images/correio1.png" class="w-full h-full object-cover">',
+                thumbnails: [
+                    '<img src="/images/correio2.png" class="w-full h-full object-cover">',
+                    '<img src="/images/correio3.png" class="w-full h-full object-cover">',
+                    '<img src="/images/correio4.png" class="w-full h-full object-cover">',
+                ]
+            },
+            "condominio": {
+                title: "Gestão Condominial",
+                description: "Plataforma para síndicos e moradores. Reservas de áreas comuns, avisos digitais e controle financeiro integrado.",
+                techs: ["Backend", "SQL", "UX", "Front"],
+                mainImage: '<i class="fas fa-building text-5xl text-white/20"></i>', 
+                thumbnails: [
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>'
+                ]
+            },
+            "vistorias": {
+                title: "Aplicação web de relatórios",
+                description: "Web App que compila dados de vistorias de obras e gera PDFs formatados automaticamente para construtoras.",
+                techs: ["Web System", "Python", "UX"],
+                mainImage: '<img src="/images/vistorias1.png" class="w-full h-full object-cover">',
+                thumbnails: [
+                    '<img src="/images/vistorias2.png" class="w-full h-full object-cover">',
+                    '<img src="/images/vistorias3.png" class="w-full h-full object-cover">',
+                    '<img src="/images/vistorias4.png" class="w-full h-full object-cover">',
+                ]
+            },
+            "figma": {
+                title: "Prototipagem de Interfaces",
+                description: "Projetos de alta fidelidade e estudos de usabilidade criados no Figma. Foco em User Experience e Design System.",
+                techs: ["Figma", "UI/UX", "Design"],
+                mainImage: '<i class="fab fa-figma text-5xl text-white/20"></i>', 
+                thumbnails: [
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>'
+                ]
+            },
+            "faculdade1": {
+                title: "Projeto Acadêmico 1",
+                description: "Descrição detalhada do seu projeto acadêmico. Explique os desafios e aprendizados obtidos durante o desenvolvimento.",
+                techs: ["Python", "Html", "Academic"],
+                mainImage: '<img src="/images/trabalho1.png" class="w-full h-full object-cover">',
+                thumbnails: [
+                    '<img src="/images/trabalho2.png" class="w-full h-full object-cover">',
+                    '<img src="/images/trabalho3.png" class="w-full h-full object-cover">',
+                    '<img src="/images/trabalho4.png" class="w-full h-full object-cover">',
+                ]
+            },
+            "faculdade2": {
+                title: "Projeto Acadêmico 2",
+                description: "Descrição detalhada do segundo projeto. Foque nas tecnologias aprendidas e na lógica implementada.",
+                techs: ["C", "Algoritmos", "Logic"],
+                mainImage: '<i class="fas fa-book-open text-5xl text-white/20"></i>',
+                thumbnails: [
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>',
+                    '<i class="fas fa-image text-white/20"></i>'
+                ]
+            }
+        };
+
+        // MOUSE GLOW LOGIC
+        const cursorGlow = document.getElementById('cursor-glow');
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+
+        // 1. PARTICLES.JS CONFIGURATION
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": ["#00f3ff", "#004e92"] },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": true },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#00f3ff", "opacity": 0.2, "width": 1 },
+                "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "out_mode": "out" }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "repulse" },
+                    "onclick": { "enable": true, "mode": "push" }
+                },
+                "modes": { "repulse": { "distance": 100, "duration": 0.4 } }
+            },
+            "retina_detect": true
+        });
+
+        // 2. SCROLL REVEAL CONFIG
+        const sr = ScrollReveal({
+            origin: 'bottom',
+            distance: '60px',
+            duration: 1000,
+            delay: 200,
+            reset: false
+        });
+        sr.reveal('.reveal-top', { origin: 'top' });
+        sr.reveal('.reveal-bottom', { origin: 'bottom' });
+        sr.reveal('.reveal-left', { origin: 'left' });
+        sr.reveal('.reveal-right', { origin: 'right' });
+
+        // 3. ANIME.JS ANIMATIONS (Hero)
+        var textWrapper = document.querySelector('.ml11 .letters');
+        textWrapper.innerHTML = textWrapper.textContent.replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>");
+        anime.timeline({loop: false})
+        .add({ targets: '.ml11 .line', scaleY: [0,1], opacity: [0.5,1], easing: "easeOutExpo", duration: 700 })
+        .add({ targets: '.ml11 .line', translateX: [0, document.querySelector('.ml11 .letters').getBoundingClientRect().width + 10], easing: "easeOutExpo", duration: 700, delay: 100 })
+        .add({ targets: '.ml11 .letter', opacity: [0,1], easing: "easeOutExpo", duration: 600, offset: '-=775', delay: (el, i) => 34 * (i+1) });
+
+        anime({ targets: '.floating-shape', translateY: function() { return anime.random(-20, 20); }, translateX: function() { return anime.random(-20, 20); }, rotate: function() { return anime.random(0, 360); }, easing: 'easeInOutQuad', duration: 3000, direction: 'alternate', loop: true });
+
+        // 4. APEXCHARTS
+        var optionsRadar = {
+            series: [{
+                name: 'Competência',
+                data: [95, 85, 80, 90, 85, 75, 70]
+            }],
+            chart: {
+                height: 450,
+                type: 'radar',
+                fontFamily: 'Outfit, sans-serif',
+                toolbar: { show: false },
+                animations: {
+                    enabled: true,
+                    easing: 'easeinout',
+                    speed: 800,
+                    animateGradually: { enabled: true, delay: 150 },
+                    dynamicAnimation: { enabled: true, speed: 350 }
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 0, left: 0, blur: 10, opacity: 0.2, color: '#00f3ff'
+                }
+            },
+            xaxis: {
+                categories: ['Frontend', 'UI/UX', 'Backend', 'Prototipagem', 'Database', 'Python', 'Java'],
+                labels: {
+                    style: {
+                        colors: ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff'],
+                        fontSize: '13px',
+                        fontFamily: 'Space Mono, monospace',
+                        fontWeight: 700
+                    }
+                }
+            },
+            stroke: {
+                width: 3,
+                colors: ['#00f3ff'],
+                dashArray: 0
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'dark',
+                    type: 'vertical',
+                    shadeIntensity: 1,
+                    gradientToColors: ['#bc13fe'],
+                    opacityFrom: 0.9,
+                    opacityTo: 0.4,
+                    stops: [0, 100]
+                }
+            },
+            markers: {
+                size: 6,
+                colors: ['#fff'],
+                strokeColors: '#bc13fe',
+                strokeWidth: 2,
+                hover: { size: 9, strokeWidth: 3, strokeColors: '#fff' }
+            },
+            yaxis: { show: false },
+            tooltip: {
+                theme: 'dark',
+                marker: { show: true },
+                y: { formatter: function(val) { return val + "%"; } }
+            },
+            theme: { mode: 'dark' }
+        };
+        new ApexCharts(document.querySelector("#chart-radar"), optionsRadar).render();
+
+        // 5. MODAL LOGIC
+        const modal = document.getElementById('project-modal');
+        const modalContent = modal.querySelector('.modal-content');
+        const modalBody = document.getElementById('modal-body-content');
+        const closeBtn = document.getElementById('close-modal');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        function openModal(e) {
+            const projectId = e.currentTarget.getAttribute('data-project');
+            const data = projectsData[projectId];
+            if (!data) return; 
+
+            const techsHtml = data.techs.map(tech => 
+                `<span class="px-3 py-1 bg-cyan-500/20 text-neon rounded text-sm border border-cyan-500/30 font-mono">${tech}</span>`
+            ).join('');
+
+            const thumbnailsHtml = data.thumbnails.map(thumb => 
+                `<div class="h-24 bg-white/5 rounded-lg flex items-center justify-center border border-white/10 hover:border-neon transition-colors cursor-pointer overflow-hidden relative project-thumb">
+                    ${thumb}
+                </div>`
+            ).join('');
+
+            modalBody.innerHTML = `
+                <div class="space-y-4">
+                    <div id="main-image-display" class="h-64 bg-gradient-to-tr from-cyan-900/50 to-blue-900/50 rounded-xl flex items-center justify-center border border-white/10 overflow-hidden relative group">
+                        ${data.mainImage}
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        ${thumbnailsHtml}
+                    </div>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-bold mb-4 text-white flex items-center">
+                        ${data.title} <span class="ml-3 text-sm px-3 py-1 bg-cyan-500/20 text-neon rounded-full font-mono">Em Produção</span>
+                    </h2>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        ${data.description}
+                    </p>
+                    <div class="mb-8">
+                        <h4 class="text-sm font-mono text-gray-400 mb-3">TECNOLOGIAS UTILIZADAS:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            ${techsHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const mainImageContainer = document.getElementById('main-image-display');
+            const thumbs = document.querySelectorAll('.project-thumb');
+
+            thumbs.forEach(thumb => {
+                thumb.addEventListener('click', function() {
+                    anime({
+                        targets: mainImageContainer,
+                        opacity: [1, 0.5, 1],
+                        duration: 400,
+                        easing: 'easeInOutQuad',
+                        begin: () => {
+                             mainImageContainer.innerHTML = this.innerHTML;
+                        }
+                    });
+                });
+            });
+
+            document.body.classList.add('modal-open'); 
+            modal.style.display = 'flex';
+            anime.timeline({ easing: 'easeOutExpo' })
+                .add({ targets: modal, opacity: [0, 1], duration: 400 })
+                .add({ targets: modalContent, opacity: [0, 1], scale: [0.9, 1], translateY: [20, 0], duration: 600, offset: '-=200' });
+        }
+
+        function closeModal() {
+            anime.timeline({ easing: 'easeInExpo' })
+                .add({ targets: modalContent, opacity: [1, 0], scale: [1, 0.9], translateY: [0, 20], duration: 400 })
+                .add({ targets: modal, opacity: [1, 0], duration: 300, offset: '-=200', complete: function(anim) {
+                        modal.style.display = 'none';
+                        document.body.classList.remove('modal-open');
+                }});
+        }
+
+        projectCards.forEach(card => card.addEventListener('click', openModal));
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+        // 6. NETWORK ANIMATION
+        const networkContainer = document.getElementById('network-anim');
+        const nodeCount = 20; 
+        const nodes = [];
+
+        for (let i = 0; i < nodeCount; i++) {
+            const node = document.createElement('div');
+            node.classList.add('node');
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            node.style.left = `${x}%`;
+            node.style.top = `${y}%`;
+            networkContainer.appendChild(node);
+            nodes.push({ el: node, x: x, y: y });
+        }
+
+        for (let i = 0; i < nodeCount; i++) {
+            for (let j = i + 1; j < nodeCount; j++) {
+                if (Math.random() > 0.85) { 
+                    const p1 = nodes[i];
+                    const p2 = nodes[j];
+                    const dx = p2.x - p1.x;
+                    const dy = p2.y - p1.y;
+                    const length = Math.sqrt(dx*dx + dy*dy);
+                    
+                    const line = document.createElement('div');
+                    line.classList.add('connection');
+                    line.style.width = `${length}%`;
+                    line.style.left = `${p1.x}%`;
+                    line.style.top = `${p1.y}%`;
+                }
+            }
+        }
+
+        anime({
+            targets: '.node',
+            scale: [1, 1.5],
+            opacity: [0.5, 1],
+            delay: anime.stagger(200),
+            direction: 'alternate',
+            loop: true,
+            easing: 'easeInOutSine'
+        });
+
+        for(let i=0; i<10; i++){
+            const packet = document.createElement('div');
+            packet.classList.add('packet');
+            networkContainer.appendChild(packet);
+            animatePacket(packet);
+        }
+
+        function animatePacket(el) {
+            const startX = Math.random() * 100;
+            const startY = Math.random() * 100;
+            const endX = Math.random() * 100;
+            const endY = Math.random() * 100;
+            
+            el.style.left = `${startX}%`;
+            el.style.top = `${startY}%`;
+            
+            anime({
+                targets: el,
+                left: `${endX}%`,
+                top: `${endY}%`,
+                opacity: [0, 1, 0],
+                duration: 2000 + Math.random() * 2000,
+                easing: 'linear',
+                complete: () => animatePacket(el)
+            });
+        }
+
+        // ===============================================
+        // 7. LÓGICA DA ANIMAÇÃO DO NOTEBOOK (INTEGRADO)
+        // ===============================================
+        let hasLaptopAnimated = false;
+        const laptopSection = document.getElementById('laptop-section');
+        const laptopWrapper = document.getElementById('laptop-wrapper');
+        const terminal = document.getElementById('terminal');
+
+        const codeLines = [
+            { text: 'print("Olá Mundo, Meu nome é Amon Timo esse é o meu Portifólio")', type: 'code' },
+            { text: '', type: 'break' },
+            { text: '# Carregando portifólio...', type: 'comment' },
+            { text: 'import portifolio_core as pc', type: 'code' },
+            { text: 'import creative_engine', type: 'code' },
+            { text: '', type: 'break' },
+            { text: 'class Developer:', type: 'code' },
+            { text: '    def __init__(self):', type: 'code' },
+            { text: '        self.name = "Amon Timo"', type: 'code' },
+            { text: '        self.skills = ["Design", "Code", "Motion"]', type: 'code' },
+            { text: '', type: 'break' },
+            { text: '    def show_projects(self):', type: 'code' },
+            { text: '        return "Carregando Projetos..."', type: 'code' },
+            { text: '', type: 'break' },
+            { text: 'user = Developer()', type: 'code' },
+            { text: 'user.show_projects()', type: 'code' }
+        ];
+
+        function formatLineHTML(text, type) {
+            if (type === 'comment') return `<span class="com">${text}</span>`;
+            if (type === 'break') return '<br>';
+            
+            let formatted = text
+                .replace(/(".+?")/g, '<span class="str">$1</span>')
+                .replace(/\b(print|import|class|def|self|return)\b/g, '<span class="kwd">$1</span>')
+                .replace(/\b(Developer|show_projects|__init__)\b/g, '<span class="func">$1</span>');
+            
+            return `<span class="plain">${formatted}</span>`;
+        }
+
+        async function typeWriter() {
+            terminal.innerHTML = ''; 
+            const cursor = document.createElement('span');
+            cursor.className = 'cursor';
+            terminal.appendChild(cursor);
+
+            for (let line of codeLines) {
+                const lineContainer = document.createElement('div');
+                lineContainer.className = 'code-line';
+                terminal.insertBefore(lineContainer, cursor);
+
+                if (line.type === 'break') {
+                    await new Promise(r => setTimeout(r, 100));
+                    continue;
+                }
+
+                const chars = line.text.split('');
+                let currentText = '';
+
+                for (let char of chars) {
+                    currentText += char;
+                    lineContainer.textContent = currentText; 
+                    await new Promise(r => setTimeout(r, Math.random() * 20 + 20));
+                }
+
+                lineContainer.innerHTML = formatLineHTML(currentText, line.type);
+                await new Promise(r => setTimeout(r, 80)); 
+            }
+        }
+
+        function runLaptopAnimation() {
+            hasLaptopAnimated = true;
+            laptopWrapper.classList.add('active'); 
+
+            const tl = anime.timeline({
+                easing: 'easeInOutQuad',
+                autoplay: true
+            });
+
+            // 1. Desenha o notebook (Hardware)
+            tl.add({
+                targets: '.laptop-svg .draw-line',
+                strokeDashoffset: [anime.setDashoffset, 0],
+                duration: 2500, 
+                delay: anime.stagger(50)
+            })
+            // 2. Acende a tela e começa a digitar SIMULTANEAMENTE
+            .add({
+                targets: '.screen-content',
+                opacity: [0, 1],
+                duration: 500,
+                begin: function() {
+                    typeWriter();
+                }
+            }, 800) 
+            
+            // 3. Preenchimento sutil nas teclas
+            .add({
+                targets: '.key',
+                fill: 'rgba(0, 242, 255, 0.03)', 
+                duration: 1000,
+                delay: anime.stagger(20)
+            }, '-=1000');
+        }
+
+        const laptopObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasLaptopAnimated) {
+                    runLaptopAnimation();
+                    laptopObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.5 
+        });
+
+        if (laptopSection) {
+            laptopObserver.observe(laptopSection);
+        }
+
+    </script>
+</body>
+</html>
