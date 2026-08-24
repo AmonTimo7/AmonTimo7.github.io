@@ -75,13 +75,21 @@
   }
 
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;   /* iPhone não infla a fonte ao girar a tela */
+  }
   body {
     margin: 0;
     background: var(--bg);
     color: var(--fg);
     font-family: 'DM Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
+    overflow-wrap: break-word;
+    -webkit-tap-highlight-color: transparent;  /* sem o retângulo cinza do toque */
+  }
+  a, button, [role="button"], .reveal-item, .faq-head {
+    touch-action: manipulation;       /* mata o atraso de 300ms do duplo-toque */
   }
   .font-display { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: -.03em; }
   a { color: var(--accent); text-decoration: none; transition: color .3s var(--ease); }
@@ -450,39 +458,96 @@
   .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px,1fr)); gap: 40px; align-items: start; }
   .mobile-menu { display: none; }
 
-  @media (max-width: 1040px) { .grid-4 { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-  @media (max-width: 980px) {
-    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
-    .hero-visual { max-width: 420px; margin: 0 auto; }
+  /* =====================================================================
+     Responsivo — do maior para o menor.
+     ===================================================================== */
+
+  @media (max-width: 1040px) {
+    .grid-4 { grid-template-columns: repeat(2, minmax(0,1fr)); }
   }
-  @media (max-width: 560px) { .grid-4 { grid-template-columns: 1fr; } }
+
+  @media (max-width: 980px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+    .hero-visual { max-width: 400px; margin: 0 auto; }
+  }
+
+  /* Ponto em que o mouse deixa de existir. Tudo que dependia de hover
+     precisa ter um caminho por toque daqui pra baixo. */
   @media (max-width: 900px) {
     .nav-desktop { display: none !important; }
     .icon-btn { display: inline-flex; }
     .mobile-menu { display: block; }
+    .mobile-menu .nav-link { min-height: 48px; display: flex !important; align-items: center; }
+
     /* sem cursor não há "seguir o mouse": o painel entra no fluxo e troca no toque */
     .reveal-media {
       position: static; opacity: 1;
       width: 100%; max-width: 420px; height: 300px;
-      margin: 0 auto 34px; transform: none !important;
+      margin: 0 auto 30px; transform: none !important;
     }
-    .reveal-copy { white-space: normal; font-size: clamp(26px, 7vw, 40px); }
-    .reveal-list { gap: 22px; }
+    /* No toque cada item da lista vira um botão. A altura de alvo vem do
+       line-height, não de padding: o padding deixaria a linha antiga
+       aparecendo na hora do rolo, porque o recorte é no próprio item. */
+    .reveal-copy { white-space: normal; font-size: clamp(26px, 6.6vw, 40px); line-height: 1.9; }
+    .reveal-list { gap: 14px; }
     .chat-msg { max-width: 88%; }
-    /* a pilha 3D fica grande demais em coluna única: encolhe e centraliza */
-    .swap-stage { height: 340px; }
-    .swap-container { right: 50%; transform: translate(50%, 6%) scale(.82); transform-origin: bottom center; }
-    .drift { height: 420px; }
+
+    /* a pilha 3D não cabe em coluna única no tamanho original */
+    .swap-stage { height: 320px; }
+    .swap-container { right: 50%; transform: translate(50%, 4%) scale(.8); transform-origin: bottom center; }
+
+    .drift { height: 400px; }
+    .two-col { gap: 44px; }
   }
-  @media (max-width: 560px) {
-    .grid-2 { grid-template-columns: 1fr; }
-    .swap-container { transform: translate(50%, 6%) scale(.62); }
-  }
+
   @media (max-width: 640px) {
+    .wrap { padding-left: 18px; padding-right: 18px; }
     .nm-card { border-radius: 26px; }
-    .pad-hero { padding-top: 56px !important; padding-bottom: 48px !important; }
-    .pad-section { padding-top: 56px !important; padding-bottom: 64px !important; }
-    .pricing-grid { gap: 46px; }
+    .blob-inner { border-radius: 26px; }
+    .blob-glow { border-radius: 28px; }
+    .pad-hero { padding-top: 44px !important; padding-bottom: 40px !important; }
+    .pad-section { padding-top: 52px !important; padding-bottom: 56px !important; }
+    .pricing-grid { gap: 44px; }
+
+    /* blur grande é o que mais custa GPU em celular */
+    .fluid { filter: blur(34px); }
+    .blob-header { height: 190px; }
+    .blob-head { padding: 24px 22px 0; }
+    .blob-body { padding: 22px 22px 28px; }
+
+    .hero-visual { max-width: 290px; }
+    .reveal-media { height: 250px; }
+
+    .drift { height: 320px; }
+    .drift-tile { width: 150px; height: 100px; }
+    .drift-stage { gap: 12px; }
+    .drift-col { gap: 12px; }
+
+    /* o botão flutuante vira só o ícone: com texto ele cobria a página numa tela de 375px */
+    .fab { padding: 0 !important; width: 56px; height: 56px; justify-content: center; right: 16px; bottom: 16px; }
+    .fab span { display: none; }
+
+    .faq-head { padding: 20px; }
+    .chat-bubble { font-size: 15px; padding: 13px 16px; }
+    .nm-pill { font-size: 12.5px; }
+
+    /* botão de largura cheia é mais fácil de acertar com o polegar */
+    .hero-cta { flex-direction: column; align-items: stretch; }
+    .hero-cta .btn { width: 100%; }
+    .goo { width: 100%; padding: 22px 24px; }
+  }
+
+  @media (max-width: 560px) {
+    .grid-4, .grid-2 { grid-template-columns: 1fr; }
+    .swap-stage { height: 270px; }
+    .swap-container { transform: translate(50%, 4%) scale(.6); }
+  }
+
+  @media (max-width: 380px) {
+    .wrap { padding-left: 14px; padding-right: 14px; }
+    .reveal-copy { font-size: 24px; }
+    .blob-header { height: 176px; }
+    .hero-visual { max-width: 250px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -548,7 +613,7 @@
           A ACTech cuida do seu site, das suas redes sociais e da sua presença no Google — tudo em uma mensalidade única, feita para comércios, mercados, lojas e prestadores de serviço.
         </p>
 
-        <div data-reveal="1" style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px;">
+        <div data-reveal="1" class="hero-cta" style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px;">
           <a class="btn btn-primary" href="#planos">Escolha seu plano</a>
           <a class="btn btn-secondary" href="{{ whatsUrl }}" target="_blank">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="#38B2AC"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path><path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"></path></svg>
@@ -1014,9 +1079,9 @@
     </div>
   </footer>
 
-  <a class="float-slow" href="{{ whatsUrl }}" target="_blank" style="position: fixed; z-index: 60; right: 22px; bottom: 22px; display: inline-flex; align-items: center; gap: 11px; min-height: 48px; background: #E0E5EC; color: #3D4852; font-weight: 700; font-size: 15px; padding: 15px 24px; border-radius: 999px; box-shadow: 9px 9px 16px rgba(163,177,198,.6), -9px -9px 16px rgba(255,255,255,.5);">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="#38B2AC"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"></path></svg>
-    Fale no WhatsApp
+  <a class="fab float-slow" href="{{ whatsUrl }}" target="_blank" aria-label="Falar no WhatsApp" style="position: fixed; z-index: 60; right: 22px; bottom: 22px; display: inline-flex; align-items: center; gap: 11px; min-height: 48px; background: #E0E5EC; color: #3D4852; font-weight: 700; font-size: 15px; padding: 15px 24px; border-radius: 999px; box-shadow: 9px 9px 16px rgba(163,177,198,.6), -9px -9px 16px rgba(255,255,255,.5);">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="#38B2AC" style="flex: none;"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"></path></svg>
+    <span>Fale no WhatsApp</span>
   </a>
 </div>
 </x-dc>
@@ -1069,7 +1134,7 @@ class Component extends DCLogic {
      5. TiltCard — inclinação 3D nos cards de plano (rotationFactor 11)
      --------------------------------------------------------------- */
   setupTilt() {
-    if (this.reduced()) return;
+    if (this.reduced() || !this.finePointer()) return;
     const F = 11;
     const bound = [];
     [...document.querySelectorAll('[data-tilt]')].forEach((el) => {
@@ -1124,6 +1189,8 @@ class Component extends DCLogic {
       words.forEach((w, n) => w.classList.toggle('is-focus', n === i));
     };
     place();
+    // a fonte carrega depois (display=swap) e muda a largura das palavras
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
     const iv = setInterval(() => {
       i = (i + 1) % words.length;
       place();
@@ -1215,36 +1282,59 @@ class Component extends DCLogic {
     const art = [...document.querySelectorAll('.reveal-slide svg')];
     if (!art.length) return;
 
-    const COLS = 5;
-    const TILE_H = 132;
-    const GAP = 18;
     const PER_COL = 6;
     const SPEED = 42;
     const VARIANCE = 0.45;
     const BASE = 'rotateX(16deg) rotateZ(-14deg) translateZ(-120px)';
 
-    const cols = [];
-    for (let c = 0; c < COLS; c++) {
-      const col = document.createElement('div');
-      col.className = 'drift-col';
-      for (let k = 0; k < PER_COL * 2; k++) {
-        const tile = document.createElement('div');
-        tile.className = 'drift-tile';
-        const svg = art[(c * 2 + k) % art.length].cloneNode(true);
-        svg.setAttribute('viewBox', '0 55 300 200');
-        svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
-        tile.appendChild(svg);
-        col.appendChild(tile);
+    // Menos colunas em tela pequena: 60 tiles com perspectiva 3D derrubam
+    // o frame rate de celular sem que nada disso apareça na tela.
+    const colCount = () => (window.innerWidth <= 640 ? 3 : window.innerWidth <= 900 ? 4 : 5);
+
+    let cols = [];
+
+    const build = () => {
+      stage.innerHTML = '';
+      cols = [];
+      const n = colCount();
+      for (let c = 0; c < n; c++) {
+        const col = document.createElement('div');
+        col.className = 'drift-col';
+        for (let k = 0; k < PER_COL * 2; k++) {
+          const tile = document.createElement('div');
+          tile.className = 'drift-tile';
+          const svg = art[(c * 2 + k) % art.length].cloneNode(true);
+          svg.setAttribute('viewBox', '0 55 300 200');
+          svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+          tile.appendChild(svg);
+          col.appendChild(tile);
+        }
+        stage.appendChild(col);
+        cols.push({
+          el: col,
+          cycle: 0,
+          speed: SPEED * (1 - VARIANCE / 2 + Math.random() * VARIANCE),
+          off: 0
+        });
       }
-      stage.appendChild(col);
-      const cycle = PER_COL * (TILE_H + GAP);
-      cols.push({
-        el: col,
-        cycle,
-        speed: SPEED * (1 - VARIANCE / 2 + Math.random() * VARIANCE),
-        off: Math.random() * cycle
+      measure();
+    };
+
+    // O tamanho do tile e o gap mudam por CSS em cada breakpoint, então o
+    // ciclo do loop é medido do DOM — cravar 132/18 criaria emenda visível.
+    const measure = () => {
+      cols.forEach((c) => {
+        const tile = c.el.firstElementChild;
+        if (!tile) return;
+        const gap = parseFloat(getComputedStyle(c.el).rowGap) || 0;
+        const cycle = PER_COL * (tile.offsetHeight + gap);
+        c.off = cycle ? c.off % cycle : 0;
+        c.cycle = cycle;
       });
-    }
+    };
+
+    build();
+    cols.forEach((c) => { c.off = Math.random() * c.cycle; });
 
     if (this.reduced()) {
       stage.style.transform = BASE;
@@ -1276,8 +1366,10 @@ class Component extends DCLogic {
     };
     const onLeave = () => { t.x = 0; t.y = 0; };
 
-    wall.addEventListener('mousemove', onMove);
-    wall.addEventListener('mouseleave', onLeave);
+    if (this.finePointer()) {
+      wall.addEventListener('mousemove', onMove);
+      wall.addEventListener('mouseleave', onLeave);
+    }
 
     // só anima enquanto a seção está na tela
     const io = new IntersectionObserver((entries) => {
@@ -1288,9 +1380,23 @@ class Component extends DCLogic {
     }, { threshold: 0 });
     io.observe(wall);
 
+    // girar o celular muda o número de colunas e o tamanho do tile
+    let resizeTimer = null;
+    let lastCols = colCount();
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (colCount() !== lastCols) { lastCols = colCount(); build(); }
+        else measure();
+      }, 180);
+    };
+    window.addEventListener('resize', onResize);
+
     this._teardown.push(() => {
       if (raf) cancelAnimationFrame(raf);
+      clearTimeout(resizeTimer);
       io.disconnect();
+      window.removeEventListener('resize', onResize);
       wall.removeEventListener('mousemove', onMove);
       wall.removeEventListener('mouseleave', onLeave);
     });
@@ -1305,12 +1411,19 @@ class Component extends DCLogic {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
+  /** Existe um cursor de verdade? No celular não — e efeitos de hover viram
+      armadilha: o card fica inclinado depois do toque, a "mordida" do botão
+      não fecha, e o efeito de clique dispara a cada rolagem. */
+  finePointer() {
+    return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  }
+
   /* ---------------------------------------------------------------
      1. Efeito de clique "sniper" (Originkit Click Effects, via GSAP)
      Quatro traços saindo do centro + 8 partículas em 8 ângulos.
      --------------------------------------------------------------- */
   setupClickFx() {
-    if (this.reduced()) return;
+    if (this.reduced() || !this.finePointer()) return;
     // O GSAP vem do CDN pelo <helmet>, então pode ainda não estar na window.
     if (!window.gsap) {
       let tries = 0;
@@ -1531,7 +1644,7 @@ class Component extends DCLogic {
     const squash = btn.querySelector('[data-goo-squash]');
     const bite = btn.querySelector('[data-goo-bite]');
     if (!follow || !squash || !bite) return;
-    if (this.reduced()) return;
+    if (this.reduced() || !this.finePointer()) return;
 
     const TAU = 0.02 + 0.55 * (0.4 - 0.02); // smoothness 55
     const SQUASH_TAU = 0.09;

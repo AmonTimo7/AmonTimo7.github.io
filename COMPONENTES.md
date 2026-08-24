@@ -1,6 +1,6 @@
 # Componentes de terceiros usados na landing
 
-O protótipo (`ACTech Landing.dc.html`) roda no runtime `x-dc` do Claude Design: React global,
+A página (`index.html`) roda no runtime `x-dc` do Claude Design: React global,
 sem bundler e sem npm. Por isso os componentes abaixo foram **portados** para HTML + CSS + JS
 dentro do próprio arquivo, preservando parâmetros e física do original.
 
