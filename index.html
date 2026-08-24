@@ -426,6 +426,76 @@
     padding: 26px 28px; display: flex; flex-direction: column; justify-content: space-between;
   }
 
+  /* ---------- Máquina de escrever do título ---------- */
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+  .tw-cursor {
+    display: inline-block; width: 3px; height: .82em; background: var(--accent);
+    vertical-align: baseline; margin-left: 4px; border-radius: 2px;
+    animation: blink 1s step-end infinite;
+  }
+  .tw-cursor.is-off { display: none; }
+  .tw-linha { white-space: pre-wrap; }
+  .tw-final {
+    display: block; opacity: 0; transform: translateY(8px);
+    transition: opacity .6s var(--ease), transform .6s var(--ease);
+    background: linear-gradient(100deg, #6C63FF 10%, #8B84FF 90%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .tw-final.is-on { opacity: 1; transform: none; }
+
+  /* ---------- Vídeo do hero ---------- */
+  .hero-video {
+    position: absolute; inset: 0; border-radius: 999px; overflow: hidden;
+    box-shadow: var(--nm-out); background: var(--bg);
+    opacity: 0; transition: opacity .6s var(--ease); pointer-events: none;
+  }
+  .hero-video.is-on { opacity: 1; }
+  .hero-video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ---------- Pills de serviço ---------- */
+  .serv-titulo { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 700; font-size: 19px; letter-spacing: -.02em; color: var(--fg); }
+  .serv-sub { font-size: 14.5px; color: var(--muted); margin: 5px 0 16px; }
+  .serv-lista { display: flex; flex-wrap: wrap; gap: 10px; }
+  .serv {
+    display: inline-flex; align-items: center; gap: 9px; min-height: 46px;
+    padding: 12px 20px; border: none; border-radius: 999px; cursor: pointer;
+    font-family: inherit; font-size: 15px; font-weight: 600;
+    background: var(--bg); color: var(--fg); box-shadow: var(--nm-out-sm);
+    transition: all .25s var(--ease);
+  }
+  .serv:hover { transform: translateY(-1px); box-shadow: var(--nm-out); }
+  .serv:active { transform: translateY(.5px); box-shadow: var(--nm-in-sm); }
+  .serv.is-on {
+    background: var(--accent); color: #fff;
+    box-shadow: 5px 5px 10px rgba(163,177,198,.6), -5px -5px 10px rgba(255,255,255,.5);
+  }
+  .serv-check {
+    width: 18px; height: 18px; display: none; place-items: center; flex: none;
+    animation: checkIn .32s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  .serv.is-on .serv-check { display: grid; }
+  @keyframes checkIn { from { transform: scale(0) rotate(-25deg); opacity: 0; } to { transform: none; opacity: 1; } }
+
+  .serv-vazio { font-size: 13px; font-style: italic; color: var(--muted); opacity: .5; margin-top: 14px; }
+  .serv-banner {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    margin-top: 16px; padding: 16px 18px; border-radius: 22px;
+    background: var(--bg); box-shadow: var(--nm-in);
+    animation: bannerIn .45s var(--ease) both;
+  }
+  @keyframes bannerIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  .serv-banner-txt { font-size: 14.5px; color: var(--muted); line-height: 1.5; }
+  .serv-banner-txt b { color: var(--fg); font-weight: 700; }
+  .serv-ir {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
+    padding: 11px 18px; border: none; border-radius: 999px; cursor: pointer;
+    font-family: inherit; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+    background: var(--bg); color: var(--accent); box-shadow: var(--nm-out-sm);
+    transition: all .25s var(--ease);
+  }
+  .serv-ir:hover { transform: translateY(-1px); box-shadow: var(--nm-out); }
+  .serv-ir:active { transform: translateY(.5px); box-shadow: var(--nm-in-sm); }
+
   /* ---------- Carrossel de trabalhos ---------- */
   .carro { position: relative; max-width: 1000px; margin: 0 auto; }
   .carro-janela { overflow: hidden; border-radius: var(--r-card); }
@@ -833,15 +903,45 @@
           Sem taxa de setup. Cancelamento após a fidelidade.
         </div>
 
-        <h1 data-reveal="1" class="font-display" style="font-weight: 800; font-size: clamp(40px, 6.4vw, 76px); line-height: .98; letter-spacing: -.035em; margin: 26px 0 0; max-width: 15ch; text-wrap: balance; color: #3D4852;">
-          Site e marketing<br />no mesmo lugar.<br /><span style="background: linear-gradient(100deg, #6C63FF 10%, #8B84FF 90%); -webkit-background-clip: text; background-clip: text; color: transparent;">Sem complicação.</span>
+        <h1 class="font-display" style="font-weight: 800; font-size: clamp(40px, 6.4vw, 76px); line-height: .98; letter-spacing: -.035em; margin: 26px 0 0; max-width: 15ch; text-wrap: balance; color: #3D4852; min-height: 2.9em;">
+          <span class="tw-linha" data-tw></span><span class="tw-cursor" data-tw-cursor></span>
+          <span class="tw-final" data-tw-final>Sem complicação.</span>
         </h1>
 
         <p data-reveal="1" style="margin: 26px 0 0; max-width: 52ch; font-size: clamp(16.5px, 1.5vw, 18.5px); line-height: 1.65; color: #6B7280;">
           A ACTech cuida do seu site, das suas redes sociais e da sua presença no Google — tudo em uma mensalidade única, feita para comércios, mercados, lojas e prestadores de serviço.
         </p>
 
-        <div data-reveal="1" class="hero-cta" style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px;">
+        <div data-reveal="1" style="margin-top: 34px;">
+          <div class="serv-titulo">Do que você precisa?</div>
+          <div class="serv-sub">Pode marcar mais de um — ou nenhum, se ainda não souber.</div>
+          <div class="serv-lista">
+            <sc-for list="{{ servicos }}" as="sv" hint-placeholder-count="5">
+              <button class="{{ sv.cls }}" onClick="{{ sv.toggle }}" aria-pressed="{{ sv.on }}">
+                <span class="serv-check">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
+                </span>
+                {{ sv.label }}
+              </button>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ semServico }}" hint-placeholder-val="{{ true }}">
+            <div class="serv-vazio">Marque acima o que você precisa — ou siga direto pelos botões.</div>
+          </sc-if>
+
+          <sc-if value="{{ temServico }}" hint-placeholder-val="{{ false }}">
+            <div class="serv-banner">
+              <div class="serv-banner-txt">Show. Vamos falar sobre <b>{{ servicosTxt }}</b>.</div>
+              <button class="serv-ir" onClick="{{ servicosIr }}">
+                Bora começar
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"></path><path d="M12 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
+          </sc-if>
+        </div>
+
+        <div data-reveal="1" class="hero-cta" style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px;">
           <a class="btn btn-primary" href="#planos">Escolha seu plano</a>
           <a class="btn btn-secondary" href="{{ whatsUrl }}" target="_blank">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="#38B2AC"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path><path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"></path></svg>
@@ -852,6 +952,19 @@
 
       <div data-reveal="1" class="hero-visual depth" style="position: relative; aspect-ratio: 1; width: 100%;">
         <div class="nm-card" style="position: absolute; inset: 0; border-radius: 999px;"></div>
+
+        <!-- ================================================================
+             VÍDEO DO HERO — o slot está pronto e desligado.
+             Jogue um arquivo em imgs/hero.mp4 e ele liga sozinho: no desktop
+             o vídeo é "raspado" pelo movimento do mouse, no celular toca em
+             looping. Se o arquivo não existir, ficam os círculos de baixo.
+             ================================================================ -->
+        <div class="hero-video" data-video>
+          <video muted playsinline preload="auto" loop data-video-el>
+            <source src="imgs/hero.mp4" type="video/mp4" />
+          </video>
+        </div>
+
         <div class="depth-ring depth-1"></div>
         <div class="depth-ring depth-2"></div>
         <div class="depth-ring depth-3"></div>
@@ -1606,7 +1719,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5599999999999&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;whatsappMessage&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Olá! Vi a página da ACTech e quero saber mais sobre os planos.&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;}}">
 class Component extends DCLogic {
-  state = { open: 0, menu: false, quiz: false, step: 0, ans: {}, nome: '', loadI: 0, unlocked: false, lesson: -1, slide: 0, feito: false, portal: '' };
+  state = { open: 0, menu: false, quiz: false, step: 0, ans: {}, nome: '', loadI: 0, unlocked: false, lesson: -1, slide: 0, feito: false, portal: '', servs: [] };
 
   componentDidMount() {
     const els = Array.from(document.querySelectorAll('[data-reveal]'));
@@ -1647,6 +1760,8 @@ class Component extends DCLogic {
     this.setupHoverReveal();
     this.setupChat();
     this.setupGooButton();
+    this.setupMaquina();
+    this.setupVideo();
     this.setupPortao();
     this.setupCarro();
     this.setupTilt();
@@ -1663,6 +1778,72 @@ class Component extends DCLogic {
       else if (++tries > 50) clearInterval(poll);
     }, 100);
     this._teardown.push(() => clearInterval(poll));
+  }
+
+  /* ---------------------------------------------------------------
+     Máquina de escrever do título. Roda direto no DOM: com estado seriam
+     trinta e poucos re-renders da página inteira só pra escrever a frase.
+     --------------------------------------------------------------- */
+  setupMaquina() {
+    const alvo = document.querySelector('[data-tw]');
+    const cursor = document.querySelector('[data-tw-cursor]');
+    const final = document.querySelector('[data-tw-final]');
+    if (!alvo) return;
+
+    const texto = ['Site e marketing', 'no mesmo lugar.'].join(String.fromCharCode(10));
+    const fim = () => {
+      alvo.textContent = texto;
+      if (cursor) cursor.classList.add('is-off');
+      if (final) final.classList.add('is-on');
+    };
+
+    if (this.reduced()) { fim(); return; }
+
+    let i = 0;
+    const inicio = setTimeout(() => {
+      this._twTimer = setInterval(() => {
+        i += 1;
+        alvo.textContent = texto.slice(0, i);
+        if (i >= texto.length) { clearInterval(this._twTimer); fim(); }
+      }, 38);
+    }, 600);
+
+    this._teardown.push(() => { clearTimeout(inicio); clearInterval(this._twTimer); });
+  }
+
+  /* ---------------------------------------------------------------
+     Vídeo do hero: só aparece se o arquivo existir. No desktop o mouse
+     "raspa" o vídeo quadro a quadro; no celular ele toca sozinho.
+     --------------------------------------------------------------- */
+  setupVideo() {
+    const caixa = document.querySelector('[data-video]');
+    const v = document.querySelector('[data-video-el]');
+    if (!caixa || !v) return;
+
+    let ligado = false;
+    const ligar = () => {
+      if (ligado) return;
+      ligado = true;
+      caixa.classList.add('is-on');
+      if (!this.finePointer()) { v.loop = true; v.play().catch(() => {}); }
+    };
+    v.addEventListener('loadeddata', ligar);
+    v.addEventListener('error', () => caixa.remove(), true);
+
+    let px = null;
+    const raspar = (e) => {
+      if (!ligado || !this.finePointer() || !v.duration) return;
+      if (px === null) { px = e.clientX; return; }
+      const d = e.clientX - px;
+      px = e.clientX;
+      const alvo = v.currentTime + (d / window.innerWidth) * 0.8 * v.duration;
+      v.currentTime = Math.max(0, Math.min(v.duration, alvo));
+    };
+    window.addEventListener('mousemove', raspar);
+    this._teardown.push(() => {
+      window.removeEventListener('mousemove', raspar);
+      v.removeEventListener('loadeddata', ligar);
+    });
   }
 
   /* ---------------------------------------------------------------
@@ -2402,11 +2583,12 @@ class Component extends DCLogic {
       'Maior aperto: ' + L('aperto', { clientes: 'poucos clientes novos', tempo: 'falta de tempo', resultado: 'já tentei e não deu', comecar: 'não sei por onde começar' }),
       'Meta em 6 meses: ' + L('meta', { mais: 'mais clientes novos', conhecido: 'ser conhecido no bairro', online: 'vender online', organizado: 'organizar tudo' }),
       'Investimento: ' + L('verba', { ate200: 'até R$ 200', m200: 'R$ 200 a R$ 400', mais: 'mais de R$ 400', nsei: 'ainda não sei' }),
+      this.state.servs.length ? 'Interesse marcado no site: ' + this.state.servs.join(', ') : '',
       'Nota de presença digital: ' + score + '/100',
       'Plano indicado pelo site: ' + plan,
       '',
       'Quero começar!'
-    ].join('\n');
+    ].filter(Boolean).join('\n');
 
     return {
       score,
@@ -2448,6 +2630,7 @@ class Component extends DCLogic {
     const done = open && st === N + 2;
     const res = done ? this.quizResult() : null;
 
+    const SERV = ['Site', 'Redes sociais', 'Google', 'Anúncios', 'Ainda não sei'];
     const TR = this.trabalhos();
     const si = ((this.state.slide % TR.length) + TR.length) % TR.length;
 
@@ -2455,6 +2638,25 @@ class Component extends DCLogic {
       whatsUrl: 'https://wa.me/' + phone + '?text=' + msg,
 
       trabalhos: TR,
+
+      servicos: SERV.map((label) => ({
+        label,
+        cls: 'serv' + (this.state.servs.indexOf(label) >= 0 ? ' is-on' : ''),
+        on: this.state.servs.indexOf(label) >= 0 ? 'true' : 'false',
+        toggle: () => this.setState((st2) => ({
+          servs: st2.servs.indexOf(label) >= 0
+            ? st2.servs.filter((x) => x !== label)
+            : st2.servs.concat([label])
+        }))
+      })),
+      semServico: this.state.servs.length === 0,
+      temServico: this.state.servs.length > 0,
+      // na ordem em que aparecem, não na ordem em que foram clicadas
+      servicosTxt: SERV.filter((x) => this.state.servs.indexOf(x) >= 0).join(', '),
+      servicosIr: () => {
+        this.lockScroll(true);
+        this.setState({ quiz: true, step: -1, portal: 'servico' });
+      },
       carroX: '-' + (si * 100) + '%',
       carroTag: TR[si].tag,
       carroTitulo: TR[si].titulo,
@@ -2471,6 +2673,8 @@ class Component extends DCLogic {
       quizPortal: open && st === -1,
       portalTitulo: this.state.portal === 'plano'
         ? 'Antes de escolher um plano, deixa a gente te conhecer?'
+        : this.state.portal === 'servico'
+        ? 'Show. Agora conta um pouco do seu negócio?'
         : 'Antes da conversa, deixa a gente te conhecer?',
       quizComecar: () => this.setState({ step: 0 }),
       quizPular: () => {
