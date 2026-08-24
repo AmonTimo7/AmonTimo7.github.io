@@ -1,0 +1,10 @@
+# Windows / OneDrive
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# macOS
+.DS_Store
+
+# saída do preview local
+_site/

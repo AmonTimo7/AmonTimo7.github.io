@@ -1,0 +1,6 @@
+# O workflow roda em Linux: precisa de LF, senão o bloco `run:` quebra.
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Scripts do Windows ficam com CRLF.
+*.ps1 text eol=crlf
