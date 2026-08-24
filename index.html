@@ -527,8 +527,9 @@
     box-shadow: var(--nm-in-sm); display: grid; place-items: center;
     transition: box-shadow .25s var(--ease);
   }
-  .pick-t { font-weight: 700; font-size: 15.5px; line-height: 1.3; transition: color .25s var(--ease); }
-  .pick-s { font-size: 13px; color: var(--muted); line-height: 1.5; margin-top: 5px; font-weight: 400; }
+  .pick-t { display: block; font-weight: 700; font-size: 15.5px; line-height: 1.3; transition: color .25s var(--ease); }
+  .pick-s { display: block; font-size: 13px; color: var(--muted); line-height: 1.5; margin-top: 5px; font-weight: 400; }
+  .pick-s:empty { display: none; }
 
   /* variante em linha, pra perguntas de "nível" */
   .pick.is-row { flex-direction: row; align-items: center; min-height: 74px; gap: 15px; padding: 16px 20px; border-radius: var(--r-base); }
