@@ -778,6 +778,68 @@
     .hero-visual { max-width: 250px; }
   }
 
+  /* =====================================================================
+     Impressão / salvar em PDF.
+     O ponto crítico: a animação de entrada deixa cada bloco em opacity 0
+     até a rolagem chegar nele. Ao imprimir, o navegador monta a página
+     inteira sem rolar — então tudo que não foi visto sairia em branco.
+     ===================================================================== */
+  @media print {
+    @page { margin: 12mm; }
+    html, body { background: #fff !important; }
+
+    [data-reveal] { opacity: 1 !important; transform: none !important; }
+
+    /* elementos fixos se repetiriam em toda página */
+    header, .fab, #fx-layer, .modal { display: none !important; }
+
+    /* sombra neumórfica não existe no papel */
+    .nm-card, .nm-tile, .nm-well, .nm-track, .nm-pill, .nm-chip, .btn, .pick,
+    .tela, .mat, .quiz-card, .score-ring, .blob-inner, .gift, .chat-bubble,
+    .check-mark, .gap-ico, .ebook-tick, .faq-sign, .swap-card, .carro-btn,
+    .icon-btn, .goo-svg, .lesson-n, .quiz-dot, .pick-ico, .mat-ico {
+      box-shadow: none !important;
+    }
+    .nm-card, .tela, .mat, .blob-inner, .gift, .chat-bubble, .rec {
+      border: 1px solid #d9dee6 !important;
+    }
+
+    section { page-break-inside: avoid; break-inside: avoid; padding: 8mm 0 !important; }
+    h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+    p, li { orphans: 3; widows: 3; }
+
+    /* o cabeçalho azul do plano viraria texto branco no branco */
+    .fluid, .blob-fade, .gift-deco { display: none !important; }
+    .blob-header { height: auto !important; background: #fff !important; }
+    .blob-head { color: #1f2733 !important; padding-top: 0 !important; }
+    .blob-head span, .blob-head div { color: #1f2733 !important; }
+
+    /* o painel que segue o cursor volta pro fluxo */
+    .reveal-media {
+      position: static !important; opacity: 1 !important; transform: none !important;
+      width: 100% !important; max-width: 360px; height: 250px; margin: 0 auto 6mm;
+    }
+
+    /* no papel o carrossel mostra todos os trabalhos, um sob o outro */
+    .carro-janela { overflow: visible !important; }
+    .carro-trilho { display: block !important; transform: none !important; }
+    .carro-slide { page-break-inside: avoid; margin-bottom: 6mm; }
+    .carro-nav { display: none !important; }
+
+    /* enfeites que só fazem sentido em movimento */
+    .swap-stage, .hero-visual, .float, .float-slow { display: none !important; }
+
+    /* o efeito de foco borra as palavras não-ativas: no papel vira defeito */
+    .focus-word { filter: none !important; }
+    .focus-frame { display: none !important; }
+
+    /* as bolhas dos depoimentos têm animação de entrada própria */
+    .chat-msg { opacity: 1 !important; transform: none !important; }
+    .chat-typing { display: none !important; }
+
+    a { text-decoration: none; color: #1f2733 !important; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition-duration: .01ms !important; }
     html { scroll-behavior: auto; }
@@ -1626,8 +1688,25 @@ class Component extends DCLogic {
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
     els.forEach((el) => io.observe(el));
     this._io = io;
-
     this._teardown = [];
+
+    // Rede de proteção: sem isto, tudo que a pessoa ainda não rolou até ver
+    // sai em branco na impressão — o observador só dispara com a rolagem.
+    const revelarTudo = () => {
+      io.disconnect();
+      els.forEach((el) => {
+        el.style.transition = 'none';
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+    };
+    window.addEventListener('beforeprint', revelarTudo);
+    if (window.matchMedia) {
+      const mq = window.matchMedia('print');
+      if (mq.addEventListener) mq.addEventListener('change', (e) => { if (e.matches) revelarTudo(); });
+    }
+    this._teardown.push(() => window.removeEventListener('beforeprint', revelarTudo));
+
 
     const onKey = (e) => {
       if (e.key === 'Escape' && this.state.quiz) {
