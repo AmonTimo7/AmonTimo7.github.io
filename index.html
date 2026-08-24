@@ -653,6 +653,17 @@
   }
   a.mat .mat-tag { color: var(--accent); box-shadow: var(--nm-out-sm); }
 
+  /* ---------- layout ---------- */
+  .wrap { max-width: 1180px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr); gap: 64px; align-items: center; }
+  .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 56px; align-items: center; }
+  .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 24px; }
+  /* 4 colunas exatas: evita o "card órfão" que o auto-fit cria em telas médias */
+  .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 24px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px,1fr)); gap: 40px; align-items: start; }
+  .mobile-menu { display: none; }
+
   /* =====================================================================
      Responsivo — do maior para o menor.
      ===================================================================== */
