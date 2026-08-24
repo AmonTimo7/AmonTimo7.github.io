@@ -44,6 +44,11 @@ Nos próximos pushes é só empurrar — o site atualiza sozinho.
 - **Depoimentos**: os textos da seção "O que os clientes falam" são exemplo. Troque pelos reais.
 - **Imagens**: as seções "O que fazemos" e "Nosso trabalho" usam mockups em SVG.
   Veja [`project/COMPONENTES.md`](project/COMPONENTES.md) para trocar por fotos de verdade.
+- **Título e descrição do Google**: ficam no `<head>` do `ACTech Landing.dc.html`
+  (`<title>`, `meta name="description"` e as tags `og:`). É o que aparece no resultado
+  de busca e na prévia quando alguém manda o link no WhatsApp.
+- **Prévia no WhatsApp/redes**: falta a imagem de compartilhamento (`og:image`).
+  Sem ela o link aparece só com texto. Precisa de uma imagem 1200×630 no repositório.
 
 ---
 
