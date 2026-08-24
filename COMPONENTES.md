@@ -55,10 +55,15 @@ Fluxo próprio, sem biblioteca de terceiros — vive no estado do `DCLogic`:
 | Perguntas, ícones e textos | `quizData()` no `index.html` |
 | Cálculo da nota, faltas, ações e plano | `quizResult()` |
 | Mini-curso (5 aulas) | `lessonData()` |
-| Guia em PDF | `guia.html` (abre em aba nova; o botão "Salvar em PDF" usa a impressão do navegador) |
+| Slots do material (ebook, checklist, vídeo) | bloco `.mat-grid` no `index.html`, com as instruções em comentário logo acima |
 
 A mensagem do WhatsApp é montada com o perfil inteiro que a pessoa respondeu —
 é o que transforma o diagnóstico em lead qualificado do lado de cá.
 
 Para mudar as perguntas, mexa só em `quizData()`: a barra de progresso, o "de N"
 e o passo do nome se ajustam sozinhos ao tamanho da lista.
+
+Os três slots de material estão vazios de propósito. Enquanto estiverem com
+`data-vazio` eles aparecem afundados na superfície, marcados como "Em breve" e
+não são clicáveis. O comentário acima do bloco explica as quatro linhas que
+mudam para ativar cada um.
