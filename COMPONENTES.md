@@ -17,7 +17,7 @@ o visual já está calibrado para a paleta neumórfica.
 | TiltCard (Tilt + ClippedCircle) | unlumen-ui | cards de plano, `setupTilt()` | `Tilt`, `ClippedCircle` — **fonte não fornecida** |
 | CardSwap | React Bits | seção `#diferenciais`, `setupCardSwap()` | `gsap` |
 | TrueFocus | React Bits | título de `#planos`, `setupTrueFocus()` | `motion` |
-| DriftWall | — | seção `#trabalhos`, `setupDriftWall()` | **fonte não fornecida** (só o exemplo de uso) |
+| Carrossel de trabalhos | — | seção `#trabalhos`, dados em `trabalhos()` | nenhuma (posição vem do estado) |
 
 ## Parâmetros mantidos
 
@@ -54,8 +54,8 @@ Fluxo próprio, sem biblioteca de terceiros — vive no estado do `DCLogic`:
 |---|---|
 | Perguntas, ícones e textos | `quizData()` no `index.html` |
 | Cálculo da nota, faltas, ações e plano | `quizResult()` |
-| Mini-curso (5 aulas) | `lessonData()` |
-| Slots do material (ebook, checklist, vídeo) | bloco `.mat-grid` no `index.html`, com as instruções em comentário logo acima |
+| Apresentação do ebook | bloco `.ebook` na seção `#diagnostico` |
+| Slot do ebook | bloco `.mat-grid` no `index.html`, com as instruções em comentário logo acima |
 
 A mensagem do WhatsApp é montada com o perfil inteiro que a pessoa respondeu —
 é o que transforma o diagnóstico em lead qualificado do lado de cá.
@@ -63,7 +63,16 @@ A mensagem do WhatsApp é montada com o perfil inteiro que a pessoa respondeu �
 Para mudar as perguntas, mexa só em `quizData()`: a barra de progresso, o "de N"
 e o passo do nome se ajustam sozinhos ao tamanho da lista.
 
-Os três slots de material estão vazios de propósito. Enquanto estiverem com
-`data-vazio` eles aparecem afundados na superfície, marcados como "Em breve" e
-não são clicáveis. O comentário acima do bloco explica as quatro linhas que
-mudam para ativar cada um.
+O slot do ebook está vazio de propósito. Enquanto estiverem com
+`data-vazio` ele aparece afundado na superfície, marcado como "Em breve" e não
+é clicável. O comentário acima do bloco explica as quatro linhas que mudam para
+ativá-lo.
+
+O diagnóstico também é o portão de entrada: `setupPortao()` intercepta qualquer
+link para o WhatsApp — CTA do topo, hero, os dois planos, o botão do CTA final e
+o flutuante — e abre o modal antes. Depois que a pessoa responde (ou escolhe
+falar direto), os links voltam a funcionar normalmente.
+
+As imagens do carrossel ficam em `imgs/`. São capturas grandes (~1,6 MB no
+total); se a página começar a pesar, vale reduzir para 1600px de largura e
+converter para WebP.

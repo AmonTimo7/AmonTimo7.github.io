@@ -426,37 +426,54 @@
     padding: 26px 28px; display: flex; flex-direction: column; justify-content: space-between;
   }
 
-  /* ---------- DriftWall ---------- */
-  .drift { position: relative; height: 560px; overflow: hidden; perspective: 1200px; }
-  .drift-stage {
-    position: absolute; inset: -12%;
-    display: flex; justify-content: center; gap: 18px;
-    transform-style: preserve-3d; will-change: transform;
-  }
-  .drift-col { display: flex; flex-direction: column; gap: 18px; will-change: transform; }
-  .drift-tile {
-    width: 200px; height: 132px; flex: none;
-    border-radius: 16px; overflow: hidden;
-    background: var(--bg); box-shadow: var(--nm-out-sm);
-  }
-  .drift-tile svg { width: 100%; height: 100%; display: block; }
-  .drift-veil {
-    position: absolute; inset: 0; pointer-events: none;
-    background:
-      linear-gradient(to bottom, var(--bg) 0%, rgba(224,229,236,0) 26%, rgba(224,229,236,0) 74%, var(--bg) 100%),
-      linear-gradient(to right, var(--bg) 0%, rgba(224,229,236,0) 16%, rgba(224,229,236,0) 84%, var(--bg) 100%);
-  }
+  /* ---------- Carrossel de trabalhos ---------- */
+  .carro { position: relative; max-width: 1000px; margin: 0 auto; }
+  .carro-janela { overflow: hidden; border-radius: var(--r-card); }
+  .carro-trilho { display: flex; transition: transform .6s var(--ease); will-change: transform; }
+  .carro-slide { flex: 0 0 100%; min-width: 0; padding: 4px; }
 
-  /* ---------- layout ---------- */
-  .wrap { max-width: 1180px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
-  .hero-grid { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr); gap: 64px; align-items: center; }
-  .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 56px; align-items: center; }
-  .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 24px; }
-  /* 4 colunas exatas: evita o "card órfão" que o auto-fit cria em telas médias */
-  .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 24px; }
-  .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
-  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px,1fr)); gap: 40px; align-items: start; }
-  .mobile-menu { display: none; }
+  /* moldura de navegador: dá contexto de "isto é um site no ar" */
+  .tela { background: var(--bg); border-radius: 24px; box-shadow: var(--nm-out); overflow: hidden; }
+  .tela-topo { display: flex; align-items: center; gap: 7px; padding: 13px 16px; }
+  .tela-topo i { width: 9px; height: 9px; border-radius: 999px; background: rgba(163,177,198,.75); display: block; flex: none; }
+  .tela-url {
+    margin-left: 8px; flex: 1; height: 22px; border-radius: 999px;
+    box-shadow: var(--nm-in-sm); display: flex; align-items: center;
+    padding: 0 12px; font-size: 11px; color: var(--muted); overflow: hidden; white-space: nowrap;
+  }
+  .tela-img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; background: #eef1f5; }
+
+  .carro-info { display: flex; gap: 18px; align-items: flex-start; padding: 22px 6px 0; }
+  .carro-tag {
+    font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase;
+    font-weight: 700; color: var(--accent);
+  }
+  .carro-t { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800; font-size: clamp(19px, 2.3vw, 24px); letter-spacing: -.02em; margin: 8px 0 0; color: var(--fg); }
+  .carro-d { font-size: 15px; color: var(--muted); line-height: 1.6; margin: 8px 0 0; max-width: 56ch; }
+
+  .carro-nav { display: flex; align-items: center; gap: 12px; margin-top: 22px; justify-content: center; }
+  .carro-btn {
+    width: 52px; height: 52px; flex: none; border: none; border-radius: 999px;
+    background: var(--bg); color: var(--fg); box-shadow: var(--nm-out-sm);
+    cursor: pointer; display: grid; place-items: center; transition: all .25s var(--ease);
+  }
+  .carro-btn:hover { transform: translateY(-1px); box-shadow: var(--nm-out); }
+  .carro-btn:active { transform: translateY(.5px); box-shadow: var(--nm-in-sm); }
+  .carro-pontos { display: flex; gap: 9px; align-items: center; padding: 0 6px; }
+  /* o ponto visível é pequeno, mas a área de toque tem 44px de altura */
+  .carro-ponto {
+    width: 24px; height: 44px; border: none; padding: 0; background: none;
+    cursor: pointer; position: relative;
+  }
+  .carro-ponto::before {
+    content: ''; position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 11px; height: 11px; border-radius: 999px;
+    background: var(--bg); box-shadow: var(--nm-in-sm);
+    transition: all .3s var(--ease);
+  }
+  .carro-ponto.is-on { width: 42px; }
+  .carro-ponto.is-on::before { width: 30px; background: var(--accent); box-shadow: var(--nm-out-sm); }
 
   /* ---------- Modal do diagnóstico ---------- */
   .modal {
@@ -581,32 +598,40 @@
   .gift-wrap { max-width: 780px; margin: 26px auto 0; }
   .gift {
     position: relative; overflow: hidden; border-radius: var(--r-card);
-    background: var(--bg); box-shadow: var(--nm-out-hover); padding: 38px 40px 34px;
+    background: var(--bg); box-shadow: var(--nm-out-hover);
+    padding: 38px 40px 34px;
     animation: giftIn .7s var(--ease) both;
   }
   @keyframes giftIn { from { opacity: 0; transform: translateY(20px) scale(.97); } to { opacity: 1; transform: none; } }
-  .gift-glow { position: absolute; inset: -2px; border-radius: 34px; overflow: hidden; z-index: 0; }
-  .gift-glow i {
-    display: block; position: absolute; inset: -70%;
-    background: conic-gradient(from 0deg, #93C5FD, #A5B4FC, #60A5FA, #2B4BFF, #6C63FF, #93C5FD);
-    filter: blur(26px); animation: glowspin 6s linear infinite;
+  /* faixa fina de accent no topo, no lugar da moldura colorida inteira */
+  .gift::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent-2));
   }
-  .gift-in { position: relative; z-index: 1; background: var(--bg); border-radius: var(--r-card); }
-  .lesson { border-radius: 20px; background: var(--bg); box-shadow: var(--nm-out-sm); overflow: hidden; }
-  .lesson-head { display: flex; gap: 14px; align-items: center; padding: 17px 20px; cursor: pointer; user-select: none; min-height: 60px; }
-  .lesson-n {
-    width: 34px; height: 34px; border-radius: 999px; flex: none;
-    box-shadow: var(--nm-in-sm); display: grid; place-items: center;
-    font-weight: 800; color: var(--accent); font-size: 14px;
+  .gift-deco { position: absolute; width: 240px; height: 240px; border-radius: 999px; top: -130px; right: -90px; box-shadow: var(--nm-in); }
+
+  .ebook { display: flex; gap: 26px; align-items: flex-start; margin-top: 26px; }
+  /* a "capa" do ebook: um livro de pé, montado com sombras */
+  .ebook-capa {
+    width: 132px; flex: none; aspect-ratio: 3 / 4; border-radius: 6px 14px 14px 6px;
+    background: linear-gradient(135deg, #6C63FF, #8B84FF 55%, #38B2AC);
+    box-shadow: 12px 12px 24px rgba(163,177,198,.7), -6px -6px 14px rgba(255,255,255,.55);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 18px 16px; color: #fff; position: relative; overflow: hidden;
   }
-  .lesson-t { font-weight: 700; font-size: 15.5px; line-height: 1.4; color: var(--fg); }
-  .lesson-body { padding: 0 20px 20px 68px; font-size: 15px; line-height: 1.75; color: var(--muted); }
-  .lesson-body p { margin: 0 0 12px; }
-  .lesson-body p:last-child { margin: 0; }
-  .lesson-body b { color: var(--fg); font-weight: 700; }
+  .ebook-capa::after {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 9px;
+    background: rgba(0,0,0,.16);
+  }
+  .ebook-selo { font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; opacity: .85; }
+  .ebook-nome { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800; font-size: 15px; line-height: 1.2; letter-spacing: -.02em; }
+  .ebook-lista { display: grid; gap: 9px; margin: 16px 0 0; padding: 0; list-style: none; }
+  .ebook-lista li { display: flex; gap: 11px; align-items: flex-start; font-size: 14.5px; line-height: 1.5; color: var(--muted); }
+  .ebook-lista b { color: var(--fg); font-weight: 700; }
+  .ebook-tick { width: 22px; height: 22px; border-radius: 999px; box-shadow: var(--nm-in-sm); display: grid; place-items: center; flex: none; margin-top: 1px; }
 
   /* ---------- Slots do material (ebook, checklist, aula) ---------- */
-  .mat-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+  .mat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 250px)); gap: 12px; }
   .mat {
     display: flex; flex-direction: column; gap: 12px; align-items: flex-start;
     padding: 20px 18px; border-radius: 20px; text-decoration: none;
@@ -666,7 +691,7 @@
     .swap-stage { height: 320px; }
     .swap-container { right: 50%; transform: translate(50%, 4%) scale(.8); transform-origin: bottom center; }
 
-    .drift { height: 400px; }
+    .carro-info { padding-top: 18px; }
     .two-col { gap: 44px; }
   }
 
@@ -688,10 +713,13 @@
     .hero-visual { max-width: 290px; }
     .reveal-media { height: 250px; }
 
-    .drift { height: 320px; }
-    .drift-tile { width: 150px; height: 100px; }
-    .drift-stage { gap: 12px; }
-    .drift-col { gap: 12px; }
+    .carro-btn { width: 48px; height: 48px; }
+    .carro-slide { padding: 2px; }
+    .tela { border-radius: 18px; }
+    .tela-topo { padding: 10px 12px; }
+    .tela-url { font-size: 10px; height: 20px; }
+    .carro-t { font-size: 19px; }
+    .carro-d { font-size: 14.5px; }
 
     /* o botão flutuante vira só o ícone: com texto ele cobria a página numa tela de 375px */
     .fab { padding: 0 !important; width: 56px; height: 56px; justify-content: center; right: 16px; bottom: 16px; }
@@ -728,8 +756,11 @@
     .mat-s { width: 100%; margin-left: 54px; margin-top: -6px; }
     .mat-tag { margin-top: 0; }
 
-    .gift { padding: 28px 22px 26px; border-radius: 26px; }
-    .lesson-body { padding: 0 18px 18px 18px; }
+    .gift { padding: 28px 20px 26px; border-radius: 26px; }
+    .ebook { flex-direction: column; gap: 20px; align-items: center; text-align: center; }
+    .ebook-capa { width: 118px; }
+    .ebook-lista li { text-align: left; }
+    .mat-grid { grid-template-columns: 1fr; }
     .score-wrap { gap: 20px; justify-content: center; text-align: center; }
     .rec { padding: 22px 20px; }
   }
@@ -1038,52 +1069,57 @@
     <sc-if value="{{ unlocked }}" hint-placeholder-val="{{ false }}">
       <div class="gift-wrap" data-gift>
         <div class="gift">
-          <div class="gift-glow"><i></i></div>
-          <div class="gift-in">
+          <div class="gift-deco"></div>
+          <div style="position: relative;">
             <div style="display: flex; gap: 16px; align-items: center;">
-              <div class="nm-well" style="width: 58px; height: 58px; border-radius: 18px;">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><path d="M2 7h20v5H2z"></path><path d="M12 21V7"></path><path d="M12 7C9 7 7 5.5 7 4a2 2 0 014 0c0 1.5 1 3 1 3z"></path></svg>
+              <div class="nm-well" style="width: 56px; height: 56px; border-radius: 18px;">
+                <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><path d="M2 7h20v5H2z"></path><path d="M12 21V7"></path><path d="M12 7C9 7 7 5.5 7 4a2 2 0 014 0c0 1.5 1 3 1 3z"></path></svg>
               </div>
               <div>
                 <div class="quiz-step">Presente liberado</div>
-                <h3 class="font-display" style="font-weight: 800; font-size: clamp(21px, 2.5vw, 27px); line-height: 1.2; margin: 7px 0 0; color: #3D4852;">Mini-curso: marketing que funciona pra negócio de bairro</h3>
+                <h3 class="font-display" style="font-weight: 800; font-size: clamp(21px, 2.5vw, 27px); line-height: 1.2; margin: 7px 0 0; color: #3D4852;">Seu ebook de marketing pra negócio de bairro</h3>
               </div>
             </div>
-            <p class="quiz-hint" style="margin: 18px 0 22px;">Cinco aulas curtas, sem enrolação e sem palavra difícil. É o que a gente te explicaria tomando um café — e serve mesmo que você nunca contrate a ACTech.</p>
 
-            <div style="display: grid; gap: 12px;">
-              <sc-for list="{{ lessons }}" as="l" hint-placeholder-count="5">
-                <div class="lesson">
-                  <div class="lesson-head" onClick="{{ l.toggle }}" role="button" tabindex="0">
-                    <span class="lesson-n">{{ l.n }}</span>
-                    <span class="lesson-t">{{ l.t }}</span>
-                    <span class="{{ l.signCls }}" style="margin-left: auto;">{{ l.sign }}</span>
-                  </div>
-                  <sc-if value="{{ l.open }}" hint-placeholder-val="{{ false }}">
-                    <div class="lesson-body">{{ l.body }}</div>
-                  </sc-if>
-                </div>
-              </sc-for>
+            <div class="ebook">
+              <!-- Capa montada em CSS. Quando tiver a capa de verdade, troque este
+                   bloco por:  <img class="ebook-capa" src="imgs/capa-ebook.png" alt="" /> -->
+              <div class="ebook-capa">
+                <div class="ebook-selo">ACTech · Guia</div>
+                <div class="ebook-nome">Como ser achado por quem já quer comprar de você</div>
+              </div>
+
+              <div>
+                <p style="margin: 0; font-size: 15.5px; line-height: 1.7; color: #6B7280;">
+                  Sem enrolação e sem palavra difícil — é o que a gente te explicaria tomando um café.
+                  Serve mesmo que você nunca contrate a ACTech.
+                </p>
+                <ul class="ebook-lista">
+                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>A busca local</b> — como o cliente já procura você hoje</span></li>
+                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>A ficha do Google</b> — vale mais que cem posts</span></li>
+                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>O que postar</b> — cinco tipos que resolvem o mês</span></li>
+                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>A foto que vende</b> — tirada no celular mesmo</span></li>
+                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>Responder rápido</b> — metade da venda está aí</span></li>
+                </ul>
+              </div>
             </div>
 
-            <div class="nm-track" style="height: 6px; border-radius: 999px; margin: 26px 0 20px;"></div>
+            <div class="nm-track" style="height: 6px; border-radius: 999px; margin: 28px 0 20px;"></div>
 
             <!-- =================================================================
-                 LOCAIS DO MATERIAL — os slots estão prontos, é só plugar.
+                 LOCAL DO EBOOK — o slot está pronto, é só plugar.
 
-                 Para ativar um slot quando o material existir:
+                 Quando o PDF existir:
                  1. jogue o arquivo na raiz do projeto (ex.: ebook.pdf)
-                 2. troque a linha    <div class="mat" data-vazio>
-                    por               <a class="mat" href="ebook.pdf" target="_blank">
+                 2. troque a linha  <div class="mat" data-vazio>
+                    por             <a class="mat" href="ebook.pdf" target="_blank">
                  3. troque o </div> do fim do bloco por </a>
-                 4. troque o texto "Em breve" por "Baixar" (ou "Assistir")
+                 4. troque "Em breve" por "Baixar"
 
-                 O visual muda sozinho: slot vazio fica afundado e sem hover,
-                 slot preenchido sobe em relevo e vira clicável.
+                 O visual muda sozinho: vazio fica afundado e sem hover; preenchido
+                 sobe em relevo e vira clicável.
                  ================================================================= -->
-            <div style="font-weight: 700; font-size: 15px; color: #3D4852; margin-bottom: 12px;">Material pra levar</div>
             <div class="mat-grid">
-
               <div class="mat" data-vazio>
                 <span class="mat-ico">
                   <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h9l5 5v11H5z"></path><path d="M14 4v5h5"></path><path d="M9 13h6"></path><path d="M9 16.5h4"></path></svg>
@@ -1092,25 +1128,6 @@
                 <span class="mat-s">O guia completo pra ler com calma</span>
                 <span class="mat-tag">Em breve</span>
               </div>
-
-              <div class="mat" data-vazio>
-                <span class="mat-ico">
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5z"></path><path d="M8.5 9.5l1.6 1.6 3.4-3.4"></path><path d="M8.5 15.5h7"></path></svg>
-                </span>
-                <span class="mat-t">Checklist</span>
-                <span class="mat-s">Uma folha pra imprimir e ir marcando</span>
-                <span class="mat-tag">Em breve</span>
-              </div>
-
-              <div class="mat" data-vazio>
-                <span class="mat-ico">
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6h13v12h-13z"></path><path d="M16.5 10.5l4-2.5v8l-4-2.5z"></path></svg>
-                </span>
-                <span class="mat-t">Aula em vídeo</span>
-                <span class="mat-s">A versão narrada do mini-curso</span>
-                <span class="mat-tag">Em breve</span>
-              </div>
-
             </div>
           </div>
         </div>
@@ -1317,16 +1334,52 @@
     </div>
   </section>
 
-  <section id="trabalhos" class="pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 88px;">
-    <div class="wrap" data-reveal="1" style="text-align: center; margin-bottom: 30px;">
+  <section id="trabalhos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 96px;">
+    <div data-reveal="1" style="text-align: center; margin-bottom: 34px;">
       <div class="eyebrow">Nosso trabalho</div>
       <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px auto 0; max-width: 18ch; color: #3D4852;">Um pedaço do que já está no ar.</h2>
     </div>
-    <!-- DriftWall: as colunas sobem em velocidades diferentes; os tiles são
-         clonados dos mockups da seção "O que fazemos". -->
-    <div class="drift" data-drift>
-      <div class="drift-stage" data-drift-stage></div>
-      <div class="drift-veil"></div>
+
+    <!-- Carrossel: para trocar ou acrescentar trabalho, mexa em `trabalhos()`
+         na lógica lá embaixo e jogue a imagem em imgs/. -->
+    <div class="carro" data-carro data-reveal="1">
+      <div class="carro-janela">
+        <div class="carro-trilho" data-carro-trilho style="transform: translateX({{ carroX }});">
+          <sc-for list="{{ trabalhos }}" as="t" hint-placeholder-count="4">
+            <div class="carro-slide">
+              <div class="tela">
+                <div class="tela-topo">
+                  <i></i><i></i><i></i>
+                  <span class="tela-url">{{ t.url }}</span>
+                </div>
+                <img class="tela-img" src="{{ t.img }}" alt="{{ t.alt }}" loading="lazy" decoding="async" />
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div class="carro-info">
+        <div>
+          <div class="carro-tag">{{ carroTag }}</div>
+          <h3 class="carro-t">{{ carroTitulo }}</h3>
+          <p class="carro-d">{{ carroTexto }}</p>
+        </div>
+      </div>
+
+      <div class="carro-nav">
+        <button class="carro-btn" onClick="{{ carroAnt }}" aria-label="Trabalho anterior">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3D4852" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>
+        </button>
+        <div class="carro-pontos">
+          <sc-for list="{{ carroPontos }}" as="p" hint-placeholder-count="4">
+            <button class="{{ p.cls }}" onClick="{{ p.ir }}" aria-label="{{ p.rotulo }}"></button>
+          </sc-for>
+        </div>
+        <button class="carro-btn" onClick="{{ carroProx }}" aria-label="Próximo trabalho">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3D4852" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -1411,6 +1464,22 @@
         </div>
 
         <div class="modal-body">
+
+          <sc-if value="{{ quizPortal }}" hint-placeholder-val="{{ false }}">
+            <div class="{{ stepCls }}" style="text-align: center; padding: 10px 0 6px;">
+              <div class="nm-well" style="width: 78px; height: 78px; border-radius: 26px; margin: 0 auto 24px;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
+              </div>
+              <h3 class="quiz-q" style="margin-top: 0;">{{ portalTitulo }}</h3>
+              <p class="quiz-hint" style="max-width: 46ch; margin: 0 auto 26px;">
+                A gente não vende plano no escuro. São 10 perguntas rápidas sobre o seu negócio —
+                em um minuto você recebe um diagnóstico e a gente já fala com você sabendo do que precisa.
+              </p>
+              <button class="btn btn-primary" onClick="{{ quizComecar }}" style="min-width: 240px;">Vamos lá</button>
+              <div style="margin-top: 14px; font-size: 13.5px; color: #6B7280;">Sem cadastro, sem e-mail</div>
+              <button class="quiz-back" onClick="{{ quizPular }}">Prefiro falar direto no WhatsApp</button>
+            </div>
+          </sc-if>
 
           <sc-if value="{{ quizAsking }}" hint-placeholder-val="{{ true }}">
             <div class="{{ stepCls }}">
@@ -1537,7 +1606,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5599999999999&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;whatsappMessage&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Olá! Vi a página da ACTech e quero saber mais sobre os planos.&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;}}">
 class Component extends DCLogic {
-  state = { open: 0, menu: false, quiz: false, step: 0, ans: {}, nome: '', loadI: 0, unlocked: false, lesson: -1 };
+  state = { open: 0, menu: false, quiz: false, step: 0, ans: {}, nome: '', loadI: 0, unlocked: false, lesson: -1, slide: 0, feito: false, portal: '' };
 
   componentDidMount() {
     const els = Array.from(document.querySelectorAll('[data-reveal]'));
@@ -1578,10 +1647,11 @@ class Component extends DCLogic {
     this.setupHoverReveal();
     this.setupChat();
     this.setupGooButton();
+    this.setupPortao();
+    this.setupCarro();
     this.setupTilt();
     this.setupTrueFocus();
     this.setupCardSwap();
-    this.setupDriftWall();
   }
 
   /** Espera o GSAP do CDN aparecer na window antes de rodar `fn`. */
@@ -1593,6 +1663,51 @@ class Component extends DCLogic {
       else if (++tries > 50) clearInterval(poll);
     }, 100);
     this._teardown.push(() => clearInterval(poll));
+  }
+
+  /* ---------------------------------------------------------------
+     O portão: qualquer botão que leve ao WhatsApp — plano, topo, hero,
+     CTA, botão flutuante — passa antes pelo diagnóstico. Depois que a
+     pessoa responde (ou pula), os botões voltam a ir direto.
+     --------------------------------------------------------------- */
+  setupPortao() {
+    const naTela = (e) => {
+      if (this.state.feito) return;                 // já respondeu: passa direto
+      const a = e.target.closest && e.target.closest('a[href*="wa.me"]');
+      if (!a) return;
+      if (a.closest('.modal')) return;              // links de dentro do modal, nunca
+
+      e.preventDefault();
+      this._alvo = a.href;                          // guarda pra usar no "prefiro falar direto"
+      const dentroDoPlano = !!a.closest('.blob-card');
+      this.lockScroll(true);
+      this.setState({ quiz: true, step: -1, portal: dentroDoPlano ? 'plano' : 'contato' });
+    };
+    document.addEventListener('click', naTela, true);
+    this._teardown.push(() => document.removeEventListener('click', naTela, true));
+  }
+
+  /* ---------------------------------------------------------------
+     Carrossel: o trilho é posicionado por estado; aqui só o arrastar.
+     --------------------------------------------------------------- */
+  setupCarro() {
+    const el = document.querySelector('[data-carro]');
+    if (!el) return;
+    let x0 = null;
+    const pegar = (e) => { x0 = e.touches ? e.touches[0].clientX : e.clientX; };
+    const soltar = (e) => {
+      if (x0 === null) return;
+      const x1 = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+      const d = x1 - x0;
+      x0 = null;
+      if (Math.abs(d) > 45) this.setState((s) => ({ slide: s.slide + (d < 0 ? 1 : -1) }));
+    };
+    el.addEventListener('touchstart', pegar, { passive: true });
+    el.addEventListener('touchend', soltar, { passive: true });
+    this._teardown.push(() => {
+      el.removeEventListener('touchstart', pegar);
+      el.removeEventListener('touchend', soltar);
+    });
   }
 
   /* ---------------------------------------------------------------
@@ -1733,137 +1848,6 @@ class Component extends DCLogic {
       swap();
       const iv = setInterval(swap, delay);
       this._teardown.push(() => clearInterval(iv));
-    });
-  }
-
-  /* ---------------------------------------------------------------
-     8. DriftWall — colunas subindo em velocidades diferentes, com
-     perspectiva, parallax no mouse e as bordas dissolvendo na superfície.
-     --------------------------------------------------------------- */
-  setupDriftWall() {
-    const wall = document.querySelector('[data-drift]');
-    const stage = document.querySelector('[data-drift-stage]');
-    if (!wall || !stage) return;
-    const art = [...document.querySelectorAll('.reveal-slide svg')];
-    if (!art.length) return;
-
-    const PER_COL = 6;
-    const SPEED = 42;
-    const VARIANCE = 0.45;
-    const BASE = 'rotateX(16deg) rotateZ(-14deg) translateZ(-120px)';
-
-    // Menos colunas em tela pequena: 60 tiles com perspectiva 3D derrubam
-    // o frame rate de celular sem que nada disso apareça na tela.
-    const colCount = () => (window.innerWidth <= 640 ? 3 : window.innerWidth <= 900 ? 4 : 5);
-
-    let cols = [];
-
-    const build = () => {
-      stage.innerHTML = '';
-      cols = [];
-      const n = colCount();
-      for (let c = 0; c < n; c++) {
-        const col = document.createElement('div');
-        col.className = 'drift-col';
-        for (let k = 0; k < PER_COL * 2; k++) {
-          const tile = document.createElement('div');
-          tile.className = 'drift-tile';
-          const svg = art[(c * 2 + k) % art.length].cloneNode(true);
-          svg.setAttribute('viewBox', '0 55 300 200');
-          svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
-          tile.appendChild(svg);
-          col.appendChild(tile);
-        }
-        stage.appendChild(col);
-        cols.push({
-          el: col,
-          cycle: 0,
-          speed: SPEED * (1 - VARIANCE / 2 + Math.random() * VARIANCE),
-          off: 0
-        });
-      }
-      measure();
-    };
-
-    // O tamanho do tile e o gap mudam por CSS em cada breakpoint, então o
-    // ciclo do loop é medido do DOM — cravar 132/18 criaria emenda visível.
-    const measure = () => {
-      cols.forEach((c) => {
-        const tile = c.el.firstElementChild;
-        if (!tile) return;
-        const gap = parseFloat(getComputedStyle(c.el).rowGap) || 0;
-        const cycle = PER_COL * (tile.offsetHeight + gap);
-        c.off = cycle ? c.off % cycle : 0;
-        c.cycle = cycle;
-      });
-    };
-
-    build();
-    cols.forEach((c) => { c.off = Math.random() * c.cycle; });
-
-    if (this.reduced()) {
-      stage.style.transform = BASE;
-      return;
-    }
-
-    let raf = null;
-    let last = 0;
-    const p = { x: 0, y: 0 };
-    const t = { x: 0, y: 0 };
-
-    const loop = (now) => {
-      const dt = last ? Math.min(0.05, (now - last) / 1000) : 1 / 60;
-      last = now;
-      p.x += (t.x - p.x) * 0.06;
-      p.y += (t.y - p.y) * 0.06;
-      stage.style.transform = 'translate(' + p.x + 'px,' + p.y + 'px) ' + BASE;
-      cols.forEach((c) => {
-        c.off = (c.off + c.speed * dt) % c.cycle;
-        c.el.style.transform = 'translateY(' + -c.off + 'px)';
-      });
-      raf = requestAnimationFrame(loop);
-    };
-
-    const onMove = (e) => {
-      const r = wall.getBoundingClientRect();
-      t.x = ((e.clientX - r.left) / r.width - 0.5) * 72 * 0.6;
-      t.y = ((e.clientY - r.top) / r.height - 0.5) * 72 * 0.6;
-    };
-    const onLeave = () => { t.x = 0; t.y = 0; };
-
-    if (this.finePointer()) {
-      wall.addEventListener('mousemove', onMove);
-      wall.addEventListener('mouseleave', onLeave);
-    }
-
-    // só anima enquanto a seção está na tela
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting && !raf) { last = 0; raf = requestAnimationFrame(loop); }
-        else if (!e.isIntersecting && raf) { cancelAnimationFrame(raf); raf = null; }
-      });
-    }, { threshold: 0 });
-    io.observe(wall);
-
-    // girar o celular muda o número de colunas e o tamanho do tile
-    let resizeTimer = null;
-    let lastCols = colCount();
-    const onResize = () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        if (colCount() !== lastCols) { lastCols = colCount(); build(); }
-        else measure();
-      }, 180);
-    };
-    window.addEventListener('resize', onResize);
-
-    this._teardown.push(() => {
-      if (raf) cancelAnimationFrame(raf);
-      clearTimeout(resizeTimer);
-      io.disconnect();
-      window.removeEventListener('resize', onResize);
-      wall.removeEventListener('mousemove', onMove);
-      wall.removeEventListener('mouseleave', onLeave);
     });
   }
 
@@ -2214,7 +2198,30 @@ class Component extends DCLogic {
       if (i > 3) { clearInterval(this._loadTimer); return; }
       this.setState({ loadI: i });
     }, 620);
-    this._doneTimer = setTimeout(() => this.setState({ step: N + 2 }), 2500);
+    this._doneTimer = setTimeout(() => this.setState({ step: N + 2, feito: true }), 2500);
+  }
+
+  /* Os trabalhos do carrossel. Acrescentar é só somar um objeto aqui
+     e jogar a imagem em imgs/. */
+  trabalhos() {
+    return [
+      { img: 'imgs/jj-motos-painel.png', url: 'jjmotos.com.br/painel', alt: 'Painel de controle do sistema JJ Motos',
+        tag: 'Sistema sob medida · JJ Motos',
+        titulo: 'Um painel que mostra o caixa em tempo real',
+        texto: 'Saldo, entradas, saídas, contratos e vendas do mês numa tela só. O dono abre de manhã e sabe exatamente onde o negócio está, sem abrir planilha.' },
+      { img: 'imgs/jj-motos-livro-caixa.png', url: 'jjmotos.com.br/livro-caixa', alt: 'Tela do livro caixa do sistema JJ Motos',
+        tag: 'Sistema sob medida · JJ Motos',
+        titulo: 'Livro caixa que qualquer um consegue usar',
+        texto: 'Registrar entrada e saída virou dois cliques, com extrato do dia, filtro por tipo e fechamento de mês. Menos papel, menos erro no fim do mês.' },
+      { img: 'imgs/a3d-print-home.png', url: 'a3dprint.com.br', alt: 'Página inicial do site da A3D Print',
+        tag: 'Site institucional · A3D Print',
+        titulo: 'Um site que explica o serviço em cinco segundos',
+        texto: 'Estúdio de impressão 3D sob demanda. A pessoa entende o que é, vê exemplos e cai no WhatsApp ou no orçamento sem precisar procurar.' },
+      { img: 'imgs/a3d-print-possibilidades.png', url: 'a3dprint.com.br/possibilidades', alt: 'Página de possibilidades do site da A3D Print',
+        tag: 'Site institucional · A3D Print',
+        titulo: 'Portfólio que vende antes da conversa',
+        texto: 'Galeria de peças e projetos mostrando na prática o que a tecnologia faz. Quem chega curioso sai com a ideia pronta do que quer pedir.' }
+    ];
   }
 
   quizData() {
@@ -2416,39 +2423,6 @@ class Component extends DCLogic {
     };
   }
 
-  /* As cinco aulas do mini-curso. É conteúdo de exemplo — troque o texto por
-     aulas suas quando quiser; a estrutura (número, título, corpo) fica igual. */
-  lessonData() {
-    const P = (arr) => React.createElement('div', null, arr.map((t, i) => React.createElement('p', { key: i }, t)));
-    return [
-      { t: 'O cliente já está procurando — ele só não te acha', body: P([
-        'Todo dia alguém digita no Google o nome do que você vende junto com "perto de mim". Essa pessoa não está pesquisando por curiosidade: ela já decidiu comprar e só está escolhendo de quem.',
-        'O resultado que aparece primeiro leva. E quem aparece primeiro não é quem tem a loja mais bonita — é quem tem a ficha mais completa e mais movimentada.',
-        'Faça agora: pesquise no celular o seu tipo de negócio + o nome do seu bairro. Quem aparecer ali são seus concorrentes de verdade.'
-      ]) },
-      { t: 'Sua ficha no Google vale mais que cem posts', body: P([
-        'A ficha do Google Meu Negócio é gratuita e é o que coloca você no mapa. É o mais perto de uma vitrine na avenida principal que existe de graça.',
-        'Preencha tudo: horário certo (inclusive feriado), telefone com WhatsApp, endereço exato e pelo menos dez fotos reais — fachada, interior, produtos, equipe.',
-        'E o que quase ninguém faz: peça avaliação. Um cliente satisfeito por semana, pedido na hora certa, muda a sua posição na busca em poucos meses.'
-      ]) },
-      { t: 'O que postar quando você não sabe o que postar', body: P([
-        'A trava é sempre a mesma: "não tenho o que dizer". Tem sim. Use estes cinco tipos, um por semana:',
-        'O que chegou (novidade). Como se usa (dica prática do que você vende). Quem confia (cliente satisfeito, com autorização). Bastidor (o preparo, a rotina, a equipe). Resposta (aquela pergunta que todo cliente faz).',
-        'Cinco tipos, um mês inteiro resolvido. E pode repetir: quem viu semana passada não é quem vê hoje.'
-      ]) },
-      { t: 'A foto que vende foi tirada no celular mesmo', body: P([
-        'Não precisa de câmera. Precisa de luz. Fotografe perto da porta ou da janela, de dia, com a luz batendo de frente no produto — nunca com a janela atrás.',
-        'Fundo limpo: uma parede lisa, uma bancada sem bagunça. O olho do cliente precisa saber onde pousar.',
-        'Tire cinco fotos do mesmo ângulo e escolha uma. E não use zoom: chegue mais perto.'
-      ]) },
-      { t: 'Responder rápido é metade da venda', body: P([
-        'O cliente que manda mensagem está com o cartão na mão. Depois de uma hora sem resposta, ele já mandou mensagem pro concorrente.',
-        'Configure as respostas rápidas do WhatsApp Business para as três perguntas que mais chegam: preço, horário e endereço. Você responde em dois toques.',
-        'E deixe uma mensagem de ausência honesta: "recebemos sua mensagem, respondemos até as 9h de amanhã" vale muito mais que silêncio.'
-      ]) }
-    ];
-  }
-
   renderVals() {
     const phone = this.props.whatsappNumber ?? '5599999999999';
     const msg = encodeURIComponent(this.props.whatsappMessage ?? 'Olá! Vi a página da ACTech e quero saber mais sobre os planos.');
@@ -2462,7 +2436,7 @@ class Component extends DCLogic {
     const N = Q.length;
     const st = this.state.step;
     const open = this.state.quiz;
-    const asking = open && st < N;
+    const asking = open && st >= 0 && st < N;
     const cur = asking ? Q[st] : null;
     const pct = Math.min(100, Math.round((Math.min(st, N + 1) / (N + 1)) * 100));
     const LOADS = [
@@ -2474,10 +2448,37 @@ class Component extends DCLogic {
     const done = open && st === N + 2;
     const res = done ? this.quizResult() : null;
 
+    const TR = this.trabalhos();
+    const si = ((this.state.slide % TR.length) + TR.length) % TR.length;
+
     return {
       whatsUrl: 'https://wa.me/' + phone + '?text=' + msg,
 
+      trabalhos: TR,
+      carroX: '-' + (si * 100) + '%',
+      carroTag: TR[si].tag,
+      carroTitulo: TR[si].titulo,
+      carroTexto: TR[si].texto,
+      carroAnt: () => this.setState((s) => ({ slide: s.slide - 1 })),
+      carroProx: () => this.setState((s) => ({ slide: s.slide + 1 })),
+      carroPontos: TR.map((t, i) => ({
+        cls: 'carro-ponto' + (i === si ? ' is-on' : ''),
+        rotulo: 'Ver trabalho ' + (i + 1),
+        ir: () => this.setState({ slide: i })
+      })),
+
       quizOpen: open,
+      quizPortal: open && st === -1,
+      portalTitulo: this.state.portal === 'plano'
+        ? 'Antes de escolher um plano, deixa a gente te conhecer?'
+        : 'Antes da conversa, deixa a gente te conhecer?',
+      quizComecar: () => this.setState({ step: 0 }),
+      quizPular: () => {
+        this.lockScroll(false);
+        this.setState({ quiz: false, feito: true });
+        const alvo = this._alvo;
+        if (alvo) window.open(alvo, '_blank', 'noopener');
+      },
       quizAsking: asking,
       quizNaming: open && st === N,
       quizThinking: open && st === N + 1,
@@ -2513,7 +2514,7 @@ class Component extends DCLogic {
       resPrazo: res ? res.prazo : '',
       resWhats: res ? res.whats : '#',
 
-      quizOpenFn: () => { this.lockScroll(true); this.setState({ quiz: true, step: 0 }); },
+      quizOpenFn: () => { this.lockScroll(true); this.setState({ quiz: true, step: 0, portal: '' }); },
       quizClose: () => { this.lockScroll(false); this.setState({ quiz: false }); },
       quizBack: () => this.setState((s) => ({ step: Math.max(0, s.step - 1) })),
       quizReset: () => this.setState({ step: 0, ans: {}, nome: '' }),
@@ -2532,21 +2533,6 @@ class Component extends DCLogic {
       },
 
       unlocked: this.state.unlocked,
-      lessons: this.lessonData().map((l, i) => ({
-        n: i + 1,
-        t: l.t,
-        body: l.body,
-        open: this.state.lesson === i,
-        sign: this.state.lesson === i ? '−' : '+',
-        signCls: this.state.lesson === i ? 'faq-sign faq-sign--open' : 'faq-sign faq-sign--closed',
-        toggle: () => this.setState((s) => ({ lesson: s.lesson === i ? -1 : i }))
-      })),
-      menuOpen: this.state.menu,
-      menuClosed: !this.state.menu,
-      menuExpanded: this.state.menu ? 'true' : 'false',
-      menuLabel: this.state.menu ? 'Fechar menu' : 'Abrir menu',
-      toggleMenu: () => this.setState((s) => ({ menu: !s.menu })),
-      closeMenu: () => this.setState({ menu: false }),
       essencial: [
         'Site institucional (até 5 páginas)',
         'Hospedagem + domínio incluídos',
