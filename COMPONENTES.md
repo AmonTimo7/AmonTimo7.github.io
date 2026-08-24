@@ -45,3 +45,20 @@ o visual já está calibrado para a paleta neumórfica.
 - **Imagens**: `#servicos` e `#trabalhos` usam mockups em SVG desenhados aqui. Para usar fotos
   reais, troque o `<svg>` de cada `.reveal-slide` por `<img src="...">` — o DriftWall clona esses
   mesmos elementos, então ele acompanha a troca automaticamente.
+
+## Diagnóstico e presente
+
+Fluxo próprio, sem biblioteca de terceiros — vive no estado do `DCLogic`:
+
+| Peça | Onde |
+|---|---|
+| Perguntas, ícones e textos | `quizData()` no `index.html` |
+| Cálculo da nota, faltas, ações e plano | `quizResult()` |
+| Mini-curso (5 aulas) | `lessonData()` |
+| Guia em PDF | `guia.html` (abre em aba nova; o botão "Salvar em PDF" usa a impressão do navegador) |
+
+A mensagem do WhatsApp é montada com o perfil inteiro que a pessoa respondeu —
+é o que transforma o diagnóstico em lead qualificado do lado de cá.
+
+Para mudar as perguntas, mexa só em `quizData()`: a barra de progresso, o "de N"
+e o passo do nome se ajustam sozinhos ao tamanho da lista.
