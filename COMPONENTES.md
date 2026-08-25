@@ -142,6 +142,27 @@ Fluxo próprio, sem biblioteca de terceiros — vive no estado do `DCLogic`:
 | Apresentação do ebook | bloco `.ebook` na seção `#diagnostico` |
 | Slot do ebook | bloco `.mat-grid` no `index.html`, com as instruções em comentário logo acima |
 
+### O fim do diagnóstico
+
+O quiz não joga mais direto no WhatsApp. Depois do resultado (nota, o que está faltando
+e o que a gente faria primeiro), o botão leva a uma **tela de oferta** — passo `N + 3` —
+com três saídas, nesta ordem:
+
+1. **Ebook** — slot igual ao da página, marcado "Em breve" enquanto o arquivo não existe.
+   O comentário em cima do bloco tem as quatro linhas que mudam pra ligar, seja como
+   download (presente) ou como link de compra.
+2. **Auditoria em 24h** — esta já funciona: abre o WhatsApp com o diagnóstico escrito e a
+   última linha em branco (`Meu link (site, Instagram ou ficha do Google):`), esperando a
+   pessoa colar. É `res.audit`, irmã de `res.whats`.
+3. **Falar no WhatsApp** — o caminho antigo, com o perfil inteiro na mensagem.
+
+Chegar nessa tela já libera o presente na página (`unlocked`), então quem fechar o modal
+encontra o ebook esperando embaixo.
+
+> **Atenção ao ligar o ebook:** a página promete "um presente no fim" antes do quiz e o
+> bloco liberado diz "Presente liberado". Se ele virar produto pago, esses dois textos
+> precisam mudar junto — senão a página promete de graça o que cobra duas telas depois.
+
 A mensagem do WhatsApp é montada com o perfil inteiro que a pessoa respondeu —
 é o que transforma o diagnóstico em lead qualificado do lado de cá.
 

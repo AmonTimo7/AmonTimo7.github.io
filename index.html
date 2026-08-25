@@ -865,6 +865,34 @@
   .ebook-lista b { color: var(--fg); font-weight: 700; }
   .ebook-tick { width: 22px; height: 22px; border-radius: 999px; box-shadow: var(--nm-in-sm); display: grid; place-items: center; flex: none; margin-top: 1px; }
 
+  /* ---------- Tela de oferta (último passo do diagnóstico) ---------- */
+  .oferta-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+  .oferta-card {
+    position: relative; display: flex; flex-direction: column;
+    padding: 24px 22px; border-radius: var(--r-card);
+    background: var(--bg); box-shadow: var(--nm-out-sm);
+  }
+  .oferta-card--destaque { box-shadow: var(--nm-out); }
+  .oferta-selo {
+    position: absolute; top: -11px; right: 20px;
+    font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent-2); background: var(--bg); box-shadow: var(--nm-out-sm);
+    padding: 6px 13px; border-radius: 999px;
+  }
+  .oferta-topo { display: flex; gap: 16px; align-items: flex-start; }
+  /* a capa aqui é miniatura: menos padding e tipo menor, senão o título vaza */
+  .oferta-capa { width: 96px; flex: none; padding: 11px 9px; border-radius: 4px 10px 10px 4px; }
+  .oferta-capa .ebook-nome { font-size: 10.5px; line-height: 1.18; }
+  .oferta-capa .ebook-selo { font-size: 7.5px; letter-spacing: .12em; }
+  .oferta-capa::after { width: 6px; }
+  .oferta-ico { width: 50px; height: 50px; border-radius: 16px; flex: none; }
+  .oferta-tit {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 800; font-size: 16.5px; line-height: 1.25; letter-spacing: -.02em; color: var(--fg);
+  }
+  .oferta-txt { margin: 8px 0 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
+  .oferta-card .mat-grid { grid-template-columns: minmax(0,1fr); margin-top: auto; }
+
   /* ---------- Slots do material (ebook, checklist, aula) ---------- */
   .mat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 250px)); gap: 12px; }
   .mat {
@@ -1017,6 +1045,7 @@
     .modal-panel { max-height: 92vh; }
     .modal-top { padding: 16px 16px 2px; }
     .modal-body { padding: 18px 16px 26px; }
+    .oferta-grid { grid-template-columns: minmax(0,1fr); }
     .pick { min-height: 112px; padding: 16px 14px; gap: 11px; border-radius: 18px; }
     .pick-ico { width: 40px; height: 40px; border-radius: 13px; }
     .pick-t { font-size: 14.5px; }
@@ -2271,16 +2300,120 @@
                 <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.7; color: #6B7280;">{{ resPrazo }}</p>
               </div>
 
+              <!-- Daqui não se sai direto pro WhatsApp: o próximo passo é a tela de oferta,
+                   e é lá que ficam o material e o botão de conversar. -->
               <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px;">
-                <a class="btn btn-primary" href="{{ resWhats }}" target="_blank" onClick="{{ quizUnlock }}">
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"></path></svg>
-                  Quero começar
-                </a>
+                <button class="btn btn-primary" onClick="{{ irOferta }}">
+                  Quero resolver isso
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+                </button>
                 <button class="btn btn-secondary" onClick="{{ quizClose }}">Vou pensar</button>
               </div>
               <button class="quiz-back" onClick="{{ quizReset }}">Refazer o diagnóstico</button>
             </div>
           </sc-if>
+
+          <sc-if value="{{ quizOferta }}" hint-placeholder-val="{{ false }}">
+            <div class="{{ stepCls }}">
+              <div class="quiz-step">Diagnóstico pronto · nota {{ score }}/100</div>
+              <h3 class="quiz-q" style="font-size: clamp(21px, 2.6vw, 29px); margin: 10px 0 10px;">Antes de você ir, leve isto.</h3>
+              <p class="quiz-hint" style="margin: 0 0 24px;">
+                Duas formas de sair daqui com o problema andando — e no fim, se preferir,
+                é só chamar a gente no WhatsApp.
+              </p>
+
+              <div class="oferta-grid">
+                <!-- 1. EBOOK -->
+                <div class="oferta-card">
+                  <div class="oferta-topo">
+                    <div class="ebook-capa oferta-capa">
+                      <div class="ebook-selo">ACTech · Guia</div>
+                      <div class="ebook-nome">Como ser achado por quem já quer comprar de você</div>
+                    </div>
+                    <div>
+                      <div class="oferta-tit">O guia pra movimentar sua página</div>
+                      <p class="oferta-txt">
+                        A busca local, a ficha do Google, os cinco tipos de post que resolvem o mês
+                        e a foto que vende — tirada no celular mesmo.
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- =================================================================
+                       LOCAL DO EBOOK — o slot está pronto, é só plugar.
+
+                       Quando o ebook existir:
+                       1. jogue o arquivo na raiz do projeto (ex.: ebook.pdf) ou pegue
+                          o link da página de compra
+                       2. troque a linha  <div class="mat" data-vazio>
+                          por             <a class="mat" href="ebook.pdf" target="_blank">
+                       3. troque o </div> do fim do bloco por </a>
+                       4. troque "Em breve" por "Baixar" (se for presente) ou pelo preço
+                          (se for venda) — e ajuste o texto do card acima
+
+                       O visual muda sozinho: vazio fica afundado e sem hover; preenchido
+                       sobe em relevo e vira clicável.
+                       ================================================================= -->
+                  <div class="mat-grid" style="margin-top: 18px;">
+                    <div class="mat" data-vazio>
+                      <span class="mat-ico">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h9l5 5v11H5z"></path><path d="M14 4v5h5"></path><path d="M9 13h6"></path><path d="M9 16.5h4"></path></svg>
+                      </span>
+                      <span class="mat-t">Ebook em PDF</span>
+                      <span class="mat-s">O guia completo pra ler com calma</span>
+                      <span class="mat-tag">Em breve</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2. AUDITORIA EM 24H — esta funciona hoje: abre o WhatsApp com o
+                     diagnóstico já escrito e o campo do link esperando a pessoa colar. -->
+                <div class="oferta-card oferta-card--destaque">
+                  <span class="oferta-selo">Mais rápido</span>
+                  <div class="oferta-topo">
+                    <div class="nm-well oferta-ico">
+                      <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#38B2AC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"></rect><path d="M5 10a7 7 0 0014 0"></path><path d="M12 17v4"></path><path d="M8 21h8"></path></svg>
+                    </div>
+                    <div>
+                      <div class="oferta-tit">Um áudio de 2 minutos, em até 24h</div>
+                      <p class="oferta-txt">
+                        Sem tempo pra ler? Manda o link do seu negócio — site, Instagram ou a ficha
+                        do Google — e a gente devolve um áudio apontando o maior erro que está te
+                        custando cliente, e o que arrumar primeiro.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="nm-pill" style="margin-top: 16px; padding: 10px 16px; font-size: 12.5px;">
+                    <span style="width: 7px; height: 7px; border-radius: 999px; background: #38B2AC; display: block;"></span>
+                    De graça e sem compromisso
+                  </div>
+
+                  <a class="btn btn-primary btn-block" href="{{ resAudit }}" target="_blank" onClick="{{ quizUnlock }}" style="margin-top: 16px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"></path></svg>
+                    Quero minha auditoria
+                  </a>
+                </div>
+              </div>
+
+              <div class="nm-track" style="height: 6px; border-radius: 999px; margin: 26px 0 20px;"></div>
+
+              <div style="font-size: 15px; line-height: 1.7; color: #6B7280;">
+                Ou pula tudo isso: a gente já tem o seu diagnóstico em mãos e resolve o
+                <b style="color: #3D4852; font-weight: 700;">plano {{ resPlan }}</b> com você agora mesmo.
+              </div>
+
+              <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px;">
+                <a class="btn btn-primary" href="{{ resWhats }}" target="_blank" onClick="{{ quizUnlock }}">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"></path></svg>
+                  Falar no WhatsApp
+                </a>
+                <button class="btn btn-secondary" onClick="{{ quizClose }}">Vou pensar</button>
+              </div>
+              <button class="quiz-back" onClick="{{ voltarResultado }}">Voltar pro diagnóstico</button>
+            </div>
+          </sc-if>
+
 
         </div>
       </div>
@@ -3136,6 +3269,17 @@ class Component extends DCLogic {
       'Quero começar!'
     ].join('\n');
 
+    // A auditoria de 24h: o WhatsApp abre com o diagnóstico já escrito e a última
+    // linha em branco, esperando a pessoa colar o link do negócio dela.
+    const pedido = [
+      'Olá! Fiz o diagnóstico no site e quero a auditoria de 2 minutos.',
+      nome ? 'Negócio: ' + nome + ' (' + tipo[0] + ')' : 'Tipo de negócio: ' + tipo[0],
+      'Nota de presença digital: ' + score + '/100',
+      'Google hoje: ' + L('google', { nao: 'não apareço', meio: 'ficha parada', sim: 'cuido dela' }),
+      '',
+      'Meu link (site, Instagram ou ficha do Google): '
+    ].join('\n');
+
     return {
       score,
       title,
@@ -3147,7 +3291,8 @@ class Component extends DCLogic {
       price: plan === 'Essencial' ? 'R$ 197/mês' : 'R$ 397/mês',
       why,
       prazo: 'Seu site ficaria pronto em até 5 dias úteis depois que a gente receber logo, fotos e contatos. Fidelidade de 6 meses, sem taxa de setup.',
-      whats: 'https://wa.me/' + (this.props.whatsappNumber ?? '5599999999999') + '?text=' + encodeURIComponent(resumo)
+      whats: 'https://wa.me/' + (this.props.whatsappNumber ?? '5599999999999') + '?text=' + encodeURIComponent(resumo),
+      audit: 'https://wa.me/' + (this.props.whatsappNumber ?? '5599999999999') + '?text=' + encodeURIComponent(pedido)
     };
   }
 
@@ -3174,7 +3319,8 @@ class Component extends DCLogic {
       'Montando o seu diagnóstico...'
     ];
     const done = open && st === N + 2;
-    const res = done ? this.quizResult() : null;
+    const oferta = open && st === N + 3;   // último passo: material + WhatsApp
+    const res = done || oferta ? this.quizResult() : null;
 
     // Cada coluna da parede mostra a lista inteira, girada pelo índice da coluna
     // (assim duas vizinhas nunca ficam iguais) e repetida duas vezes — a duplicata
@@ -3240,6 +3386,10 @@ class Component extends DCLogic {
       quizNaming: open && st === N,
       quizThinking: open && st === N + 1,
       quizDone: done,
+      quizOferta: oferta,
+      // libera o presente na página já ao chegar na oferta, não só no clique final
+      irOferta: () => this.setState({ step: N + 3, unlocked: true }),
+      voltarResultado: () => this.setState({ step: N + 2 }),
       quizPct: pct + '%',
       stepCls: st % 2 ? 'step-b' : 'step-a',
       quizCounter: !cur ? '' : (st === N - 1 ? 'Última pergunta'
@@ -3270,6 +3420,7 @@ class Component extends DCLogic {
       resWhy: res ? res.why : '',
       resPrazo: res ? res.prazo : '',
       resWhats: res ? res.whats : '#',
+      resAudit: res ? res.audit : '#',
 
       quizOpenFn: () => { this.lockScroll(true); this.setState({ quiz: true, step: 0, portal: '' }); },
       quizClose: () => { this.lockScroll(false); this.setState({ quiz: false }); },
