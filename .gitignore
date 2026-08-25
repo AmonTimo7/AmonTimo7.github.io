@@ -5,3 +5,7 @@ ehthumbs.db
 
 # macOS
 .DS_Store
+
+# Artes originais do Instagram (34 MB em PNG). O site usa as versões
+# convertidas em imgs/insta-*.webp — estas ficam só na máquina.
+imgs2/

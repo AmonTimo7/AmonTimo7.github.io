@@ -54,6 +54,7 @@
     --accent: #6C63FF;
     --accent-light: #8B84FF;
     --accent-2: #38B2AC;
+    --pos: #12A594;
 
     --sh-dark: rgba(163,177,198,.6);
     --sh-dark-strong: rgba(163,177,198,.7);
@@ -234,23 +235,68 @@
   .faq-sign--open   { box-shadow: var(--nm-in); }      /* aberto  = afundado  */
 
   /* ---------- visual do hero: profundidade aninhada ---------- */
-  .depth { display: grid; place-items: center; }
-  .depth-ring {
-    position: absolute; border-radius: 999px; background: var(--bg);
-    transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+  /* ---------- Hero: cartão de métrica ---------- */
+  .mx { background: var(--bg); border-radius: var(--r-card); box-shadow: var(--nm-out); padding: 26px 26px 20px; }
+  @media (max-width: 640px) {
+    .mx { padding: 22px 18px 18px; }
+    .mx-plot, .mx-barras, .mx-datas { padding-right: 38px; }
+    .mx-grade, .mx-base { right: 38px; }
   }
-  .depth-1 { width: 78%; aspect-ratio: 1; box-shadow: var(--nm-in-deep); }
-  .depth-2 { width: 56%; aspect-ratio: 1; box-shadow: var(--nm-out); }
-  .depth-3 { width: 36%; aspect-ratio: 1; box-shadow: var(--nm-in); }
-  .depth-core {
-    position: relative; width: 22%; aspect-ratio: 1; min-width: 74px;
-    border-radius: 999px; background: var(--bg);
-    display: grid; place-items: center;
-    box-shadow: var(--nm-out);
-    transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+  .mx-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+  .mx-eyebrow { font-size: 10.5px; letter-spacing: .15em; text-transform: uppercase; font-weight: 700; color: var(--accent); }
+  .mx-val {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 800; font-size: clamp(30px, 3.4vw, 40px); letter-spacing: -.035em;
+    color: var(--fg); margin-top: 12px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
   }
-  .depth:hover .depth-2 { transform: scale(1.05); box-shadow: var(--nm-out-hover); }
-  .depth:hover .depth-core { transform: rotate(180deg); }
+  .mx-delta { font-size: 15px; font-weight: 700; letter-spacing: -.01em; color: var(--pos); }
+  .mx-sub { font-size: 13.5px; color: var(--muted); margin-top: 5px; }
+  .mx-faixas { display: flex; gap: 4px; border-radius: 999px; padding: 5px; box-shadow: var(--nm-in-sm); }
+  .mx-faixa {
+    border: none; background: none; font: inherit; font-size: 12px; font-weight: 700;
+    color: var(--muted); padding: 7px 12px; border-radius: 999px; cursor: pointer;
+    transition: color .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .mx-faixa:hover { color: var(--fg); }
+  .mx-faixa.is-on { color: var(--fg); box-shadow: var(--nm-out-sm); }
+  .mx-plot { position: relative; padding-right: 44px; margin-top: 20px; }
+  .mx-svgbox { position: relative; }
+  .mx-chart { display: block; width: 100%; height: auto; overflow: visible; }
+  .mx-grade { position: absolute; left: 0; right: 44px; height: 1px; background: rgba(163,177,198,.34); }
+  .mx-base {
+    position: absolute; left: 0; right: 44px; height: 0;
+    border-top: 1px dashed var(--accent-2); opacity: .8;
+  }
+  .mx-ponto {
+    position: absolute; width: 8px; height: 8px; border-radius: 999px;
+    background: var(--accent); transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 5px rgba(108,99,255,.15);
+  }
+  .mx-ylab {
+    position: absolute; right: 0; width: 40px; text-align: right;
+    transform: translateY(-50%);
+    font-size: 10px; font-weight: 600; color: var(--placeholder); line-height: 1;
+  }
+  .mx-linha { fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  /* a linha se desenha quando entra; trocar de faixa remonta o traço e ele redesenha */
+  .mx-linha { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: mxdraw 1.5s var(--ease) forwards; }
+  @keyframes mxdraw { to { stroke-dashoffset: 0; } }
+  .mx-barras {
+    display: flex; align-items: flex-end; gap: 2px; height: 46px;
+    padding-right: 44px; margin-top: 16px;
+  }
+  .mx-barras i { flex: 1; border-radius: 2px; background: var(--accent-2); opacity: .38; }
+  .mx-barras i.mx-barra--alta { opacity: .85; }
+  .mx-datas {
+    display: flex; justify-content: space-between; padding-right: 44px; margin-top: 8px;
+    font-size: 10px; font-weight: 600; color: var(--placeholder);
+  }
+  .mx-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 12px; }
+  .mx-legenda { display: flex; align-items: center; gap: 14px; font-size: 11.5px; color: var(--muted); }
+  .mx-legenda span { display: inline-flex; align-items: center; gap: 6px; }
+  .mx-legenda i { display: block; width: 14px; height: 3px; border-radius: 2px; background: var(--accent); }
+  .mx-legenda i.b { width: 7px; height: 11px; border-radius: 2px; background: var(--accent-2); opacity: .6; }
+  .mx-nota { font-size: 10.5px; color: var(--placeholder); text-align: right; line-height: 1.35; }
 
   .float { animation: float 3s ease-in-out infinite; }
   .float-slow { animation: float 4.5s ease-in-out infinite; }
@@ -306,41 +352,46 @@
   .reveal.has-active .reveal-item.is-on .reveal-copy { color: var(--accent); }
   .reveal-note { margin-top: 10px; font-size: 14.5px; color: var(--muted); line-height: 1.6; max-width: 44ch; }
 
-  /* ---------- depoimentos em conversa ---------- */
-  .chat { display: grid; gap: 10px; }
-  .chat-row { display: flex; flex-direction: column; }
-  .chat-row--me { align-items: flex-end; }
-  .chat-row--them { align-items: flex-start; }
-  .chat-msg {
-    max-width: 78%;
-    opacity: 0; transform: translateY(10px) scale(.85);
-    transition: opacity .5s var(--ease), transform .5s var(--ease);
-    will-change: transform, opacity;
+  /* ---------- depoimentos: colunas que rolam sozinhas ---------- */
+  .tcols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    align-items: start;   /* sem isto o grid estica a coluna curta e a emenda pula */
+    height: 560px;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
   }
-  .chat.is-in .chat-msg { opacity: 1; transform: none; }
-  .chat-meta { font-size: 11.5px; color: var(--muted); margin-bottom: 5px; display: block; }
-  .chat-row--me .chat-meta { text-align: right; padding-right: 14px; }
-  .chat-row--them .chat-meta { padding-left: 14px; }
-  .chat-bubble {
-    padding: 14px 18px;
-    font-size: 15.5px;
-    line-height: 1.5;
-    word-break: break-word;
+  .tcol {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding-bottom: 22px;        /* fecha a emenda: metade da coluna = 1 volta exata */
+    will-change: transform;
+    animation: tscroll var(--tdur, 26s) linear infinite;
+  }
+  .tcol--down { animation-direction: reverse; }
+  .tcols:hover .tcol { animation-play-state: paused; }
+  @keyframes tscroll { to { transform: translateY(-50%); } }
+
+  .tcard {
     background: var(--bg);
-    color: var(--fg);
-    border-radius: 22px 22px 22px 6px;
+    border-radius: 26px;
     box-shadow: var(--nm-out-sm);
+    padding: 26px 24px;
+    flex: none;
   }
-  .chat-row--me .chat-bubble {
-    background: var(--accent);
-    color: #fff;
-    border-radius: 22px 22px 6px 22px;
+  .tcard p { margin: 0; font-size: 15px; line-height: 1.62; color: var(--fg); }
+  .tcard-who { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+  .tcard-av {
+    flex: none; width: 42px; height: 42px; border-radius: 999px;
+    display: grid; place-items: center;
+    font-weight: 700; font-size: 14px; letter-spacing: .02em; color: var(--accent);
+    background: var(--bg); box-shadow: var(--nm-in-sm);
   }
-  .chat-typing { display: inline-flex; align-items: center; gap: 5px; padding: 16px 20px; border-radius: 22px 22px 22px 6px; background: var(--bg); box-shadow: var(--nm-in-sm); }
-  .chat-typing i { width: 7px; height: 7px; border-radius: 999px; background: var(--muted); display: block; opacity: .4; animation: typing .8s ease-in-out infinite; }
-  .chat-typing i:nth-child(2) { animation-delay: .18s; }
-  .chat-typing i:nth-child(3) { animation-delay: .36s; }
-  @keyframes typing { 0%,100% { transform: translateY(0); opacity: .35; } 50% { transform: translateY(-5px); opacity: 1; } }
+  .tcard-name { font-weight: 600; font-size: 15px; line-height: 1.25; letter-spacing: -.01em; }
+  .tcard-role { font-size: 13.5px; line-height: 1.35; color: var(--muted); }
 
   /* ---------- botão líquido (goo) do CTA ---------- */
   .goo {
@@ -426,54 +477,238 @@
     padding: 26px 28px; display: flex; flex-direction: column; justify-content: space-between;
   }
 
-  /* ---------- Carrossel de trabalhos ---------- */
-  .carro { position: relative; max-width: 1000px; margin: 0 auto; }
-  .carro-janela { overflow: hidden; border-radius: var(--r-card); }
-  .carro-trilho { display: flex; transition: transform .6s var(--ease); will-change: transform; }
-  .carro-slide { flex: 0 0 100%; min-width: 0; padding: 4px; }
-
-  /* moldura de navegador: dá contexto de "isto é um site no ar" */
-  .tela { background: var(--bg); border-radius: 24px; box-shadow: var(--nm-out); overflow: hidden; }
-  .tela-topo { display: flex; align-items: center; gap: 7px; padding: 13px 16px; }
-  .tela-topo i { width: 9px; height: 9px; border-radius: 999px; background: rgba(163,177,198,.75); display: block; flex: none; }
-  .tela-url {
-    margin-left: 8px; flex: 1; height: 22px; border-radius: 999px;
-    box-shadow: var(--nm-in-sm); display: flex; align-items: center;
-    padding: 0 12px; font-size: 11px; color: var(--muted); overflow: hidden; white-space: nowrap;
+  /* ---------- A conta do padeiro (em quantos clientes o plano se paga) ---------- */
+  .conta {
+    margin-top: 56px; padding: 40px 42px;
+    background: var(--bg); border-radius: var(--r-card); box-shadow: var(--nm-out);
   }
-  .tela-img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; background: #eef1f5; }
+  .conta-linha {
+    display: flex; align-items: stretch; justify-content: center; gap: 18px;
+    flex-wrap: wrap; margin-top: 34px;
+  }
+  .conta-passo {
+    flex: 1 1 190px; min-width: 0; padding: 24px 22px; border-radius: var(--r-base);
+    background: var(--bg); box-shadow: var(--nm-in-sm); text-align: center;
+  }
+  .conta-passo--fim { box-shadow: var(--nm-out-sm); }
+  .conta-num {
+    display: block; font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 800; font-size: clamp(26px, 3.2vw, 36px); letter-spacing: -.035em; color: var(--fg);
+  }
+  .conta-passo--fim .conta-num { color: var(--accent); }
+  .conta-rot { display: block; margin-top: 8px; font-size: 13.5px; line-height: 1.45; color: var(--muted); }
+  .conta-op {
+    align-self: center; font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 800; font-size: 26px; color: var(--placeholder); flex: none;
+  }
+  .conta-pe {
+    display: flex; align-items: center; justify-content: space-between; gap: 22px;
+    flex-wrap: wrap; margin-top: 32px;
+  }
 
-  .carro-info { display: flex; gap: 18px; align-items: flex-start; padding: 22px 6px 0; }
-  .carro-tag {
-    font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase;
+  /* ---------- Ficha do Google: antes e depois ---------- */
+  .gmn-grid {
+    display: grid; align-items: center; gap: 26px;
+    grid-template-columns: minmax(0,1fr) 56px minmax(0,1fr);
+  }
+  .gmn-seta {
+    display: grid; place-items: center; width: 56px; height: 56px; border-radius: 999px;
+    background: var(--bg); box-shadow: var(--nm-out-sm); color: var(--accent);
+  }
+  .gmn { position: relative; }
+  .gmn-selo {
+    position: absolute; top: -13px; left: 22px; z-index: 2;
+    font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+    padding: 7px 14px; border-radius: 999px; background: var(--bg); box-shadow: var(--nm-out-sm);
+  }
+  .gmn-selo--ruim { color: var(--placeholder); }
+  .gmn-selo--bom { color: var(--accent-2); }
+
+  /* o cartão imita o painel do Google: fundo branco, tipografia de sistema */
+  .gmn-card {
+    background: #fff; border-radius: 22px; padding: 26px 24px 22px;
+    box-shadow: var(--nm-out); font-family: 'Roboto', system-ui, Arial, sans-serif;
+  }
+  .gmn--antes .gmn-card { box-shadow: var(--nm-in); background: #F7F8FA; }
+  .gmn-nome { font-size: 20px; font-weight: 500; color: #202124; letter-spacing: -.01em; }
+  .gmn--antes .gmn-nome { color: #80868B; }
+  .gmn-cat { margin-top: 3px; font-size: 13.5px; color: #5F6368; }
+  .gmn-nota { display: flex; align-items: center; gap: 7px; margin-top: 12px; font-size: 13.5px; color: #5F6368; }
+  .gmn-nota b { color: #202124; font-weight: 600; }
+  .gmn-estrelas { display: flex; gap: 1px; }
+  .gmn-fotos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 16px; }
+  .gmn-fotos i { display: block; aspect-ratio: 4/3; border-radius: 8px; }
+  .gmn-vazio {
+    margin-top: 16px; border: 1.5px dashed #DADCE0; border-radius: 10px;
+    padding: 22px 12px; text-align: center; font-size: 12.5px; color: #9AA0A6;
+  }
+  .gmn-linhas { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 11px; }
+  .gmn-linhas li { display: flex; align-items: flex-start; gap: 11px; font-size: 13.5px; line-height: 1.45; color: #3C4043; }
+  .gmn--antes .gmn-linhas li { color: #9AA0A6; }
+  .gmn-linhas svg { flex: none; margin-top: 1px; }
+  .gmn-acoes { display: flex; gap: 8px; margin-top: 18px; }
+  .gmn-acoes span {
+    flex: 1; text-align: center; padding: 9px 0; border-radius: 999px;
+    font-size: 12.5px; font-weight: 600; color: #1A73E8; border: 1px solid #DADCE0;
+  }
+  .gmn-acoes span.cheio { background: #1A73E8; color: #fff; border-color: #1A73E8; }
+  .gmn-fecho {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 16px;
+    font-size: 12.5px; font-weight: 600; color: #188038; background: #E6F4EA;
+    padding: 7px 13px; border-radius: 999px;
+  }
+  .gmn-nota-pe { margin-top: 18px; font-size: 11.5px; color: var(--placeholder); text-align: center; }
+
+  /* ---------- faixa das plataformas de anúncio ---------- */
+  .ads-faixa {
+    margin-top: 48px; display: grid; gap: 30px;
+    grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); align-items: center;
+  }
+  .ads-logos { display: flex; flex-wrap: wrap; gap: 12px; }
+  .ads-chip {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 18px 12px 13px; border-radius: 999px;
+    background: var(--bg); box-shadow: var(--nm-out-sm);
+    font-size: 14px; font-weight: 700; color: var(--fg); white-space: nowrap;
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .ads-chip:hover { transform: translateY(-2px); box-shadow: var(--nm-out); }
+  .ads-chip svg { flex: none; }
+
+  /* ---------- Mockup do iPhone: perfil no Instagram ----------
+     Porte do "Mockup iPhone Instagram Customizável": os <image-slot> viraram <img>
+     e o `zoom: .55` virou `scale()` no transform 3D (zoom mexe no layout; scale não).
+     A sombra saiu do marrom do mockup original para a cinza-azulada da página. */
+  .iph-palco { position: relative; height: 660px; perspective: 2200px; perspective-origin: 50% 50%; }
+  .iph {
+    position: absolute; left: 50%; top: 50%;
+    width: 393px; height: 852px; margin: -426px 0 0 -196px;
+    border-radius: 56px; padding: 11px;
+    background: linear-gradient(115deg, #2e2e31 0%, #191919 28%, #3a3a3e 52%, #151516 78%, #2b2b2e 100%);
+    transform: rotateY(-22deg) rotateX(6deg) rotateZ(-6deg) scale(var(--iph-esc, .80));
+    transform-style: preserve-3d;
+    box-shadow:
+      -46px 62px 92px -38px rgba(120,133,155,.8),
+      -14px 22px 36px -18px rgba(120,133,155,.55),
+      0 0 0 1.5px rgba(255,255,255,.14) inset;
+  }
+  .iph-bt { position: absolute; width: 3px; border-radius: 2px; background: #4a4a4d; }
+  .iph-tela {
+    position: relative; width: 100%; height: 100%;
+    border-radius: 46px; overflow: hidden; background: #fff;
+    display: flex; flex-direction: column;
+    font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', Helvetica, sans-serif;
+  }
+  .iph-status {
+    position: absolute; top: 0; left: 0; right: 0; height: 54px; z-index: 5;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 30px;
+    font-size: 15px; font-weight: 600; color: #111; letter-spacing: .2px; pointer-events: none;
+  }
+  .iph-ilha { position: absolute; top: 11px; left: 50%; transform: translateX(-50%); width: 112px; height: 33px; border-radius: 20px; background: #0a0a0b; z-index: 6; }
+  .iph-corpo { flex: 1; overflow: hidden; display: flex; flex-direction: column; padding-top: 54px; }
+  .iph-topo { display: flex; align-items: center; justify-content: space-between; padding: 8px 18px 12px; }
+  .iph-user { font-size: 20px; font-weight: 700; color: #111; letter-spacing: -.3px; }
+  .iph-menu { display: flex; flex-direction: column; gap: 3px; }
+  .iph-menu span { display: block; width: 18px; height: 1.6px; background: #111; }
+  .iph-perfil { display: flex; align-items: center; gap: 22px; padding: 0 18px; }
+  .iph-anel { width: 86px; height: 86px; border-radius: 50%; padding: 2.5px; background: linear-gradient(135deg, #f2a33c, #e2544b 45%, #a8399b); flex: none; }
+  .iph-anel > span { display: block; width: 100%; height: 100%; border-radius: 50%; padding: 2.5px; background: #fff; box-sizing: border-box; overflow: hidden; }
+  .iph-anel img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+  .iph-nums { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; }
+  .iph-nums b { display: block; font-size: 17px; font-weight: 700; color: #111; }
+  .iph-nums span { font-size: 13px; color: #3c3c43; }
+  .iph-bio { padding: 14px 18px 0; display: flex; flex-direction: column; gap: 2px; font-size: 14px; color: #3c3c43; line-height: 1.4; }
+  .iph-bio b { font-weight: 600; color: #111; }
+  .iph-bio a { color: #2b6ef2; text-decoration: none; }
+  .iph-acoes { display: flex; gap: 8px; padding: 16px 18px 0; font-size: 14px; font-weight: 600; }
+  .iph-acoes > div { flex: 1; text-align: center; padding: 8px 0; border-radius: 10px; background: #f1f1f3; color: #111; }
+  .iph-acoes > div.on { background: #2b6ef2; color: #fff; }
+  .iph-acoes > div.mais { flex: none; width: 40px; font-size: 13px; }
+  .iph-abas { display: grid; grid-template-columns: 1fr 1fr; margin-top: 18px; border-top: 1px solid #ededf0; font-size: 13px; font-weight: 600; }
+  .iph-abas div { text-align: center; padding: 11px 0; border-bottom: 2px solid transparent; color: #8a8a8e; }
+  .iph-abas div.on { border-bottom-color: #111; color: #111; }
+  .iph-grade { flex: 1; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 2px; padding-bottom: 78px; align-content: start; }
+  .iph-grade img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; background: #ededf0; }
+  .iph-nav {
+    position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 26px 22px;
+    background: rgba(255,255,255,.94); backdrop-filter: blur(12px); border-top: 1px solid #ededf0;
+    display: flex; align-items: center; justify-content: space-between; color: #8a8a8e; font-size: 19px;
+  }
+  .iph-nav .on { color: #111; font-size: 20px; }
+  .iph-nav img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 1.5px solid #111; display: block; }
+  .iph-barra { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); width: 134px; height: 5px; border-radius: 3px; background: #111; opacity: .85; }
+  .iph-brilho {
+    position: absolute; inset: 0; z-index: 9; pointer-events: none; border-radius: 46px;
+    background: linear-gradient(105deg, rgba(255,255,255,.42) 0%, rgba(255,255,255,.1) 18%, rgba(255,255,255,0) 34%, rgba(255,255,255,0) 72%, rgba(255,255,255,.16) 100%);
+  }
+
+  /* lista de marcadores ao lado do aparelho */
+  .rede-lista { list-style: none; margin: 30px 0 0; padding: 0; display: grid; gap: 16px; }
+  .rede-lista li { display: flex; align-items: flex-start; gap: 14px; font-size: 15.5px; line-height: 1.6; color: var(--muted); }
+  .rede-lista b { color: var(--fg); font-weight: 700; }
+  .rede-ico { flex: none; width: 34px; height: 34px; border-radius: 12px; display: grid; place-items: center; background: var(--bg); box-shadow: var(--nm-out-sm); margin-top: 1px; }
+
+  /* ---------- Trabalhos: parede 3D em marquee ---------- */
+  .wall {
+    position: relative;
+    height: 660px;
+    /* sangra até a borda da tela: a parede tem que passar por baixo do corte */
+    width: 100vw; margin-left: calc(50% - 50vw);
+    overflow: hidden;
+    perspective: 1200px;
+    perspective-origin: 50% 50%;
+  }
+  .wall-3d {
+    position: absolute; top: 50%; left: 50%;
+    display: flex; gap: 18px;
+    transform-style: preserve-3d;
+    /* inclina pra trás (16) e vira (-14): o lado direito vem pra frente, o esquerdo recua */
+    transform: translate(-50%, -50%) rotateX(16deg) rotateY(-14deg) rotateZ(-3deg) scale(1.14);
+  }
+  .wall-col { transform: translateZ(var(--tz, 0px)); }   /* profundidade fora da animação */
+  .wall-lane {
+    display: flex; flex-direction: column; gap: 18px;
+    padding-bottom: 18px;        /* fecha a emenda: metade da coluna = 1 volta exata */
+    will-change: transform;
+    animation: tscroll var(--tdur, 46s) linear infinite;
+  }
+  .wall-lane--down { animation-direction: reverse; }
+  .wall:hover .wall-lane { animation-play-state: paused; }
+
+  /* as bordas dissolvem na superfície da página, sem moldura */
+  .wall::after {
+    content: ''; position: absolute; inset: -1px; z-index: 2; pointer-events: none;
+    background:
+      linear-gradient(to bottom, var(--bg) 0%, rgba(224,229,236,0) 26%, rgba(224,229,236,0) 74%, var(--bg) 100%),
+      linear-gradient(to right, var(--bg) 0%, rgba(224,229,236,0) 15%, rgba(224,229,236,0) 85%, var(--bg) 100%);
+  }
+
+  .wtile { width: 215px; flex: none; }
+  .wtile-info { padding: 13px 4px 0; }
+  .wtile-tag {
+    font-size: 9.5px; letter-spacing: .15em; text-transform: uppercase;
     font-weight: 700; color: var(--accent);
   }
-  .carro-t { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800; font-size: clamp(19px, 2.3vw, 24px); letter-spacing: -.02em; margin: 8px 0 0; color: var(--fg); }
-  .carro-d { font-size: 15px; color: var(--muted); line-height: 1.6; margin: 8px 0 0; max-width: 56ch; }
+  .wtile-t {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 800; font-size: 14px; letter-spacing: -.02em; line-height: 1.25;
+    margin: 6px 0 0; color: var(--fg);
+  }
+  .wtile-d {
+    font-size: 11.5px; line-height: 1.5; color: var(--muted); margin: 6px 0 0;
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+  }
 
-  .carro-nav { display: flex; align-items: center; gap: 12px; margin-top: 22px; justify-content: center; }
-  .carro-btn {
-    width: 52px; height: 52px; flex: none; border: none; border-radius: 999px;
-    background: var(--bg); color: var(--fg); box-shadow: var(--nm-out-sm);
-    cursor: pointer; display: grid; place-items: center; transition: all .25s var(--ease);
+  /* moldura de navegador: dá contexto de "isto é um site no ar" */
+  .tela { background: var(--bg); border-radius: 18px; box-shadow: var(--nm-out); overflow: hidden; }
+  .tela-topo { display: flex; align-items: center; gap: 5px; padding: 9px 11px; }
+  .tela-topo i { width: 7px; height: 7px; border-radius: 999px; background: rgba(163,177,198,.75); display: block; flex: none; }
+  .tela-url {
+    margin-left: 6px; flex: 1; height: 18px; border-radius: 999px;
+    box-shadow: var(--nm-in-sm); display: flex; align-items: center;
+    padding: 0 10px; font-size: 9.5px; color: var(--muted); overflow: hidden; white-space: nowrap;
   }
-  .carro-btn:hover { transform: translateY(-1px); box-shadow: var(--nm-out); }
-  .carro-btn:active { transform: translateY(.5px); box-shadow: var(--nm-in-sm); }
-  .carro-pontos { display: flex; gap: 9px; align-items: center; padding: 0 6px; }
-  /* o ponto visível é pequeno, mas a área de toque tem 44px de altura */
-  .carro-ponto {
-    width: 24px; height: 44px; border: none; padding: 0; background: none;
-    cursor: pointer; position: relative;
-  }
-  .carro-ponto::before {
-    content: ''; position: absolute; left: 50%; top: 50%;
-    transform: translate(-50%, -50%);
-    width: 11px; height: 11px; border-radius: 999px;
-    background: var(--bg); box-shadow: var(--nm-in-sm);
-    transition: all .3s var(--ease);
-  }
-  .carro-ponto.is-on { width: 42px; }
-  .carro-ponto.is-on::before { width: 30px; background: var(--accent); box-shadow: var(--nm-out-sm); }
+  .tela-img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; background: #eef1f5; }
 
   /* ---------- Modal do diagnóstico ---------- */
   .modal {
@@ -670,11 +905,15 @@
 
   @media (max-width: 1040px) {
     .grid-4 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    /* metade da largura dividida em duas colunas deixa o depoimento com ~200px
+       e a frase quebra a cada duas palavras */
+    .tcols { grid-template-columns: 1fr; }
+    .tcol--b { display: none; }
   }
 
   @media (max-width: 980px) {
     .hero-grid { grid-template-columns: 1fr; gap: 44px; }
-    .hero-visual { max-width: 400px; margin: 0 auto; }
+    .hero-visual { max-width: 470px; margin: 0 auto; }
   }
 
   /* Ponto em que o mouse deixa de existir. Tudo que dependia de hover
@@ -696,13 +935,21 @@
        aparecendo na hora do rolo, porque o recorte é no próprio item. */
     .reveal-copy { white-space: normal; font-size: clamp(26px, 6.6vw, 40px); line-height: 1.9; }
     .reveal-list { gap: 14px; }
-    .chat-msg { max-width: 88%; }
+    .tcols { height: 500px; }
 
     /* a pilha 3D não cabe em coluna única no tamanho original */
     .swap-stage { height: 320px; }
     .swap-container { right: 50%; transform: translate(50%, 4%) scale(.8); transform-origin: bottom center; }
 
-    .carro-info { padding-top: 18px; }
+    /* antes e depois um embaixo do outro; a seta gira pra continuar apontando */
+    .gmn-grid { grid-template-columns: minmax(0,1fr); gap: 30px; justify-items: stretch; }
+    .gmn-seta { transform: rotate(90deg); margin: 0 auto; }
+    .ads-faixa { grid-template-columns: minmax(0,1fr); gap: 24px; }
+
+    .iph-palco { height: 570px; }
+    .iph { --iph-esc: .68; }
+    .wall { height: 560px; }
+    .wall-col--4 { display: none; }
     .two-col { gap: 44px; }
   }
 
@@ -721,23 +968,42 @@
     .blob-head { padding: 24px 22px 0; }
     .blob-body { padding: 22px 22px 28px; }
 
-    .hero-visual { max-width: 290px; }
     .reveal-media { height: 250px; }
 
-    .carro-btn { width: 48px; height: 48px; }
-    .carro-slide { padding: 2px; }
+    .gmn-card { padding: 22px 18px 18px; }
+    .gmn-selo { left: 16px; }
+    .conta { padding: 30px 22px; }
+    /* em coluna, o flex-basis de 190px vira ALTURA e estica os cartões */
+    .conta-linha { flex-direction: column; gap: 10px; margin-top: 26px; }
+    .conta-passo { flex: 0 0 auto; width: 100%; }
+    .conta-op { font-size: 22px; }   /* girado, o "÷" vira um glifo estranho */
+    .conta-passo { padding: 20px 18px; }
+    .ads-chip { font-size: 13px; padding: 10px 15px 10px 11px; }
+
+    .iph-palco { height: 480px; }
+    .iph { --iph-esc: .57; }
+
+    /* cinco colunas em 375px viram tiras de 40px: a parede fica com três */
+    .wall { height: 470px; }
+    .wall-3d { transform: translate(-50%, -50%) rotateX(14deg) rotateY(-12deg) rotateZ(-3deg) scale(1.15); }
+    .wall-col--3, .wall-col--4 { display: none; }
+    .wtile { width: 190px; }
     .tela { border-radius: 18px; }
     .tela-topo { padding: 10px 12px; }
     .tela-url { font-size: 10px; height: 20px; }
-    .carro-t { font-size: 19px; }
-    .carro-d { font-size: 14.5px; }
+    .wtile-t { font-size: 14px; }
+    .wtile-d { display: none; }
 
     /* o botão flutuante vira só o ícone: com texto ele cobria a página numa tela de 375px */
     .fab { padding: 0 !important; width: 56px; height: 56px; justify-content: center; right: 16px; bottom: 16px; }
     .fab span { display: none; }
 
     .faq-head { padding: 20px; }
-    .chat-bubble { font-size: 15px; padding: 13px 16px; }
+    /* duas colunas em 375px deixariam cada card com ~150px de largura */
+    .tcols { grid-template-columns: 1fr; height: 430px; }
+    .tcol--b { display: none; }
+    .tcard { padding: 22px 20px; }
+    .tcard p { font-size: 14.5px; }
     .nm-pill { font-size: 12.5px; }
 
     /* botão de largura cheia é mais fácil de acertar com o polegar */
@@ -786,12 +1052,19 @@
     .wrap { padding-left: 14px; padding-right: 14px; }
     .reveal-copy { font-size: 24px; }
     .blob-header { height: 176px; }
-    .hero-visual { max-width: 250px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition-duration: .01ms !important; }
     html { scroll-behavior: auto; }
+    /* sem o loop, as colunas viram listas que a pessoa rola no dedo */
+    .tcols { height: auto; max-height: 560px; overflow-y: auto; -webkit-mask-image: none; mask-image: none; }
+    /* sem a animação, o traço ficaria escondido no dash — desenha ele de uma vez */
+    .mx-linha { stroke-dasharray: none; stroke-dashoffset: 0; }
+    /* parada, a parede 3D vira só um recorte: melhor deixar a rolagem no dedo */
+    .wall { height: auto; max-height: 620px; overflow-y: auto; perspective: none; }
+    .wall-3d { position: static; transform: none; }
+    .wall::after { display: none; }
   }
 </style>
 </helmet>
@@ -808,10 +1081,12 @@
       </div>
 
       <nav class="nav-desktop" style="display: flex; align-items: center; gap: 6px;">
-        <a class="nav-link" href="#planos">Planos</a>
         <a class="nav-link" href="#diferenciais">Por que ACTech</a>
         <a class="nav-link" href="#faq">Dúvidas</a>
-        <a class="btn btn-primary btn-sm" href="{{ whatsUrl }}" target="_blank" style="margin-left: 12px;">Fale com a gente</a>
+        <!-- Dois caminhos no topo: quem quer ver preço antes de falar com alguém
+             vai no secundário; quem já quer conversar, no primário. -->
+        <a class="btn btn-secondary btn-sm" href="#planos" style="margin-left: 12px;">Ver planos</a>
+        <a class="btn btn-primary btn-sm" href="{{ whatsUrl }}" target="_blank">Fale com a gente</a>
       </nav>
 
       <button class="icon-btn" onClick="{{ toggleMenu }}" aria-label="{{ menuLabel }}" aria-expanded="{{ menuExpanded }}">
@@ -827,10 +1102,10 @@
     <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
       <div class="mobile-menu wrap" style="padding-bottom: 18px;">
         <div class="nm-card" style="padding: 14px; display: grid; gap: 4px;">
-          <a class="nav-link" href="#planos" onClick="{{ closeMenu }}" style="display: block;">Planos</a>
           <a class="nav-link" href="#diferenciais" onClick="{{ closeMenu }}" style="display: block;">Por que ACTech</a>
           <a class="nav-link" href="#faq" onClick="{{ closeMenu }}" style="display: block;">Dúvidas</a>
-          <a class="btn btn-primary btn-block" href="{{ whatsUrl }}" target="_blank" style="margin-top: 10px;">Fale com a gente</a>
+          <a class="btn btn-secondary btn-block" href="#planos" onClick="{{ closeMenu }}" style="margin-top: 10px;">Ver planos</a>
+          <a class="btn btn-primary btn-block" href="{{ whatsUrl }}" target="_blank" style="margin-top: 8px;">Fale com a gente</a>
         </div>
       </div>
     </sc-if>
@@ -861,24 +1136,82 @@
         </div>
       </div>
 
-      <div data-reveal="1" class="hero-visual depth" style="position: relative; aspect-ratio: 1; width: 100%;">
-        <div class="nm-card" style="position: absolute; inset: 0; border-radius: 999px;"></div>
-        <div class="depth-ring depth-1"></div>
-        <div class="depth-ring depth-2"></div>
-        <div class="depth-ring depth-3"></div>
-        <div class="depth-core">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l-4 3 4 3"></path><path d="M16 9l4 3-4 3"></path></svg>
+      <div data-reveal="1" class="hero-visual" style="position: relative; width: 100%;">
+        <!-- Números ilustrativos: mostram a forma de um resultado possível, não o
+             histórico de um cliente. Estão todos em `metrica()`, na lógica lá embaixo. -->
+        <div class="mx">
+          <div class="mx-top">
+            <div>
+              <div class="mx-eyebrow">Resultados que você pode alcançar</div>
+              <div class="mx-val">
+                {{ mxValor }}
+                <span class="mx-delta">▲ {{ mxDelta }}</span>
+              </div>
+              <div class="mx-sub">{{ mxSub }}</div>
+            </div>
+            <div class="mx-faixas" role="group" aria-label="Período">
+              <sc-for list="{{ mxFaixas }}" as="f" hint-placeholder-count="4">
+                <button class="{{ f.cls }}" onClick="{{ f.ir }}" aria-pressed="{{ f.on }}">{{ f.rotulo }}</button>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- Só a linha e a área são SVG. Grade, base, ponto e barras são HTML posicionado
+               por porcentagem: o parser do navegador recusa {{ }} em atributo de SVG (cx, x,
+               width...) e enche o console de erro antes da hidratação — em `style` ele aceita. -->
+          <div class="mx-plot">
+            <sc-for list="{{ mxEixo }}" as="e" hint-placeholder-count="3">
+              <div class="mx-grade" style="top: {{ e.top }};"></div>
+              <div class="mx-ylab" style="top: {{ e.top }};">{{ e.txt }}</div>
+            </sc-for>
+            <div class="mx-base" style="top: {{ mxBaseTop }};"></div>
+
+            <div class="mx-svgbox">
+            <svg class="mx-chart" viewBox="0 0 280 104" role="img" aria-label="{{ mxAlt }}">
+              <defs>
+                <linearGradient id="mxfill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#6C63FF" stop-opacity=".26"></stop>
+                  <stop offset="100%" stop-color="#6C63FF" stop-opacity="0"></stop>
+                </linearGradient>
+              </defs>
+              <path d="{{ mxArea }}" fill="url(#mxfill)"></path>
+              <path class="mx-linha" d="{{ mxLinha }}" key="{{ mxFaixa }}"></path>
+            </svg>
+            <div class="mx-ponto" style="left: {{ mxFimLeft }}; top: {{ mxFimTop }};"></div>
+            </div>
+          </div>
+
+          <div class="mx-barras">
+            <sc-for list="{{ mxBarras }}" as="b" hint-placeholder-count="30">
+              <i class="{{ b.cls }}" style="height: {{ b.h }};"></i>
+            </sc-for>
+          </div>
+
+          <div class="mx-datas">
+            <sc-for list="{{ mxDatas }}" as="d" hint-placeholder-count="4">
+              <span>{{ d.txt }}</span>
+            </sc-for>
+          </div>
+
+          <div class="mx-foot">
+            <div class="mx-legenda">
+              <span><i></i> Quem te encontrou</span>
+              <span><i class="b"></i> Contatos</span>
+            </div>
+            <div class="mx-nota">Exemplo ilustrativo</div>
+          </div>
         </div>
 
-        <div class="nm-tile float" style="position: absolute; top: 4%; right: 0; padding: 12px 18px; border-radius: 999px; display: flex; align-items: center; gap: 9px; font-size: 13.5px; font-weight: 700; color: #3D4852;">
+        <div class="nm-tile float" style="position: absolute; top: -18px; right: -10px; padding: 11px 17px; border-radius: 999px; display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; color: #3D4852;">
           <span style="width: 8px; height: 8px; border-radius: 999px; background: #38B2AC; display: block;"></span>
           Site no ar
         </div>
-        <div class="nm-tile float-slow" style="position: absolute; bottom: 6%; left: 0; padding: 12px 18px; border-radius: 999px; display: flex; align-items: center; gap: 9px; font-size: 13.5px; font-weight: 700; color: #3D4852;">
+        <div class="nm-tile float-slow" style="position: absolute; top: -22px; left: -12px; padding: 11px 17px; border-radius: 999px; display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; color: #3D4852;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg>
           Mais vendas locais
         </div>
       </div>
+
     </div>
 
     <div data-reveal="1" class="grid-auto" style="margin-top: 64px;">
@@ -893,6 +1226,127 @@
       <div class="nm-card nm-card--lift" style="padding: 26px 28px;">
         <div class="font-display" style="font-size: 34px; font-weight: 800; color: #3D4852;">1 conta</div>
         <div style="margin-top: 8px; font-size: 14.5px; color: #6B7280; line-height: 1.55;">Site, redes e Google com a mesma equipe</div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="redes" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 24px; padding-bottom: 96px;">
+    <div class="two-col" style="align-items: center;">
+
+      <!-- Perfil de exemplo. Para trocar: o @ e o nome estão logo abaixo, os números
+           do perfil em .iph-nums e as artes são imgs/insta-1.webp … insta-8.webp
+           (quadradas, 520px). O avatar é imgs/insta-perfil.webp. -->
+      <div data-reveal="1" class="iph-palco">
+        <div class="iph">
+          <span class="iph-bt" style="left: -2px; top: 196px; height: 64px;"></span>
+          <span class="iph-bt" style="left: -2px; top: 284px; height: 64px;"></span>
+          <span class="iph-bt" style="right: -2px; top: 240px; height: 96px;"></span>
+
+          <div class="iph-tela">
+            <div class="iph-status">
+              <span>9:41</span>
+              <span style="display: flex; align-items: center; gap: 6px; font-size: 12px;">▮▮▮ ᯤ 100%</span>
+            </div>
+            <div class="iph-ilha"></div>
+
+            <div class="iph-corpo">
+              <div class="iph-topo">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span class="iph-user">actech.informatica</span>
+                  <span style="font-size: 11px; color: #8a8a8e;">▾</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 18px; color: #111;">
+                  <span style="font-weight: 300; font-size: 24px; line-height: 1;">+</span>
+                  <span class="iph-menu"><span></span><span></span><span></span></span>
+                </div>
+              </div>
+
+              <div class="iph-perfil">
+                <div class="iph-anel">
+                  <span><img src="imgs/insta-perfil.webp" alt="" loading="lazy" decoding="async" /></span>
+                </div>
+                <div class="iph-nums">
+                  <div><b>12</b><span>posts</span></div>
+                  <div><b>1.240</b><span>seguidores</span></div>
+                  <div><b>318</b><span>seguindo</span></div>
+                </div>
+              </div>
+
+              <div class="iph-bio">
+                <b>ACTech Informática</b>
+                <div>Site, redes e Google pro seu negócio.<br />Primeiro mês grátis.</div>
+                <div style="margin-top: 2px;"><a href="#planos">actech.com.br</a></div>
+              </div>
+
+              <div class="iph-acoes">
+                <div class="on">Seguir</div>
+                <div>Mensagem</div>
+                <div class="mais">▾</div>
+              </div>
+
+              <div class="iph-abas">
+                <div class="on">GRADE</div>
+                <div>MARCADOS</div>
+              </div>
+
+              <div class="iph-grade">
+                <img src="imgs/insta-5.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-1.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-7.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-2.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-8.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-3.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-6.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-4.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-2.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-6.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-1.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-3.webp" alt="" loading="lazy" decoding="async" />
+              </div>
+            </div>
+
+            <div class="iph-nav">
+              <span class="on">⌂</span>
+              <span>⌕</span>
+              <span>▷</span>
+              <span>♡</span>
+              <img src="imgs/insta-perfil.webp" alt="" loading="lazy" decoding="async" />
+            </div>
+
+            <div class="iph-barra"></div>
+            <div class="iph-brilho"></div>
+          </div>
+        </div>
+      </div>
+
+      <div data-reveal="1">
+        <div class="eyebrow">Redes sociais</div>
+        <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 17ch; color: #3D4852;">Seu Instagram publicando, mesmo na semana corrida.</h2>
+        <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #6B7280; max-width: 46ch;">
+          Todo mês a gente monta o plano de conteúdo, cria as artes e escreve as legendas.
+          Chega tudo pronto no seu WhatsApp — você só dá o ok.
+        </p>
+
+        <ul class="rede-lista">
+          <li>
+            <span class="rede-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path></svg></span>
+            <span><b>Arte feita pro seu negócio</b>, com a sua cara — não template genérico com o nome trocado.</span>
+          </li>
+          <li>
+            <span class="rede-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38B2AC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg></span>
+            <span><b>Aprovação por WhatsApp</b>, sem reunião e sem sistema novo pra aprender.</span>
+          </li>
+          <li>
+            <span class="rede-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg></span>
+            <span><b>De 8 a 20 posts por mês</b>, conforme o plano, com data marcada pra cada um.</span>
+          </li>
+        </ul>
+
+        <div class="nm-pill" style="margin-top: 30px; padding: 12px 20px;">
+          <span style="width: 8px; height: 8px; border-radius: 999px; background: #38B2AC; display: block;"></span>
+          Os posts do celular ao lado são nossos, feitos aqui dentro
+        </div>
       </div>
     </div>
   </section>
@@ -1033,6 +1487,182 @@
           <div class="reveal-roll"><span class="reveal-copy">Manutenção e suporte</span><span class="reveal-copy" aria-hidden="true">Manutenção e suporte</span></div>
         </li>
       </ul>
+    </div>
+  </section>
+
+  <section id="google" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
+    <div data-reveal="1" style="margin-bottom: 58px; max-width: 62ch;">
+      <div class="eyebrow">Google e anúncios</div>
+      <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 19ch; color: #3D4852;">A ficha do Google é a sua vitrine.</h2>
+      <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #6B7280;">
+        Quem procura "perto de mim" vê a ficha antes de ver o site. Quando ela está vazia,
+        sem foto, sem horário e sem resposta, o cliente vai no concorrente que preencheu a dele.
+      </p>
+    </div>
+
+    <!-- Antes e depois de uma ficha. As duas são exemplo, montadas em HTML aqui mesmo —
+         nenhuma captura de cliente. Para mudar os itens, é só editar as listas. -->
+    <div data-reveal="1" class="gmn-grid">
+      <div class="gmn gmn--antes">
+        <span class="gmn-selo gmn-selo--ruim">Antes</span>
+        <div class="gmn-card">
+          <div class="gmn-nome">Mercado do Bairro</div>
+          <div class="gmn-cat">Mercearia</div>
+          <div class="gmn-nota">
+            <span class="gmn-estrelas">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#DADCE0"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#DADCE0"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#DADCE0"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#DADCE0"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#DADCE0"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+            </span>
+            <span>Sem avaliações</span>
+          </div>
+
+          <div class="gmn-vazio">Nenhuma foto adicionada</div>
+
+          <ul class="gmn-linhas">
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA0A6" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+              <span>Horário não informado</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA0A6" stroke-width="2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.4 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"></path></svg>
+              <span>Telefone desatualizado</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA0A6" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18 15 15 0 010-18z"></path></svg>
+              <span>Nenhum site cadastrado</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA0A6" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
+              <span>Perguntas de clientes sem resposta</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gmn-seta" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+      </div>
+
+      <div class="gmn gmn--depois">
+        <span class="gmn-selo gmn-selo--bom">Depois</span>
+        <div class="gmn-card">
+          <div class="gmn-nome">Mercado do Bairro</div>
+          <div class="gmn-cat">Mercearia · Entrega no bairro</div>
+          <div class="gmn-nota">
+            <b>4,8</b>
+            <span class="gmn-estrelas">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+            </span>
+            <span>124 avaliações</span>
+          </div>
+
+          <div class="gmn-fotos">
+            <i style="background: linear-gradient(140deg, #C7D2FE, #818CF8);"></i>
+            <i style="background: linear-gradient(140deg, #BBF7D0, #4ADE80);"></i>
+            <i style="background: linear-gradient(140deg, #FED7AA, #FB923C);"></i>
+          </div>
+
+          <ul class="gmn-linhas">
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#188038" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+              <span><b style="color: #188038;">Aberto agora</b> · seg a sáb, 8h às 19h</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.4 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"></path></svg>
+              <span>Telefone e WhatsApp no topo da ficha</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18 15 15 0 010-18z"></path></svg>
+              <span>Link do site e do cardápio funcionando</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
+              <span>Avaliações respondidas uma a uma</span>
+            </li>
+          </ul>
+
+          <div class="gmn-acoes">
+            <span class="cheio">Ligar</span>
+            <span>Como chegar</span>
+            <span>Site</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="gmn-nota-pe" data-reveal="1">Exemplo ilustrativo de ficha — os itens do “depois” são os que a gente preenche e mantém.</p>
+
+    <div class="ads-faixa" data-reveal="1">
+      <div>
+        <h3 class="font-display" style="font-weight: 800; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.15; margin: 0; color: #3D4852; max-width: 18ch;">Com a ficha em dia, o anúncio rende.</h3>
+        <p style="margin: 16px 0 0; font-size: 15.5px; line-height: 1.7; color: #6B7280; max-width: 46ch;">
+          A gente cria, acompanha e ajusta as campanhas. A verba do anúncio é sua e vai direto
+          pra plataforma — o que a gente cuida é de onde ela é gasta.
+        </p>
+      </div>
+
+      <div class="ads-logos">
+        <span class="ads-chip">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="8.5" y="1.5" width="7" height="21" rx="3.5" fill="#FBBC04" transform="rotate(-30 12 12)"></rect>
+            <rect x="8.5" y="1.5" width="7" height="21" rx="3.5" fill="#4285F4" transform="rotate(30 12 12)"></rect>
+            <circle cx="6" cy="18" r="3.6" fill="#34A853"></circle>
+          </svg>
+          Google Ads
+        </span>
+
+        <span class="ads-chip">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <rect width="24" height="24" rx="6.5" fill="#1877F2"></rect>
+            <path d="M16 12.4h-2.4V20h-3.1v-7.6H8.8V9.8h1.7V8.3c0-2 1.1-3.1 3.4-3.1h2v2.7h-1.3c-.8 0-1 .3-1 .9v1h2.3l-.3 2.6z" fill="#fff"></path>
+          </svg>
+          Facebook Ads
+        </span>
+
+        <span class="ads-chip">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <defs>
+              <linearGradient id="igmark" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0" stop-color="#FEDA75"></stop>
+                <stop offset=".35" stop-color="#FA7E1E"></stop>
+                <stop offset=".62" stop-color="#D62976"></stop>
+                <stop offset="1" stop-color="#962FBF"></stop>
+              </linearGradient>
+            </defs>
+            <rect width="24" height="24" rx="6.5" fill="url(#igmark)"></rect>
+            <rect x="5.6" y="5.6" width="12.8" height="12.8" rx="4.2" fill="none" stroke="#fff" stroke-width="1.7"></rect>
+            <circle cx="12" cy="12" r="3.1" fill="none" stroke="#fff" stroke-width="1.7"></circle>
+            <circle cx="17" cy="7" r="1.1" fill="#fff"></circle>
+          </svg>
+          Instagram Ads
+        </span>
+
+        <span class="ads-chip">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 22.5s7.5-6.6 7.5-11.8a7.5 7.5 0 10-15 0c0 5.2 7.5 11.8 7.5 11.8z" fill="#4285F4"></path>
+            <path d="M12 3.2a7.5 7.5 0 016.6 4l-4.1 3.2z" fill="#EA4335"></path>
+            <path d="M19.5 10.7c0 1.5-.6 3.1-1.5 4.6l-3.9-4.6z" fill="#FBBC04"></path>
+            <path d="M12 22.5c-2.4-2.3-5-5.4-6.2-8.3l6.2-3.5z" fill="#34A853"></path>
+            <circle cx="12" cy="10.7" r="3" fill="#fff"></circle>
+          </svg>
+          Google Meu Negócio
+        </span>
+
+        <span class="ads-chip">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
+            <path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path>
+            <path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"></path>
+          </svg>
+          WhatsApp Business
+        </span>
+      </div>
     </div>
   </section>
 
@@ -1236,6 +1866,48 @@
         </div>
       </div>
     </div>
+
+    <!-- A conta do padeiro: mostra em quantos clientes a mensalidade se paga.
+         O ticket médio de R$ 50 é o chute que faz a conta fechar em 4 clientes;
+         mexeu no preço do plano, confira os dois números aqui embaixo. -->
+    <div data-reveal="1" class="conta">
+      <div class="conta-cab">
+        <div class="eyebrow">A conta</div>
+        <h3 class="font-display" style="font-weight: 800; font-size: clamp(24px, 3vw, 34px); line-height: 1.1; margin: 14px 0 0; color: #3D4852; max-width: 20ch;">Quando é que o plano se paga?</h3>
+        <p style="margin: 14px 0 0; font-size: 15.5px; line-height: 1.7; color: #6B7280; max-width: 44ch;">
+          A mensalidade não é uma despesa a mais no mês — é a conta mais simples que você faz hoje.
+        </p>
+      </div>
+
+      <div class="conta-linha">
+        <div class="conta-passo">
+          <span class="conta-num">R$ 197</span>
+          <span class="conta-rot">o Essencial, por mês</span>
+        </div>
+        <span class="conta-op" aria-hidden="true">÷</span>
+        <div class="conta-passo">
+          <span class="conta-num">R$ 50</span>
+          <span class="conta-rot">o que um cliente novo deixa no caixa</span>
+        </div>
+        <span class="conta-op" aria-hidden="true">=</span>
+        <div class="conta-passo conta-passo--fim">
+          <span class="conta-num">4 clientes</span>
+          <span class="conta-rot">e o mês inteiro já se pagou</span>
+        </div>
+      </div>
+
+      <div class="conta-pe">
+        <div class="nm-pill" style="padding: 12px 20px;">
+          <span style="width: 8px; height: 8px; border-radius: 999px; background: #38B2AC; display: block;"></span>
+          Do quinto cliente em diante, é lucro
+        </div>
+        <p style="margin: 0; font-size: 12.5px; line-height: 1.6; color: #A0AEC0; max-width: 52ch;">
+          Conta feita com ticket médio de R$ 50 — troque pelo seu que a lógica é a mesma
+          (no Completo, R$ 397, são 8 clientes). É um exemplo de como pensar o investimento,
+          não uma promessa de resultado.
+        </p>
+      </div>
+    </div>
   </section>
 
   <section id="diferenciais" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 40px; padding-bottom: 96px;">
@@ -1302,43 +1974,61 @@
         </div>
       </div>
 
-      <!-- CONTEÚDO DE EXEMPLO: trocar pelos depoimentos reais dos clientes antes de publicar. -->
-      <div data-reveal="1" class="nm-card" style="padding: 28px 26px;">
-        <div class="chat" data-chat>
-          <div class="chat-row chat-row--them">
-            <div class="chat-msg">
-              <span class="chat-meta">Marcos · Mercado São Jorge</span>
-              <div class="chat-bubble">Em duas semanas já apareceu gente na loja dizendo que achou a gente no Google.</div>
-            </div>
+      <!-- CONTEÚDO DE EXEMPLO: trocar pelos depoimentos reais dos clientes antes de publicar.
+           As duas colunas rolam em loop (CSS puro). Cada card aparece duas vezes de propósito:
+           é a duplicata que faz a emenda do loop ficar invisível. Ao editar, mexa nas DUAS cópias. -->
+      <div data-reveal="1" class="tcols" aria-label="Depoimentos de clientes">
+        <div class="tcol" style="--tdur: 32s;">
+          <div class="tcard">
+            <p>Em duas semanas já apareceu gente na loja dizendo que achou a gente no Google.</p>
+            <div class="tcard-who"><span class="tcard-av" aria-hidden="true">MS</span><span><span class="tcard-name">Marcos</span><br><span class="tcard-role">Mercado São Jorge</span></span></div>
           </div>
-          <div class="chat-row chat-row--me">
-            <div class="chat-msg">
-              <span class="chat-meta">ACTech</span>
-              <div class="chat-bubble">É o Google Meu Negócio trabalhando pra você 💪</div>
-            </div>
+          <div class="tcard">
+            <p>O site ficou pronto em 4 dias. Eu tinha me preparado pra esperar um mês.</p>
+            <div class="tcard-who"><span class="tcard-av" aria-hidden="true">RB</span><span><span class="tcard-name">Renata</span><br><span class="tcard-role">Studio Bella</span></span></div>
           </div>
-          <div class="chat-row chat-row--them">
-            <div class="chat-msg">
-              <span class="chat-meta">Renata · Studio Bella</span>
-              <div class="chat-bubble">O site ficou pronto em 4 dias. Eu tinha me preparado pra esperar um mês.</div>
-            </div>
+          <div class="tcard">
+            <p>Parei de correr atrás de post no fim de semana. Chega tudo pronto pra aprovar.</p>
+            <div class="tcard-who"><span class="tcard-av" aria-hidden="true">DP</span><span><span class="tcard-name">Diego</span><br><span class="tcard-role">Pet &amp; Cia</span></span></div>
           </div>
-          <div class="chat-row chat-row--them">
-            <div class="chat-msg">
-              <span class="chat-meta">Diego · Pet &amp; Cia</span>
-              <div class="chat-bubble">Parei de correr atrás de post no fim de semana. Chega tudo pronto pra aprovar.</div>
-            </div>
+          <div class="tcard" aria-hidden="true">
+            <p>Em duas semanas já apareceu gente na loja dizendo que achou a gente no Google.</p>
+            <div class="tcard-who"><span class="tcard-av" aria-hidden="true">MS</span><span><span class="tcard-name">Marcos</span><br><span class="tcard-role">Mercado São Jorge</span></span></div>
           </div>
-          <div class="chat-row chat-row--me">
-            <div class="chat-msg">
-              <span class="chat-meta">ACTech</span>
-              <div class="chat-bubble">Esse é o combinado: a gente cria, você só dá o ok.</div>
-            </div>
+          <div class="tcard" aria-hidden="true">
+            <p>O site ficou pronto em 4 dias. Eu tinha me preparado pra esperar um mês.</p>
+            <div class="tcard-who"><span class="tcard-av" aria-hidden="true">RB</span><span><span class="tcard-name">Renata</span><br><span class="tcard-role">Studio Bella</span></span></div>
           </div>
-          <div class="chat-row chat-row--them" style="margin-top: 4px;">
-            <div class="chat-msg">
-              <div class="chat-typing" aria-label="digitando"><i></i><i></i><i></i></div>
-            </div>
+          <div class="tcard" aria-hidden="true">
+            <p>Parei de correr atrás de post no fim de semana. Chega tudo pronto pra aprovar.</p>
+            <div class="tcard-who"><span class="tcard-av" aria-hidden="true">DP</span><span><span class="tcard-name">Diego</span><br><span class="tcard-role">Pet &amp; Cia</span></span></div>
+          </div>
+        </div>
+
+        <div class="tcol tcol--down tcol--b" style="--tdur: 26s;">
+          <div class="tcard">
+            <p>Respondem no WhatsApp na hora. Não fico esperando dois dias por um retorno.</p>
+            <div class="tcard-who"><span class="tcard-av" aria-hidden="true">CA</span><span><span class="tcard-name">Carla</span><br><span class="tcard-role">Ateliê Bem-te-vi</span></span></div>
+          </div>
+          <div class="tcard">
+            <p>O cardápio no celular ficou tão fácil de usar que os pedidos por delivery subiram.</p>
+            <div class="tcard-who"><span class="tcard-av" aria-hidden="true">JB</span><span><span class="tcard-name">João</span><br><span class="tcard-role">Burger do Zé</span></span></div>
+          </div>
+          <div class="tcard">
+            <p>Eu não entendo nada de site. Eles resolveram tudo e só me chamaram pra aprovar.</p>
+            <div class="tcard-who"><span class="tcard-av" aria-hidden="true">LF</span><span><span class="tcard-name">Luciana</span><br><span class="tcard-role">Odonto Sorriso</span></span></div>
+          </div>
+          <div class="tcard" aria-hidden="true">
+            <p>Respondem no WhatsApp na hora. Não fico esperando dois dias por um retorno.</p>
+            <div class="tcard-who"><span class="tcard-av" aria-hidden="true">CA</span><span><span class="tcard-name">Carla</span><br><span class="tcard-role">Ateliê Bem-te-vi</span></span></div>
+          </div>
+          <div class="tcard" aria-hidden="true">
+            <p>O cardápio no celular ficou tão fácil de usar que os pedidos por delivery subiram.</p>
+            <div class="tcard-who"><span class="tcard-av" aria-hidden="true">JB</span><span><span class="tcard-name">João</span><br><span class="tcard-role">Burger do Zé</span></span></div>
+          </div>
+          <div class="tcard" aria-hidden="true">
+            <p>Eu não entendo nada de site. Eles resolveram tudo e só me chamaram pra aprovar.</p>
+            <div class="tcard-who"><span class="tcard-av" aria-hidden="true">LF</span><span><span class="tcard-name">Luciana</span><br><span class="tcard-role">Odonto Sorriso</span></span></div>
           </div>
         </div>
       </div>
@@ -1351,45 +2041,33 @@
       <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px auto 0; max-width: 18ch; color: #3D4852;">Um pedaço do que já está no ar.</h2>
     </div>
 
-    <!-- Carrossel: para trocar ou acrescentar trabalho, mexa em `trabalhos()`
-         na lógica lá embaixo e jogue a imagem em imgs/. -->
-    <div class="carro" data-carro data-reveal="1">
-      <div class="carro-janela">
-        <div class="carro-trilho" data-carro-trilho style="transform: translateX({{ carroX }});">
-          <sc-for list="{{ trabalhos }}" as="t" hint-placeholder-count="4">
-            <div class="carro-slide">
-              <div class="tela">
-                <div class="tela-topo">
-                  <i></i><i></i><i></i>
-                  <span class="tela-url">{{ t.url }}</span>
+    <!-- Parede 3D em marquee. Para trocar ou acrescentar trabalho, mexa só em `trabalhos()`
+         na lógica lá embaixo e jogue a imagem em imgs/ — as colunas, o giro da lista em cada
+         uma e a duplicata que fecha o loop são montadas sozinhas no estado. -->
+    <div class="wall" data-reveal="1" aria-label="Trabalhos que já estão no ar">
+      <div class="wall-3d">
+        <sc-for list="{{ wallCols }}" as="c" hint-placeholder-count="5">
+          <div class="{{ c.cls }}" style="--tz: {{ c.tz }};">
+            <div class="{{ c.lane }}" style="--tdur: {{ c.dur }};">
+              <sc-for list="{{ c.itens }}" as="t" hint-placeholder-count="8">
+                <div class="wtile" aria-hidden="{{ t.dup }}">
+                  <div class="tela">
+                    <div class="tela-topo">
+                      <i></i><i></i><i></i>
+                      <span class="tela-url">{{ t.url }}</span>
+                    </div>
+                    <img class="tela-img" src="{{ t.img }}" alt="{{ t.alt }}" loading="lazy" decoding="async" />
+                  </div>
+                  <div class="wtile-info">
+                    <div class="wtile-tag">{{ t.tag }}</div>
+                    <h3 class="wtile-t">{{ t.titulo }}</h3>
+                    <p class="wtile-d">{{ t.texto }}</p>
+                  </div>
                 </div>
-                <img class="tela-img" src="{{ t.img }}" alt="{{ t.alt }}" loading="lazy" decoding="async" />
-              </div>
+              </sc-for>
             </div>
-          </sc-for>
-        </div>
-      </div>
-
-      <div class="carro-info">
-        <div>
-          <div class="carro-tag">{{ carroTag }}</div>
-          <h3 class="carro-t">{{ carroTitulo }}</h3>
-          <p class="carro-d">{{ carroTexto }}</p>
-        </div>
-      </div>
-
-      <div class="carro-nav">
-        <button class="carro-btn" onClick="{{ carroAnt }}" aria-label="Trabalho anterior">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3D4852" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>
-        </button>
-        <div class="carro-pontos">
-          <sc-for list="{{ carroPontos }}" as="p" hint-placeholder-count="4">
-            <button class="{{ p.cls }}" onClick="{{ p.ir }}" aria-label="{{ p.rotulo }}"></button>
-          </sc-for>
-        </div>
-        <button class="carro-btn" onClick="{{ carroProx }}" aria-label="Próximo trabalho">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3D4852" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg>
-        </button>
+          </div>
+        </sc-for>
       </div>
     </div>
   </section>
@@ -1617,7 +2295,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5599999999999&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;whatsappMessage&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Olá! Vi a página da ACTech e quero saber mais sobre os planos.&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;}}">
 class Component extends DCLogic {
-  state = { open: 0, menu: false, quiz: false, step: 0, ans: {}, nome: '', loadI: 0, unlocked: false, lesson: -1, slide: 0, feito: false, portal: '' };
+  state = { open: 0, menu: false, quiz: false, step: 0, ans: {}, nome: '', loadI: 0, unlocked: false, lesson: -1, faixa: '6M', feito: false, portal: '' };
 
   componentDidMount() {
     const els = Array.from(document.querySelectorAll('[data-reveal]'));
@@ -1656,10 +2334,8 @@ class Component extends DCLogic {
 
     this.setupClickFx();
     this.setupHoverReveal();
-    this.setupChat();
     this.setupGooButton();
     this.setupPortao();
-    this.setupCarro();
     this.setupTilt();
     this.setupTrueFocus();
     this.setupCardSwap();
@@ -1696,29 +2372,6 @@ class Component extends DCLogic {
     };
     document.addEventListener('click', naTela, true);
     this._teardown.push(() => document.removeEventListener('click', naTela, true));
-  }
-
-  /* ---------------------------------------------------------------
-     Carrossel: o trilho é posicionado por estado; aqui só o arrastar.
-     --------------------------------------------------------------- */
-  setupCarro() {
-    const el = document.querySelector('[data-carro]');
-    if (!el) return;
-    let x0 = null;
-    const pegar = (e) => { x0 = e.touches ? e.touches[0].clientX : e.clientX; };
-    const soltar = (e) => {
-      if (x0 === null) return;
-      const x1 = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
-      const d = x1 - x0;
-      x0 = null;
-      if (Math.abs(d) > 45) this.setState((s) => ({ slide: s.slide + (d < 0 ? 1 : -1) }));
-    };
-    el.addEventListener('touchstart', pegar, { passive: true });
-    el.addEventListener('touchend', soltar, { passive: true });
-    this._teardown.push(() => {
-      el.removeEventListener('touchstart', pegar);
-      el.removeEventListener('touchend', soltar);
-    });
   }
 
   /* ---------------------------------------------------------------
@@ -2073,27 +2726,6 @@ class Component extends DCLogic {
   }
 
   /* ---------------------------------------------------------------
-     3. Depoimentos: as bolhas entram em cascata quando a seção aparece.
-     --------------------------------------------------------------- */
-  setupChat() {
-    const chat = document.querySelector('[data-chat]');
-    if (!chat) return;
-    const msgs = [...chat.querySelectorAll('.chat-msg')];
-    msgs.forEach((m, i) => { m.style.transitionDelay = i * 0.15 + 's'; });
-
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          chat.classList.add('is-in');
-          io.disconnect();
-        }
-      });
-    }, { threshold: 0.25 });
-    io.observe(chat);
-    this._teardown.push(() => io.disconnect());
-  }
-
-  /* ---------------------------------------------------------------
      4. Botão líquido do CTA: a bolha persegue o cursor com inércia e
      "achata" na direção do movimento (squash proporcional à velocidade).
      --------------------------------------------------------------- */
@@ -2212,24 +2844,109 @@ class Component extends DCLogic {
     this._doneTimer = setTimeout(() => this.setState({ step: N + 2, feito: true }), 2500);
   }
 
-  /* Os trabalhos do carrossel. Acrescentar é só somar um objeto aqui
-     e jogar a imagem em imgs/. */
+  /* ---------------------------------------------------------------
+     Cartão de métrica do hero.
+
+     Os números são ILUSTRATIVOS: mostram a forma de um resultado possível,
+     não o histórico de um cliente. Para mexer, é só aqui —
+       total  = o número grande no topo (e o fim da curva)
+       delta  = crescimento no período; a linha tracejada é o ponto de partida
+       escala = topo do eixo da direita
+       subida = quanto a curva "empurra" para o fim (0 = reta, 1 = tudo no fim)
+     --------------------------------------------------------------- */
+  metricaFaixas() {
+    return [
+      { id: '1M', rotulo: '1M', total: 412, delta: 34, escala: 600, subida: 1.15, semente: 7,
+        sub: 'pessoas encontraram seu negócio no último mês',
+        datas: ['1ª sem', '2ª sem', '3ª sem', '4ª sem'] },
+      { id: '3M', rotulo: '3M', total: 1284, delta: 126, escala: 1600, subida: 1.3, semente: 23,
+        sub: 'pessoas encontraram seu negócio em 3 meses',
+        datas: ['mês 1', 'mês 2', 'mês 3'] },
+      { id: '6M', rotulo: '6M', total: 3590, delta: 218, escala: 4200, subida: 1.45, semente: 41,
+        sub: 'pessoas encontraram seu negócio em 6 meses',
+        datas: ['jan', 'mar', 'mai', 'jun'] },
+      { id: '1A', rotulo: '1A', total: 8740, delta: 410, escala: 10000, subida: 1.6, semente: 59,
+        sub: 'pessoas encontraram seu negócio em 1 ano',
+        datas: ['jan', 'abr', 'jul', 'out', 'dez'] }
+    ];
+  }
+
+  /** Monta a geometria do gráfico (linha, área, barras e eixos) de uma faixa. */
+  metricaDesenho(f) {
+    const W = 280, H = 104, X0 = 3, X1 = 277, Y0 = 7, Y1 = 97;
+    const N = 30;
+    const num = (n) => Math.round(n).toLocaleString('pt-BR');
+    const pct = (v) => +(v * 100).toFixed(2) + '%';
+
+    // Ruído estável: a mesma faixa desenha sempre a mesma curva. Com Math.random
+    // o gráfico mudaria a cada re-render (abrir o menu, responder o quiz...).
+    let s = f.semente * 9301 + 49297;
+    const rnd = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+
+    const fim = f.total / f.escala;
+    const ini = fim / (1 + f.delta / 100);
+
+    const vals = [];
+    for (let i = 0; i < N; i++) {
+      const t = i / (N - 1);
+      const curva = ini + (fim - ini) * Math.pow(t, f.subida);
+      const ruido = i === 0 || i === N - 1 ? 0 : (rnd() - 0.5) * 0.085;
+      vals.push(Math.max(0.04, Math.min(0.98, curva + ruido)));
+    }
+
+    const px = (i) => X0 + (X1 - X0) * (i / (N - 1));
+    const py = (v) => Y1 - (Y1 - Y0) * v;
+    const pts = vals.map((v, i) => ({ x: +px(i).toFixed(1), y: +py(v).toFixed(1) }));
+
+    // Curva suave: cada trecho vira uma cúbica com os controles no meio do vão.
+    let linha = 'M' + pts[0].x + ',' + pts[0].y;
+    for (let i = 1; i < pts.length; i++) {
+      const p = pts[i - 1], q = pts[i], mx = +((p.x + q.x) / 2).toFixed(1);
+      linha += ' C' + mx + ',' + p.y + ' ' + mx + ',' + q.y + ' ' + q.x + ',' + q.y;
+    }
+
+    return {
+      valor: num(f.total),
+      delta: '+' + f.delta + '%',
+      sub: f.sub,
+      alt: 'Gráfico ilustrativo: ' + num(f.total) + ' pessoas encontraram o negócio, ' +
+           f.delta + '% a mais que no início do período.',
+      linha: linha,
+      area: linha + ' L' + X1 + ',' + Y1 + ' L' + X0 + ',' + Y1 + ' Z',
+      baseTop: pct(py(ini) / H),
+      fimLeft: pct(pts[N - 1].x / W),
+      fimTop: pct(pts[N - 1].y / H),
+      barras: vals.map((v, i) => ({
+        cls: i >= N - 4 ? 'mx-barra--alta' : '',
+        h: pct(Math.max(0.12, Math.min(1, 0.22 + 0.72 * v * (0.78 + rnd() * 0.44))))
+      })),
+      eixo: [0, 0.5, 1].map((p) => ({
+        top: pct(py(p) / H),
+        txt: num(f.escala * p)
+      })),
+      datas: f.datas.map((txt) => ({ txt: txt }))
+    };
+  }
+
+  /* Os trabalhos que rolam em #trabalhos. Acrescentar é só somar um objeto
+     aqui e jogar a imagem em imgs/ — as colunas se montam sozinhas.
+     Sem nome de cliente: nem no texto, nem na barra de endereço da moldura. */
   trabalhos() {
     return [
-      { img: 'imgs/jj-motos-painel.png', url: 'jjmotos.com.br/painel', alt: 'Painel de controle do sistema JJ Motos',
-        tag: 'Sistema sob medida · JJ Motos',
+      { img: 'imgs/painel-caixa.png', url: 'cliente.com.br/painel', alt: 'Painel de controle de um sistema sob medida',
+        tag: 'Sistema sob medida',
         titulo: 'Um painel que mostra o caixa em tempo real',
         texto: 'Saldo, entradas, saídas, contratos e vendas do mês numa tela só. O dono abre de manhã e sabe exatamente onde o negócio está, sem abrir planilha.' },
-      { img: 'imgs/jj-motos-livro-caixa.png', url: 'jjmotos.com.br/livro-caixa', alt: 'Tela do livro caixa do sistema JJ Motos',
-        tag: 'Sistema sob medida · JJ Motos',
+      { img: 'imgs/livro-caixa.png', url: 'cliente.com.br/livro-caixa', alt: 'Tela de livro caixa de um sistema sob medida',
+        tag: 'Sistema sob medida',
         titulo: 'Livro caixa que qualquer um consegue usar',
         texto: 'Registrar entrada e saída virou dois cliques, com extrato do dia, filtro por tipo e fechamento de mês. Menos papel, menos erro no fim do mês.' },
-      { img: 'imgs/a3d-print-home.png', url: 'a3dprint.com.br', alt: 'Página inicial do site da A3D Print',
-        tag: 'Site institucional · A3D Print',
+      { img: 'imgs/site-home.png', url: 'cliente.com.br', alt: 'Página inicial de um site institucional',
+        tag: 'Site institucional',
         titulo: 'Um site que explica o serviço em cinco segundos',
         texto: 'Estúdio de impressão 3D sob demanda. A pessoa entende o que é, vê exemplos e cai no WhatsApp ou no orçamento sem precisar procurar.' },
-      { img: 'imgs/a3d-print-possibilidades.png', url: 'a3dprint.com.br/possibilidades', alt: 'Página de possibilidades do site da A3D Print',
-        tag: 'Site institucional · A3D Print',
+      { img: 'imgs/site-portfolio.png', url: 'cliente.com.br/portfolio', alt: 'Página de portfólio de um site institucional',
+        tag: 'Site institucional',
         titulo: 'Portfólio que vende antes da conversa',
         texto: 'Galeria de peças e projetos mostrando na prática o que a tecnologia faz. Quem chega curioso sai com a ideia pronta do que quer pedir.' }
     ];
@@ -2459,24 +3176,53 @@ class Component extends DCLogic {
     const done = open && st === N + 2;
     const res = done ? this.quizResult() : null;
 
+    // Cada coluna da parede mostra a lista inteira, girada pelo índice da coluna
+    // (assim duas vizinhas nunca ficam iguais) e repetida duas vezes — a duplicata
+    // é o que faz a emenda do loop ficar invisível.
+    const MF = this.metricaFaixas();
+    const faixa = MF.find((f) => f.id === this.state.faixa) || MF[2];
+    const MX = this.metricaDesenho(faixa);
+
     const TR = this.trabalhos();
-    const si = ((this.state.slide % TR.length) + TR.length) % TR.length;
+    const TZ = [0, -40, -80, -40, 0];
+    const wallCols = TZ.map((tz, c) => {
+      const gira = TR.slice(c % TR.length).concat(TR.slice(0, c % TR.length));
+      return {
+        cls: 'wall-col wall-col--' + c,
+        lane: 'wall-lane' + (c % 2 ? ' wall-lane--down' : ''),
+        tz: tz + 'px',
+        dur: (42 + c * 5) + 's',
+        itens: [
+          ...gira.map((t) => ({ ...t, dup: 'false' })),
+          ...gira.map((t) => ({ ...t, dup: 'true' }))
+        ]
+      };
+    });
 
     return {
       whatsUrl: 'https://wa.me/' + phone + '?text=' + msg,
 
-      trabalhos: TR,
-      carroX: '-' + (si * 100) + '%',
-      carroTag: TR[si].tag,
-      carroTitulo: TR[si].titulo,
-      carroTexto: TR[si].texto,
-      carroAnt: () => this.setState((s) => ({ slide: s.slide - 1 })),
-      carroProx: () => this.setState((s) => ({ slide: s.slide + 1 })),
-      carroPontos: TR.map((t, i) => ({
-        cls: 'carro-ponto' + (i === si ? ' is-on' : ''),
-        rotulo: 'Ver trabalho ' + (i + 1),
-        ir: () => this.setState({ slide: i })
+      mxValor: MX.valor,
+      mxDelta: MX.delta,
+      mxSub: MX.sub,
+      mxAlt: MX.alt,
+      mxLinha: MX.linha,
+      mxArea: MX.area,
+      mxBaseTop: MX.baseTop,
+      mxFimLeft: MX.fimLeft,
+      mxFimTop: MX.fimTop,
+      mxBarras: MX.barras,
+      mxEixo: MX.eixo,
+      mxDatas: MX.datas,
+      mxFaixa: faixa.id,
+      mxFaixas: MF.map((f) => ({
+        rotulo: f.rotulo,
+        cls: 'mx-faixa' + (f.id === faixa.id ? ' is-on' : ''),
+        on: f.id === faixa.id ? 'true' : 'false',
+        ir: () => this.setState({ faixa: f.id })
       })),
+
+      wallCols: wallCols,
 
       quizOpen: open,
       quizPortal: open && st === -1,
@@ -2557,7 +3303,7 @@ class Component extends DCLogic {
         '20 posts/mês nas redes sociais com artes elaboradas',
         'Gestão de tráfego pago (Google/Meta) — verba de anúncio separada',
         'Relatório mensal de desempenho',
-        'Atualizações ilimitadas no site',
+        '4 atualizações de conteúdo por mês no site',
         'Suporte prioritário',
         'Fidelidade de 6 meses'
       ],
