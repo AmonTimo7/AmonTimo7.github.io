@@ -111,6 +111,28 @@ barras de volume e eixos.
   para quem quer preço antes de conversa, e "Fale com a gente" (primário, WhatsApp).
   O link de texto "Planos" saiu do menu: com o botão do lado, era o mesmo destino duas vezes.
 
+## Desempenho
+
+A página junta muita coisa cara ao mesmo tempo: sete faixas em loop, quatro blobs sob
+`blur`, um glow girando e uma parede 3D com 40 quadros. Três regras seguram isso:
+
+1. **Anima só o que está na tela.** `setupPausar()` põe `fora-de-vista` em cada bloco
+   marcado com `data-anima` (faixa de segmentos, planos, depoimentos, trabalhos) e o CSS
+   pausa as animações lá dentro. Volta a rodar 200px antes de reaparecer, então ninguém
+   flagra a faixa parada. Pausar não desalinha o loop: ele retoma de onde estava.
+2. **Modal aberto congela o fundo.** `lockScroll()` põe `modal-aberto` no `<body>`.
+   Por baixo de um `backdrop-filter`, cada quadro do fundo obriga o navegador a
+   refazer o desfoque da tela inteira.
+3. **Uma escrita por quadro no tilt.** O ponteiro dispara bem mais que 60 eventos por
+   segundo; antes cada um media o card (`getBoundingClientRect`, que força layout) e
+   escrevia o `transform`. Agora mede uma vez no `pointerenter` e escreve uma vez por
+   quadro via `requestAnimationFrame` — 120 eventos viram 1 escrita de estilo.
+
+Também: `renderVals()` roda inteiro a cada `setState` (e o quiz dispara um por resposta),
+então o que não muda passou por `memo()` — perguntas, ícones, os 40 quadros da parede,
+a curva do gráfico por faixa. E os raios de blur caíram um pouco (`.fluid` 50→40px,
+glow 26→21px): o custo cresce com o raio e a diferença não aparece.
+
 ## Pendências de conteúdo
 
 - **"Ilimitadas" saiu**: o Completo dizia "atualizações ilimitadas no site" e agora diz

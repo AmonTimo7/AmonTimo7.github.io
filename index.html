@@ -426,13 +426,14 @@
   .blob-glow i {
     display: block; position: absolute; inset: -70%;
     background: conic-gradient(from 0deg, #93C5FD, #A5B4FC, #60A5FA, #2B4BFF, #6C63FF, #93C5FD);
-    filter: blur(26px);
+    filter: blur(21px);
     animation: glowspin 5s linear infinite;
+    will-change: transform;
   }
   @keyframes glowspin { to { transform: rotate(360deg); } }
   .blob-inner { position: relative; z-index: 1; border-radius: var(--r-card); overflow: hidden; background: var(--bg); }
   .blob-header { position: relative; overflow: hidden; height: 224px; background: #12224E; }
-  .fluid { position: absolute; inset: -60px; filter: blur(50px); }
+  .fluid { position: absolute; inset: -60px; filter: blur(40px); }
   .fluid i { display: block; position: absolute; width: 62%; height: 78%; border-radius: 999px; }
   .fluid i:nth-child(1) { background: #2B4BFF; left: 16%; top: -46%; animation: fl1 9s ease-in-out infinite; }
   .fluid i:nth-child(2) { background: #3B82F6; left: 38%; top: -18%; animation: fl2 11s ease-in-out infinite; }
@@ -718,6 +719,21 @@
     animation: modalIn .3s var(--ease) both;
   }
   @keyframes modalIn { from { opacity: 0; } to { opacity: 1; } }
+  /* Só anima o que está na tela — e nada enquanto o modal está aberto.
+     Sete faixas em loop, quatro blobs com blur de 50px e o glow girando, tudo ao
+     mesmo tempo, é GPU gasta desenhando o que ninguém está olhando. */
+  .fora-de-vista .wall-lane,
+  .fora-de-vista .tcol,
+  .fora-de-vista .fluid i,
+  .fora-de-vista .blob-glow i,
+  .fora-de-vista .marquee-faixa,
+  body.modal-aberto .wall-lane,
+  body.modal-aberto .tcol,
+  body.modal-aberto .fluid i,
+  body.modal-aberto .blob-glow i,
+  body.modal-aberto .float,
+  body.modal-aberto .float-slow,
+  body.modal-aberto .marquee-faixa { animation-play-state: paused !important; }
   .modal-panel {
     position: relative; width: 100%; max-width: 800px; max-height: 88vh;
     display: flex; flex-direction: column; overflow: hidden;
@@ -767,7 +783,10 @@
     width: 100%; min-height: 128px; padding: 20px 18px;
     border: none; border-radius: 22px; text-align: left; cursor: pointer;
     background: var(--bg); color: var(--fg); font-family: inherit;
-    box-shadow: var(--nm-out-sm); transition: all .25s var(--ease);
+    box-shadow: var(--nm-out-sm);
+    /* `all` fazia o navegador vigiar toda propriedade do botão a cada quadro do
+       hover; só sombra e posição mudam de verdade. */
+    transition: box-shadow .25s var(--ease), transform .25s var(--ease), color .25s var(--ease);
   }
   .pick:hover { transform: translateY(-2px); box-shadow: var(--nm-out); }
   .pick:active { transform: translateY(.5px); box-shadow: var(--nm-in-sm); }
@@ -1380,9 +1399,9 @@
     </div>
   </section>
 
-  <div class="wrap" style="position: relative; z-index: 1;">
+  <div class="wrap" data-anima style="position: relative; z-index: 1;">
     <div class="nm-track" style="border-radius: 999px; overflow: hidden; padding: 16px 0;">
-      <div style="display: flex; width: max-content; animation: marquee 34s linear infinite; gap: 44px; padding-left: 44px;">
+      <div class="marquee-faixa" style="display: flex; width: max-content; animation: marquee 34s linear infinite; gap: 44px; padding-left: 44px;">
         <span style="font-size: 13px; letter-spacing: .22em; color: #6B7280; text-transform: uppercase; white-space: nowrap;">Mercados · Lojas de bairro · Pet shops · Barbearias · Restaurantes · Clínicas · Autopeças · Prestadores de serviço · Mercados · Lojas de bairro · Pet shops · Barbearias · Restaurantes · Clínicas · Autopeças · Prestadores de serviço ·</span>
         <span style="font-size: 13px; letter-spacing: .22em; color: #6B7280; text-transform: uppercase; white-space: nowrap;">Mercados · Lojas de bairro · Pet shops · Barbearias · Restaurantes · Clínicas · Autopeças · Prestadores de serviço · Mercados · Lojas de bairro · Pet shops · Barbearias · Restaurantes · Clínicas · Autopeças · Prestadores de serviço ·</span>
       </div>
@@ -1805,7 +1824,7 @@
     </sc-if>
   </section>
 
-  <section id="planos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 40px; padding-bottom: 96px;">
+  <section data-anima id="planos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 40px; padding-bottom: 96px;">
     <div data-reveal="1" style="text-align: center; max-width: 620px; margin: 0 auto 56px;">
       <div class="eyebrow">Planos</div>
       <h2 class="font-display focus" data-focus style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; color: #3D4852;">
@@ -1989,7 +2008,7 @@
     </div>
   </section>
 
-  <section id="depoimentos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 40px; padding-bottom: 104px;">
+  <section data-anima id="depoimentos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 40px; padding-bottom: 104px;">
     <div class="two-col">
       <div data-reveal="1">
         <div class="eyebrow">Depoimentos</div>
@@ -2064,7 +2083,7 @@
     </div>
   </section>
 
-  <section id="trabalhos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 96px;">
+  <section data-anima id="trabalhos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 96px;">
     <div data-reveal="1" style="text-align: center; margin-bottom: 34px;">
       <div class="eyebrow">Nosso trabalho</div>
       <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px auto 0; max-width: 18ch; color: #3D4852;">Um pedaço do que já está no ar.</h2>
@@ -2465,6 +2484,7 @@ class Component extends DCLogic {
       this.lockScroll(false);
     });
 
+    this.setupPausar();
     this.setupClickFx();
     this.setupHoverReveal();
     this.setupGooButton();
@@ -2515,21 +2535,43 @@ class Component extends DCLogic {
     const F = 11;
     const bound = [];
     [...document.querySelectorAll('[data-tilt]')].forEach((el) => {
-      const move = (e) => {
-        const r = el.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width - 0.5;
-        const py = (e.clientY - r.top) / r.height - 0.5;
-        el.style.transition = 'transform .15s ease-out';
+      // O ponteiro dispara bem mais que 60 vezes por segundo. Medir o card e
+      // escrever o transform a cada evento fazia o navegador recalcular layout no
+      // meio do quadro — e o card de plano tem blur pesado dentro, então cada
+      // recálculo redesenhava tudo. Agora: mede uma vez ao entrar, escreve uma
+      // vez por quadro.
+      let raf = 0, alvo = null, r = null;
+
+      const aplicar = () => {
+        raf = 0;
+        if (!alvo) return;
         el.style.transform =
-          'perspective(1000px) rotateX(' + -py * F + 'deg) rotateY(' + px * F + 'deg) scale(1.02)';
+          'perspective(1000px) rotateX(' + -alvo[1] * F + 'deg) rotateY(' + alvo[0] * F + 'deg) scale(1.02)';
+      };
+      const enter = () => {
+        r = el.getBoundingClientRect();
+        el.style.transition = 'transform .15s ease-out';
+        el.style.willChange = 'transform';
+      };
+      const move = (e) => {
+        if (!r) r = el.getBoundingClientRect();
+        alvo = [(e.clientX - r.left) / r.width - 0.5, (e.clientY - r.top) / r.height - 0.5];
+        if (!raf) raf = requestAnimationFrame(aplicar);
       };
       const leave = () => {
+        if (raf) { cancelAnimationFrame(raf); raf = 0; }
+        alvo = null; r = null;
         el.style.transition = 'transform .4s cubic-bezier(.2,.7,.2,1)';
         el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+        el.style.willChange = 'auto';
       };
+
+      el.addEventListener('pointerenter', enter);
       el.addEventListener('pointermove', move);
       el.addEventListener('pointerleave', leave);
       bound.push(() => {
+        if (raf) cancelAnimationFrame(raf);
+        el.removeEventListener('pointerenter', enter);
         el.removeEventListener('pointermove', move);
         el.removeEventListener('pointerleave', leave);
       });
@@ -2668,6 +2710,26 @@ class Component extends DCLogic {
      1. Efeito de clique "sniper" (Originkit Click Effects, via GSAP)
      Quatro traços saindo do centro + 8 partículas em 8 ângulos.
      --------------------------------------------------------------- */
+  /* ---------------------------------------------------------------
+     Anima só o que está na tela.
+
+     Cada bloco marcado com data-anima ganha/perde a classe `fora-de-vista`
+     conforme entra e sai do campo de visão; o CSS pausa as animações de dentro.
+     A margem de 200px liga tudo um pouco antes de aparecer, então ninguém
+     flagra a faixa parada.
+     --------------------------------------------------------------- */
+  setupPausar() {
+    const alvos = [...document.querySelectorAll('[data-anima]')];
+    if (!alvos.length || !('IntersectionObserver' in window)) return;
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => e.target.classList.toggle('fora-de-vista', !e.isIntersecting));
+    }, { rootMargin: '200px 0px' });
+
+    alvos.forEach((el) => { el.classList.add('fora-de-vista'); io.observe(el); });
+    this._teardown.push(() => io.disconnect());
+  }
+
   setupClickFx() {
     if (this.reduced() || !this.finePointer()) return;
     // O GSAP vem do CDN pelo <helmet>, então pode ainda não estar na window.
@@ -2957,6 +3019,20 @@ class Component extends DCLogic {
 
   lockScroll(on) {
     document.body.style.overflow = on ? 'hidden' : '';
+    // Com o modal aberto o fundo continuava rodando: sete faixas em loop, os blobs
+    // com blur de 50px e o glow girando — tudo por baixo de um backdrop-filter, que
+    // reprocessa a tela inteira a cada quadro. Parado, esse custo some.
+    document.body.classList.toggle('modal-aberto', !!on);
+  }
+
+  /* Cache do que não muda a cada clique. `renderVals()` roda inteiro a cada
+     setState — e o quiz dispara um por resposta. Sem isto, cada clique remontava
+     os ícones de todas as perguntas, os 40 quadros da parede e a curva do
+     gráfico do zero. */
+  memo(chave, fn) {
+    if (!this._memo) this._memo = {};
+    if (!(chave in this._memo)) this._memo[chave] = fn();
+    return this._memo[chave];
   }
 
   answer(key, v) {
@@ -3299,13 +3375,13 @@ class Component extends DCLogic {
   renderVals() {
     const phone = this.props.whatsappNumber ?? '5599999999999';
     const msg = encodeURIComponent(this.props.whatsappMessage ?? 'Olá! Vi a página da ACTech e quero saber mais sobre os planos.');
-    const faqData = [
+    const faqData = this.memo('faq', () => [
       { q: 'Em quanto tempo meu site fica pronto?', a: 'Até 5 dias úteis depois que recebemos o material básico: logo, fotos, textos e informações de contato. Se preferir, a gente ajuda a organizar esse conteúdo antes de começar.' },
       { q: 'Como funciona o 1º mês grátis?', a: 'Você não paga a primeira mensalidade. Nesse período já fazemos o site, publicamos os posts e configuramos o Google Meu Negócio. A cobrança começa no segundo mês.' },
       { q: 'O que é a fidelidade de 6 meses?', a: 'É o compromisso mínimo de permanência no plano. Existe porque o site, o domínio e a estruturação inicial são entregues sem custo de setup, e porque marketing digital só mostra resultado com alguns meses de constância. Depois dos 6 meses o contrato segue mês a mês.' },
       { q: 'O que significa "verba de anúncio separada"?', a: 'No plano Completo a ACTech cria, configura e otimiza as campanhas no Google e Meta. O valor que vai para o anúncio em si é pago diretamente às plataformas e você define quanto quer investir — ele não está incluído na mensalidade.' }
-    ];
-    const Q = this.quizData();
+    ]);
+    const Q = this.memo('quiz', () => this.quizData());
     const N = Q.length;
     const st = this.state.step;
     const open = this.state.quiz;
@@ -3325,24 +3401,26 @@ class Component extends DCLogic {
     // Cada coluna da parede mostra a lista inteira, girada pelo índice da coluna
     // (assim duas vizinhas nunca ficam iguais) e repetida duas vezes — a duplicata
     // é o que faz a emenda do loop ficar invisível.
-    const MF = this.metricaFaixas();
+    const MF = this.memo('faixas', () => this.metricaFaixas());
     const faixa = MF.find((f) => f.id === this.state.faixa) || MF[2];
-    const MX = this.metricaDesenho(faixa);
+    const MX = this.memo('mx:' + faixa.id, () => this.metricaDesenho(faixa));
 
-    const TR = this.trabalhos();
-    const TZ = [0, -40, -80, -40, 0];
-    const wallCols = TZ.map((tz, c) => {
-      const gira = TR.slice(c % TR.length).concat(TR.slice(0, c % TR.length));
-      return {
-        cls: 'wall-col wall-col--' + c,
-        lane: 'wall-lane' + (c % 2 ? ' wall-lane--down' : ''),
-        tz: tz + 'px',
-        dur: (42 + c * 5) + 's',
-        itens: [
-          ...gira.map((t) => ({ ...t, dup: 'false' })),
-          ...gira.map((t) => ({ ...t, dup: 'true' }))
-        ]
-      };
+    const wallCols = this.memo('parede', () => {
+      const TR = this.trabalhos();
+      const TZ = [0, -40, -80, -40, 0];
+      return TZ.map((tz, c) => {
+        const gira = TR.slice(c % TR.length).concat(TR.slice(0, c % TR.length));
+        return {
+          cls: 'wall-col wall-col--' + c,
+          lane: 'wall-lane' + (c % 2 ? ' wall-lane--down' : ''),
+          tz: tz + 'px',
+          dur: (42 + c * 5) + 's',
+          itens: [
+            ...gira.map((t) => ({ ...t, dup: 'false' })),
+            ...gira.map((t) => ({ ...t, dup: 'true' }))
+          ]
+        };
+      });
     });
 
     return {
@@ -3458,12 +3536,12 @@ class Component extends DCLogic {
         'Suporte prioritário',
         'Fidelidade de 6 meses'
       ],
-      diferenciais: [
+      diferenciais: this.memo('difs', () => [
         { title: 'Site pronto em até 5 dias', body: 'Processo enxuto e direto: você aprova, a gente publica. Sem meses de espera.', icon: this.icon(['M13 2L3 14h7l-1 8 10-12h-7z']) },
         { title: '1º mês grátis', body: 'Você vê o trabalho acontecendo antes de pagar a primeira mensalidade.', icon: this.icon(['M20 12v9H4v-9', 'M2 7h20v5H2z', 'M12 21V7', 'M12 7C9 7 7 5.5 7 4a2 2 0 014 0c0 1.5 1 3 1 3z']) },
         { title: 'Atendimento próximo', body: 'Você fala com quem desenvolve e cria, no WhatsApp, sem intermediário.', icon: this.icon(['M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z']) },
         { title: 'Foco em pequenos negócios', body: 'Soluções do tamanho do seu comércio, com preço que cabe no mês.', icon: this.icon(['M3 21h18', 'M5 21V8l7-5 7 5v13', 'M10 21v-6h4v6']) }
-      ],
+      ]),
       faqs: faqData.map((f, i) => ({
         q: f.q,
         a: f.a,
