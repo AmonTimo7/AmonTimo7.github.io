@@ -352,6 +352,79 @@
   .reveal.has-active .reveal-item.is-on .reveal-copy { color: var(--accent); }
   .reveal-note { margin-top: 10px; font-size: 14.5px; color: var(--muted); line-height: 1.6; max-width: 44ch; }
 
+  /* ---------- Painéis de #servicos (os mesmos do canvas do Claude Design) ----------
+     O quadro é 300x400 no desktop e 420x300 no celular, então tudo aqui é fluido:
+     a peça principal cresce com `flex: 1` e a imagem recorta com object-fit. */
+  .srv { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 14px; padding: 22px; }
+  .srv-visual {
+    flex: 1; min-height: 0; display: flex; flex-direction: column;
+    border-radius: 18px; overflow: hidden; background: var(--bg); box-shadow: var(--nm-out-sm);
+  }
+  .srv-visual img { flex: 1; min-height: 0; width: 100%; object-fit: cover; object-position: top center; display: block; }
+  .srv-topo { display: flex; align-items: center; gap: 5px; padding: 9px 11px; flex: none; }
+  .srv-topo i { width: 7px; height: 7px; border-radius: 999px; background: rgba(163,177,198,.75); display: block; flex: none; }
+  .srv-url {
+    margin-left: 6px; flex: 1; height: 17px; border-radius: 999px; box-shadow: var(--nm-in-sm);
+    display: flex; align-items: center; padding: 0 10px; font-size: 9px; color: var(--muted); overflow: hidden; white-space: nowrap;
+  }
+  .srv-chip {
+    flex: none; align-self: flex-start; display: inline-flex; align-items: center; gap: 9px;
+    padding: 10px 15px; border-radius: 999px; background: var(--bg); box-shadow: var(--nm-out-sm);
+    font-size: 11.5px; font-weight: 700; color: var(--fg); line-height: 1.25;
+  }
+  .srv-chip b { display: block; font-size: 10.5px; font-weight: 400; color: var(--muted); }
+  .srv-ponto { width: 8px; height: 8px; border-radius: 999px; background: var(--accent-2); display: block; flex: none; }
+
+  /* celular do painel de redes */
+  .srv-fone {
+    /* o aparelho encolhe junto com o quadro (100px de largura no celular), então o
+       texto da tela mede em cqw — em px ele estouraria ou viraria reticências */
+    container-type: inline-size;
+    flex: 1; min-height: 0; aspect-ratio: 164 / 332; margin: 0 auto; padding: 6px;
+    border-radius: 26px; background: linear-gradient(115deg, #2e2e31, #191919 45%, #2b2b2e);
+    box-shadow: 8px 10px 18px rgba(163,177,198,.7), -6px -6px 14px rgba(255,255,255,.5);
+  }
+  .srv-tela { width: 100%; height: 100%; border-radius: 21px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+  .srv-perfil { display: flex; align-items: center; gap: 5px; padding: 7px 7px 6px; flex: none; }
+  .srv-perfil img { width: 13cqw; height: 13cqw; max-width: 22px; max-height: 22px; border-radius: 999px; display: block; flex: none; }
+  .srv-perfil span { font-size: clamp(6px, 7cqw, 10px); font-weight: 700; color: #111; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .srv-grade { flex: 1; min-height: 0; overflow: hidden; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 2px; padding: 0 2px; align-content: start; }
+  .srv-grade img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+
+  /* ficha do Google */
+  .srv-ficha {
+    flex: 1; min-height: 0; overflow: hidden; border-radius: 18px; background: #fff;
+    padding: 13px 13px 12px; box-shadow: var(--nm-out-sm);
+    font-family: 'Roboto', system-ui, Arial, sans-serif;
+    display: flex; flex-direction: column; gap: 7px;
+  }
+  .srv-ficha-nome { font-size: 14px; font-weight: 500; color: #202124; letter-spacing: -.01em; }
+  .srv-ficha-cat { margin-top: 2px; font-size: 10.5px; color: #5F6368; }
+  .srv-nota { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: #5F6368; }
+  .srv-nota b { font-size: 11.5px; font-weight: 600; color: #202124; }
+  .srv-nota span { display: flex; gap: 1px; }
+  .srv-fotos { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 4px; }
+  .srv-fotos i { display: block; width: 100%; aspect-ratio: 16/10; border-radius: 6px; }
+  .srv-linha { display: flex; align-items: center; gap: 7px; font-size: 10.5px; color: #3C4043; }
+  .srv-acoes { display: flex; gap: 6px; margin-top: auto; }
+  .srv-acoes span { flex: 1; text-align: center; padding: 6px 0; border-radius: 999px; font-size: 10px; font-weight: 600; }
+
+  /* post patrocinado */
+  .srv-post { flex: 1; min-height: 0; display: flex; flex-direction: column; border-radius: 18px; overflow: hidden; background: #fff; box-shadow: var(--nm-out-sm); }
+  .srv-post-topo { display: flex; align-items: center; gap: 8px; padding: 9px 11px; flex: none; }
+  .srv-post-topo img { width: 22px; height: 22px; border-radius: 999px; display: block; }
+  .srv-post-nome { font-size: 10px; font-weight: 700; color: #111; line-height: 1.3; }
+  .srv-post-nome b { display: block; font-size: 8.5px; font-weight: 400; color: #8a8a8e; }
+  .srv-post img.arte { flex: 1; min-height: 0; width: 100%; object-fit: cover; object-position: top center; display: block; }
+
+  /* conversa do suporte */
+  .srv-chat { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 9px; }
+  .srv-bolha {
+    max-width: 78%; padding: 10px 13px; font-size: 12px; line-height: 1.45;
+    border-radius: 16px 16px 16px 4px; background: var(--bg); box-shadow: var(--nm-out-sm); color: var(--fg);
+  }
+  .srv-bolha--me { align-self: flex-end; border-radius: 16px 16px 4px 16px; background: var(--accent); color: #fff; box-shadow: none; }
+
   /* ---------- depoimentos: colunas que rolam sozinhas ---------- */
   .tcols {
     display: grid;
@@ -1462,71 +1535,132 @@
     </div>
 
     <div class="reveal" data-reveal-root>
-      <!-- Painel que segue o cursor no desktop e vira um painel fixo no mobile.
-           Para usar fotos reais do cliente, troque o <svg> de cada slide por <img src="..."> -->
+      <!-- Painéis montados no canvas do Claude Design e portados pra cá.
+           Tudo é material da própria ACTech: as capturas dos sistemas e as artes
+           reais do Instagram, os mesmos arquivos que as outras seções já carregam. -->
       <div class="reveal-media" data-reveal-media>
         <div class="reveal-slide" data-slide="0">
-          <svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <rect x="30" y="80" width="240" height="180" rx="18" fill="#D7DDE6"/>
-            <rect x="30" y="80" width="240" height="32" rx="18" fill="#CAD2DD"/>
-            <rect x="30" y="98" width="240" height="14" fill="#CAD2DD"/>
-            <circle cx="50" cy="96" r="4" fill="#A9B4C4"/><circle cx="64" cy="96" r="4" fill="#A9B4C4"/><circle cx="78" cy="96" r="4" fill="#A9B4C4"/>
-            <rect x="48" y="128" width="120" height="15" rx="7.5" fill="#6C63FF"/>
-            <rect x="48" y="154" width="180" height="9" rx="4.5" fill="#B7C0CE"/>
-            <rect x="48" y="171" width="146" height="9" rx="4.5" fill="#B7C0CE"/>
-            <rect x="48" y="198" width="88" height="28" rx="14" fill="#6C63FF"/>
-            <rect x="146" y="198" width="76" height="28" rx="14" fill="#C3CBD8"/>
-            <rect x="70" y="292" width="160" height="12" rx="6" fill="#C3CBD8"/>
-            <rect x="100" y="316" width="100" height="12" rx="6" fill="#D2D8E2"/>
-          </svg>
+          <div class="srv">
+            <div class="srv-visual">
+              <div class="srv-topo">
+                <i></i><i></i><i></i>
+                <span class="srv-url">cliente.com.br</span>
+              </div>
+              <img src="imgs/site-home.png" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="srv-chip">
+              <span class="srv-ponto"></span>
+              <span><b>No ar em</b>5 dias úteis</span>
+            </div>
+          </div>
         </div>
+
         <div class="reveal-slide" data-slide="1">
-          <svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <rect x="88" y="46" width="124" height="238" rx="26" fill="#D7DDE6"/>
-            <rect x="130" y="58" width="40" height="7" rx="3.5" fill="#C0C9D6"/>
-            <rect x="100" y="76" width="100" height="100" rx="14" fill="#6C63FF"/>
-            <rect x="100" y="186" width="46" height="46" rx="11" fill="#C3CBD8"/>
-            <rect x="154" y="186" width="46" height="46" rx="11" fill="#C3CBD8"/>
-            <rect x="100" y="244" width="72" height="9" rx="4.5" fill="#B7C0CE"/>
-            <rect x="100" y="259" width="46" height="9" rx="4.5" fill="#CAD2DD"/>
-            <path d="M150 342c-31-19-46-33-46-52a19 19 0 0133-12 19 19 0 0133 12c0 19-15 33-20 52z" fill="#38B2AC"/>
-          </svg>
+          <div class="srv">
+            <div class="srv-fone">
+              <div class="srv-tela">
+                <div class="srv-perfil">
+                  <img src="imgs/insta-perfil.webp" alt="" loading="lazy" decoding="async" />
+                  <span>actech.informatica</span>
+                </div>
+                <div class="srv-grade">
+                  <img src="imgs/insta-5.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-1.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-7.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-2.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-8.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-3.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-6.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-4.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-2.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-6.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-1.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-3.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-8.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-5.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-4.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-7.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-2.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-6.webp" alt="" loading="lazy" decoding="async" />
+                </div>
+              </div>
+            </div>
+            <div class="srv-chip">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38B2AC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
+              Calendário cheio o mês todo
+            </div>
+          </div>
         </div>
+
         <div class="reveal-slide" data-slide="2">
-          <svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <path d="M150 176c0 0 36-32 36-55a36 36 0 10-72 0c0 23 36 55 36 55z" fill="#6C63FF"/>
-            <circle cx="150" cy="120" r="13" fill="#E0E5EC"/>
-            <rect x="42" y="204" width="216" height="132" rx="20" fill="#D7DDE6"/>
-            <rect x="66" y="228" width="120" height="13" rx="6.5" fill="#B7C0CE"/>
-            <g fill="#38B2AC">
-              <circle cx="72" cy="260" r="6"/><circle cx="90" cy="260" r="6"/><circle cx="108" cy="260" r="6"/><circle cx="126" cy="260" r="6"/><circle cx="144" cy="260" r="6"/>
-            </g>
-            <rect x="66" y="284" width="168" height="10" rx="5" fill="#C7CFDA"/>
-            <rect x="66" y="304" width="118" height="10" rx="5" fill="#D2D8E2"/>
-          </svg>
+          <div class="srv">
+            <div class="srv-ficha">
+              <div>
+                <div class="srv-ficha-nome">Mercado do Bairro</div>
+                <div class="srv-ficha-cat">Mercearia · Entrega no bairro</div>
+              </div>
+              <div class="srv-nota">
+                <b>4,8</b>
+                <span>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+                </span>
+                124 avaliações
+              </div>
+              <div class="srv-fotos">
+                <i style="background: linear-gradient(140deg, #C7D2FE, #818CF8);"></i>
+                <i style="background: linear-gradient(140deg, #BBF7D0, #4ADE80);"></i>
+                <i style="background: linear-gradient(140deg, #FED7AA, #FB923C);"></i>
+              </div>
+              <div class="srv-linha">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#188038" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                <span style="color: #188038; font-weight: 600;">Aberto agora</span> · 8h às 19h
+              </div>
+              <div class="srv-acoes">
+                <span style="background: #1A73E8; color: #fff;">Ligar</span>
+                <span style="border: 1px solid #DADCE0; color: #1A73E8;">Como chegar</span>
+              </div>
+            </div>
+            <div class="srv-chip">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+              Achado por quem busca perto
+            </div>
+          </div>
         </div>
+
         <div class="reveal-slide" data-slide="3">
-          <svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <rect x="38" y="86" width="224" height="228" rx="22" fill="#D7DDE6"/>
-            <rect x="68" y="230" width="30" height="52" rx="10" fill="#C3CBD8"/>
-            <rect x="112" y="204" width="30" height="78" rx="10" fill="#C3CBD8"/>
-            <rect x="156" y="172" width="30" height="110" rx="10" fill="#6C63FF"/>
-            <rect x="200" y="140" width="30" height="142" rx="10" fill="#6C63FF"/>
-            <path d="M83 190l44-22 44-30 44-24" stroke="#38B2AC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <circle cx="215" cy="114" r="9" fill="#38B2AC"/>
-          </svg>
+          <div class="srv">
+            <div class="srv-post">
+              <div class="srv-post-topo">
+                <img src="imgs/insta-perfil.webp" alt="" loading="lazy" decoding="async" />
+                <span class="srv-post-nome">actech.informatica<b>Patrocinado</b></span>
+              </div>
+              <img class="arte" src="imgs/insta-7.webp" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="srv-chip">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg>
+              <span><b>Cliques no anúncio</b>1.284 no mês</span>
+            </div>
+          </div>
         </div>
+
         <div class="reveal-slide" data-slide="4">
-          <svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <rect x="44" y="98" width="158" height="104" rx="22" fill="#D7DDE6"/>
-            <path d="M70 198h30l-30 28z" fill="#D7DDE6"/>
-            <rect x="70" y="130" width="96" height="11" rx="5.5" fill="#B7C0CE"/>
-            <rect x="70" y="153" width="62" height="11" rx="5.5" fill="#C3CBD8"/>
-            <rect x="98" y="228" width="158" height="104" rx="22" fill="#6C63FF"/>
-            <path d="M230 328h-30l30 28z" fill="#6C63FF"/>
-            <rect x="124" y="260" width="96" height="11" rx="5.5" fill="#FFFFFF" opacity=".85"/>
-            <rect x="124" y="283" width="62" height="11" rx="5.5" fill="#FFFFFF" opacity=".5"/>
-          </svg>
+          <div class="srv">
+            <div class="srv-visual" style="flex: none; height: 34%;">
+              <img src="imgs/painel-caixa.png" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="srv-chat">
+              <div class="srv-bolha">Dá pra trocar a foto da home hoje?</div>
+              <div class="srv-bolha srv-bolha--me">Já troquei. No ar em 4 minutos.</div>
+            </div>
+            <div class="srv-chip">
+              <span class="srv-ponto"></span>
+              Responde em minutos
+            </div>
+          </div>
         </div>
       </div>
 

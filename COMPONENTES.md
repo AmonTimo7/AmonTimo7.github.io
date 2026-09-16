@@ -161,6 +161,29 @@ deste commit — são uns 30 linhas de Pillow cada.
 consultar `podeAnimar()`: fora da tela ou com o modal aberto, o tique não faz nada.
 Só a classe `fora-de-vista` não resolvia isso — ela pausa animação de CSS, não `setInterval`.
 
+### Os cinco painéis de `#servicos`
+
+Os mockups em SVG saíram. No lugar entraram cinco painéis montados com material da
+própria ACTech — capturas dos sistemas e as artes reais do Instagram, os mesmos arquivos
+que `#trabalhos` e `#redes` já carregam, então não pesou um byte a mais:
+
+| Item | O painel |
+|---|---|
+| Sites que vendem | moldura de navegador com a home de um cliente + "no ar em 5 dias" |
+| Redes sociais ativas | celular com a grade do perfil |
+| Google Meu Negócio | a ficha, no estilo do painel do Google |
+| Anúncios | post patrocinado + contagem de cliques |
+| Manutenção e suporte | painel do sistema + conversa de aprovação |
+
+Os mesmos cinco existem como pranchas no canvas do Claude Design (`Painéis O Que Fazemos`),
+que é onde dá pra mexer neles no olho e exportar PNG. Os arquivos-fonte `.dc.html` são
+irmãos deste formato — o projeto todo roda no mesmo runtime `x-dc`.
+
+O quadro muda de proporção (300×400 no desktop, 420×300 no celular), então nada aqui tem
+tamanho fixo: a peça principal cresce com `flex: 1` e as imagens recortam com `object-fit`.
+O texto dentro do celular mede em `cqw` (container query) porque em px ele estourava quando
+o aparelho encolhia para 100px de largura.
+
 ## Pendências de conteúdo
 
 - **"Ilimitadas" saiu**: o Completo dizia "atualizações ilimitadas no site" e agora diz
@@ -177,9 +200,9 @@ Só a classe `fora-de-vista` não resolvia isso — ela pausa animação de CSS,
   (logo borrado, nome removido do subtítulo). Os arquivos originais estão no histórico do git.
   Ao acrescentar um trabalho, confira a captura antes: o nome costuma aparecer em logo, título e
   rodapé.
-- **Imagens**: `#servicos` ainda usa mockups em SVG desenhados aqui (`#trabalhos` já usa capturas
-  reais de `imgs/`). Para usar fotos reais no `#servicos`, troque o `<svg>` de cada `.reveal-slide` por `<img src="...">` — o DriftWall clona esses
-  mesmos elementos, então ele acompanha a troca automaticamente.
+- **Imagens**: as duas seções usam material real de `imgs/`. Se um dia entrarem fotos de
+  verdade (a loja, a equipe, o cliente usando o sistema), elas caem nos mesmos lugares —
+  `.srv-visual img` em `#servicos` e as capturas da parede em `#trabalhos`.
 
 ## Diagnóstico e presente
 
