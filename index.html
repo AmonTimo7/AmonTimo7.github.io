@@ -424,25 +424,39 @@
   .blob-card { position: relative; width: 100%; }
   .blob-glow { position: absolute; inset: -2px; border-radius: 34px; overflow: hidden; z-index: 0; }
   .blob-glow i {
-    display: block; position: absolute; inset: -70%;
-    background: conic-gradient(from 0deg, #93C5FD, #A5B4FC, #60A5FA, #2B4BFF, #6C63FF, #93C5FD);
-    filter: blur(21px);
+    /* o mesmo anel de antes, só que já desfocado na textura: girar um
+       conic-gradient sob `filter` obriga o navegador a segurar uma camada
+       filtrada gigante; girar uma imagem é o compositor virando uma textura.
+       Do anel inteiro aparecem uns 2px — o cartão cobre o resto. */
+    display: block; position: absolute; inset: -35%;
+    background: url('imgs/plano-glow.webp') center / cover no-repeat;
     animation: glowspin 5s linear infinite;
     will-change: transform;
   }
   @keyframes glowspin { to { transform: rotate(360deg); } }
   .blob-inner { position: relative; z-index: 1; border-radius: var(--r-card); overflow: hidden; background: var(--bg); }
   .blob-header { position: relative; overflow: hidden; height: 224px; background: #12224E; }
-  .fluid { position: absolute; inset: -60px; filter: blur(40px); }
-  .fluid i { display: block; position: absolute; width: 62%; height: 78%; border-radius: 999px; }
-  .fluid i:nth-child(1) { background: #2B4BFF; left: 16%; top: -46%; animation: fl1 9s ease-in-out infinite; }
-  .fluid i:nth-child(2) { background: #3B82F6; left: 38%; top: -18%; animation: fl2 11s ease-in-out infinite; }
-  .fluid i:nth-child(3) { background: #60A5FA; left: 4%;  top: -14%; animation: fl3 13s ease-in-out infinite; }
-  .fluid i:nth-child(4) { background: #6C63FF; left: 52%; top: -20%; animation: fl4 10s ease-in-out infinite; }
-  @keyframes fl1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-14%,12%) scale(1.18); } }
-  @keyframes fl2 { 0%,100% { transform: translate(0,0) scale(1.08); } 50% { transform: translate(12%,16%) scale(.92); } }
-  @keyframes fl3 { 0%,100% { transform: translate(0,0) scale(.95); } 50% { transform: translate(16%,10%) scale(1.2); } }
-  @keyframes fl4 { 0%,100% { transform: translate(0,0) scale(1.1); } 50% { transform: translate(-10%,18%) scale(.9); } }
+  /* O desfoque vem assado nas duas texturas (imgs/plano-blobs-*.webp, ~2 KB cada).
+     Antes eram quatro elipses animadas dentro de um `filter: blur(40px)`: o navegador
+     refazia o desfoque da área inteira a cada quadro, nos dois cards, e era isso que
+     travava a página ao chegar nos preços. Agora as camadas só trocam de opacidade e
+     deslizam — opacity e transform o compositor resolve sozinho, sem repintar nada. */
+  .fluid { position: absolute; inset: -60px; }
+  .fluid i {
+    display: block; position: absolute; inset: 0;
+    background: center / cover no-repeat;
+    will-change: transform, opacity;
+  }
+  .fluid i:nth-child(1) { background-image: url('imgs/plano-blobs-1.webp'); animation: blobA 17s ease-in-out infinite; }
+  .fluid i:nth-child(2) { background-image: url('imgs/plano-blobs-2.webp'); animation: blobB 17s ease-in-out infinite; }
+  @keyframes blobA {
+    0%, 100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1.02); }
+    50%      { opacity: 0; transform: translate3d(-3%, 2%, 0) scale(1.12); }
+  }
+  @keyframes blobB {
+    0%, 100% { opacity: 0; transform: translate3d(3%, -2%, 0) scale(1.1); }
+    50%      { opacity: 1; transform: translate3d(0, 0, 0) scale(1.02); }
+  }
   .blob-fade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, transparent 0%, transparent 46%, var(--bg) 100%); }
   .blob-head { position: relative; z-index: 2; padding: 30px 32px 0; color: #fff; }
   .blob-body { padding: 26px 32px 34px; }
@@ -1009,8 +1023,6 @@
     .pad-section { padding-top: 52px !important; padding-bottom: 56px !important; }
     .pricing-grid { gap: 44px; }
 
-    /* blur grande é o que mais custa GPU em celular */
-    .fluid { filter: blur(34px); }
     .blob-header { height: 190px; }
     .blob-head { padding: 24px 22px 0; }
     .blob-body { padding: 22px 22px 28px; }
@@ -1840,7 +1852,7 @@
         <div class="blob-glow"><i></i></div>
         <div class="blob-inner" style="box-shadow: 9px 9px 16px rgba(163,177,198,.6), -9px -9px 16px rgba(255,255,255,.5);">
           <div class="blob-header">
-            <div class="fluid"><i></i><i></i><i></i><i></i></div>
+            <div class="fluid"><i></i><i></i></div>
             <div class="blob-fade"></div>
             <div class="blob-head">
               <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
@@ -1880,7 +1892,7 @@
         <div class="blob-glow"><i></i></div>
         <div class="blob-inner" style="box-shadow: 12px 12px 20px rgba(163,177,198,.7), -12px -12px 20px rgba(255,255,255,.6);">
           <div class="blob-header">
-            <div class="fluid"><i></i><i></i><i></i><i></i></div>
+            <div class="fluid"><i></i><i></i></div>
             <div class="blob-fade"></div>
             <div class="blob-head">
               <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
@@ -1958,7 +1970,7 @@
     </div>
   </section>
 
-  <section id="diferenciais" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 40px; padding-bottom: 96px;">
+  <section data-anima id="diferenciais" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 40px; padding-bottom: 96px;">
     <div class="two-col" style="align-items: start;">
       <div>
         <h2 data-reveal="1" class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 0 0 40px; max-width: 20ch; color: #3D4852;">Por que ACTech</h2>
@@ -2611,6 +2623,9 @@ class Component extends DCLogic {
     // a fonte carrega depois (display=swap) e muda a largura das palavras
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
     const iv = setInterval(() => {
+      // `place()` mede as palavras e troca o blur de foco: trabalho de layout e
+      // repintura pra ninguém ver quando a seção não está na tela.
+      if (!this.podeAnimar(box)) return;
       i = (i + 1) % words.length;
       place();
     }, (DUR + PAUSE) * 1000);
@@ -2685,7 +2700,9 @@ class Component extends DCLogic {
       };
 
       swap();
-      const iv = setInterval(swap, delay);
+      // sem isto o GSAP mantém uma timeline viva (e um rAF por quadro) mesmo com
+      // a seção longe da tela
+      const iv = setInterval(() => { if (this.podeAnimar(container)) swap(); }, delay);
       this._teardown.push(() => clearInterval(iv));
     });
   }
@@ -2718,6 +2735,14 @@ class Component extends DCLogic {
      A margem de 200px liga tudo um pouco antes de aparecer, então ninguém
      flagra a faixa parada.
      --------------------------------------------------------------- */
+  /** O bloco está visível e sem modal por cima? Vale para os efeitos com timer —
+      a classe `fora-de-vista` sozinha só pausa animação de CSS. */
+  podeAnimar(el) {
+    if (document.body.classList.contains('modal-aberto')) return false;
+    const bloco = el.closest('[data-anima]');
+    return !bloco || !bloco.classList.contains('fora-de-vista');
+  }
+
   setupPausar() {
     const alvos = [...document.querySelectorAll('[data-anima]')];
     if (!alvos.length || !('IntersectionObserver' in window)) return;

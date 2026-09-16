@@ -133,6 +133,34 @@ então o que não muda passou por `memo()` — perguntas, ícones, os 40 quadros
 a curva do gráfico por faixa. E os raios de blur caíram um pouco (`.fluid` 50→40px,
 glow 26→21px): o custo cresce com o raio e a diferença não aparece.
 
+### O desfoque dos cards de plano virou textura
+
+Era o gargalo da página inteira. Medido no cartão de preço, com a seção na tela:
+
+| | antes | depois |
+|---|---|---|
+| Elementos com `filter` vivo animando | 4 | 0 |
+| Área redesenhada por quadro | ~10,4 milhões de px | 0 |
+
+O glow sozinho era um `conic-gradient` de ~2.200 × 2.250px sob `blur(21px)` girando sem
+parar, **em cada um dos dois cards** — uns 15 MB de textura por card, pra aparecer uns 2px
+de borda colorida. E os quatro blobs animavam dentro de um `filter: blur(40px)`, o que
+obriga o navegador a refazer o desfoque da área toda a cada quadro.
+
+Agora o desfoque vem pronto em três WebP somando 6 KB:
+
+- `imgs/plano-blobs-1.webp` e `-2.webp` — as mesmas elipses de antes, desenhadas e
+  desfocadas uma vez. Na página, duas camadas que trocam de opacidade e deslizam.
+- `imgs/plano-glow.webp` — o anel do conic-gradient, já desfocado, girando.
+
+`opacity` e `transform` o compositor resolve sozinho, sem repintar. Para regerar as
+texturas (mudou cor, mudou tamanho), os dois scripts que as desenham estão no histórico
+deste commit — são uns 30 linhas de Pillow cada.
+
+**Efeitos com timer** (TrueFocus nos planos, CardSwap nos diferenciais) passaram a
+consultar `podeAnimar()`: fora da tela ou com o modal aberto, o tique não faz nada.
+Só a classe `fora-de-vista` não resolvia isso — ela pausa animação de CSS, não `setInterval`.
+
 ## Pendências de conteúdo
 
 - **"Ilimitadas" saiu**: o Completo dizia "atualizações ilimitadas no site" e agora diz
