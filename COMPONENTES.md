@@ -69,9 +69,9 @@ em ordem de arquivo a grade fica com um bloco azul embaixo e um preto em cima.
 São 8 artes em 12 quadros: as quatro últimas repetem para fechar a grade, senão sobra
 meia fileira vazia no meio da tela.
 
-> **@ e números são exemplo.** `actech.informatica`, 1.240 seguidores e 318 seguindo estão
-> chumbados no HTML da seção. Trocar pelos reais antes de publicar — é o perfil de vocês
-> na página de vocês.
+> **@ e números são exemplo.** Os números (1.240 seguidores, 318 seguindo) estão chumbados
+> no HTML da seção; o @ vem de `instagramUser` e é o mesmo dos links de contato. Trocar
+> pelos reais antes de publicar — é o perfil de vocês na página de vocês.
 
 ## Cartão de métrica do hero
 
@@ -183,6 +183,16 @@ O quadro muda de proporção (300×400 no desktop, 420×300 no celular), então 
 tamanho fixo: a peça principal cresce com `flex: 1` e as imagens recortam com `object-fit`.
 O texto dentro do celular mede em `cqw` (container query) porque em px ele estourava quando
 o aparelho encolhia para 100px de largura.
+
+### Contato
+
+Duas portas, nesta ordem de prioridade: WhatsApp (botão do topo, hero, planos, CTA final e
+o flutuante) e Instagram como alternativa para quem não quer puxar conversa — botão "Ver o
+perfil" em `#redes`, "ou chama no direct" embaixo do CTA final e o chip no rodapé.
+
+O número e o @ ficam nos campos de Contato (`whatsappNumber`, `instagramUser`) e viram
+`whatsUrl` / `instaUrl` num lugar só do estado: trocar o @ é uma linha, e os três links
+acompanham.
 
 ## Pendências de conteúdo
 

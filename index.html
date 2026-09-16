@@ -352,6 +352,15 @@
   .reveal.has-active .reveal-item.is-on .reveal-copy { color: var(--accent); }
   .reveal-note { margin-top: 10px; font-size: 14.5px; color: var(--muted); line-height: 1.6; max-width: 44ch; }
 
+  .rodape-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 15px; border-radius: 999px; text-decoration: none;
+    background: var(--bg); color: var(--fg); font-weight: 600; font-size: 13.5px;
+    box-shadow: var(--nm-out-sm); transition: box-shadow .25s var(--ease), transform .25s var(--ease), color .25s var(--ease);
+  }
+  .rodape-link:hover { transform: translateY(-1px); box-shadow: var(--nm-out); color: var(--accent); }
+  .rodape-link:active { transform: translateY(.5px); box-shadow: var(--nm-in-sm); }
+
   /* ---------- Painéis de #servicos (os mesmos do canvas do Claude Design) ----------
      O quadro é 300x400 no desktop e 420x300 no celular, então tudo aqui é fluido:
      a peça principal cresce com `flex: 1` e a imagem recorta com object-fit. */
@@ -1476,9 +1485,15 @@
           </li>
         </ul>
 
-        <div class="nm-pill" style="margin-top: 30px; padding: 12px 20px;">
-          <span style="width: 8px; height: 8px; border-radius: 999px; background: #38B2AC; display: block;"></span>
-          Os posts do celular ao lado são nossos, feitos aqui dentro
+        <div style="margin-top: 30px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+          <a class="btn btn-secondary" href="{{ instaUrl }}" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+            Ver o perfil
+          </a>
+          <div class="nm-pill" style="padding: 12px 20px;">
+            <span style="width: 8px; height: 8px; border-radius: 999px; background: #38B2AC; display: block;"></span>
+            Os posts do celular ao lado são nossos
+          </div>
         </div>
       </div>
     </div>
@@ -2324,6 +2339,15 @@
           </span>
         </a>
         <div style="margin-top: 18px; font-size: 14px; color: #6B7280;">Atendimento direto com quem desenvolve. Sem call center.</div>
+        <!-- Segunda porta de entrada: quem não quer puxar conversa no WhatsApp
+             chama no direct ou só dá uma olhada no perfil antes. -->
+        <div style="margin-top: 22px; display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;">
+          <span style="font-size: 14px; color: #A0AEC0;">ou chama no direct</span>
+          <a class="btn btn-secondary btn-sm" href="{{ instaUrl }}" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+            {{ instaUser }}
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -2332,6 +2356,16 @@
     <div class="nm-track" style="max-width: 1180px; margin: 0 auto 28px; height: 6px; border-radius: 999px;"></div>
     <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 14px; color: #6B7280;">
       <div>ACTech Informática — sites e marketing digital para pequenos e médios negócios.</div>
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+        <a class="rodape-link" href="{{ whatsUrl }}" target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path><path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"></path></svg>
+          WhatsApp
+        </a>
+        <a class="rodape-link" href="{{ instaUrl }}" target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+          {{ instaUser }}
+        </a>
+      </div>
       <div>© 2026 ACTech Informática</div>
     </div>
   </footer>
@@ -2591,7 +2625,7 @@
   </a>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5599999999999&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;whatsappMessage&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Olá! Vi a página da ACTech e quero saber mais sobre os planos.&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5599999999999&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;whatsappMessage&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Olá! Vi a página da ACTech e quero saber mais sobre os planos.&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;instagramUser&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;actech.informatica&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;}}">
 class Component extends DCLogic {
   state = { open: 0, menu: false, quiz: false, step: 0, ans: {}, nome: '', loadI: 0, unlocked: false, lesson: -1, faixa: '6M', feito: false, portal: '' };
 
@@ -3533,6 +3567,8 @@ class Component extends DCLogic {
 
   renderVals() {
     const phone = this.props.whatsappNumber ?? '5599999999999';
+    // O @ do perfil: trocar aqui (ou no campo Contato) muda todos os links de uma vez.
+    const insta = (this.props.instagramUser ?? 'actech.informatica').replace(/^@/, '');
     const msg = encodeURIComponent(this.props.whatsappMessage ?? 'Olá! Vi a página da ACTech e quero saber mais sobre os planos.');
     const faqData = this.memo('faq', () => [
       { q: 'Em quanto tempo meu site fica pronto?', a: 'Até 5 dias úteis depois que recebemos o material básico: logo, fotos, textos e informações de contato. Se preferir, a gente ajuda a organizar esse conteúdo antes de começar.' },
@@ -3584,6 +3620,8 @@ class Component extends DCLogic {
 
     return {
       whatsUrl: 'https://wa.me/' + phone + '?text=' + msg,
+      instaUrl: 'https://instagram.com/' + insta,
+      instaUser: '@' + insta,
 
       mxValor: MX.valor,
       mxDelta: MX.delta,
