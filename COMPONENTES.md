@@ -265,6 +265,49 @@ acompanham.
   verdade (a loja, a equipe, o cliente usando o sistema), elas caem nos mesmos lugares —
   `.srv-visual img` em `#servicos` e as capturas da parede em `#trabalhos`.
 
+## Cor: os tons das seções e a cor que quer dizer algo
+
+A página era um mar de cinza com roxo por cima. Duas frentes resolveram isso.
+
+**Tons de seção** (`.tom` + `.tom--lavanda` / `--menta` / `--pessego`). Neumorfismo exige que
+o card tenha a **mesma cor** do que está atrás dele — é daí que sai o relevo. Então tingir uma
+seção não é pintar o fundo e deixar os cards cinzas: é redefinir `--bg` e as sombras ali dentro
+e deixar a cascata levar isso pros cards.
+
+Os três tons têm exatamente a mesma luminosidade e saturação do cinza base (L 90,2% / S 24%) —
+**só o matiz muda**. É isso que faz a emenda entre uma seção e a vizinha ser suave, sem precisar
+de degradê. Tingidas hoje: `#redes` e `#diagnostico` (lavanda), `#google` e `#sozinho` (menta),
+`#trabalhos` (pêssego). `#planos` ficou cinza de propósito — é onde os cards de gradiente roxo
+mais rendem.
+
+> **A pegadinha que custou caro:** trocar `--sh-dark` sozinho **não funciona**. O valor computado
+> de `--nm-out` já sai do `:root` com o `var(--sh-dark)` resolvido, e é esse valor pronto que
+> desce pela herança. As sombras continuavam azul-acinzentadas em cima do pêssego. Por isso
+> `.tom` **redeclara os seis tokens** de sombra: redeclarar força a substituição a acontecer de
+> novo, agora com o `--sh-dark` local. Se criar um tom novo, ele precisa da classe `.tom` junto.
+
+O fundo é pintado por um `::after` de `100vw` centrado, porque as seções são `.wrap`
+(máx. 1180px) e o tom precisa sangrar até a borda. Só não estoura porque o wrapper raiz tem
+`overflow-x: hidden`.
+
+**Cor com significado.** `icon()` e `ico()` passaram a usar `currentColor` — quem manda na cor
+é o recipiente. Daí saem duas coisas:
+
+- **Cada pergunta do quiz tem seu tom.** A classe `q0..q9` vai no `.modal-panel`, não na grade:
+  a barra de progresso é irmã da grade e não enxergaria a variável de lá. Só enquanto pergunta —
+  no resultado quem manda na cor é a nota. No formato lista o `.pick-ico` é o próprio radio, e
+  por isso ele fica sem tinta de fundo: tingido, a opção parecia já escolhida.
+- **A nota reage ao resultado.** Era sempre roxa; um 22 e um 85 ficavam idênticos. Agora
+  vermelho (&lt;40), âmbar (40–67) e verde (≥68), com um chip dizendo a faixa. As faixas são as
+  mesmas que decidem o título do resultado em `quizResult()` — **mexeu numa, mexa na outra.**
+  "O que está faltando" ficou coral e "o que a gente faria" ficou verde.
+
+> **Anel vivo, número escuro, de propósito.** O âmbar e o verde vibrantes não passam 3:1 contra
+> o fundo, que é o mínimo para um gráfico. Mas o número declara a nota em texto do lado, então o
+> anel não é a única fonte da informação e pode puxar saturação. O número usa as versões escuras
+> (#C62A2F / #A76800 / #0E7C6F), todas acima de 3:1 como texto grande. Ao mexer nessas cores,
+> refaça a conta — vivo não pode custar leitura.
+
 ## Pendências que dependem de material seu
 
 - **`actech.com.br` não é da ACTech.** A bio do mockup do Instagram exibia esse domínio como

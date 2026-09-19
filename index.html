@@ -615,6 +615,76 @@
     flex-wrap: wrap; margin-top: 32px;
   }
 
+  /* ---------- tons das secoes ----------
+     Neumorfismo exige que o card tenha a MESMA cor do que esta atras dele: e
+     dai que sai a ilusao de relevo. Entao tingir uma secao nao e pintar o fundo
+     e deixar os cards cinzas - e redefinir --bg e as sombras ali dentro e deixar
+     a cascata levar isso pros cards. Funciona porque --nm-out e companhia guardam
+     `var(--sh-dark)` sem resolver: a substituicao so acontece quando a sombra e
+     usada de verdade, ja com o valor local.
+
+     Os tres tons tem exatamente a mesma luminosidade e saturacao do cinza base
+     (L 90,2% / S 24%) - so o matiz muda. E isso que faz a emenda entre uma secao
+     e a vizinha ser imperceptivel: sem degrade, sem faixa de transicao. */
+  .tom {
+    position: relative;
+    /* Os seis tokens abaixo sao copia literal dos do :root. Parece redundante e
+       nao e: o valor computado de --nm-out ja sai do :root com o var(--sh-dark)
+       RESOLVIDO, e e esse valor pronto que desce pela heranca. Trocar --sh-dark
+       aqui embaixo, sozinho, nao reescreve nada - as sombras continuavam
+       azul-acinzentadas em cima do pessego. Redeclarar os tokens aqui faz a
+       substituicao acontecer de novo, agora com o --sh-dark local. */
+    --nm-out:       9px 9px 16px var(--sh-dark), -9px -9px 16px var(--sh-light);
+    --nm-out-hover: 12px 12px 20px var(--sh-dark-strong), -12px -12px 20px var(--sh-light-strong);
+    --nm-out-sm:    5px 5px 10px var(--sh-dark), -5px -5px 10px var(--sh-light);
+    --nm-in:        inset 6px 6px 10px var(--sh-dark), inset -6px -6px 10px var(--sh-light);
+    --nm-in-deep:   inset 10px 10px 20px var(--sh-dark-strong), inset -10px -10px 20px var(--sh-light-strong);
+    --nm-in-sm:     inset 3px 3px 6px var(--sh-dark), inset -3px -3px 6px var(--sh-light);
+  }
+  .tom::after {
+    content: ''; position: absolute; z-index: -1; inset: 0;
+    left: 50%; width: 100vw; transform: translateX(-50%);
+    background: var(--bg);
+  }
+  .tom--lavanda { --bg: #E4E0EC; --sh-dark: rgba(174,165,196,.6); --sh-dark-strong: rgba(174,165,196,.7); }
+  .tom--menta   { --bg: #E0ECE8; --sh-dark: rgba(165,196,187,.6); --sh-dark-strong: rgba(165,196,187,.7); }
+  .tom--pessego { --bg: #ECE5E0; --sh-dark: rgba(196,178,165,.6); --sh-dark-strong: rgba(196,178,165,.7); }
+
+  /* ---------- cor que quer dizer alguma coisa ----------
+     O icone do icon() usa currentColor, entao quem manda na cor e o recipiente.
+     .nm-well mantem o roxo de sempre; no quiz, cada pergunta troca o tom. */
+  .nm-well { color: var(--accent); }
+  .pick-ico { color: var(--tom-q, var(--accent)); }
+  .pick.is-picked .pick-t { color: var(--tom-q, var(--accent)); }
+  /* Dois valores por pergunta, e nao um color-mix: --tom-q pinta o traco e
+     --tom-q-bg tinge o ladrilho. Explicito assim funciona em navegador antigo
+     e deixa a dose de cada tinta no olho, nao numa formula. */
+  .modal-panel.q0, .modal-panel.q5 { --tom-q: #6C63FF; --tom-q-bg: rgba(108,99,255,.13); }
+  .modal-panel.q1, .modal-panel.q6 { --tom-q: #0E9C8A; --tom-q-bg: rgba(14,156,138,.15); }
+  .modal-panel.q2, .modal-panel.q7 { --tom-q: #C2571A; --tom-q-bg: rgba(194,87,26,.13); }
+  .modal-panel.q3, .modal-panel.q8 { --tom-q: #C62A7A; --tom-q-bg: rgba(198,42,122,.12); }
+  .modal-panel.q4, .modal-panel.q9 { --tom-q: #2B6CD4; --tom-q-bg: rgba(43,108,212,.13); }
+  /* so no formato cartao: no formato lista o .pick-ico e o proprio radio, e
+     tingir ele faria a opcao parecer ja escolhida. */
+  .pick:not(.is-row) .pick-ico { background: var(--tom-q-bg, rgba(108,99,255,.13)); }
+  .pick-ico { transition: background .3s var(--ease), box-shadow .25s var(--ease); }
+  .pick:hover .pick-ico { box-shadow: var(--nm-out-sm); }
+
+  /* a nota: anel vivo, numero escuro. O numero ja declara o resultado em texto
+     legivel, entao o anel pode ser vibrante sem custar leitura. */
+  .score-num { transition: color .5s var(--ease); }
+  .score-faixa {
+    display: inline-flex; align-items: center; gap: 7px; margin-bottom: 10px;
+    padding: 6px 14px; border-radius: 999px; box-shadow: var(--nm-out-sm);
+    font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+  }
+  .score-faixa i { width: 8px; height: 8px; border-radius: 999px; background: currentColor; flex: none; }
+
+  /* "o que falta" alerta, "o que faremos" avanca - e a cor diz qual e qual */
+  .gap-ico { color: var(--accent); }
+  .gap-row--falta .gap-ico { color: #C62A2F; background: rgba(229,72,77,.09); }
+  .gap-row--faz .gap-ico { color: #0E7C6F; background: rgba(18,165,148,.11); }
+
   /* ---------- sozinho x com a ACTech: o mesmo mes, dos dois lados ----------
      Os dois painéis não se alinham linha a linha (o texto tem tamanhos
      diferentes e forçar isso quebraria no celular). Quem faz o par é o
@@ -942,8 +1012,9 @@
   .modal-bar { flex: 1; height: 10px; border-radius: 999px; background: var(--bg); box-shadow: var(--nm-in-sm); overflow: hidden; }
   .modal-bar i {
     display: block; height: 100%; border-radius: 999px;
-    background: linear-gradient(90deg, var(--accent), var(--accent-light));
-    transition: width .55s var(--ease);
+    /* acompanha o tom da pergunta da vez; no resultado volta pro roxo */
+    background: linear-gradient(90deg, var(--tom-q, var(--accent)), var(--tom-q, var(--accent-light)));
+    transition: width .55s var(--ease), background .3s var(--ease);
   }
   .modal-x {
     width: 46px; height: 46px; min-width: 46px; min-height: 46px;
@@ -963,7 +1034,7 @@
   @keyframes stepInA { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
   @keyframes stepInB { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
-  .quiz-step { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; color: var(--accent); }
+  .quiz-step { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; color: var(--tom-q, var(--accent)); transition: color .3s var(--ease); }
   .quiz-q {
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800;
     font-size: clamp(23px, 2.9vw, 32px); line-height: 1.14; letter-spacing: -.03em;
@@ -1482,7 +1553,7 @@
   </section>
 
 
-  <section id="redes" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 24px; padding-bottom: 96px;">
+  <section id="redes" class="wrap pad-section tom tom--lavanda" style="position: relative; z-index: 1; padding-top: 24px; padding-bottom: 96px;">
     <div class="two-col" style="align-items: center;">
 
       <!-- Perfil de exemplo. Para trocar: o @ e o nome estão logo abaixo, os números
@@ -1828,7 +1899,7 @@
     </div>
   </section>
 
-  <section id="google" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
+  <section id="google" class="wrap pad-section tom tom--menta" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
     <div data-reveal="1" style="margin-bottom: 58px; max-width: 62ch;">
       <div class="eyebrow">Google e busca local</div>
       <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 19ch; color: #3D4852;">A ficha do Google é a sua vitrine.</h2>
@@ -2009,7 +2080,7 @@
 
   </section>
 
-  <section id="diagnostico" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
+  <section id="diagnostico" class="wrap pad-section tom tom--lavanda" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
     <div data-reveal="1" class="nm-card" style="position: relative; overflow: hidden; padding: clamp(34px, 5vw, 62px) clamp(22px, 4vw, 54px); text-align: center;">
       <div class="nm-well" style="position: absolute; width: 280px; height: 280px; border-radius: 999px; top: -150px; left: -110px;"></div>
       <div class="nm-tile" style="position: absolute; width: 170px; height: 170px; border-radius: 999px; bottom: -80px; right: -60px;"></div>
@@ -2258,7 +2329,7 @@
        Esta seção responde ela com o mesmo mês visto dos dois lados. As linhas dos
        dois painéis se emparelham pelo data-tema, não pela altura: passar o mouse
        numa acende a irmã do outro lado (setupDuelo, lá embaixo no script). -->
-  <section data-anima id="sozinho" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
+  <section data-anima id="sozinho" class="wrap pad-section tom tom--menta" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
     <div data-reveal="1" style="max-width: 62ch;">
       <div class="eyebrow">Sozinho x com a ACTech</div>
       <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 20ch; color: #3D4852;">Dá pra fazer sozinho. A conta é outra.</h2>
@@ -2507,7 +2578,7 @@
 
   </script>
 
-  <section data-anima id="trabalhos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 96px;">
+  <section data-anima id="trabalhos" class="wrap pad-section tom tom--pessego" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 96px;">
     <div data-reveal="1" style="text-align: center; margin-bottom: 34px;">
       <div class="eyebrow">Nosso trabalho</div>
       <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px auto 0; max-width: 18ch; color: #3D4852;">Um pedaço do que já está no ar.</h2>
@@ -2635,7 +2706,7 @@
 
   <sc-if value="{{ quizOpen }}" hint-placeholder-val="{{ false }}">
     <div class="modal" data-modal role="dialog" aria-modal="true" aria-label="Diagnóstico do seu negócio">
-      <div class="modal-panel">
+      <div class="{{ modalPanelCls }}">
         <div class="modal-top">
           <div class="modal-bar"><i style="width: {{ quizPct }};"></i></div>
           <button class="modal-x" onClick="{{ quizClose }}" aria-label="Fechar">
@@ -2713,14 +2784,15 @@
                 <div class="score-ring">
                   <svg width="140" height="140" viewBox="0 0 140 140">
                     <circle cx="70" cy="70" r="62" fill="none" stroke="rgba(163,177,198,.35)" stroke-width="9"></circle>
-                    <circle cx="70" cy="70" r="62" fill="none" stroke="#6C63FF" stroke-width="9" stroke-linecap="round" stroke-dasharray="{{ scoreDash }}"></circle>
+                    <circle cx="70" cy="70" r="62" fill="none" stroke="{{ scoreCor }}" stroke-width="9" stroke-linecap="round" stroke-dasharray="{{ scoreDash }}"></circle>
                   </svg>
                   <div style="text-align: center;">
-                    <div class="score-num">{{ score }}</div>
+                    <div class="score-num" style="color: {{ scoreCorTexto }};">{{ score }}</div>
                     <div class="score-lbl">de 100</div>
                   </div>
                 </div>
                 <div style="flex: 1; min-width: 240px;">
+                  <div class="score-faixa" style="color: {{ scoreCorTexto }};"><i></i>{{ scoreFaixa }}</div>
                   <div class="quiz-step">{{ resWho }}</div>
                   <h3 class="quiz-q" style="font-size: clamp(21px, 2.6vw, 29px); margin: 10px 0 10px;">{{ resTitle }}</h3>
                   <p class="quiz-hint" style="margin: 0;">{{ resIntro }}</p>
@@ -2731,9 +2803,9 @@
 
               <div style="font-weight: 700; font-size: 15px; color: #3D4852;">O que está faltando</div>
               <sc-for list="{{ resGaps }}" as="g" hint-placeholder-count="3">
-                <div class="gap-row">
+                <div class="gap-row gap-row--falta">
                   <span class="gap-ico">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3" stroke-linecap="round"><path d="M12 8v5"></path><path d="M12 17h.01"></path></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 8v5"></path><path d="M12 17h.01"></path></svg>
                   </span>
                   <div>
                     <div style="font-weight: 700; font-size: 15.5px; color: #3D4852;">{{ g.t }}</div>
@@ -2744,9 +2816,9 @@
 
               <div style="font-weight: 700; font-size: 15px; color: #3D4852; margin-top: 18px;">O que a gente faria primeiro</div>
               <sc-for list="{{ resPlano }}" as="s" hint-placeholder-count="3">
-                <div class="gap-row">
+                <div class="gap-row gap-row--faz">
                   <span class="gap-ico">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#38B2AC" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
                   </span>
                   <div style="font-size: 15.5px; color: #3D4852; line-height: 1.55; padding-top: 3px;">{{ s }}</div>
                 </div>
@@ -3500,7 +3572,9 @@ class Component extends DCLogic {
 
   // Ícones dos diferenciais usam o accent violeta do sistema neumórfico.
   icon(path) {
-    return React.createElement('svg', { width: 24, height: 24, viewBox: '0 0 24 24', fill: 'none', stroke: '#6C63FF', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+    // currentColor, e nao um roxo fixo: quem manda na cor passa a ser o
+    // recipiente (.nm-well segue roxo, .pick-ico troca a cada pergunta).
+    return React.createElement('svg', { width: 24, height: 24, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
       path.map((d, i) => React.createElement('path', { key: i, d })));
   }
 
@@ -3512,7 +3586,8 @@ class Component extends DCLogic {
   ico(shapes) {
     return React.createElement('svg', {
       width: 22, height: 22, viewBox: '0 0 24 24', fill: 'none',
-      stroke: '#6C63FF', strokeWidth: 1.9, strokeLinecap: 'round', strokeLinejoin: 'round'
+      // currentColor: e o .pick-ico que decide, e ele troca de tom a cada pergunta
+      stroke: 'currentColor', strokeWidth: 1.9, strokeLinecap: 'round', strokeLinejoin: 'round'
     }, shapes.map((sh, i) => typeof sh === 'string'
       ? React.createElement('path', { key: i, d: sh })
       : React.createElement('circle', { key: i, cx: sh[0], cy: sh[1], r: sh[2] })));
@@ -3997,6 +4072,10 @@ class Component extends DCLogic {
       quizTitle: cur ? cur.title : '',
       quizHint: cur ? cur.hint : '',
       quizGridCls: 'pick-grid' + (cur && cur.cols === 1 ? ' is-list' : ''),
+      // O tom mora no painel, nao na grade: a barra de progresso e irma da grade
+      // e nao enxergaria a variavel de la. So enquanto pergunta - no resultado
+      // quem manda na cor e a nota.
+      modalPanelCls: 'modal-panel' + (asking ? ' q' + (st % 10) : ''),
       quizCanBack: st > 0 && st <= N,
       quizLoadMsg: LOADS[Math.min(this.state.loadI, LOADS.length - 1)],
       quizOptions: cur ? cur.opts.map((o) => ({
@@ -4009,6 +4088,13 @@ class Component extends DCLogic {
 
       score: res ? res.score : 0,
       scoreDash: res ? (389.6 * res.score / 100).toFixed(1) + ' 389.6' : '0 389.6',
+      // A nota deixa de ser sempre roxa. Anel vivo, numero escuro: o numero ja
+      // diz o resultado em texto, entao o anel pode puxar saturacao sem cobrar
+      // legibilidade. As faixas sao as mesmas que ja decidem o titulo do
+      // resultado, em quizResult() - mexeu numa, mexa na outra.
+      scoreCor: !res ? '#6C63FF' : res.score < 40 ? '#E5484D' : res.score < 68 ? '#F5A524' : '#12A594',
+      scoreCorTexto: !res ? '#6C63FF' : res.score < 40 ? '#C62A2F' : res.score < 68 ? '#A76800' : '#0E7C6F',
+      scoreFaixa: !res ? '' : res.score < 40 ? 'Precisa de atenção' : res.score < 68 ? 'Base no lugar' : 'Bem posicionado',
       resWho: res ? res.who : '',
       resTitle: res ? res.title : '',
       resIntro: res ? res.intro : '',
