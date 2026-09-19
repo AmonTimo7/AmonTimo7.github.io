@@ -389,8 +389,18 @@
     transition: color .25s var(--ease);
   }
   .reveal-copy + .reveal-copy { position: absolute; top: 100%; left: 0; width: 100%; }
+  /* Cada item com a sua cor. Usa --tN e nao --cN porque, mesmo grande, algumas
+     vivas ficam abaixo de 3:1 no cinza (o verde-agua da 2,70). Ao passar o mouse
+     os outros apagam pro placeholder e so o ativo guarda a cor - a hierarquia
+     vem do apagamento, nao de trocar pra um tom mais forte. */
+  .reveal-copy { color: var(--ri, var(--fg)); }
+  .reveal-item:nth-child(1) { --ri: var(--t1); }
+  .reveal-item:nth-child(2) { --ri: var(--t4); }
+  .reveal-item:nth-child(3) { --ri: var(--t5); }
+  .reveal-item:nth-child(4) { --ri: var(--t3); }
+  .reveal-item:nth-child(5) { --ri: var(--t2); }
   .reveal.has-active .reveal-item .reveal-copy { color: var(--placeholder); }
-  .reveal.has-active .reveal-item.is-on .reveal-copy { color: var(--accent); }
+  .reveal.has-active .reveal-item.is-on .reveal-copy { color: var(--ri, var(--accent)); }
   .reveal-note { margin-top: 10px; font-size: 14.5px; color: var(--muted); line-height: 1.6; max-width: 44ch; }
 
   .rodape-link {
@@ -454,7 +464,7 @@
   .srv-nota b { font-size: 11.5px; font-weight: 600; color: #202124; }
   .srv-nota span { display: flex; gap: 1px; }
   .srv-fotos { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 4px; }
-  .srv-fotos i { display: block; width: 100%; aspect-ratio: 16/10; border-radius: 6px; }
+  .srv-fotos img { display: block; width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 6px; }
   .srv-linha { display: flex; align-items: center; gap: 7px; font-size: 10.5px; color: #3C4043; }
   .srv-acoes { display: flex; gap: 6px; margin-top: auto; }
   .srv-acoes span { flex: 1; text-align: center; padding: 6px 0; border-radius: 999px; font-size: 10px; font-weight: 600; }
@@ -1143,7 +1153,7 @@
   .gmn-nota b { color: #202124; font-weight: 600; }
   .gmn-estrelas { display: flex; gap: 1px; }
   .gmn-fotos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 16px; }
-  .gmn-fotos i { display: block; aspect-ratio: 4/3; border-radius: 8px; }
+  .gmn-fotos img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; }
   .gmn-vazio {
     margin-top: 16px; border: 1.5px dashed #DADCE0; border-radius: 10px;
     padding: 22px 12px; text-align: center; font-size: 12.5px; color: #9AA0A6;
@@ -2187,9 +2197,9 @@
                 124 avaliações
               </div>
               <div class="srv-fotos">
-                <i style="background: linear-gradient(140deg, #C7D2FE, #818CF8);"></i>
-                <i style="background: linear-gradient(140deg, #BBF7D0, #4ADE80);"></i>
-                <i style="background: linear-gradient(140deg, #FED7AA, #FB923C);"></i>
+                <img src="imgs/ficha-1.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/ficha-2.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/ficha-3.webp" alt="" loading="lazy" decoding="async" />
               </div>
               <div class="srv-linha">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#188038" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
@@ -2527,10 +2537,13 @@
             <span>124 avaliações</span>
           </div>
 
+          <!-- Fotos de verdade: ficha do Google sem foto e ficha morta, e o
+               "depois" precisa mostrar isso. As tres contam a historia de um
+               mercado - a banca, o corredor e o hortifruti. -->
           <div class="gmn-fotos">
-            <i style="background: linear-gradient(140deg, #C7D2FE, #818CF8);"></i>
-            <i style="background: linear-gradient(140deg, #BBF7D0, #4ADE80);"></i>
-            <i style="background: linear-gradient(140deg, #FED7AA, #FB923C);"></i>
+            <img src="imgs/ficha-1.webp" alt="Banca de feira com engradados de fruta e verdura" loading="lazy" decoding="async" />
+            <img src="imgs/ficha-2.webp" alt="Corredor de mercado com prateleiras cheias" loading="lazy" decoding="async" />
+            <img src="imgs/ficha-3.webp" alt="Legumes e verduras frescos sobre a bancada" loading="lazy" decoding="async" />
           </div>
 
           <ul class="gmn-linhas">
