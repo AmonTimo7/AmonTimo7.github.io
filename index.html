@@ -643,11 +643,17 @@
     background: var(--bg); box-shadow: var(--nm-in-sm); text-align: center;
   }
   .conta-passo--fim { box-shadow: var(--nm-out-sm); }
+  /* cada passo da conta com a sua cor: o custo em indigo, o ticket em ambar e
+     o resultado em verde - a cor conta a historia junto com o numero */
+  .conta-passo:nth-of-type(1) .conta-num { color: var(--t1); }
+  .conta-passo:nth-of-type(2) .conta-num { color: var(--t6); }
+  .conta-passo--fim .conta-num { color: var(--t8); }
+  .conta-passo--fim { background: var(--f8); }
+  .conta-op:nth-of-type(1) { color: var(--t6); }
   .conta-num {
     display: block; font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     font-weight: 800; font-size: clamp(26px, 3.2vw, 36px); letter-spacing: -.035em; color: var(--fg);
   }
-  .conta-passo--fim .conta-num { color: var(--accent); }
   .conta-rot { display: block; margin-top: 8px; font-size: 13.5px; line-height: 1.45; color: var(--muted); }
   .conta-op {
     align-self: center; font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
@@ -657,6 +663,28 @@
     display: flex; align-items: center; justify-content: space-between; gap: 22px;
     flex-wrap: wrap; margin-top: 32px;
   }
+
+  /* ---------- os tres cartoes do diagnostico ----------
+     Eram pastilhas de uma linha, todas roxas. Agora cada um diz o que a pessoa
+     leva, na sua propria cor, com uma faixa no topo que amarra os tres. */
+  .diag-cards { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; margin-top: 42px; text-align: left; }
+  .diag-card {
+    position: relative; overflow: hidden; padding: 24px 22px 22px;
+    border-radius: var(--r-base); background: var(--bg); box-shadow: var(--nm-out-sm);
+    transition: transform .28s var(--ease), box-shadow .28s var(--ease);
+  }
+  .diag-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: var(--dc); opacity: .85;
+  }
+  .diag-card:hover { transform: translateY(-3px); box-shadow: var(--nm-out); }
+  .diag-card-ico {
+    display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px;
+    background: var(--dcf); color: var(--dc); margin-bottom: 14px;
+  }
+  .diag-card b { display: block; font-size: 15.5px; font-weight: 700; color: var(--dct); line-height: 1.3; }
+  .diag-card-txt { display: block; margin-top: 7px; font-size: 14px; line-height: 1.55; color: var(--muted); }
+  @media (max-width: 860px) { .diag-cards { grid-template-columns: minmax(0,1fr); } }
 
   /* ---------- modelos de site: o demonstrativo ----------
      Cada modelo e um mini-site montado em HTML e CSS, nao uma captura. Custa
@@ -1804,15 +1832,15 @@
 
     <div data-reveal="1" class="grid-auto" style="margin-top: 64px;">
       <div class="nm-card nm-card--lift" style="padding: 26px 28px;">
-        <div class="font-display" style="font-size: 34px; font-weight: 800; color: #6C63FF;">5 dias</div>
+        <div class="font-display" style="font-size: 34px; font-weight: 800; color: var(--t1);">5 dias</div>
         <div style="margin-top: 8px; font-size: 14.5px; color: #59616E; line-height: 1.55;">Site pronto em até 5 dias úteis</div>
       </div>
       <div class="nm-card nm-card--lift" style="padding: 26px 28px;">
-        <div class="font-display" style="font-size: 34px; font-weight: 800; color: #3D4852;">R$ 0</div>
+        <div class="font-display" style="font-size: 34px; font-weight: 800; color: var(--t8);">R$ 0</div>
         <div style="margin-top: 8px; font-size: 14.5px; color: #59616E; line-height: 1.55;">No primeiro mês, em qualquer plano</div>
       </div>
       <div class="nm-card nm-card--lift" style="padding: 26px 28px;">
-        <div class="font-display" style="font-size: 34px; font-weight: 800; color: #3D4852;">1 conta</div>
+        <div class="font-display" style="font-size: 34px; font-weight: 800; color: var(--t2);">1 conta</div>
         <div style="margin-top: 8px; font-size: 14.5px; color: #59616E; line-height: 1.55;">Site, redes e Google com a mesma equipe</div>
       </div>
     </div>
@@ -1979,20 +2007,20 @@
       </div>
       <div data-reveal="1" style="display: grid; gap: 18px;">
         <div class="nm-card nm-card--lift" style="padding: 24px 26px; display: flex; gap: 18px; align-items: flex-start;">
-          <div class="nm-well" style="width: 52px; height: 52px; border-radius: 16px;">
-            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.5-4.5"></path></svg>
+          <div class="nm-well prob-ico" style="width: 52px; height: 52px; border-radius: 16px; color: var(--c7); background: var(--f7);">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.5-4.5"></path></svg>
           </div>
           <div><div style="font-weight: 700; font-size: 16.5px; color: #3D4852;">Ninguém te acha no Google</div><div style="margin-top: 6px; font-size: 14.5px; color: #59616E; line-height: 1.6;">Sem site e sem ficha otimizada, a busca local mostra só os concorrentes.</div></div>
         </div>
         <div class="nm-card nm-card--lift" style="padding: 24px 26px; display: flex; gap: 18px; align-items: flex-start;">
-          <div class="nm-well" style="width: 52px; height: 52px; border-radius: 16px;">
-            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
+          <div class="nm-well prob-ico" style="width: 52px; height: 52px; border-radius: 16px; color: var(--c6); background: var(--f6);">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
           </div>
           <div><div style="font-weight: 700; font-size: 16.5px; color: #3D4852;">Redes sociais paradas</div><div style="margin-top: 6px; font-size: 14.5px; color: #59616E; line-height: 1.6;">Último post há três meses passa a impressão de que a loja fechou.</div></div>
         </div>
         <div class="nm-card nm-card--lift" style="padding: 24px 26px; display: flex; gap: 18px; align-items: flex-start;">
-          <div class="nm-well" style="width: 52px; height: 52px; border-radius: 16px;">
-            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg>
+          <div class="nm-well prob-ico" style="width: 52px; height: 52px; border-radius: 16px; color: var(--c4); background: var(--f4);">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg>
           </div>
           <div><div style="font-weight: 700; font-size: 16.5px; color: #3D4852;">Cada um cuidando de um pedaço</div><div style="margin-top: 6px; font-size: 14.5px; color: #59616E; line-height: 1.6;">Um faz o site, outro os posts, ninguém responde pelo resultado.</div></div>
         </div>
@@ -2476,24 +2504,30 @@
         </button>
         <div style="margin-top: 15px; font-size: 13.5px; color: #59616E;">1 minuto · sem cadastro · sem e-mail</div>
 
-        <div class="grid-auto" style="margin-top: 42px; gap: 14px; text-align: left;">
-          <div class="nm-tile" style="padding: 20px 22px; display: flex; gap: 14px; align-items: center;">
-            <div class="nm-well" style="width: 40px; height: 40px; border-radius: 13px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-            </div>
-            <div style="font-size: 14.5px; color: #3D4852; font-weight: 600; line-height: 1.4;">Sua nota de presença digital</div>
+        <!-- Eram tres pastilhas de uma linha so, todas roxas e apertadas. Viraram
+             cartao de verdade: icone com a sua cor, titulo e uma linha dizendo o que
+             a pessoa leva. A faixa colorida no topo e o que amarra os tres. -->
+        <div class="diag-cards">
+          <div class="diag-card" style="--dc: var(--c1); --dcf: var(--f1); --dct: var(--t1);">
+            <span class="diag-card-ico">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
+            </span>
+            <b>Sua nota de 0 a 100</b>
+            <span class="diag-card-txt">Um número só, que diz onde a sua presença digital está hoje.</span>
           </div>
-          <div class="nm-tile" style="padding: 20px 22px; display: flex; gap: 14px; align-items: center;">
-            <div class="nm-well" style="width: 40px; height: 40px; border-radius: 13px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg>
-            </div>
-            <div style="font-size: 14.5px; color: #3D4852; font-weight: 600; line-height: 1.4;">O que está te custando cliente</div>
+          <div class="diag-card" style="--dc: var(--c7); --dcf: var(--f7); --dct: var(--t7);">
+            <span class="diag-card-ico">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg>
+            </span>
+            <b>O que te custa cliente</b>
+            <span class="diag-card-txt">Os três pontos que mais pesam, explicados sem palavra difícil.</span>
           </div>
-          <div class="nm-tile" style="padding: 20px 22px; display: flex; gap: 14px; align-items: center;">
-            <div class="nm-well" style="width: 40px; height: 40px; border-radius: 13px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><path d="M2 7h20v5H2z"></path><path d="M12 21V7"></path></svg>
-            </div>
-            <div style="font-size: 14.5px; color: #3D4852; font-weight: 600; line-height: 1.4;">Um presente no fim</div>
+          <div class="diag-card" style="--dc: var(--c8); --dcf: var(--f8); --dct: var(--t8);">
+            <span class="diag-card-ico">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><path d="M2 7h20v5H2z"></path><path d="M12 21V7"></path></svg>
+            </span>
+            <b>Um presente no fim</b>
+            <span class="diag-card-txt">Um guia prático pra levar, mesmo que você não contrate nada.</span>
           </div>
         </div>
       </div>
@@ -2690,8 +2724,8 @@
 
       <div class="conta-pe">
         <div class="nm-pill" style="padding: 12px 20px;">
-          <span style="width: 8px; height: 8px; border-radius: 999px; background: #38B2AC; display: block;"></span>
-          Do quinto cliente em diante, é lucro
+          <span style="width: 8px; height: 8px; border-radius: 999px; background: var(--c8); display: block;"></span>
+          <span style="color: var(--t8); font-weight: 700;">Do quinto cliente em diante, é lucro</span>
         </div>
         <p style="margin: 0; font-size: 12.5px; line-height: 1.6; color: #7F8898; max-width: 52ch;">
           Conta feita com ticket médio de R$ 50 — troque pelo seu que a lógica é a mesma
