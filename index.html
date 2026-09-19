@@ -762,6 +762,67 @@
   /* so no formato cartao: no formato lista o .pick-ico e o proprio radio, e
      tingir ele faria a opcao parecer ja escolhida. */
   .pick:not(.is-row) .pick-ico { background: var(--tom-q-bg, rgba(108,99,255,.13)); }
+
+  /* ---------- o diagnostico com movimento ----------
+     Tudo aqui anima so transform e opacity, que o compositor resolve sem
+     repintar. Nada de animar box-shadow ou width: essa pagina ja pagou essa
+     conta uma vez nos cards de plano. */
+
+  /* as opcoes entram em cascata, e nao todas de uma vez */
+  .pick { animation: opcaoEntra .42s var(--ease) both; }
+  .pick:nth-child(1) { animation-delay: 0ms; }
+  .pick:nth-child(2) { animation-delay: 40ms; }
+  .pick:nth-child(3) { animation-delay: 80ms; }
+  .pick:nth-child(4) { animation-delay: 120ms; }
+  .pick:nth-child(5) { animation-delay: 160ms; }
+  .pick:nth-child(6) { animation-delay: 200ms; }
+  .pick:nth-child(7) { animation-delay: 240ms; }
+  .pick:nth-child(8) { animation-delay: 280ms; }
+
+  @keyframes opcaoEntra {
+    from { opacity: 0; transform: translateY(12px) scale(.97); }
+    to   { opacity: 1; transform: none; }
+  }
+  /* o hover tinge o cartao inteiro, nao so o ladrilho */
+  .pick:not(.is-row):hover { background: var(--tom-q-bg, rgba(108,99,255,.13)); }
+  .pick:hover .pick-ico { transform: scale(1.12) rotate(-6deg); }
+  .pick-ico { transition: background .3s var(--ease), box-shadow .25s var(--ease), transform .3s var(--ease); }
+
+  /* a barra de progresso ganha um brilho que corre por dentro */
+  .modal-bar i { position: relative; overflow: hidden; }
+  .modal-bar i::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.55) 50%, transparent 80%);
+    transform: translateX(-100%);
+    animation: brilhoBarra 2.4s var(--ease) infinite;
+  }
+  @keyframes brilhoBarra { to { transform: translateX(100%); } }
+
+  /* o anel da nota se desenha, em vez de aparecer pronto - e o clique do funil */
+  .score-arco {
+    stroke-dasharray: 389.6;
+    stroke-dashoffset: 389.6;
+    animation: anelEnche 1.2s var(--ease) .3s both;
+  }
+  @keyframes anelEnche { to { stroke-dashoffset: var(--off, 389.6); } }
+  .score-ring { animation: notaPulsa .6s var(--ease) both; }
+  @keyframes notaPulsa { from { transform: scale(.88); opacity: 0; } to { transform: none; opacity: 1; } }
+
+  /* as linhas do resultado tambem entram em cascata */
+  .gap-row { animation: opcaoEntra .45s var(--ease) both; }
+  .gap-row:nth-child(2) { animation-delay: 60ms; }
+  .gap-row:nth-child(3) { animation-delay: 120ms; }
+  .gap-row:nth-child(4) { animation-delay: 180ms; }
+
+  /* o anel de "analisando" passeia pela roda de cor enquanto pensa */
+  .quiz-ring i { animation: spin .9s linear infinite, anelCor 2.5s linear infinite; }
+  @keyframes anelCor {
+    0%   { border-top-color: var(--c1); border-right-color: var(--c5); }
+    25%  { border-top-color: var(--c2); border-right-color: var(--c6); }
+    50%  { border-top-color: var(--c3); border-right-color: var(--c8); }
+    75%  { border-top-color: var(--c4); border-right-color: var(--c7); }
+    100% { border-top-color: var(--c1); border-right-color: var(--c5); }
+  }
   .pick-ico { transition: background .3s var(--ease), box-shadow .25s var(--ease); }
   .pick:hover .pick-ico { box-shadow: var(--nm-out-sm); }
 
@@ -1096,6 +1157,14 @@
   body.modal-aberto .float-slow,
   body.modal-aberto .marquee-faixa,
   body.modal-aberto .aurora i { animation-play-state: paused !important; }
+  /* a cor da pergunta da vez banha o alto do painel */
+  .modal-panel::after {
+    content: ''; position: absolute; top: -32%; left: 50%; width: 110%; height: 70%;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(ellipse closest-side, var(--tom-q, var(--accent)), transparent 70%);
+    opacity: .13; transition: opacity .4s var(--ease), background .4s var(--ease);
+  }
+  .modal-top, .modal-body { position: relative; z-index: 1; }
   .modal-panel {
     position: relative; width: 100%; max-width: 800px; max-height: 88vh;
     display: flex; flex-direction: column; overflow: hidden;
@@ -2895,7 +2964,7 @@
                 <div class="score-ring">
                   <svg width="140" height="140" viewBox="0 0 140 140">
                     <circle cx="70" cy="70" r="62" fill="none" stroke="rgba(163,177,198,.35)" stroke-width="9"></circle>
-                    <circle cx="70" cy="70" r="62" fill="none" stroke="{{ scoreCor }}" stroke-width="9" stroke-linecap="round" stroke-dasharray="{{ scoreDash }}"></circle>
+                    <circle class="score-arco" cx="70" cy="70" r="62" fill="none" stroke="{{ scoreCor }}" stroke-width="9" stroke-linecap="round" style="--off: {{ scoreOff }};"></circle>
                   </svg>
                   <div style="text-align: center;">
                     <div class="score-num" style="color: {{ scoreCorTexto }};">{{ score }}</div>
@@ -3737,7 +3806,37 @@ class Component extends DCLogic {
       if (i > 3) { clearInterval(this._loadTimer); return; }
       this.setState({ loadI: i });
     }, 620);
-    this._doneTimer = setTimeout(() => this.setState({ step: N + 2, feito: true }), 2500);
+    this._doneTimer = setTimeout(() => {
+      this.setState({ step: N + 2, feito: true });
+      this.contarNota();
+    }, 2500);
+  }
+
+  /* A nota sobe de 0 até o valor, no mesmo compasso em que o anel se desenha.
+     Um número que aparece pronto não tem peso nenhum; subindo, ele vira o
+     momento do funil. Respeita quem pediu menos movimento. */
+  contarNota() {
+    requestAnimationFrame(() => {
+      const el = document.querySelector('.score-num');
+      if (!el) return;
+      const alvo = parseInt(el.textContent, 10);
+      if (!Number.isFinite(alvo)) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const DUR = 1200, ATRASO = 300;
+      const t0 = performance.now() + ATRASO;
+      el.textContent = '0';
+      const passo = (agora) => {
+        const t = (agora - t0) / DUR;
+        if (t < 0) { this._rafNota = requestAnimationFrame(passo); return; }
+        if (t >= 1) { el.textContent = String(alvo); return; }
+        // mesma desaceleração da curva do anel, pra os dois chegarem juntos
+        el.textContent = String(Math.round(alvo * (1 - Math.pow(1 - t, 3))));
+        this._rafNota = requestAnimationFrame(passo);
+      };
+      this._rafNota = requestAnimationFrame(passo);
+      this._teardown.push(() => cancelAnimationFrame(this._rafNota));
+    });
   }
 
   /* ---------------------------------------------------------------
@@ -4198,7 +4297,10 @@ class Component extends DCLogic {
       })) : [],
 
       score: res ? res.score : 0,
-      scoreDash: res ? (389.6 * res.score / 100).toFixed(1) + ' 389.6' : '0 389.6',
+      // O arco nao aparece pronto: nasce vazio e se desenha. Com dasharray fixo
+      // em 389,6 (a circunferencia), quem controla quanto aparece e o dashoffset
+      // — 389,6 esconde tudo, 0 mostra o anel inteiro.
+      scoreOff: res ? (389.6 * (1 - res.score / 100)).toFixed(1) : '389.6',
       // A nota deixa de ser sempre roxa. Anel vivo, numero escuro: o numero ja
       // diz o resultado em texto, entao o anel pode puxar saturacao sem cobrar
       // legibilidade. As faixas sao as mesmas que ja decidem o titulo do

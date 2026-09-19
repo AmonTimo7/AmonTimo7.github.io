@@ -321,6 +321,28 @@ Onde a roda é usada: cada **opção do quiz** (pela posição na grade), cada *
 os quatro **ícones de "Por que ACTech"**, e o **check de cada plano**, que acompanha a cor do
 próprio card — verde-água no Essencial, roxo no Completo.
 
+### O diagnóstico com movimento
+
+Tudo anima **só `transform` e `opacity`**, que o compositor resolve sem repintar. Nada de
+animar `box-shadow` ou `width` — essa página já pagou essa conta uma vez nos cards de plano.
+Medido: 60fps com tudo rodando.
+
+- **As opções entram em cascata**, 40ms de atraso entre uma e outra (`:nth-child`), em vez de
+  todas de uma vez.
+- **O hover tinge o cartão inteiro** na cor da opção, e o ladrilho gira e cresce um pouco.
+- **A barra de progresso tem um brilho** que corre por dentro, em loop.
+- **O anel da nota se desenha** em vez de aparecer pronto. Com `stroke-dasharray` fixo em
+  389,6 (a circunferência), quem controla quanto aparece é o `stroke-dashoffset` — 389,6
+  esconde tudo, 0 mostra o anel inteiro. O valor final vai inline em `--off`.
+- **A nota sobe de 0** junto com o anel (`contarNota()`), com a mesma desaceleração cúbica,
+  pra os dois chegarem juntos. Um número que aparece pronto não tem peso; subindo, ele vira o
+  momento do funil. O método checa `prefers-reduced-motion` e sai fora sem animar.
+- **O anel de "analisando" passeia pela roda de cor** enquanto pensa.
+- **A cor da pergunta banha o alto do painel** num radial suave.
+
+> As animações em CSS já são cobertas pela regra global de `prefers-reduced-motion`, que zera
+> `animation` na página inteira. O `contarNota()` é JS e por isso tem a checagem própria.
+
 ### Cor que carrega informação
 
 `icon()` e `ico()` usam `currentColor` — quem manda na cor é o recipiente.
