@@ -2867,6 +2867,18 @@
   </section>
 
   <footer style="position: relative; z-index: 1; padding: 0 24px 110px;">
+    <!-- A assinatura fecha a pagina. Veio do banner original em fundo creme
+         (#F4F1EC): o fundo saiu por preenchimento a partir da borda, e o alpha
+         foi calculado pela DISTANCIA ate o creme, nao pela luminancia - uma
+         rampa calibrada pro branco deixaria o fundo inteiro em alpha 141,
+         porque 236 nao e 255. Vale lembrar se entrar outra arte em fundo claro.
+         O alt carrega o texto da imagem: quem usa leitor de tela nao le pixel. -->
+    <div data-reveal="1" style="text-align: center; margin: 0 auto 46px; max-width: 1180px;">
+      <img src="imgs/assinatura.webp" width="460" height="94"
+           alt="ACTech Informática — sites e sistemas sob medida"
+           loading="lazy" decoding="async"
+           style="width: min(460px, 82%); height: auto; display: inline-block;" />
+    </div>
     <div class="nm-track" style="max-width: 1180px; margin: 0 auto 28px; height: 6px; border-radius: 999px;"></div>
     <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 14px; color: #59616E;">
       <div>ACTech Informática — sites e marketing digital para pequenos e médios negócios.</div>

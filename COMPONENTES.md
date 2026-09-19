@@ -369,6 +369,23 @@ como arquivo. **Não use `hue-rotate` no CSS:** repintaria a área inteira a cad
 exatamente o que esta seção já pagou caro para evitar. O desfoque continua assado dentro do
 WebP e o custo em tela segue zero.
 
+## A assinatura do rodapé
+
+`imgs/assinatura.webp` fecha a página. Veio do banner original em fundo creme `#F4F1EC`.
+
+> **O fundo saiu por preenchimento a partir da borda**, e o alpha foi calculado pela
+> **distância até o creme**, não pela luminância. Isso importa: uma rampa calibrada para
+> branco (~255) deixava o fundo inteiro em **alpha 141**, porque 236 não é 255 — a imagem
+> saía com um retângulo creme fantasma por cima do cinza. Se entrar outra arte em fundo
+> claro, é essa a conta a usar.
+
+O `alt` carrega o texto que está dentro da imagem: quem usa leitor de tela não lê pixel. Vale
+notar que o laranja do banner dá só **2,71:1** sobre o cinza da página — como é texto dentro
+de imagem, o `alt` é o que garante que a informação não se perca.
+
+**Um detalhe de mensagem:** o banner diz "sites e sistemas sob medida" e o rodapé logo abaixo
+diz "sites e marketing digital". São posicionamentos diferentes. Vale alinhar os dois.
+
 ## Pendências que dependem de material seu
 
 - **`actech.com.br` não é da ACTech.** A bio do mockup do Instagram exibia esse domínio como
