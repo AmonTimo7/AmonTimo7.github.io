@@ -715,10 +715,20 @@
   }
   .mod-hero p { margin: 11px 0 0; font-size: 13px; line-height: 1.6; color: color-mix(in srgb, var(--tf) 72%, var(--tb)); }
   .mod-btn { display: inline-block; margin-top: 16px; font-size: 12.5px; font-weight: 700; padding: 10px 20px; border-radius: 999px; background: var(--ta); color: var(--tbt); }
-  .mod-arte { border-radius: 14px; aspect-ratio: 4 / 3; background: var(--tg); position: relative; overflow: hidden; }
+  /* A foto entra por variavel (--tfoto) e o gradiente do modelo fica por cima,
+     em veu: e ele que amarra quatro fotos de origens diferentes a paleta de
+     cada template. Sem o veu, as fotos brigavam com a cor do site. */
+  .mod-arte {
+    border-radius: 14px; aspect-ratio: 4 / 3; position: relative; overflow: hidden;
+    background: var(--tg) center / cover no-repeat;
+  }
+  .mod-arte img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
   .mod-arte::after {
     content: ''; position: absolute; inset: 0;
-    background: repeating-linear-gradient(115deg, rgba(255,255,255,.14) 0 2px, transparent 2px 16px);
+    background: var(--tg); opacity: .26; mix-blend-mode: multiply;
   }
 
   .mod-cards { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; padding: 0 26px 26px; }
@@ -2191,7 +2201,9 @@
               <p>Mais de dois mil itens, preço de mercado de bairro e entrega no mesmo dia para quem mora perto.</p>
               <span class="mod-btn">Ver ofertas da semana</span>
             </div>
-            <div class="mod-arte" aria-hidden="true"></div>
+            <div class="mod-arte">
+              <img src="imgs/mod-mercado.webp" alt="Prateleira de hortifruícolas num mercado de bairro" loading="lazy" decoding="async" />
+            </div>
           </div>
           <div class="mod-cards">
             <div class="mod-card"><b>Entrega no dia</b><span>Pedido até as 16h chega até as 19h.</span></div>
@@ -2209,7 +2221,9 @@
               <p>Escolha o barbeiro e o horário. A agenda é online e o lembrete chega no seu WhatsApp na véspera.</p>
               <span class="mod-btn">Marcar meu horário</span>
             </div>
-            <div class="mod-arte" aria-hidden="true"></div>
+            <div class="mod-arte">
+              <img src="imgs/mod-barbearia.webp" alt="Barbeiro fazendo a barba de um cliente na cadeira" loading="lazy" decoding="async" />
+            </div>
           </div>
           <div class="mod-cards">
             <div class="mod-card"><b>Agenda online</b><span>Escolhe o dia e o barbeiro em trinta segundos.</span></div>
@@ -2227,7 +2241,9 @@
               <p>Cardápio do dia publicado toda manhã, com foto de verdade. Entrega própria, sem taxa de aplicativo.</p>
               <span class="mod-btn">Ver o cardápio de hoje</span>
             </div>
-            <div class="mod-arte" aria-hidden="true"></div>
+            <div class="mod-arte">
+              <img src="imgs/mod-restaurante.webp" alt="Salão de restaurante com mesas de madeira postas" loading="lazy" decoding="async" />
+            </div>
           </div>
           <div class="mod-cards">
             <div class="mod-card"><b>Cardápio do dia</b><span>Atualizado toda manhã, com foto real.</span></div>
@@ -2245,7 +2261,9 @@
               <p>Especialidades, convênios aceitos e horários livres, tudo na tela. Confirmação na hora.</p>
               <span class="mod-btn">Ver horários livres</span>
             </div>
-            <div class="mod-arte" aria-hidden="true"></div>
+            <div class="mod-arte">
+              <img src="imgs/mod-clinica.webp" alt="Recepção clara de uma clínica" loading="lazy" decoding="async" />
+            </div>
           </div>
           <div class="mod-cards">
             <div class="mod-card"><b>Convênios na tela</b><span>A pessoa confere o dela antes de ligar.</span></div>

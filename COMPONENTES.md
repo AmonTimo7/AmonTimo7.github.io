@@ -385,6 +385,16 @@ A identidade de cada um entra por variável inline — `--tb` fundo, `--tf` text
 `--ts` cartão, `--tbt` texto do botão. A barbearia é escura e as outras três claras, o que é
 metade da graça: mostra que o site não sai de fôrma.
 
+**As fotos.** Cada modelo tem uma foto no bloco do hero (`imgs/mod-*.webp`, 760×570, 204 KB
+no total, com `loading="lazy"`). São do **Unsplash**, cuja licença permite uso comercial sem
+atribuição. Estão aqui como o que são: material ilustrativo de um mockup — o site do cliente
+usa as fotos dele, e o rodapé da seção já diz isso.
+
+> **O véu é o que faz quatro fotos de origens diferentes conviverem.** `.mod-arte::after`
+> aplica o gradiente do próprio modelo em `mix-blend-mode: multiply` a 26%. Sem ele as fotos
+> brigavam com a paleta de cada template e a seção virava uma colcha de retalhos. Ao trocar
+> uma foto, confira como ela fica **depois** do véu, não antes.
+
 > **Ao criar um modelo novo, refaça três contas:** texto/fundo, destaque/fundo e texto do
 > botão/destaque. Os atuais ficam em 11,9–15,8 no primeiro e nunca abaixo de 4,5 nos outros
 > dois. Foi assim que o laranja do restaurante mudou de `#C2511F` (4,42) para `#B2481A`.
