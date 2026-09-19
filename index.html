@@ -744,7 +744,11 @@
     background: var(--stf); color: var(--stc); margin-bottom: 14px;
   }
   .sis-tipo b { display: block; font-size: 15.5px; font-weight: 700; color: var(--fg); line-height: 1.3; }
-  .sis-tipo span { display: block; margin-top: 7px; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+  /* classe propria, e nao `.sis-tipo span`: aquele seletor tem um tipo a mais
+     na conta (0,1,1) e vencia .sis-tipo-ico (0,1,0), trocando o display do
+     ladrilho pra block. Sem grid, o place-items nao centrava mais o icone e ele
+     ia parar no canto. Toda regra aqui e por classe, de proposito. */
+  .sis-tipo-txt { display: block; margin-top: 7px; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
 
   .sis-pe { margin: 26px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--placeholder); text-align: center; }
 
@@ -2422,28 +2426,28 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="M7 15l3.5-4 3 2.5L20 7"></path></svg>
           </span>
           <b>Painel de gestão</b>
-          <span>Os números que você acompanha no fim do mês, visíveis todo dia.</span>
+          <span class="sis-tipo-txt">Os números que você acompanha no fim do mês, visíveis todo dia.</span>
         </div>
         <div class="sis-tipo" style="--stc: var(--c8); --stf: var(--f8);">
           <span class="sis-tipo-ico">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"></rect><path d="M2 11h20"></path><path d="M7 15h4"></path></svg>
           </span>
           <b>Financeiro e caixa</b>
-          <span>Entrada, saída, extrato e fechamento sem planilha paralela.</span>
+          <span class="sis-tipo-txt">Entrada, saída, extrato e fechamento sem planilha paralela.</span>
         </div>
         <div class="sis-tipo" style="--stc: var(--c5); --stf: var(--f5);">
           <span class="sis-tipo-ico">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 11h18"></path></svg>
           </span>
           <b>Agenda e ordens</b>
-          <span>Quem atende quem, quando, e o que ficou pendente.</span>
+          <span class="sis-tipo-txt">Quem atende quem, quando, e o que ficou pendente.</span>
         </div>
         <div class="sis-tipo" style="--stc: var(--c2); --stf: var(--f2);">
           <span class="sis-tipo-ico">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6M12 15v6"></path><circle cx="12" cy="12" r="3"></circle><path d="M5.6 5.6l4.2 4.2M14.2 14.2l4.2 4.2M18.4 5.6l-4.2 4.2M9.8 14.2l-4.2 4.2"></path></svg>
           </span>
           <b>Integração e automação</b>
-          <span>O que é digitado duas vezes hoje passa a ser digitado nenhuma.</span>
+          <span class="sis-tipo-txt">O que é digitado duas vezes hoje passa a ser digitado nenhuma.</span>
         </div>
     </div>
 
