@@ -84,6 +84,14 @@
     --c6: #B5800C; --t6: #6F4E05; --f6: rgba(181,128,12,.14);   /* ambar */
     --c7: #D2453F; --t7: #9F2722; --f7: rgba(210,69,63,.14);   /* coral */
     --c8: #5B8C2A; --t8: #3B5D1A; --f8: rgba(91,140,42,.14);   /* verde */
+
+    /* ---- a mesma roda, clareada pro fundo escuro do diagnostico ----
+       #0D2240 e a menta #30D9BB sao as cores das artes que a ACTech posta no
+       Instagram - o diagnostico fala a mesma lingua do conteudo real. Os --lN
+       batem 6,2:1 sobre o navy; as versoes --cN, que servem no claro, cairiam
+       pra perto de 2 aqui. Cada fundo tem a sua metade da roda. */
+    --l1: #9C96FF; --l2: #F58251; --l3: #00B69F; --l4: #EF7BB7;
+    --l5: #73A3EF; --l6: #D89400; --l7: #EC8480; --l8: #6DB427;
     --pos: #12A594;
 
     --sh-dark: rgba(163,177,198,.6);
@@ -744,24 +752,35 @@
      --tom-q-bg tinge o ladrilho. Explicito assim funciona em navegador antigo
      e deixa a dose de cada tinta no olho, nao numa formula. */
   /* A pergunta da o tom da barra de progresso e do "PERGUNTA N DE 10"... */
-  .modal-panel.q0, .modal-panel.q5 { --tom-q: var(--c1); --tom-q-txt: var(--t1); }
-  .modal-panel.q1, .modal-panel.q6 { --tom-q: var(--c3); --tom-q-txt: var(--t3); }
-  .modal-panel.q2, .modal-panel.q7 { --tom-q: var(--c2); --tom-q-txt: var(--t2); }
-  .modal-panel.q3, .modal-panel.q8 { --tom-q: var(--c4); --tom-q-txt: var(--t4); }
-  .modal-panel.q4, .modal-panel.q9 { --tom-q: var(--c5); --tom-q-txt: var(--t5); }
+  .modal-panel.q0, .modal-panel.q5 { --tom-q: var(--l1); --tom-q-txt: var(--l1); }
+  .modal-panel.q1, .modal-panel.q6 { --tom-q: var(--l3); --tom-q-txt: var(--l3); }
+  .modal-panel.q2, .modal-panel.q7 { --tom-q: var(--l2); --tom-q-txt: var(--l2); }
+  .modal-panel.q3, .modal-panel.q8 { --tom-q: var(--l4); --tom-q-txt: var(--l4); }
+  .modal-panel.q4, .modal-panel.q9 { --tom-q: var(--l5); --tom-q-txt: var(--l5); }
   /* ...e cada OPCAO reescreve o tom com o seu, pela posicao na grade. Oito
      porque a pergunta do tipo de negocio tem oito opcoes. */
-  .pick:nth-child(1) { --tom-q: var(--c1); --tom-q-bg: var(--f1); --tom-q-txt: var(--t1); }
-  .pick:nth-child(2) { --tom-q: var(--c2); --tom-q-bg: var(--f2); --tom-q-txt: var(--t2); }
-  .pick:nth-child(3) { --tom-q: var(--c3); --tom-q-bg: var(--f3); --tom-q-txt: var(--t3); }
-  .pick:nth-child(4) { --tom-q: var(--c4); --tom-q-bg: var(--f4); --tom-q-txt: var(--t4); }
-  .pick:nth-child(5) { --tom-q: var(--c5); --tom-q-bg: var(--f5); --tom-q-txt: var(--t5); }
-  .pick:nth-child(6) { --tom-q: var(--c6); --tom-q-bg: var(--f6); --tom-q-txt: var(--t6); }
-  .pick:nth-child(7) { --tom-q: var(--c7); --tom-q-bg: var(--f7); --tom-q-txt: var(--t7); }
-  .pick:nth-child(8) { --tom-q: var(--c8); --tom-q-bg: var(--f8); --tom-q-txt: var(--t8); }
+/* No escuro nao ha versao "viva" e "de texto" separadas: a --lN ja nasce clara
+     o bastante pros dois papeis (6,2:1 sobre o navy). O ladrilho vira um branco
+     translucido, que sobre o navy da o degrau de superficie sem sujar o matiz. */
+  .pick:nth-child(1) { --tom-q: var(--l1); --tom-q-bg: rgba(255,255,255,.07); --tom-q-txt: var(--l1); }
+  .pick:nth-child(2) { --tom-q: var(--l2); --tom-q-bg: rgba(255,255,255,.07); --tom-q-txt: var(--l2); }
+  .pick:nth-child(3) { --tom-q: var(--l3); --tom-q-bg: rgba(255,255,255,.07); --tom-q-txt: var(--l3); }
+  .pick:nth-child(4) { --tom-q: var(--l4); --tom-q-bg: rgba(255,255,255,.07); --tom-q-txt: var(--l4); }
+  .pick:nth-child(5) { --tom-q: var(--l5); --tom-q-bg: rgba(255,255,255,.07); --tom-q-txt: var(--l5); }
+  .pick:nth-child(6) { --tom-q: var(--l6); --tom-q-bg: rgba(255,255,255,.07); --tom-q-txt: var(--l6); }
+  .pick:nth-child(7) { --tom-q: var(--l7); --tom-q-bg: rgba(255,255,255,.07); --tom-q-txt: var(--l7); }
+  .pick:nth-child(8) { --tom-q: var(--l8); --tom-q-bg: rgba(255,255,255,.07); --tom-q-txt: var(--l8); }
   /* so no formato cartao: no formato lista o .pick-ico e o proprio radio, e
      tingir ele faria a opcao parecer ja escolhida. */
-  .pick:not(.is-row) .pick-ico { background: var(--tom-q-bg, rgba(108,99,255,.13)); }
+  .pick:not(.is-row) .pick-ico {
+    background: var(--tom-q-bg, rgba(255,255,255,.07));
+    box-shadow: var(--nm-in-sm), inset 0 0 0 1px color-mix(in srgb, var(--tom-q, var(--accent)) 45%, transparent);
+  }
+  /* no escuro o cartao acende pela borda, nao pela sombra: sombra em superficie
+     escura quase nao aparece. */
+  .pick { border: 1px solid rgba(125,170,225,.14); transition: border-color .25s var(--ease), box-shadow .25s var(--ease), transform .25s var(--ease); }
+  .pick:hover { border-color: var(--tom-q, var(--accent)); }
+  .pick.is-picked { border-color: var(--tom-q, var(--accent)); box-shadow: var(--nm-in), 0 0 0 1px var(--tom-q, var(--accent)); }
   .pick-ico { transition: background .3s var(--ease), box-shadow .25s var(--ease); }
   .pick:hover .pick-ico { box-shadow: var(--nm-out-sm); }
 
@@ -777,8 +796,10 @@
 
   /* "o que falta" alerta, "o que faremos" avanca - e a cor diz qual e qual */
   .gap-ico { color: var(--accent); }
-  .gap-row--falta .gap-ico { color: #C62A2F; background: rgba(229,72,77,.09); }
-  .gap-row--faz .gap-ico { color: #0E7C6F; background: rgba(18,165,148,.11); }
+  /* no escuro as versoes escuras sumiriam: coral e menta claros, medidos em
+     5,9 e 8,9 sobre o navy. */
+  .gap-row--falta .gap-ico { color: #FF8A84; background: rgba(255,138,132,.12); }
+  .gap-row--faz .gap-ico { color: #30D9BB; background: rgba(48,217,187,.12); }
 
   /* ---------- sozinho x com a ACTech: o mesmo mes, dos dois lados ----------
      Os dois painéis não se alinham linha a linha (o texto tem tamanhos
@@ -1076,7 +1097,7 @@
   .modal {
     position: fixed; inset: 0; z-index: 90;
     display: flex; align-items: center; justify-content: center; padding: 22px;
-    background: rgba(224,229,236,.84); backdrop-filter: blur(12px);
+    background: rgba(8,20,38,.72); backdrop-filter: blur(14px);
     animation: modalIn .3s var(--ease) both;
   }
   @keyframes modalIn { from { opacity: 0; } to { opacity: 1; } }
@@ -1096,13 +1117,112 @@
   body.modal-aberto .float-slow,
   body.modal-aberto .marquee-faixa,
   body.modal-aberto .aurora i { animation-play-state: paused !important; }
+  /* ---------- o diagnostico e escuro ----------
+     Tudo aqui dentro ja usava var(--bg), var(--fg) e os tokens de sombra, entao
+     o modal inteiro troca de pele redefinindo os tokens NESTE elemento - cartao,
+     ladrilho, campo de texto, anel, tudo segue junto pela cascata. O neumorfismo
+     continua de pe: o que muda e a superficie de onde ele nasce.
+
+     Os seis tokens --nm-* sao redeclarados pelo mesmo motivo de sempre: o valor
+     computado deles ja sai do :root com o var(--sh-dark) resolvido, entao trocar
+     so as sombras nao reescreveria nada. */
   .modal-panel {
+    --bg: #0D2240;
+    --fg: #FFFFFF;
+    --muted: #9FB6D4;
+    --placeholder: #7E96B8;
+    --accent: #30D9BB;
+    --accent-light: #6FE8D2;
+    --sh-dark: rgba(3,10,22,.62);
+    --sh-dark-strong: rgba(3,10,22,.78);
+    --sh-light: rgba(65,105,165,.20);
+    --sh-light-strong: rgba(65,105,165,.28);
+    --nm-out:       9px 9px 16px var(--sh-dark), -9px -9px 16px var(--sh-light);
+    --nm-out-hover: 12px 12px 20px var(--sh-dark-strong), -12px -12px 20px var(--sh-light-strong);
+    --nm-out-sm:    5px 5px 10px var(--sh-dark), -5px -5px 10px var(--sh-light);
+    --nm-in:        inset 6px 6px 10px var(--sh-dark), inset -6px -6px 10px var(--sh-light);
+    --nm-in-deep:   inset 10px 10px 20px var(--sh-dark-strong), inset -10px -10px 20px var(--sh-light-strong);
+    --nm-in-sm:     inset 3px 3px 6px var(--sh-dark), inset -3px -3px 6px var(--sh-light);
+
     position: relative; width: 100%; max-width: 800px; max-height: 88vh;
     display: flex; flex-direction: column; overflow: hidden;
-    background: var(--bg); border-radius: var(--r-card);
-    box-shadow: 18px 18px 36px rgba(163,177,198,.75), -18px -18px 36px rgba(255,255,255,.7);
+    background: var(--bg); color: var(--fg); border-radius: var(--r-card);
+    box-shadow: 0 30px 80px rgba(3,12,28,.55), 0 0 0 1px rgba(120,170,230,.13);
     animation: panelIn .45s var(--ease) both;
   }
+  /* a malha fina das artes do Instagram, so que discreta */
+  .modal-panel::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      repeating-linear-gradient(0deg, rgba(120,175,235,.055) 0 1px, transparent 1px 64px),
+      repeating-linear-gradient(90deg, rgba(120,175,235,.055) 0 1px, transparent 1px 64px);
+  }
+  /* o brilho da cor da pergunta, no alto do painel */
+  .modal-panel::after {
+    content: ''; position: absolute; top: -40%; left: 50%; width: 120%; height: 90%;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(ellipse closest-side, var(--tom-q, var(--accent)), transparent 70%);
+    opacity: .17; transition: opacity .4s var(--ease), background .4s var(--ease);
+  }
+  .modal-top, .modal-body { position: relative; z-index: 1; }
+
+  /* o cartao de #diagnostico usa a mesma pele do modal */
+  .diag-cartao {
+    --bg: #0D2240; --fg: #FFFFFF; --muted: #9FB6D4; --placeholder: #7E96B8;
+    --accent: #30D9BB; --accent-light: #6FE8D2;
+    --sh-dark: rgba(3,10,22,.62); --sh-dark-strong: rgba(3,10,22,.78);
+    --sh-light: rgba(65,105,165,.20); --sh-light-strong: rgba(65,105,165,.28);
+    --nm-out:       9px 9px 16px var(--sh-dark), -9px -9px 16px var(--sh-light);
+    --nm-out-hover: 12px 12px 20px var(--sh-dark-strong), -12px -12px 20px var(--sh-light-strong);
+    --nm-out-sm:    5px 5px 10px var(--sh-dark), -5px -5px 10px var(--sh-light);
+    --nm-in:        inset 6px 6px 10px var(--sh-dark), inset -6px -6px 10px var(--sh-light);
+    --nm-in-deep:   inset 10px 10px 20px var(--sh-dark-strong), inset -10px -10px 20px var(--sh-light-strong);
+    --nm-in-sm:     inset 3px 3px 6px var(--sh-dark), inset -3px -3px 6px var(--sh-light);
+    background: var(--bg); color: var(--fg);
+    box-shadow: 0 26px 60px rgba(3,12,28,.32), 0 0 0 1px rgba(120,170,230,.14);
+  }
+  .diag-cartao::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background:
+      repeating-linear-gradient(0deg, rgba(120,175,235,.05) 0 1px, transparent 1px 64px),
+      repeating-linear-gradient(90deg, rgba(120,175,235,.05) 0 1px, transparent 1px 64px);
+  }
+  .diag-cartao > * { position: relative; z-index: 1; }
+  .diag-cartao .btn-primary, .diag-cartao .btn-primary:hover { color: #0D2240; }
+  .diag-cartao .btn-primary svg { stroke: currentColor; }
+  .diag-cartao .nm-pill { background: rgba(255,255,255,.07); box-shadow: none; border: 1px solid rgba(125,170,225,.18); }
+  .diag-cartao .nm-well { background: rgba(255,255,255,.07); box-shadow: none; color: var(--accent); }
+  /* o eyebrow da secao usa --t1, que e escuro pro fundo cinza: aqui vira menta */
+  .diag-cartao .eyebrow { --tom-secao: var(--accent); }
+  .diag-cartao .nm-track { background: rgba(255,255,255,.07); }
+  /* Branco sobre a menta da 1,78:1. O padrao pra accent claro em fundo escuro e
+     inverter: texto escuro sobre o botao, que da 8,92. */
+  .modal-panel .btn-primary,
+  .modal-panel .btn-primary:hover { color: #0D2240; }
+  .modal-panel .btn-primary svg { stroke: currentColor; }
+  .modal-panel .btn-secondary { color: var(--fg); }
+  .modal-panel .modal-x svg { stroke: currentColor; }
+  /* o trilho da barra e o fundo dos cartoes do resultado */
+  .modal-panel .nm-track { background: rgba(255,255,255,.06); }
+  /* No navy a sombra afundada nao desenha trilho nenhum: a barra sumia. */
+  .modal-panel .modal-bar { background: rgba(255,255,255,.07); box-shadow: none; }
+  .modal-panel .modal-bar i { box-shadow: 0 0 14px -2px var(--tom-q, var(--accent)); }
+  .modal-panel .modal-x { background: rgba(255,255,255,.07); box-shadow: none; border: 1px solid rgba(125,170,225,.18); }
+  .modal-panel .modal-x:hover { background: rgba(255,255,255,.13); }
+  .modal-panel .quiz-input { background: rgba(255,255,255,.06); box-shadow: none; border: 1px solid rgba(125,170,225,.2); }
+  .modal-panel .quiz-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(48,217,187,.2); }
+  /* o anel da nota ganha halo da propria cor - e o clique visual do resultado */
+  .modal-panel .score-ring { box-shadow: none; }
+  .modal-panel .score-ring::after {
+    content: ''; position: absolute; inset: -14px; border-radius: 999px; z-index: -1;
+    background: radial-gradient(circle closest-side, var(--halo, var(--accent)), transparent 72%);
+    opacity: .3;
+  }
+  .modal-panel .quiz-ring { box-shadow: none; border: 1px solid rgba(125,170,225,.16); }
+  .modal-panel .gap-ico { box-shadow: none; }
+  .modal-panel .check-mark { background: rgba(255,255,255,.07); box-shadow: none; }
+  .modal-panel .rec { background: rgba(255,255,255,.05); box-shadow: var(--nm-in), inset 0 0 0 1px rgba(125,170,225,.14); }
+  .modal-body::-webkit-scrollbar-thumb { background: rgba(125,170,225,.3); }
   @keyframes panelIn { from { opacity: 0; transform: translateY(26px) scale(.97); } to { opacity: 1; transform: none; } }
   .modal-top { display: flex; align-items: center; gap: 16px; padding: 20px 24px 4px; flex: none; }
   .modal-bar { flex: 1; height: 10px; border-radius: 999px; background: var(--bg); box-shadow: var(--nm-in-sm); overflow: hidden; }
@@ -2192,14 +2312,17 @@
   </section>
 
   <section id="diagnostico" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
-    <div data-reveal="1" class="nm-card" style="position: relative; overflow: hidden; padding: clamp(34px, 5vw, 62px) clamp(22px, 4vw, 54px); text-align: center;">
+    <!-- O cartao e escuro de proposito: e a unica superficie escura da pagina e
+         anuncia o diagnostico, que roda inteiro nessa mesma pele. Os tokens sao
+         os mesmos do .modal-panel - quem mexer num, mexa no outro. -->
+    <div data-reveal="1" class="nm-card diag-cartao" style="position: relative; overflow: hidden; padding: clamp(34px, 5vw, 62px) clamp(22px, 4vw, 54px); text-align: center;">
       <div class="nm-well" style="position: absolute; width: 280px; height: 280px; border-radius: 999px; top: -150px; left: -110px;"></div>
       <div class="nm-tile" style="position: absolute; width: 170px; height: 170px; border-radius: 999px; bottom: -80px; right: -60px;"></div>
 
       <div style="position: relative;">
         <div class="eyebrow eyebrow--1">Diagnóstico gratuito</div>
-        <h2 class="font-display" style="font-weight: 800; font-size: clamp(28px, 4.2vw, 48px); line-height: 1.06; margin: 18px auto 0; max-width: 20ch; color: #3D4852;">Antes de vender qualquer coisa, a gente quer te conhecer.</h2>
-        <p style="margin: 18px auto 0; max-width: 52ch; font-size: 16.5px; color: #59616E; line-height: 1.7;">
+        <h2 class="font-display" style="font-weight: 800; font-size: clamp(28px, 4.2vw, 48px); line-height: 1.06; margin: 18px auto 0; max-width: 20ch; color: var(--fg);">Antes de vender qualquer coisa, a gente quer te conhecer.</h2>
+        <p style="margin: 18px auto 0; max-width: 52ch; font-size: 16.5px; color: var(--muted); line-height: 1.7;">
           Dez perguntas sobre o seu negócio. No fim você recebe um diagnóstico da sua presença digital — o que já está de pé, o que está faltando e por onde começar. É seu, mesmo que não contrate nada.
         </p>
 
@@ -2207,26 +2330,26 @@
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.5-4.5"></path></svg>
           Fazer meu diagnóstico
         </button>
-        <div style="margin-top: 15px; font-size: 13.5px; color: #59616E;">1 minuto · sem cadastro · sem e-mail</div>
+        <div style="margin-top: 15px; font-size: 13.5px; color: var(--muted);">1 minuto · sem cadastro · sem e-mail</div>
 
         <div class="grid-auto" style="margin-top: 42px; gap: 14px; text-align: left;">
           <div class="nm-tile" style="padding: 20px 22px; display: flex; gap: 14px; align-items: center;">
             <div class="nm-well" style="width: 40px; height: 40px; border-radius: 13px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
             </div>
-            <div style="font-size: 14.5px; color: #3D4852; font-weight: 600; line-height: 1.4;">Sua nota de presença digital</div>
+            <div style="font-size: 14.5px; color: var(--fg); font-weight: 600; line-height: 1.4;">Sua nota de presença digital</div>
           </div>
           <div class="nm-tile" style="padding: 20px 22px; display: flex; gap: 14px; align-items: center;">
             <div class="nm-well" style="width: 40px; height: 40px; border-radius: 13px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg>
             </div>
-            <div style="font-size: 14.5px; color: #3D4852; font-weight: 600; line-height: 1.4;">O que está te custando cliente</div>
+            <div style="font-size: 14.5px; color: var(--fg); font-weight: 600; line-height: 1.4;">O que está te custando cliente</div>
           </div>
           <div class="nm-tile" style="padding: 20px 22px; display: flex; gap: 14px; align-items: center;">
             <div class="nm-well" style="width: 40px; height: 40px; border-radius: 13px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><path d="M2 7h20v5H2z"></path><path d="M12 21V7"></path></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><path d="M2 7h20v5H2z"></path><path d="M12 21V7"></path></svg>
             </div>
-            <div style="font-size: 14.5px; color: #3D4852; font-weight: 600; line-height: 1.4;">Um presente no fim</div>
+            <div style="font-size: 14.5px; color: var(--fg); font-weight: 600; line-height: 1.4;">Um presente no fim</div>
           </div>
         </div>
       </div>
@@ -2239,11 +2362,11 @@
           <div style="position: relative;">
             <div style="display: flex; gap: 16px; align-items: center;">
               <div class="nm-well" style="width: 56px; height: 56px; border-radius: 18px;">
-                <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><path d="M2 7h20v5H2z"></path><path d="M12 21V7"></path><path d="M12 7C9 7 7 5.5 7 4a2 2 0 014 0c0 1.5 1 3 1 3z"></path></svg>
+                <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><path d="M2 7h20v5H2z"></path><path d="M12 21V7"></path><path d="M12 7C9 7 7 5.5 7 4a2 2 0 014 0c0 1.5 1 3 1 3z"></path></svg>
               </div>
               <div>
                 <div class="quiz-step">Presente liberado</div>
-                <h3 class="font-display" style="font-weight: 800; font-size: clamp(21px, 2.5vw, 27px); line-height: 1.2; margin: 7px 0 0; color: #3D4852;">Seu ebook de marketing pra negócio de bairro</h3>
+                <h3 class="font-display" style="font-weight: 800; font-size: clamp(21px, 2.5vw, 27px); line-height: 1.2; margin: 7px 0 0; color: var(--fg);">Seu ebook de marketing pra negócio de bairro</h3>
               </div>
             </div>
 
@@ -2256,16 +2379,16 @@
               </div>
 
               <div>
-                <p style="margin: 0; font-size: 15.5px; line-height: 1.7; color: #59616E;">
+                <p style="margin: 0; font-size: 15.5px; line-height: 1.7; color: var(--muted);">
                   Sem enrolação e sem palavra difícil — é o que a gente te explicaria tomando um café.
                   Serve mesmo que você nunca contrate a ACTech.
                 </p>
                 <ul class="ebook-lista">
-                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>A busca local</b> — como o cliente já procura você hoje</span></li>
-                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>A ficha do Google</b> — vale mais que cem posts</span></li>
-                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>O que postar</b> — cinco tipos que resolvem o mês</span></li>
-                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>A foto que vende</b> — tirada no celular mesmo</span></li>
-                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>Responder rápido</b> — metade da venda está aí</span></li>
+                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>A busca local</b> — como o cliente já procura você hoje</span></li>
+                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>A ficha do Google</b> — vale mais que cem posts</span></li>
+                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>O que postar</b> — cinco tipos que resolvem o mês</span></li>
+                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>A foto que vende</b> — tirada no celular mesmo</span></li>
+                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>Responder rápido</b> — metade da venda está aí</span></li>
                 </ul>
               </div>
             </div>
@@ -2288,7 +2411,7 @@
             <div class="mat-grid">
               <div class="mat" data-vazio>
                 <span class="mat-ico">
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h9l5 5v11H5z"></path><path d="M14 4v5h5"></path><path d="M9 13h6"></path><path d="M9 16.5h4"></path></svg>
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h9l5 5v11H5z"></path><path d="M14 4v5h5"></path><path d="M9 13h6"></path><path d="M9 16.5h4"></path></svg>
                 </span>
                 <span class="mat-t">Ebook em PDF</span>
                 <span class="mat-s">O guia completo pra ler com calma</span>
@@ -2821,7 +2944,7 @@
         <div class="modal-top">
           <div class="modal-bar"><i style="width: {{ quizPct }};"></i></div>
           <button class="modal-x" onClick="{{ quizClose }}" aria-label="Fechar">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3D4852" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18"></path><path d="M6 6l12 12"></path></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18"></path><path d="M6 6l12 12"></path></svg>
           </button>
         </div>
 
@@ -2830,7 +2953,7 @@
           <sc-if value="{{ quizPortal }}" hint-placeholder-val="{{ false }}">
             <div class="{{ stepCls }}" style="text-align: center; padding: 10px 0 6px;">
               <div class="nm-well" style="width: 78px; height: 78px; border-radius: 26px; margin: 0 auto 24px;">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
               </div>
               <h3 class="quiz-q" style="margin-top: 0;">{{ portalTitulo }}</h3>
               <p class="quiz-hint" style="max-width: 46ch; margin: 0 auto 26px;">
@@ -2838,7 +2961,7 @@
                 em um minuto você recebe um diagnóstico e a gente já fala com você sabendo do que precisa.
               </p>
               <button class="btn btn-primary" onClick="{{ quizComecar }}" style="min-width: 240px;">Vamos lá</button>
-              <div style="margin-top: 14px; font-size: 13.5px; color: #59616E;">Sem cadastro, sem e-mail</div>
+              <div style="margin-top: 14px; font-size: 13.5px; color: var(--muted);">Sem cadastro, sem e-mail</div>
               <button class="quiz-back" onClick="{{ quizPular }}">Prefiro falar direto no WhatsApp</button>
             </div>
           </sc-if>
@@ -2883,7 +3006,7 @@
             <div class="quiz-load {{ stepCls }}">
               <div class="quiz-ring">
                 <i></i>
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.5-4.5"></path></svg>
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.5-4.5"></path></svg>
               </div>
               <div class="quiz-load-msg">{{ quizLoadMsg }}</div>
             </div>
@@ -2892,7 +3015,7 @@
           <sc-if value="{{ quizDone }}" hint-placeholder-val="{{ false }}">
             <div class="{{ stepCls }}">
               <div class="score-wrap">
-                <div class="score-ring">
+                <div class="score-ring" style="--halo: {{ scoreCor }};">
                   <svg width="140" height="140" viewBox="0 0 140 140">
                     <circle cx="70" cy="70" r="62" fill="none" stroke="rgba(163,177,198,.35)" stroke-width="9"></circle>
                     <circle cx="70" cy="70" r="62" fill="none" stroke="{{ scoreCor }}" stroke-width="9" stroke-linecap="round" stroke-dasharray="{{ scoreDash }}"></circle>
@@ -2912,37 +3035,37 @@
 
               <div class="nm-track" style="height: 6px; border-radius: 999px; margin: 30px 0 16px;"></div>
 
-              <div style="font-weight: 700; font-size: 15px; color: #3D4852;">O que está faltando</div>
+              <div style="font-weight: 700; font-size: 15px; color: var(--fg);">O que está faltando</div>
               <sc-for list="{{ resGaps }}" as="g" hint-placeholder-count="3">
                 <div class="gap-row gap-row--falta">
                   <span class="gap-ico">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 8v5"></path><path d="M12 17h.01"></path></svg>
                   </span>
                   <div>
-                    <div style="font-weight: 700; font-size: 15.5px; color: #3D4852;">{{ g.t }}</div>
-                    <div style="font-size: 14.5px; color: #59616E; line-height: 1.6; margin-top: 4px;">{{ g.d }}</div>
+                    <div style="font-weight: 700; font-size: 15.5px; color: var(--fg);">{{ g.t }}</div>
+                    <div style="font-size: 14.5px; color: var(--muted); line-height: 1.6; margin-top: 4px;">{{ g.d }}</div>
                   </div>
                 </div>
               </sc-for>
 
-              <div style="font-weight: 700; font-size: 15px; color: #3D4852; margin-top: 18px;">O que a gente faria primeiro</div>
+              <div style="font-weight: 700; font-size: 15px; color: var(--fg); margin-top: 18px;">O que a gente faria primeiro</div>
               <sc-for list="{{ resPlano }}" as="s" hint-placeholder-count="3">
                 <div class="gap-row gap-row--faz">
                   <span class="gap-ico">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
                   </span>
-                  <div style="font-size: 15.5px; color: #3D4852; line-height: 1.55; padding-top: 3px;">{{ s }}</div>
+                  <div style="font-size: 15.5px; color: var(--fg); line-height: 1.55; padding-top: 3px;">{{ s }}</div>
                 </div>
               </sc-for>
 
               <div class="rec">
-                <div style="font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: #6C63FF;">O que a gente indica pra você</div>
+                <div style="font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: var(--accent);">O que a gente indica pra você</div>
                 <div style="display: flex; align-items: baseline; gap: 10px; margin-top: 12px; flex-wrap: wrap;">
-                  <span class="font-display" style="font-weight: 800; font-size: 30px; color: #3D4852;">Plano {{ resPlan }}</span>
-                  <span style="font-size: 17px; color: #59616E;">{{ resPrice }}</span>
+                  <span class="font-display" style="font-weight: 800; font-size: 30px; color: var(--fg);">Plano {{ resPlan }}</span>
+                  <span style="font-size: 17px; color: var(--muted);">{{ resPrice }}</span>
                 </div>
-                <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.7; color: #59616E;">{{ resWhy }}</p>
-                <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.7; color: #59616E;">{{ resPrazo }}</p>
+                <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.7; color: var(--muted);">{{ resWhy }}</p>
+                <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.7; color: var(--muted);">{{ resPrazo }}</p>
               </div>
 
               <!-- Daqui não se sai direto pro WhatsApp: o próximo passo é a tela de oferta,
@@ -2950,7 +3073,7 @@
               <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px;">
                 <button class="btn btn-primary" onClick="{{ irOferta }}">
                   Quero resolver isso
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
                 </button>
                 <button class="btn btn-secondary" onClick="{{ quizClose }}">Vou pensar</button>
               </div>
@@ -3002,7 +3125,7 @@
                   <div class="mat-grid" style="margin-top: 18px;">
                     <div class="mat" data-vazio>
                       <span class="mat-ico">
-                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h9l5 5v11H5z"></path><path d="M14 4v5h5"></path><path d="M9 13h6"></path><path d="M9 16.5h4"></path></svg>
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h9l5 5v11H5z"></path><path d="M14 4v5h5"></path><path d="M9 13h6"></path><path d="M9 16.5h4"></path></svg>
                       </span>
                       <span class="mat-t">Ebook em PDF</span>
                       <span class="mat-s">O guia completo pra ler com calma</span>
@@ -3017,7 +3140,7 @@
                   <span class="oferta-selo">Mais rápido</span>
                   <div class="oferta-topo">
                     <div class="nm-well oferta-ico">
-                      <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#38B2AC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"></rect><path d="M5 10a7 7 0 0014 0"></path><path d="M12 17v4"></path><path d="M8 21h8"></path></svg>
+                      <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"></rect><path d="M5 10a7 7 0 0014 0"></path><path d="M12 17v4"></path><path d="M8 21h8"></path></svg>
                     </div>
                     <div>
                       <div class="oferta-tit">Um áudio de 2 minutos, em até 24h</div>
@@ -3030,12 +3153,12 @@
                   </div>
 
                   <div class="nm-pill" style="margin-top: 16px; padding: 10px 16px; font-size: 12.5px;">
-                    <span style="width: 7px; height: 7px; border-radius: 999px; background: #38B2AC; display: block;"></span>
+                    <span style="width: 7px; height: 7px; border-radius: 999px; background: var(--accent-light); display: block;"></span>
                     De graça e sem compromisso
                   </div>
 
                   <a class="btn btn-primary btn-block" href="{{ resAudit }}" target="_blank" onClick="{{ quizUnlock }}" style="margin-top: 16px;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"></path></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"></path></svg>
                     Quero minha auditoria
                   </a>
                 </div>
@@ -3043,14 +3166,14 @@
 
               <div class="nm-track" style="height: 6px; border-radius: 999px; margin: 26px 0 20px;"></div>
 
-              <div style="font-size: 15px; line-height: 1.7; color: #59616E;">
+              <div style="font-size: 15px; line-height: 1.7; color: var(--muted);">
                 Ou pula tudo isso: a gente já tem o seu diagnóstico em mãos e resolve o
-                <b style="color: #3D4852; font-weight: 700;">plano {{ resPlan }}</b> com você agora mesmo.
+                <b style="color: var(--fg); font-weight: 700;">plano {{ resPlan }}</b> com você agora mesmo.
               </div>
 
               <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px;">
                 <a class="btn btn-primary" href="{{ resWhats }}" target="_blank" onClick="{{ quizUnlock }}">
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"></path></svg>
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"></path></svg>
                   Falar no WhatsApp
                 </a>
                 <button class="btn btn-secondary" onClick="{{ quizClose }}">Vou pensar</button>
@@ -4203,8 +4326,11 @@ class Component extends DCLogic {
       // diz o resultado em texto, entao o anel pode puxar saturacao sem cobrar
       // legibilidade. As faixas sao as mesmas que ja decidem o titulo do
       // resultado, em quizResult() - mexeu numa, mexa na outra.
-      scoreCor: !res ? '#6C63FF' : res.score < 40 ? '#E5484D' : res.score < 68 ? '#F5A524' : '#12A594',
-      scoreCorTexto: !res ? '#6C63FF' : res.score < 40 ? '#C62A2F' : res.score < 68 ? '#A76800' : '#0E7C6F',
+      // Versoes claras: o diagnostico roda sobre navy #0D2240, e as escuras que
+      // serviam no fundo cinza sumiriam ali. Medido sobre o navy: 5,7 / 8,7 / 8,9
+      // no anel e 7,0 / 9,9 / 10,1 no numero.
+      scoreCor: !res ? '#30D9BB' : res.score < 40 ? '#FF6B64' : res.score < 68 ? '#FFB020' : '#30D9BB',
+      scoreCorTexto: !res ? '#30D9BB' : res.score < 40 ? '#FF8A84' : res.score < 68 ? '#FFC24D' : '#5FE3CA',
       scoreFaixa: !res ? '' : res.score < 40 ? 'Precisa de atenção' : res.score < 68 ? 'Base no lugar' : 'Bem posicionado',
       resWho: res ? res.who : '',
       resTitle: res ? res.title : '',
