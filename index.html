@@ -658,6 +658,84 @@
     flex-wrap: wrap; margin-top: 32px;
   }
 
+  /* ---------- modelos de site: o demonstrativo ----------
+     Cada modelo e um mini-site montado em HTML e CSS, nao uma captura. Custa
+     zero byte de imagem, fica nitido em qualquer tela e da pra editar o texto
+     de um segmento sem abrir editor de imagem. A troca de segmento e so troca
+     de classe: as quatro telas ja estao no DOM, empilhadas na mesma celula de
+     grid, e a que esta ativa sobe em opacidade.
+
+     As cores de cada modelo entram por variavel inline (--tb fundo, --tf texto,
+     --ta destaque, --ts cartao, --tbt texto do botao). Todas as combinacoes
+     foram medidas: texto/fundo fica entre 11,9 e 15,8, destaque/fundo nunca
+     abaixo de 4,5 e o texto do botao sobre o destaque tambem passa. Ao criar
+     um modelo novo, refaca essas tres contas. */
+  .mod { margin-top: 42px; }
+  .mod-abas { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 26px; }
+  .mod-aba {
+    border: none; cursor: pointer; font: inherit; font-size: 14.5px; font-weight: 700;
+    padding: 12px 22px; border-radius: 999px; color: var(--muted);
+    background: var(--bg); box-shadow: var(--nm-out-sm);
+    transition: color .25s var(--ease), box-shadow .25s var(--ease), transform .25s var(--ease);
+  }
+  .mod-aba:hover { transform: translateY(-2px); color: var(--fg); }
+  .mod-aba.is-on { color: var(--aba, var(--accent)); box-shadow: var(--nm-in); transform: none; }
+
+  .mod-palco {
+    position: relative; display: grid; border-radius: var(--r-card);
+    background: var(--bg); box-shadow: var(--nm-out); padding: 14px;
+  }
+  .mod-tela {
+    grid-area: 1 / 1; border-radius: 18px; overflow: hidden;
+    background: var(--tb); color: var(--tf);
+    opacity: 0; visibility: hidden; transform: translateY(10px) scale(.994);
+    transition: opacity .45s var(--ease), transform .45s var(--ease), visibility .45s;
+  }
+  .mod-tela.is-on { opacity: 1; visibility: visible; transform: none; }
+
+  .mod-chrome {
+    display: flex; align-items: center; gap: 7px; padding: 11px 14px;
+    background: color-mix(in srgb, var(--tf) 7%, var(--tb));
+  }
+  .mod-chrome i { width: 9px; height: 9px; border-radius: 999px; background: color-mix(in srgb, var(--tf) 22%, var(--tb)); flex: none; }
+  .mod-url {
+    margin-left: 8px; font-size: 11.5px; padding: 4px 14px; border-radius: 999px;
+    background: var(--tb); color: color-mix(in srgb, var(--tf) 62%, var(--tb));
+  }
+
+  .mod-nav { display: flex; align-items: center; gap: 20px; padding: 16px 26px; font-size: 12.5px; }
+  .mod-nav b { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800; font-size: 15px; letter-spacing: -.02em; }
+  .mod-nav span { color: color-mix(in srgb, var(--tf) 70%, var(--tb)); }
+  .mod-nav em { margin-left: auto; font-style: normal; font-weight: 700; padding: 8px 16px; border-radius: 999px; background: var(--ta); color: var(--tbt); }
+
+  .mod-hero { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr); gap: 26px; align-items: center; padding: 22px 26px 26px; }
+  .mod-hero h3 {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800;
+    font-size: clamp(19px, 2.3vw, 27px); line-height: 1.12; letter-spacing: -.025em; margin: 0;
+  }
+  .mod-hero p { margin: 11px 0 0; font-size: 13px; line-height: 1.6; color: color-mix(in srgb, var(--tf) 72%, var(--tb)); }
+  .mod-btn { display: inline-block; margin-top: 16px; font-size: 12.5px; font-weight: 700; padding: 10px 20px; border-radius: 999px; background: var(--ta); color: var(--tbt); }
+  .mod-arte { border-radius: 14px; aspect-ratio: 4 / 3; background: var(--tg); position: relative; overflow: hidden; }
+  .mod-arte::after {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(115deg, rgba(255,255,255,.14) 0 2px, transparent 2px 16px);
+  }
+
+  .mod-cards { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; padding: 0 26px 26px; }
+  .mod-card { border-radius: 12px; padding: 14px 15px; background: var(--ts); }
+  .mod-card b { display: block; font-size: 12.5px; font-weight: 700; }
+  .mod-card span { display: block; margin-top: 5px; font-size: 11.5px; line-height: 1.5; color: color-mix(in srgb, var(--tf) 68%, var(--ts)); }
+
+  .mod-pe { margin: 18px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--placeholder); text-align: center; }
+
+  @media (max-width: 760px) {
+    .mod-hero { grid-template-columns: minmax(0,1fr); gap: 18px; }
+    .mod-hero .mod-arte { order: -1; aspect-ratio: 16 / 9; }
+    .mod-cards { grid-template-columns: 1fr; }
+    .mod-nav span { display: none; }
+    .mod-aba { font-size: 13px; padding: 10px 16px; }
+  }
+
   /* ---------- aurora: as cores que passam no fundo ----------
      Sao manchas de cor que derivam devagar atras de tudo. Duas regras que essa
      pagina ja aprendeu na marra e valem aqui:
@@ -2079,6 +2157,108 @@
     </div>
   </section>
 
+
+  <!-- Os modelos sao mini-sites de verdade, montados em HTML e CSS: nenhuma
+       imagem, nitidos em qualquer tela, e trocar o texto de um segmento e
+       editar texto, nao abrir editor de imagem. As quatro telas vivem juntas
+       na mesma celula de grid; trocar de segmento e trocar de classe. -->
+  <section data-anima id="modelos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
+    <div data-reveal="1" style="text-align: center; max-width: 62ch; margin: 0 auto;">
+      <div class="eyebrow eyebrow--3">Modelos de site</div>
+      <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; color: var(--fg);">O seu site não vai parecer o de todo mundo.</h2>
+      <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: var(--muted);">
+        Cada ramo vende de um jeito, então cada um ganha um site com a sua cara.
+        Escolha o seu aí embaixo e veja como ele ficaria.
+      </p>
+    </div>
+
+    <div class="mod" data-reveal="1" data-mod>
+      <div class="mod-abas" role="tablist" aria-label="Segmentos">
+        <button class="mod-aba is-on" data-mod-aba="0" type="button" role="tab" aria-selected="true" style="--aba: #2E7D34;">Mercado</button>
+        <button class="mod-aba" data-mod-aba="1" type="button" role="tab" aria-selected="false" style="--aba: #9A6F12;">Barbearia</button>
+        <button class="mod-aba" data-mod-aba="2" type="button" role="tab" aria-selected="false" style="--aba: #B2481A;">Restaurante</button>
+        <button class="mod-aba" data-mod-aba="3" type="button" role="tab" aria-selected="false" style="--aba: #17699C;">Clínica</button>
+      </div>
+
+      <div class="mod-palco">
+        <div class="mod-tela is-on" data-mod-tela="0" 
+             style="--tb: #F7FBF4; --tf: #1B3A22; --ta: #2E7D34; --ts: #E4F2E5; --tbt: #FFFFFF; --tg: linear-gradient(140deg,#5FBF66,#2E7D34);">
+          <div class="mod-chrome"><i></i><i></i><i></i><span class="mod-url">mercadodobairro.com.br</span></div>
+          <div class="mod-nav"><b>Mercado do Bairro</b><span>Ofertas</span><span>Setores</span><span>Entrega</span><em>Pedir no WhatsApp</em></div>
+          <div class="mod-hero">
+            <div>
+              <h3>A feira da semana, entregue na sua porta.</h3>
+              <p>Mais de dois mil itens, preço de mercado de bairro e entrega no mesmo dia para quem mora perto.</p>
+              <span class="mod-btn">Ver ofertas da semana</span>
+            </div>
+            <div class="mod-arte" aria-hidden="true"></div>
+          </div>
+          <div class="mod-cards">
+            <div class="mod-card"><b>Entrega no dia</b><span>Pedido até as 16h chega até as 19h.</span></div>
+            <div class="mod-card"><b>Ofertas toda terça</b><span>A lista nova sai cedo, direto no WhatsApp.</span></div>
+            <div class="mod-card"><b>Conta do mês</b><span>Cliente antigo fecha no fim do mês, como sempre foi.</span></div>
+          </div>
+        </div>
+        <div class="mod-tela" data-mod-tela="1" aria-hidden="true"
+             style="--tb: #17171A; --tf: #F5F0EA; --ta: #D9A441; --ts: #232328; --tbt: #17171A; --tg: linear-gradient(140deg,#3A3A42,#17171A);">
+          <div class="mod-chrome"><i></i><i></i><i></i><span class="mod-url">barbearianavalha.com.br</span></div>
+          <div class="mod-nav"><b>Navalha</b><span>Serviços</span><span>Equipe</span><span>Horários</span><em>Agendar</em></div>
+          <div class="mod-hero">
+            <div>
+              <h3>Corte marcado. Sem fila, sem esperar.</h3>
+              <p>Escolha o barbeiro e o horário. A agenda é online e o lembrete chega no seu WhatsApp na véspera.</p>
+              <span class="mod-btn">Marcar meu horário</span>
+            </div>
+            <div class="mod-arte" aria-hidden="true"></div>
+          </div>
+          <div class="mod-cards">
+            <div class="mod-card"><b>Agenda online</b><span>Escolhe o dia e o barbeiro em trinta segundos.</span></div>
+            <div class="mod-card"><b>Lembrete automático</b><span>Aviso na véspera pra ninguém esquecer.</span></div>
+            <div class="mod-card"><b>Combo barba e cabelo</b><span>Preço fechado e tempo reservado.</span></div>
+          </div>
+        </div>
+        <div class="mod-tela" data-mod-tela="2" aria-hidden="true"
+             style="--tb: #FFF7F1; --tf: #3A2118; --ta: #B2481A; --ts: #FBE5D6; --tbt: #FFFFFF; --tg: linear-gradient(140deg,#E8853F,#B2481A);">
+          <div class="mod-chrome"><i></i><i></i><i></i><span class="mod-url">cantinhodobairro.com.br</span></div>
+          <div class="mod-nav"><b>Cantinho</b><span>Cardápio</span><span>Delivery</span><span>Reservas</span><em>Pedir agora</em></div>
+          <div class="mod-hero">
+            <div>
+              <h3>O prato feito que o bairro inteiro conhece.</h3>
+              <p>Cardápio do dia publicado toda manhã, com foto de verdade. Entrega própria, sem taxa de aplicativo.</p>
+              <span class="mod-btn">Ver o cardápio de hoje</span>
+            </div>
+            <div class="mod-arte" aria-hidden="true"></div>
+          </div>
+          <div class="mod-cards">
+            <div class="mod-card"><b>Cardápio do dia</b><span>Atualizado toda manhã, com foto real.</span></div>
+            <div class="mod-card"><b>Entrega própria</b><span>Sem taxa de aplicativo mordendo a margem.</span></div>
+            <div class="mod-card"><b>Reserva de mesa</b><span>Fim de semana com lugar garantido.</span></div>
+          </div>
+        </div>
+        <div class="mod-tela" data-mod-tela="3" aria-hidden="true"
+             style="--tb: #F3F9FD; --tf: #0F2E48; --ta: #17699C; --ts: #DCEDF8; --tbt: #FFFFFF; --tg: linear-gradient(140deg,#5AA9D6,#17699C);">
+          <div class="mod-chrome"><i></i><i></i><i></i><span class="mod-url">clinicabemestar.com.br</span></div>
+          <div class="mod-nav"><b>Bem-Estar</b><span>Especialidades</span><span>Convênios</span><span>Equipe</span><em>Agendar consulta</em></div>
+          <div class="mod-hero">
+            <div>
+              <h3>Consulta marcada sem precisar ligar.</h3>
+              <p>Especialidades, convênios aceitos e horários livres, tudo na tela. Confirmação na hora.</p>
+              <span class="mod-btn">Ver horários livres</span>
+            </div>
+            <div class="mod-arte" aria-hidden="true"></div>
+          </div>
+          <div class="mod-cards">
+            <div class="mod-card"><b>Convênios na tela</b><span>A pessoa confere o dela antes de ligar.</span></div>
+            <div class="mod-card"><b>Confirmação na hora</b><span>Sem telefone ocupado, sem retorno.</span></div>
+            <div class="mod-card"><b>Equipe e registros</b><span>Cada profissional com a sua formação.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="mod-pe">Modelos ilustrativos, montados aqui mesmo — o seu é feito com a sua marca, as suas fotos e o seu texto.</p>
+    </div>
+  </section>
+
   <section id="google" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
     <div data-reveal="1" style="margin-bottom: 58px; max-width: 62ch;">
       <div class="eyebrow eyebrow--6">Google e busca local</div>
@@ -3200,6 +3380,7 @@ class Component extends DCLogic {
     this.setupTrueFocus();
     this.setupCardSwap();
     this.setupDuelo();
+    this.setupModelos();
   }
 
   /* ---------------------------------------------------------------
@@ -3244,6 +3425,57 @@ class Component extends DCLogic {
       io2.observe(medidor);
       this._teardown.push(() => io2.disconnect());
     }
+  }
+
+  /* ---------------------------------------------------------------
+     Modelos de site. As quatro telas ja estao no DOM, empilhadas na mesma
+     celula de grid, entao trocar de segmento e so trocar de classe - nada
+     e montado ou destruido, e a transicao fica de graca no CSS.
+
+     As telas inativas levam aria-hidden e visibility: hidden, e nao so
+     opacity: 0. Sem isso, leitor de tela leria os quatro mini-sites em
+     sequencia e o Tab passaria por dentro de tela invisivel.
+     --------------------------------------------------------------- */
+  setupModelos() {
+    const raiz = document.querySelector('[data-mod]');
+    if (!raiz) return;
+    const abas = [...raiz.querySelectorAll('[data-mod-aba]')];
+    const telas = [...raiz.querySelectorAll('[data-mod-tela]')];
+    if (!abas.length || abas.length !== telas.length) return;
+
+    const mostrar = (i) => {
+      abas.forEach((a, n) => {
+        a.classList.toggle('is-on', n === i);
+        a.setAttribute('aria-selected', n === i ? 'true' : 'false');
+      });
+      telas.forEach((t, n) => {
+        t.classList.toggle('is-on', n === i);
+        if (n === i) t.removeAttribute('aria-hidden');
+        else t.setAttribute('aria-hidden', 'true');
+      });
+    };
+
+    abas.forEach((a, i) => {
+      const ir = () => mostrar(i);
+      a.addEventListener('click', ir);
+      this._teardown.push(() => a.removeEventListener('click', ir));
+    });
+
+    // setas do teclado andam entre as abas, como manda um tablist
+    const porTecla = (e) => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      const atual = abas.findIndex((a) => a.classList.contains('is-on'));
+      const alvo = (atual + d + abas.length) % abas.length;
+      mostrar(alvo);
+      abas[alvo].focus();
+    };
+    raiz.querySelector('[role="tablist"]').addEventListener('keydown', porTecla);
+    this._teardown.push(() => {
+      const tl = raiz.querySelector('[role="tablist"]');
+      if (tl) tl.removeEventListener('keydown', porTecla);
+    });
   }
 
   /** Espera o GSAP do CDN aparecer na window antes de rodar `fn`. */

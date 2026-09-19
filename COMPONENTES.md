@@ -369,6 +369,30 @@ como arquivo. **Não use `hue-rotate` no CSS:** repintaria a área inteira a cad
 exatamente o que esta seção já pagou caro para evitar. O desfoque continua assado dentro do
 WebP e o custo em tela segue zero.
 
+## Modelos de site (`#modelos`)
+
+O demonstrativo: quatro segmentos (mercado, barbearia, restaurante, clínica), cada um com um
+mini-site que renderiza ao vivo numa moldura de navegador.
+
+**São mini-sites de verdade, montados em HTML e CSS — não capturas.** Custa zero byte de
+imagem, fica nítido em qualquer tela e trocar o texto de um segmento é editar texto, não abrir
+editor de imagem.
+
+As quatro telas vivem **empilhadas na mesma célula de grid** (`grid-area: 1 / 1`), então trocar
+de segmento é trocar de classe: nada é montado ou destruído e a transição sai de graça no CSS.
+
+A identidade de cada um entra por variável inline — `--tb` fundo, `--tf` texto, `--ta` destaque,
+`--ts` cartão, `--tbt` texto do botão. A barbearia é escura e as outras três claras, o que é
+metade da graça: mostra que o site não sai de fôrma.
+
+> **Ao criar um modelo novo, refaça três contas:** texto/fundo, destaque/fundo e texto do
+> botão/destaque. Os atuais ficam em 11,9–15,8 no primeiro e nunca abaixo de 4,5 nos outros
+> dois. Foi assim que o laranja do restaurante mudou de `#C2511F` (4,42) para `#B2481A`.
+
+As telas inativas levam `aria-hidden` **e** `visibility: hidden`, não só `opacity: 0`. Sem
+isso, leitor de tela leria os quatro mini-sites em sequência e o Tab passaria por dentro de
+tela invisível. As setas do teclado andam entre as abas, como manda um `tablist`.
+
 ## A assinatura do rodapé
 
 `imgs/assinatura.webp` fecha a página. Veio do banner original em fundo creme `#F4F1EC`.
