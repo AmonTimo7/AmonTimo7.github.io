@@ -67,6 +67,23 @@
     --accent: #6C63FF;
     --accent-light: #8B84FF;
     --accent-2: #38B2AC;
+
+    /* ---- a roda de cor da pagina ----
+       Tres valores por matiz, e a divisao NAO e capricho:
+         --cN  a versao viva, so pra icone e grafico (minimo 3:1)
+         --tN  a mesma cor escurecida ate passar 4,5:1 como TEXTO, e passar
+               no pior empilhamento da aurora, nao so no cinza limpo
+         --fN  o fundo palido do ladrilho
+       Trocar um --tN pelo --cN correspondente parece inofensivo e reprova o
+       contraste na hora: as vivas ficam entre 2,0 e 3,1 sobre a aurora. */
+    --c1: #6C63FF; --t1: #4038C4; --f1: rgba(108,99,255,.14);   /* roxo */
+    --c2: #E0642F; --t2: #913812; --f2: rgba(224,100,47,.14);   /* laranja */
+    --c3: #0E9C8A; --t3: #065F54; --f3: rgba(14,156,138,.14);   /* verde-agua */
+    --c4: #C62A7A; --t4: #9D1E5F; --f4: rgba(198,42,122,.14);   /* magenta */
+    --c5: #2B6CD4; --t5: #1D51A4; --f5: rgba(43,108,212,.14);   /* azul */
+    --c6: #B5800C; --t6: #6F4E05; --f6: rgba(181,128,12,.14);   /* ambar */
+    --c7: #D2453F; --t7: #9F2722; --f7: rgba(210,69,63,.14);   /* coral */
+    --c8: #5B8C2A; --t8: #3B5D1A; --f8: rgba(91,140,42,.14);   /* verde */
     --pos: #12A594;
 
     --sh-dark: rgba(163,177,198,.6);
@@ -169,8 +186,18 @@
     letter-spacing: .2em;
     text-transform: uppercase;
     font-weight: 700;
-    color: var(--accent);
+    color: var(--tom-secao, var(--t1));
   }
+  /* Cada secao tem a sua cor. Usa --tN e nao --cN porque eyebrow e texto de
+     12,5px: as versoes vivas ficam em 2,0-3,1 sobre a aurora e reprovariam. */
+  .eyebrow--1 { --tom-secao: var(--t1); }
+  .eyebrow--2 { --tom-secao: var(--t2); }
+  .eyebrow--3 { --tom-secao: var(--t3); }
+  .eyebrow--4 { --tom-secao: var(--t4); }
+  .eyebrow--5 { --tom-secao: var(--t5); }
+  .eyebrow--6 { --tom-secao: var(--t6); }
+  .eyebrow--7 { --tom-secao: var(--t7); }
+  .eyebrow--8 { --tom-secao: var(--t8); }
 
   /* ---------- botões ---------- */
   .btn {
@@ -226,6 +253,7 @@
   /* ---------- listas de checagem ---------- */
   .check-row { display: flex; gap: 14px; align-items: flex-start; padding: 9px 0; }
   .check-mark {
+    color: var(--accent);
     width: 26px; height: 26px; border-radius: 999px;
     background: var(--bg); box-shadow: var(--nm-in-sm);
     display: grid; place-items: center; flex: none; margin-top: 1px;
@@ -554,6 +582,8 @@
      imagem, nao filtrar em runtime: hue-rotate no CSS repintaria a area inteira
      a cada quadro, que e exatamente o que essa secao ja pagou caro pra evitar. */
   .blob-card--verde .blob-header { background: #124E43; }
+  /* o check acompanha a cor do proprio card */
+  .blob-card--verde .check-mark { color: var(--accent-2); }
   .blob-card--verde .fluid i:nth-child(1) { background-image: url('imgs/plano-blobs-1-verde.webp'); }
   .blob-card--verde .fluid i:nth-child(2) { background-image: url('imgs/plano-blobs-2-verde.webp'); }
   @keyframes blobA {
@@ -703,16 +733,32 @@
      O icone do icon() usa currentColor, entao quem manda na cor e o recipiente.
      .nm-well mantem o roxo de sempre; no quiz, cada pergunta troca o tom. */
   .nm-well { color: var(--accent); }
+  /* os quatro cartoes de "Por que ACTech", um de cada cor */
+  .grid-2 > *:nth-child(1) .dif-ico { color: var(--c1); background: var(--f1); }
+  .grid-2 > *:nth-child(2) .dif-ico { color: var(--c3); background: var(--f3); }
+  .grid-2 > *:nth-child(3) .dif-ico { color: var(--c2); background: var(--f2); }
+  .grid-2 > *:nth-child(4) .dif-ico { color: var(--c5); background: var(--f5); }
   .pick-ico { color: var(--tom-q, var(--accent)); }
-  .pick.is-picked .pick-t { color: var(--tom-q, var(--accent)); }
+  .pick.is-picked .pick-t { color: var(--tom-q-txt, var(--accent)); }
   /* Dois valores por pergunta, e nao um color-mix: --tom-q pinta o traco e
      --tom-q-bg tinge o ladrilho. Explicito assim funciona em navegador antigo
      e deixa a dose de cada tinta no olho, nao numa formula. */
-  .modal-panel.q0, .modal-panel.q5 { --tom-q: #6C63FF; --tom-q-bg: rgba(108,99,255,.13); }
-  .modal-panel.q1, .modal-panel.q6 { --tom-q: #0E9C8A; --tom-q-bg: rgba(14,156,138,.15); }
-  .modal-panel.q2, .modal-panel.q7 { --tom-q: #C2571A; --tom-q-bg: rgba(194,87,26,.13); }
-  .modal-panel.q3, .modal-panel.q8 { --tom-q: #C62A7A; --tom-q-bg: rgba(198,42,122,.12); }
-  .modal-panel.q4, .modal-panel.q9 { --tom-q: #2B6CD4; --tom-q-bg: rgba(43,108,212,.13); }
+  /* A pergunta da o tom da barra de progresso e do "PERGUNTA N DE 10"... */
+  .modal-panel.q0, .modal-panel.q5 { --tom-q: var(--c1); --tom-q-txt: var(--t1); }
+  .modal-panel.q1, .modal-panel.q6 { --tom-q: var(--c3); --tom-q-txt: var(--t3); }
+  .modal-panel.q2, .modal-panel.q7 { --tom-q: var(--c2); --tom-q-txt: var(--t2); }
+  .modal-panel.q3, .modal-panel.q8 { --tom-q: var(--c4); --tom-q-txt: var(--t4); }
+  .modal-panel.q4, .modal-panel.q9 { --tom-q: var(--c5); --tom-q-txt: var(--t5); }
+  /* ...e cada OPCAO reescreve o tom com o seu, pela posicao na grade. Oito
+     porque a pergunta do tipo de negocio tem oito opcoes. */
+  .pick:nth-child(1) { --tom-q: var(--c1); --tom-q-bg: var(--f1); --tom-q-txt: var(--t1); }
+  .pick:nth-child(2) { --tom-q: var(--c2); --tom-q-bg: var(--f2); --tom-q-txt: var(--t2); }
+  .pick:nth-child(3) { --tom-q: var(--c3); --tom-q-bg: var(--f3); --tom-q-txt: var(--t3); }
+  .pick:nth-child(4) { --tom-q: var(--c4); --tom-q-bg: var(--f4); --tom-q-txt: var(--t4); }
+  .pick:nth-child(5) { --tom-q: var(--c5); --tom-q-bg: var(--f5); --tom-q-txt: var(--t5); }
+  .pick:nth-child(6) { --tom-q: var(--c6); --tom-q-bg: var(--f6); --tom-q-txt: var(--t6); }
+  .pick:nth-child(7) { --tom-q: var(--c7); --tom-q-bg: var(--f7); --tom-q-txt: var(--t7); }
+  .pick:nth-child(8) { --tom-q: var(--c8); --tom-q-bg: var(--f8); --tom-q-txt: var(--t8); }
   /* so no formato cartao: no formato lista o .pick-ico e o proprio radio, e
      tingir ele faria a opcao parecer ja escolhida. */
   .pick:not(.is-row) .pick-ico { background: var(--tom-q-bg, rgba(108,99,255,.13)); }
@@ -1084,7 +1130,7 @@
   @keyframes stepInA { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
   @keyframes stepInB { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
-  .quiz-step { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; color: var(--tom-q, var(--accent)); transition: color .3s var(--ease); }
+  .quiz-step { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; color: var(--tom-q-txt, var(--accent)); transition: color .3s var(--ease); }
   .quiz-q {
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800;
     font-size: clamp(23px, 2.9vw, 32px); line-height: 1.14; letter-spacing: -.03em;
@@ -1718,7 +1764,7 @@
       </div>
 
       <div data-reveal="1">
-        <div class="eyebrow">Redes sociais</div>
+        <div class="eyebrow eyebrow--3">Redes sociais</div>
         <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 17ch; color: #3D4852;">Seu Instagram publicando, mesmo na semana corrida.</h2>
         <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #59616E; max-width: 46ch;">
           Todo mês a gente monta o plano de conteúdo, cria as artes e escreve as legendas.
@@ -1766,7 +1812,7 @@
   <section class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 96px; padding-bottom: 96px;">
     <div class="two-col">
       <div data-reveal="1">
-        <div class="eyebrow">O problema</div>
+        <div class="eyebrow eyebrow--7">O problema</div>
         <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; color: #3D4852;">
           Todo dia sem presença digital é um cliente indo pro concorrente.
         </h2>
@@ -1799,7 +1845,7 @@
 
   <section id="servicos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 40px; padding-bottom: 104px;">
     <div data-reveal="1" style="margin-bottom: 52px;">
-      <div class="eyebrow">O que fazemos</div>
+      <div class="eyebrow eyebrow--5">O que fazemos</div>
       <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 18ch; color: #3D4852;">Tudo que o seu negócio precisa pra ser achado.</h2>
       <p class="reveal-note">Passe o mouse em cada item para ver como fica. No celular, é só tocar.</p>
     </div>
@@ -1966,7 +2012,7 @@
 
   <section id="google" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
     <div data-reveal="1" style="margin-bottom: 58px; max-width: 62ch;">
-      <div class="eyebrow">Google e busca local</div>
+      <div class="eyebrow eyebrow--6">Google e busca local</div>
       <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 19ch; color: #3D4852;">A ficha do Google é a sua vitrine.</h2>
       <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #59616E;">
         Quem procura "perto de mim" vê a ficha antes de ver o site. Quando ela está vazia,
@@ -2151,7 +2197,7 @@
       <div class="nm-tile" style="position: absolute; width: 170px; height: 170px; border-radius: 999px; bottom: -80px; right: -60px;"></div>
 
       <div style="position: relative;">
-        <div class="eyebrow">Diagnóstico gratuito</div>
+        <div class="eyebrow eyebrow--1">Diagnóstico gratuito</div>
         <h2 class="font-display" style="font-weight: 800; font-size: clamp(28px, 4.2vw, 48px); line-height: 1.06; margin: 18px auto 0; max-width: 20ch; color: #3D4852;">Antes de vender qualquer coisa, a gente quer te conhecer.</h2>
         <p style="margin: 18px auto 0; max-width: 52ch; font-size: 16.5px; color: #59616E; line-height: 1.7;">
           Dez perguntas sobre o seu negócio. No fim você recebe um diagnóstico da sua presença digital — o que já está de pé, o que está faltando e por onde começar. É seu, mesmo que não contrate nada.
@@ -2257,7 +2303,7 @@
 
   <section data-anima id="planos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 40px; padding-bottom: 96px;">
     <div data-reveal="1" style="text-align: center; max-width: 620px; margin: 0 auto 56px;">
-      <div class="eyebrow">Planos</div>
+      <div class="eyebrow eyebrow--4">Planos</div>
       <h2 class="font-display focus" data-focus style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; color: #3D4852;">
         <span class="focus-word">Duas</span><span class="focus-word">mensalidades.</span><span class="focus-word">Zero</span><span class="focus-word">surpresa.</span>
         <span class="focus-frame" data-focus-frame><i></i><i></i><i></i><i></i></span>
@@ -2295,7 +2341,7 @@
             <sc-for list="{{ essencial }}" as="item" hint-placeholder-count="7">
               <div class="check-row">
                 <span class="check-mark">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
                 </span>
                 <span style="font-size: 15.5px; line-height: 1.55; color: #3D4852;">{{ item }}</span>
               </div>
@@ -2336,7 +2382,7 @@
             <sc-for list="{{ completo }}" as="item" hint-placeholder-count="6">
               <div class="check-row">
                 <span class="check-mark">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
                 </span>
                 <span style="font-size: 15.5px; line-height: 1.55; color: #3D4852;">{{ item }}</span>
               </div>
@@ -2351,7 +2397,7 @@
          mexeu no preço do plano, confira os dois números aqui embaixo. -->
     <div data-reveal="1" class="conta">
       <div class="conta-cab">
-        <div class="eyebrow">A conta</div>
+        <div class="eyebrow eyebrow--8">A conta</div>
         <h3 class="font-display" style="font-weight: 800; font-size: clamp(24px, 3vw, 34px); line-height: 1.1; margin: 14px 0 0; color: #3D4852; max-width: 20ch;">Quando é que o plano se paga?</h3>
         <p style="margin: 14px 0 0; font-size: 15.5px; line-height: 1.7; color: #59616E; max-width: 44ch;">
           A mensalidade não é uma despesa a mais no mês — é a conta mais simples que você faz hoje.
@@ -2396,7 +2442,7 @@
        numa acende a irmã do outro lado (setupDuelo, lá embaixo no script). -->
   <section data-anima id="sozinho" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
     <div data-reveal="1" style="max-width: 62ch;">
-      <div class="eyebrow">Sozinho x com a ACTech</div>
+      <div class="eyebrow eyebrow--2">Sozinho x com a ACTech</div>
       <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 20ch; color: #3D4852;">Dá pra fazer sozinho. A conta é outra.</h2>
       <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #59616E;">
         Nada do que a gente faz é segredo de sete chaves — dá pra aprender e fazer por conta.
@@ -2498,7 +2544,7 @@
         <div class="grid-2">
           <sc-for list="{{ diferenciais }}" as="d" hint-placeholder-count="4">
             <div data-reveal="1" class="nm-card nm-card--lift" style="padding: 30px 26px 28px;">
-              <div class="nm-well" style="width: 58px; height: 58px; border-radius: 18px; margin-bottom: 20px;">{{ d.icon }}</div>
+              <div class="nm-well dif-ico" style="width: 58px; height: 58px; border-radius: 18px; margin-bottom: 20px;">{{ d.icon }}</div>
               <div class="font-display" style="font-weight: 700; font-size: 18px; color: #3D4852;">{{ d.title }}</div>
               <div style="margin-top: 10px; font-size: 14.5px; color: #59616E; line-height: 1.65;">{{ d.body }}</div>
             </div>
@@ -2569,7 +2615,7 @@
   <section data-anima id="depoimentos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 40px; padding-bottom: 104px;">
     <div class="two-col">
       <div data-reveal="1">
-        <div class="eyebrow">Depoimentos</div>
+        <div class="eyebrow eyebrow--4">Depoimentos</div>
         <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 16ch; color: #3D4852;">O que os clientes falam da gente.</h2>
         <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #59616E; max-width: 42ch;">
           A conversa continua depois que o site entra no ar — é assim que a gente trabalha, no WhatsApp, direto com quem faz.
@@ -2645,7 +2691,7 @@
 
   <section data-anima id="trabalhos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 96px;">
     <div data-reveal="1" style="text-align: center; margin-bottom: 34px;">
-      <div class="eyebrow">Nosso trabalho</div>
+      <div class="eyebrow eyebrow--5">Nosso trabalho</div>
       <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px auto 0; max-width: 18ch; color: #3D4852;">Um pedaço do que já está no ar.</h2>
     </div>
 

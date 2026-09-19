@@ -300,6 +300,27 @@ próprio cinza da página — já reprovava em 4,5 antes de existir aurora. Viro
 foi na marra nos dois. `--placeholder` foi de `#A0AEC0` para `#7F8898` pelo mesmo motivo
 (1,78 → 2,82); segue abaixo de 4,5, mas é letra miúda decorativa.
 
+### A roda de cor
+
+Oito matizes em `:root`, **três valores cada**, e a divisão não é capricho:
+
+| token | pra quê | mínimo |
+|---|---|---|
+| `--cN` | a versão viva — só ícone e gráfico | 3:1 |
+| `--tN` | a mesma cor escurecida até passar como **texto** | 4,5:1 |
+| `--fN` | o fundo pálido do ladrilho | — |
+
+O `--tN` foi derivado escurecendo o matiz até passar 4,5:1 **no pior empilhamento da aurora**,
+não só no cinza limpo — por isso todos batem ~6,0 no cinza e ~4,5 sob a aurora.
+
+> **Trocar um `--tN` pelo `--cN` correspondente parece inofensivo e reprova o contraste na
+> hora:** as vivas ficam entre 2,0 e 3,1 sobre a aurora. Foi essa conta que mostrou que os
+> eyebrows já reprovavam antes, no roxo #6C63FF (3,41).
+
+Onde a roda é usada: cada **opção do quiz** (pela posição na grade), cada **eyebrow** de seção,
+os quatro **ícones de "Por que ACTech"**, e o **check de cada plano**, que acompanha a cor do
+próprio card — verde-água no Essencial, roxo no Completo.
+
 ### Cor que carrega informação
 
 `icon()` e `ico()` usam `currentColor` — quem manda na cor é o recipiente.
