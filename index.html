@@ -686,6 +686,77 @@
   .diag-card-txt { display: block; margin-top: 7px; font-size: 14px; line-height: 1.55; color: var(--muted); }
   @media (max-width: 860px) { .diag-cards { grid-template-columns: minmax(0,1fr); } }
 
+  /* ---------- sistemas sob medida ----------
+     A virada da pagina: ate aqui tudo era site. O caso do banco e a prova mais
+     forte que a ACTech tem, e estava diluido na parede de #trabalhos junto com
+     os sites. Aqui ele ganha o palco.
+
+     O cliente nao e nomeado - "um banco" e o que a propria legenda do Instagram
+     ja diz publicamente, e nenhum numero da pra identificar de quem se trata. */
+  .sis-caso {
+    margin-top: 44px; display: grid; gap: 34px; align-items: center;
+    grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr);
+    padding: clamp(26px, 3vw, 40px); border-radius: var(--r-card);
+    background: var(--bg); box-shadow: var(--nm-out);
+  }
+  .sis-moldura { border-radius: 16px; overflow: hidden; box-shadow: var(--nm-out-sm); background: var(--bg); }
+  .sis-topo {
+    display: flex; align-items: center; gap: 7px; padding: 10px 13px;
+    background: rgba(255,255,255,.5);
+  }
+  .sis-topo i { width: 9px; height: 9px; border-radius: 999px; background: rgba(163,177,198,.55); flex: none; }
+  .sis-topo span {
+    margin-left: 8px; font-size: 11.5px; color: var(--placeholder);
+    padding: 3px 13px; border-radius: 999px; background: var(--bg);
+  }
+  .sis-moldura img { display: block; width: 100%; height: auto; }
+
+  .sis-selo {
+    display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;
+    font-size: 11.5px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase;
+    color: var(--t7); padding: 7px 15px; border-radius: 999px; background: var(--f7);
+  }
+  .sis-selo i { width: 7px; height: 7px; border-radius: 999px; background: currentColor; flex: none; }
+  .sis-caso h3 {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800;
+    font-size: clamp(22px, 2.7vw, 31px); line-height: 1.14; letter-spacing: -.025em;
+    margin: 0; color: var(--fg);
+  }
+  .sis-caso p { margin: 15px 0 0; font-size: 15.5px; line-height: 1.7; color: var(--muted); }
+
+  .sis-nums { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; margin-top: 24px; }
+  .sis-num { padding: 15px 16px; border-radius: var(--r-inner); background: var(--bg); box-shadow: var(--nm-in-sm); }
+  .sis-num b {
+    display: block; font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 800; font-size: 20px; letter-spacing: -.03em; color: var(--sc, var(--t1));
+  }
+  .sis-num span { display: block; margin-top: 4px; font-size: 12.5px; line-height: 1.45; color: var(--muted); }
+
+  .sis-tipos { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; margin-top: 26px; }
+  .sis-tipo {
+    padding: 24px 22px; border-radius: var(--r-base);
+    background: var(--bg); box-shadow: var(--nm-out-sm);
+    transition: transform .28s var(--ease), box-shadow .28s var(--ease);
+  }
+  .sis-tipo:hover { transform: translateY(-3px); box-shadow: var(--nm-out); }
+  .sis-tipo-ico {
+    display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px;
+    background: var(--stf); color: var(--stc); margin-bottom: 14px;
+  }
+  .sis-tipo b { display: block; font-size: 15.5px; font-weight: 700; color: var(--fg); line-height: 1.3; }
+  .sis-tipo span { display: block; margin-top: 7px; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+
+  .sis-pe { margin: 26px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--placeholder); text-align: center; }
+
+  @media (max-width: 980px) {
+    .sis-caso { grid-template-columns: minmax(0,1fr); gap: 26px; }
+    .sis-tipos { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  }
+  @media (max-width: 560px) {
+    .sis-tipos { grid-template-columns: minmax(0,1fr); }
+    .sis-nums { grid-template-columns: minmax(0,1fr); }
+  }
+
   /* ---------- modelos de site: o demonstrativo ----------
      Cada modelo e um mini-site montado em HTML e CSS, nao uma captura. Custa
      zero byte de imagem, fica nitido em qualquer tela e da pra editar o texto
@@ -2303,6 +2374,80 @@
 
       <p class="mod-pe">Modelos ilustrativos, montados aqui mesmo — o seu é feito com a sua marca, as suas fotos e o seu texto.</p>
     </div>
+  </section>
+
+
+  <!-- A virada: ate aqui a pagina so falou de site. O caso do banco e a prova
+       mais forte que existe no material da ACTech e estava diluido na parede
+       de #trabalhos, entre capturas de site. Aqui ele ganha o palco.
+       O cliente nao e nomeado: "um banco" e o que a legenda do proprio
+       Instagram ja diz, e nenhum numero identifica de quem se trata. -->
+  <section data-anima id="sistemas" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
+    <div data-reveal="1" style="text-align: center; max-width: 60ch; margin: 0 auto;">
+      <div class="eyebrow eyebrow--7">Sistemas sob medida</div>
+      <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; color: var(--fg);">Site é metade do que a gente faz.</h2>
+      <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: var(--muted);">
+        A ACTech nasceu escrevendo software. Quando a planilha não dá mais conta e
+        nenhum sistema de prateleira serve, a gente constrói o que falta — do zero,
+        do jeito que a sua operação já funciona.
+      </p>
+    </div>
+
+    <div class="sis-caso" data-reveal="1">
+      <div class="sis-moldura">
+        <div class="sis-topo" aria-hidden="true"><i></i><i></i><i></i><span>painel interno · rede da empresa</span></div>
+        <img src="imgs/sistema-indicadores.webp" alt="Painel de indicadores comerciais com metas, gap e projeção do mês" loading="lazy" decoding="async" />
+      </div>
+      <div>
+        <span class="sis-selo"><i></i>Caso real · um banco</span>
+        <h3>Um banco precisava enxergar as metas sem depender de planilha.</h3>
+        <p>
+          Cada gestor mantinha a sua versão dos números e o quanto faltava só aparecia no
+          fechamento — quando já não dava tempo de reagir. A gente construiu o painel do
+          zero: a empresa cria os próprios indicadores, define a meta e a ordem, e o
+          sistema cuida do resto.
+        </p>
+        <div class="sis-nums">
+            <div class="sis-num" style="--sc: var(--t1);"><b>12</b><span>indicadores numa tela só, criados pela própria empresa</span></div>
+            <div class="sis-num" style="--sc: var(--t6);"><b>Por dia útil</b><span>meta quebrada dia a dia, com feriado já descontado</span></div>
+            <div class="sis-num" style="--sc: var(--t8);"><b>Tempo real</b><span>o gap recalcula sozinho a cada lançamento</span></div>
+            <div class="sis-num" style="--sc: var(--t5);"><b>Na rede</b><span>roda na máquina da empresa, sem depender de nuvem</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sis-tipos" data-reveal="1">
+        <div class="sis-tipo" style="--stc: var(--c1); --stf: var(--f1);">
+          <span class="sis-tipo-ico">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="M7 15l3.5-4 3 2.5L20 7"></path></svg>
+          </span>
+          <b>Painel de gestão</b>
+          <span>Os números que você acompanha no fim do mês, visíveis todo dia.</span>
+        </div>
+        <div class="sis-tipo" style="--stc: var(--c8); --stf: var(--f8);">
+          <span class="sis-tipo-ico">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"></rect><path d="M2 11h20"></path><path d="M7 15h4"></path></svg>
+          </span>
+          <b>Financeiro e caixa</b>
+          <span>Entrada, saída, extrato e fechamento sem planilha paralela.</span>
+        </div>
+        <div class="sis-tipo" style="--stc: var(--c5); --stf: var(--f5);">
+          <span class="sis-tipo-ico">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 11h18"></path></svg>
+          </span>
+          <b>Agenda e ordens</b>
+          <span>Quem atende quem, quando, e o que ficou pendente.</span>
+        </div>
+        <div class="sis-tipo" style="--stc: var(--c2); --stf: var(--f2);">
+          <span class="sis-tipo-ico">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6M12 15v6"></path><circle cx="12" cy="12" r="3"></circle><path d="M5.6 5.6l4.2 4.2M14.2 14.2l4.2 4.2M18.4 5.6l-4.2 4.2M9.8 14.2l-4.2 4.2"></path></svg>
+          </span>
+          <b>Integração e automação</b>
+          <span>O que é digitado duas vezes hoje passa a ser digitado nenhuma.</span>
+        </div>
+    </div>
+
+    <p class="sis-pe">Sistema sob medida é orçado à parte, fora dos planos mensais — cada um tem um tamanho.</p>
   </section>
 
   <section id="google" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">

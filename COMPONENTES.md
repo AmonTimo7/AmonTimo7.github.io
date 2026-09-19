@@ -369,6 +369,27 @@ como arquivo. **Não use `hue-rotate` no CSS:** repintaria a área inteira a cad
 exatamente o que esta seção já pagou caro para evitar. O desfoque continua assado dentro do
 WebP e o custo em tela segue zero.
 
+## Sistemas sob medida (`#sistemas`)
+
+A virada da página: até `#modelos` tudo falava de site. Aqui entra o outro lado do negócio.
+
+O **caso do banco** é a prova mais forte que existe no material da ACTech — e estava diluído
+na parede de `#trabalhos`, entre capturas de site, com o mesmo peso de tudo. Aqui ele ganha o
+palco: a captura real do painel numa moldura, o selo "caso real", a história em um parágrafo e
+quatro números concretos (12 indicadores, meta por dia útil, gap em tempo real, roda na rede).
+
+O texto saiu da legenda que a própria ACTech escreveu para o carrossel do Instagram
+(`imgs2/legendas.txt`) — é a versão deles do caso, não uma inventada aqui.
+
+> **O cliente não é nomeado.** "Um banco" é o que a legenda do próprio Instagram já diz
+> publicamente, e nenhum número da seção identifica de quem se trata. Vale manter essa régua
+> ao acrescentar caso novo. Lembrando que **"Agência 3309" aparece na captura** — não nomeia o
+> banco, mas é específico; se incomodar, borre antes de republicar.
+
+Abaixo, quatro tipos de sistema (painel de gestão, financeiro, agenda, integração), cada um
+com a sua cor da roda. E o rodapé diz o que precisa ser dito: **sistema sob medida é orçado à
+parte, fora dos planos mensais** — senão a seção cria a expectativa de que cabe nos R$ 397.
+
 ## Modelos de site (`#modelos`)
 
 O demonstrativo: quatro segmentos (mercado, barbearia, restaurante, clínica), cada um com um
