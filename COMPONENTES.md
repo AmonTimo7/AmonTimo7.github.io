@@ -227,9 +227,21 @@ acompanham.
   `<script>` e do `</script>`. O CSS `.tcols` / `.tcard` ficou de pé de propósito.
 
   Duas ou três depoimentos reais já resolvem — a coluna rola em loop e repete os cards.
-- **Instagram**: as artes vieram de `imgs2/` (34 MB em PNG) convertidas para WebP quadrado
-  de 520px em `imgs/insta-1..8.webp` — 137 KB no total, avatar incluso. A pasta `imgs2/`
-  é só o arquivo-fonte; não precisa ir pro site.
+- **Instagram**: o perfil é **@actech.systems**. As artes vêm de `imgs2/`, convertidas para
+  WebP quadrado de 520px em `imgs/insta-N.webp`:
+  - `insta-1..8` — as artes de maio/2026
+  - `insta-9..16` — o caso do painel de indicadores do banco (set/2026): `carrossel-01..06`,
+    `post-12-indicadores` e `post-dia30-dia1`
+
+  As grades mostram as novas primeiro, como num perfil de verdade. Os originais são 1080×1350
+  (4:5) e a célula da grade é quadrada, então o recorte é **central** — o mesmo que o
+  `object-fit: cover` faria. Confira o recorte ao acrescentar arte nova: título muito no topo
+  ou muito no pé fica de fora.
+
+  Os números do perfil (`.iph-nums`) são os **reais** do @actech.systems, não chute — quem
+  clica no link do rodapé confere em um segundo. Reconferir quando mudarem.
+
+  A pasta `imgs2/` é só arquivo-fonte; não é referenciada por nada no HTML.
 - **Sigilo**: nenhum nome de cliente aparece em `#trabalhos` — nem no texto, nem na barra de
   endereço da moldura (`cliente.com.br/...`). Nas capturas em `imgs/`, as marcas foram apagadas
   (logo borrado, nome removido do subtítulo). Os arquivos originais estão no histórico do git.
@@ -252,6 +264,21 @@ acompanham.
 - **Imagens**: as duas seções usam material real de `imgs/`. Se um dia entrarem fotos de
   verdade (a loja, a equipe, o cliente usando o sistema), elas caem nos mesmos lugares —
   `.srv-visual img` em `#servicos` e as capturas da parede em `#trabalhos`.
+
+## Pendências que dependem de material seu
+
+- **`actech.com.br` não é da ACTech.** A bio do mockup do Instagram exibia esse domínio como
+  se fosse o site. Ele é da **Actech Tecnologia**, outra empresa — que por sinal também vende
+  sistema para mercado e padaria, ou seja, concorrente direto no mesmo público. Está trocado
+  pelo CTA que a bio real usa ("Faça seu orçamento"). Quando existir domínio próprio, é ali
+  que ele entra.
+- **Quarta captura de fora**: `imgs2/sistema-visitas.png` (Agenda de visitas) ficou fora de
+  `#trabalhos`. O sistema é bom, mas a tela foi capturada com dados de teste digitados no
+  improviso — aparecem "sada", "sdadas", "asdasd" e "Visita 1" nos cartões. Numa parede de
+  portfólio isso é lido. Refaça a captura com dados que pareçam reais e ela entra: já está
+  convertida em `imgs/sistema-visitas.webp`, é só acrescentar uma entrada em `trabalhos()`.
+- **"Agência 3309"** aparece em duas das capturas. Não nomeia o banco, mas é um dado
+  específico — se incomodar, vale borrar antes de republicar.
 
 ## Diagnóstico e presente
 
