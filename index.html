@@ -709,6 +709,11 @@
     padding: clamp(26px, 3vw, 40px); border-radius: var(--r-card);
     background: var(--bg); box-shadow: var(--nm-out);
   }
+  /* O segundo caso entra espelhado: texto na esquerda, telas na direita. Alternar
+     a ordem evita que dois casos seguidos virem a mesma pagina duas vezes. */
+  .sis-caso--inv { grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); }
+  .sis-caso--inv .sis-midia { order: 2; }
+  .sis-midia { display: grid; gap: 14px; }
   .sis-moldura { border-radius: 16px; overflow: hidden; box-shadow: var(--nm-out-sm); background: var(--bg); }
   .sis-topo {
     display: flex; align-items: center; gap: 7px; padding: 10px 13px;
@@ -763,7 +768,10 @@
   .sis-pe { margin: 26px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--placeholder); text-align: center; }
 
   @media (max-width: 980px) {
-    .sis-caso { grid-template-columns: minmax(0,1fr); gap: 26px; }
+    .sis-caso, .sis-caso--inv { grid-template-columns: minmax(0,1fr); gap: 26px; }
+    /* em coluna a tela vem primeiro nos dois casos, senao o espelhado empurraria
+       a imagem pro fim e o texto ficaria orfao no topo */
+    .sis-caso--inv .sis-midia { order: -1; }
     .sis-tipos { grid-template-columns: repeat(2, minmax(0,1fr)); }
   }
   @media (max-width: 560px) {
@@ -2408,9 +2416,11 @@
     </div>
 
     <div class="sis-caso" data-reveal="1">
-      <div class="sis-moldura">
-        <div class="sis-topo" aria-hidden="true"><i></i><i></i><i></i><span>painel interno · rede da empresa</span></div>
-        <img src="imgs/sistema-indicadores.webp" alt="Painel de indicadores comerciais com metas, gap e projeção do mês" loading="lazy" decoding="async" />
+      <div class="sis-midia">
+        <div class="sis-moldura">
+          <div class="sis-topo" aria-hidden="true"><i></i><i></i><i></i><span>painel interno · rede da empresa</span></div>
+          <img src="imgs/sistema-indicadores.webp" alt="Painel de indicadores comerciais com metas, gap e projeção do mês" loading="lazy" decoding="async" />
+        </div>
       </div>
       <div>
         <span class="sis-selo"><i></i>Caso real · um banco</span>
@@ -2426,6 +2436,40 @@
             <div class="sis-num" style="--sc: var(--t6);"><b>Por dia útil</b><span>meta quebrada dia a dia, com feriado já descontado</span></div>
             <div class="sis-num" style="--sc: var(--t8);"><b>Tempo real</b><span>o gap recalcula sozinho a cada lançamento</span></div>
             <div class="sis-num" style="--sc: var(--t5);"><b>Na rede</b><span>roda na máquina da empresa, sem depender de nuvem</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Segundo caso, espelhado. Sao duas telas do mesmo sistema: o painel que
+         o dono abre de manha e o livro caixa onde a equipe lanca o dia.
+         ATENCAO: as duas capturas carregam numeros reais do cliente (saldo,
+         contratos, vendas, e descricoes de lancamento com nome de pessoa).
+         Se um dia isso incomodar, borre os valores antes de republicar. -->
+    <div class="sis-caso sis-caso--inv" data-reveal="1" style="margin-top: 20px;">
+      <div class="sis-midia">
+        <div class="sis-moldura">
+          <div class="sis-topo" aria-hidden="true"><i></i><i></i><i></i><span>painel de controle</span></div>
+          <img src="imgs/painel-caixa.webp" alt="Painel de controle com saldo de caixa, contratos e vendas do mês" loading="lazy" decoding="async" />
+        </div>
+        <div class="sis-moldura">
+          <div class="sis-topo" aria-hidden="true"><i></i><i></i><i></i><span>livro caixa</span></div>
+          <img src="imgs/livro-caixa.webp" alt="Tela de livro caixa com entradas, saídas e extrato de movimentos" loading="lazy" decoding="async" />
+        </div>
+      </div>
+      <div>
+        <span class="sis-selo" style="color: var(--t8); background: var(--f8);"><i></i>Caso real · controle financeiro</span>
+        <h3>O caixa da empresa sem planilha no meio.</h3>
+        <p>
+          Entrada e saída eram anotadas num lugar, contrato em outro e venda num terceiro —
+          e só no fim do mês alguém juntava tudo. O sistema virou as duas telas que a
+          empresa usa hoje: o painel que o dono abre de manhã e sabe onde o negócio está, e
+          o livro caixa onde a equipe lança o dia em dois cliques.
+        </p>
+        <div class="sis-nums">
+            <div class="sis-num" style="--sc: var(--t1);"><b>2 cliques</b><span>pra registrar uma entrada ou uma saída</span></div>
+            <div class="sis-num" style="--sc: var(--t6);"><b>Dia e mês</b><span>fechamento em um botão, sem conferir papel</span></div>
+            <div class="sis-num" style="--sc: var(--t8);"><b>Extrato vivo</b><span>filtra por tipo, método e data na hora</span></div>
+            <div class="sis-num" style="--sc: var(--t5);"><b>Uma tela</b><span>caixa, contratos e vendas no mesmo lugar</span></div>
         </div>
       </div>
     </div>

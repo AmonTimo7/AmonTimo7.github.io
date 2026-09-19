@@ -386,6 +386,21 @@ O texto saiu da legenda que a própria ACTech escreveu para o carrossel do Insta
 > ao acrescentar caso novo. Lembrando que **"Agência 3309" aparece na captura** — não nomeia o
 > banco, mas é específico; se incomodar, borre antes de republicar.
 
+**O segundo caso** é o controle financeiro, espelhado (texto à esquerda, telas à direita) —
+alternar a ordem evita que dois casos seguidos virem a mesma página duas vezes. São duas telas
+do mesmo sistema: o painel que o dono abre de manhã e o livro caixa onde a equipe lança o dia.
+No celular a mídia vem primeiro nos dois, senão o espelhado empurraria a imagem pro fim e o
+texto ficaria órfão no topo.
+
+> **As capturas do financeiro carregam números reais do cliente.** Saldo de caixa, valor em
+> contratos, vendas do mês, e o extrato traz descrições de lançamento com nome de pessoa
+> ("almoço semana Vanessa"). Elas já estavam publicadas na parede de `#trabalhos`, mas aqui
+> aparecem muito maiores. **Se isso incomodar o cliente, borre os valores antes de
+> republicar** — os números não são o que vende a seção, a organização é.
+>
+> Os números dos quatro chips desse caso são estruturais de propósito (2 cliques, dia e mês,
+> extrato vivo, uma tela) e não os valores do cliente. Mantenha essa régua.
+
 Abaixo, quatro tipos de sistema (painel de gestão, financeiro, agenda, integração), cada um
 com a sua cor da roda. E o rodapé diz o que precisa ser dito: **sistema sob medida é orçado à
 parte, fora dos planos mensais** — senão a seção cria a expectativa de que cabe nos R$ 397.
