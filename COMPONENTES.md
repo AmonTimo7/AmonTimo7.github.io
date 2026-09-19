@@ -265,48 +265,66 @@ acompanham.
   verdade (a loja, a equipe, o cliente usando o sistema), elas caem nos mesmos lugares —
   `.srv-visual img` em `#servicos` e as capturas da parede em `#trabalhos`.
 
-## Cor: os tons das seções e a cor que quer dizer algo
+## Cor
 
-A página era um mar de cinza com roxo por cima. Duas frentes resolveram isso.
+A página era um mar de cinza. Tingir seções inteiras foi tentado e **descartado** — o
+bege/pêssego sujava tudo. O que ficou:
 
-**Tons de seção** (`.tom` + `.tom--lavanda` / `--menta` / `--pessego`). Neumorfismo exige que
-o card tenha a **mesma cor** do que está atrás dele — é daí que sai o relevo. Então tingir uma
-seção não é pintar o fundo e deixar os cards cinzas: é redefinir `--bg` e as sombras ali dentro
-e deixar a cascata levar isso pros cards.
+### A aurora
 
-Os três tons têm exatamente a mesma luminosidade e saturação do cinza base (L 90,2% / S 24%) —
-**só o matiz muda**. É isso que faz a emenda entre uma seção e a vizinha ser suave, sem precisar
-de degradê. Tingidas hoje: `#redes` e `#diagnostico` (lavanda), `#google` e `#sozinho` (menta),
-`#trabalhos` (pêssego). `#planos` ficou cinza de propósito — é onde os cards de gradiente roxo
-mais rendem.
+Manchas de cor derivando devagar atrás de tudo (`.aurora`, quatro `<i>`). Duas regras que
+esta página já aprendeu na marra:
 
-> **A pegadinha que custou caro:** trocar `--sh-dark` sozinho **não funciona**. O valor computado
-> de `--nm-out` já sai do `:root` com o `var(--sh-dark)` resolvido, e é esse valor pronto que
-> desce pela herança. As sombras continuavam azul-acinzentadas em cima do pêssego. Por isso
-> `.tom` **redeclara os seis tokens** de sombra: redeclarar força a substituição a acontecer de
-> novo, agora com o `--sh-dark` local. Se criar um tom novo, ele precisa da classe `.tom` junto.
+1. **Nada de `filter: blur()`.** Foi exatamente isso que travava os cards de plano antes —
+   o navegador refaz o desfoque da área inteira a cada quadro. `radial-gradient` com parada
+   transparente já nasce macio, de graça.
+2. **Só `transform` e `opacity` animam.** O compositor resolve os dois sozinho, sem repintar.
+   Medido: 60fps com as quatro manchas rodando.
 
-O fundo é pintado por um `::after` de `100vw` centrado, porque as seções são `.wrap`
-(máx. 1180px) e o tom precisa sangrar até a borda. Só não estoura porque o wrapper raiz tem
-`overflow-x: hidden`.
+A camada é fixa em `z-index: 0`; as seções estão em `z-index: 1` e os cards são opacos, então
+a cor só aparece nos vãos — que é onde estava o cinza. Pausa junto com o resto quando o modal
+abre.
 
-**Cor com significado.** `icon()` e `ico()` passaram a usar `currentColor` — quem manda na cor
-é o recipiente. Daí saem duas coisas:
+> **O véu (`.aurora::after`) não é enfeite, é o que torna a aurora viável.** Sem ele, duas
+> manchas que se cruzam empilham alpha e o texto de corpo despencava para **1,95:1** —
+> ilegível. Como o véu é a própria cor da página por cima de tudo, ele estabelece um **piso**:
+> nenhuma combinação de manchas escurece além dali, não importa onde a animação leve cada uma.
+> Medido com o `--muted` atual: **4,94** no cinza limpo, **4,14** sob uma mancha, **3,72** no
+> pior empilhamento possível. **Mexeu no alpha das manchas ou no véu, refaça a conta.**
 
-- **Cada pergunta do quiz tem seu tom.** A classe `q0..q9` vai no `.modal-panel`, não na grade:
-  a barra de progresso é irmã da grade e não enxergaria a variável de lá. Só enquanto pergunta —
-  no resultado quem manda na cor é a nota. No formato lista o `.pick-ico` é o próprio radio, e
-  por isso ele fica sem tinta de fundo: tingido, a opção parecia já escolhida.
+### O texto escureceu junto
+
+A conta acima revelou um problema que já existia: `--muted: #6B7280` dava **3,82:1** contra o
+próprio cinza da página — já reprovava em 4,5 antes de existir aurora. Virou `#59616E`
+(**4,94**). Como havia **40 ocorrências chumbadas** no HTML contra 24 usando o token, a troca
+foi na marra nos dois. `--placeholder` foi de `#A0AEC0` para `#7F8898` pelo mesmo motivo
+(1,78 → 2,82); segue abaixo de 4,5, mas é letra miúda decorativa.
+
+### Cor que carrega informação
+
+`icon()` e `ico()` usam `currentColor` — quem manda na cor é o recipiente.
+
+- **Cada pergunta do quiz tem seu tom.** A classe `q0..q9` vai no `.modal-panel`, não na
+  grade: a barra de progresso é irmã da grade e não enxergaria a variável de lá. Só enquanto
+  pergunta. No formato cartão o tom tinge o ladrilho do ícone; no formato lista o `.pick-ico`
+  é o próprio radio, e tingir o fundo dele fazia a opção parecer já escolhida — ali a cor vai
+  no anel do radio e numa barra à esquerda da linha.
 - **A nota reage ao resultado.** Era sempre roxa; um 22 e um 85 ficavam idênticos. Agora
   vermelho (&lt;40), âmbar (40–67) e verde (≥68), com um chip dizendo a faixa. As faixas são as
-  mesmas que decidem o título do resultado em `quizResult()` — **mexeu numa, mexa na outra.**
-  "O que está faltando" ficou coral e "o que a gente faria" ficou verde.
+  mesmas que decidem o título em `quizResult()` — **mexeu numa, mexa na outra.**
 
-> **Anel vivo, número escuro, de propósito.** O âmbar e o verde vibrantes não passam 3:1 contra
-> o fundo, que é o mínimo para um gráfico. Mas o número declara a nota em texto do lado, então o
-> anel não é a única fonte da informação e pode puxar saturação. O número usa as versões escuras
-> (#C62A2F / #A76800 / #0E7C6F), todas acima de 3:1 como texto grande. Ao mexer nessas cores,
-> refaça a conta — vivo não pode custar leitura.
+> **Anel vivo, número escuro, de propósito.** O âmbar e o verde vibrantes não passam 3:1
+> contra o fundo, o mínimo para um gráfico. Mas o número declara a nota em texto do lado,
+> então o anel não é a única fonte da informação e pode puxar saturação. O número usa as
+> versões escuras (#C62A2F / #A76800 / #0E7C6F), todas acima de 3:1 como texto grande.
+
+### Um plano de cada cor
+
+O Essencial ficou verde-água (`.blob-card--verde`), o Completo seguiu roxo — é a cor da marca
+e ele é o destaque. As texturas verdes são as mesmas de sempre com o matiz girado −55°, salvas
+como arquivo. **Não use `hue-rotate` no CSS:** repintaria a área inteira a cada quadro, que é
+exatamente o que esta seção já pagou caro para evitar. O desfoque continua assado dentro do
+WebP e o custo em tela segue zero.
 
 ## Pendências que dependem de material seu
 

@@ -32,11 +32,11 @@
 <noscript>
   <div style="max-width: 640px; margin: 0 auto; padding: 64px 24px; font-family: system-ui, sans-serif; color: #3D4852; background: #E0E5EC;">
     <h1 style="font-size: 32px; line-height: 1.15; margin: 0 0 16px;">ACTech Informática</h1>
-    <p style="font-size: 17px; line-height: 1.6; color: #6B7280; margin: 0 0 12px;">
+    <p style="font-size: 17px; line-height: 1.6; color: #59616E; margin: 0 0 12px;">
       Site, redes sociais e presença no Google em uma mensalidade única — para comércios,
       mercados, lojas e prestadores de serviço. Site no ar em até 5 dias úteis e o primeiro mês grátis.
     </p>
-    <p style="font-size: 15px; line-height: 1.6; color: #6B7280; margin: 0;">
+    <p style="font-size: 15px; line-height: 1.6; color: #59616E; margin: 0;">
       Esta página precisa de JavaScript para carregar. Ative o JavaScript no seu navegador e atualize.
     </p>
   </div>
@@ -58,8 +58,12 @@
   :root {
     --bg: #E0E5EC;
     --fg: #3D4852;
-    --muted: #6B7280;
-    --placeholder: #A0AEC0;
+    /* Escurecido de #59616E. Aquele dava 3,82:1 no proprio cinza da pagina -
+       ja reprovava em 4,5 antes de existir aurora. Este da 4,94. */
+    --muted: #59616E;
+    /* Letra miuda. Continua abaixo de 4,5 (e decorativa), mas #7F8898 dava 1,78
+       e sob a aurora caia pra 1,49. Este da 2,82 / 2,37. */
+    --placeholder: #7F8898;
     --accent: #6C63FF;
     --accent-light: #8B84FF;
     --accent-2: #38B2AC;
@@ -543,6 +547,15 @@
   }
   .fluid i:nth-child(1) { background-image: url('imgs/plano-blobs-1.webp'); animation: blobA 17s ease-in-out infinite; }
   .fluid i:nth-child(2) { background-image: url('imgs/plano-blobs-2.webp'); animation: blobB 17s ease-in-out infinite; }
+
+  /* Um plano de cada cor. As texturas verdes sao as mesmas de sempre com o matiz
+     girado -55 graus (script de geracao no historico) - ou seja, o desfoque
+     continua assado dentro do arquivo e o custo em tela segue zero. So trocar a
+     imagem, nao filtrar em runtime: hue-rotate no CSS repintaria a area inteira
+     a cada quadro, que e exatamente o que essa secao ja pagou caro pra evitar. */
+  .blob-card--verde .blob-header { background: #124E43; }
+  .blob-card--verde .fluid i:nth-child(1) { background-image: url('imgs/plano-blobs-1-verde.webp'); }
+  .blob-card--verde .fluid i:nth-child(2) { background-image: url('imgs/plano-blobs-2-verde.webp'); }
   @keyframes blobA {
     0%, 100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1.02); }
     50%      { opacity: 0; transform: translate3d(-3%, 2%, 0) scale(1.12); }
@@ -615,40 +628,76 @@
     flex-wrap: wrap; margin-top: 32px;
   }
 
-  /* ---------- tons das secoes ----------
-     Neumorfismo exige que o card tenha a MESMA cor do que esta atras dele: e
-     dai que sai a ilusao de relevo. Entao tingir uma secao nao e pintar o fundo
-     e deixar os cards cinzas - e redefinir --bg e as sombras ali dentro e deixar
-     a cascata levar isso pros cards. Funciona porque --nm-out e companhia guardam
-     `var(--sh-dark)` sem resolver: a substituicao so acontece quando a sombra e
-     usada de verdade, ja com o valor local.
+  /* ---------- aurora: as cores que passam no fundo ----------
+     Sao manchas de cor que derivam devagar atras de tudo. Duas regras que essa
+     pagina ja aprendeu na marra e valem aqui:
 
-     Os tres tons tem exatamente a mesma luminosidade e saturacao do cinza base
-     (L 90,2% / S 24%) - so o matiz muda. E isso que faz a emenda entre uma secao
-     e a vizinha ser imperceptivel: sem degrade, sem faixa de transicao. */
-  .tom {
-    position: relative;
-    /* Os seis tokens abaixo sao copia literal dos do :root. Parece redundante e
-       nao e: o valor computado de --nm-out ja sai do :root com o var(--sh-dark)
-       RESOLVIDO, e e esse valor pronto que desce pela heranca. Trocar --sh-dark
-       aqui embaixo, sozinho, nao reescreve nada - as sombras continuavam
-       azul-acinzentadas em cima do pessego. Redeclarar os tokens aqui faz a
-       substituicao acontecer de novo, agora com o --sh-dark local. */
-    --nm-out:       9px 9px 16px var(--sh-dark), -9px -9px 16px var(--sh-light);
-    --nm-out-hover: 12px 12px 20px var(--sh-dark-strong), -12px -12px 20px var(--sh-light-strong);
-    --nm-out-sm:    5px 5px 10px var(--sh-dark), -5px -5px 10px var(--sh-light);
-    --nm-in:        inset 6px 6px 10px var(--sh-dark), inset -6px -6px 10px var(--sh-light);
-    --nm-in-deep:   inset 10px 10px 20px var(--sh-dark-strong), inset -10px -10px 20px var(--sh-light-strong);
-    --nm-in-sm:     inset 3px 3px 6px var(--sh-dark), inset -3px -3px 6px var(--sh-light);
+     1. NADA de filter: blur(). Foi exatamente isso que travava os cards de plano
+        antes - o navegador refaz o desfoque da area inteira a cada quadro.
+        radial-gradient com parada transparente ja nasce macio, de graca.
+     2. So transform e opacity animam. O compositor resolve os dois sozinho, sem
+        repintar nada: as manchas viram textura de GPU e so deslizam.
+
+     A camada e fixa e fica em z-index 0; as secoes estao todas em z-index 1, e
+     os cards sao opacos (background: var(--bg)), entao a cor so aparece nos vaos
+     entre eles - que e onde estava o mar de cinza. */
+  .aurora {
+    position: fixed; inset: -20vmax; z-index: 0; pointer-events: none;
+    overflow: hidden; contain: strict;
   }
-  .tom::after {
-    content: ''; position: absolute; z-index: -1; inset: 0;
-    left: 50%; width: 100vw; transform: translateX(-50%);
-    background: var(--bg);
+  .aurora i {
+    position: absolute; display: block; border-radius: 50%;
+    will-change: transform;
   }
-  .tom--lavanda { --bg: #E4E0EC; --sh-dark: rgba(174,165,196,.6); --sh-dark-strong: rgba(174,165,196,.7); }
-  .tom--menta   { --bg: #E0ECE8; --sh-dark: rgba(165,196,187,.6); --sh-dark-strong: rgba(165,196,187,.7); }
-  .tom--pessego { --bg: #ECE5E0; --sh-dark: rgba(196,178,165,.6); --sh-dark-strong: rgba(196,178,165,.7); }
+  /* O veu que segura a aurora. Sem ele, duas manchas que se cruzam empilham
+     alpha e o texto de corpo despencava pra 1,95:1 - ilegivel. Como o veu e a
+     propria cor da pagina por cima de tudo, ele estabelece um PISO: nenhuma
+     combinacao de manchas consegue escurecer alem daqui, independente de onde
+     a animacao leve cada uma. Medido: 4,94 no cinza limpo, 4,14 sob uma mancha,
+     3,72 no pior empilhamento possivel. Mexeu no alpha das manchas, refaca a conta. */
+  .aurora::after {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(224,229,236,.62);
+  }
+  .aurora i:nth-child(1) {
+    width: 62vmax; height: 62vmax; top: -8vmax; left: -6vmax;
+    background: radial-gradient(circle closest-side, rgba(108,99,255,.42), rgba(108,99,255,0) 72%);
+    animation: auroraA 34s ease-in-out infinite;
+  }
+  .aurora i:nth-child(2) {
+    width: 54vmax; height: 54vmax; top: 22vmax; right: -10vmax;
+    background: radial-gradient(circle closest-side, rgba(56,178,172,.40), rgba(56,178,172,0) 72%);
+    animation: auroraB 41s ease-in-out infinite;
+  }
+  .aurora i:nth-child(3) {
+    width: 50vmax; height: 50vmax; bottom: -6vmax; left: 18vmax;
+    background: radial-gradient(circle closest-side, rgba(236,110,173,.34), rgba(236,110,173,0) 72%);
+    animation: auroraC 47s ease-in-out infinite;
+  }
+  .aurora i:nth-child(4) {
+    width: 46vmax; height: 46vmax; top: 40vmax; left: 30vmax;
+    background: radial-gradient(circle closest-side, rgba(245,166,35,.30), rgba(245,166,35,0) 72%);
+    animation: auroraD 53s ease-in-out infinite;
+  }
+  @keyframes auroraA {
+    0%,100% { transform: translate3d(0,0,0) scale(1); }
+    33%     { transform: translate3d(14vmax,10vmax,0) scale(1.18); }
+    66%     { transform: translate3d(6vmax,26vmax,0) scale(.92); }
+  }
+  @keyframes auroraB {
+    0%,100% { transform: translate3d(0,0,0) scale(1.06); }
+    40%     { transform: translate3d(-20vmax,14vmax,0) scale(.9); }
+    70%     { transform: translate3d(-8vmax,32vmax,0) scale(1.2); }
+  }
+  @keyframes auroraC {
+    0%,100% { transform: translate3d(0,0,0) scale(.96); }
+    45%     { transform: translate3d(22vmax,-16vmax,0) scale(1.22); }
+    75%     { transform: translate3d(34vmax,-4vmax,0) scale(1.02); }
+  }
+  @keyframes auroraD {
+    0%,100% { transform: translate3d(0,0,0) scale(1.1); }
+    50%     { transform: translate3d(-24vmax,-20vmax,0) scale(.88); }
+  }
 
   /* ---------- cor que quer dizer alguma coisa ----------
      O icone do icon() usa currentColor, entao quem manda na cor e o recipiente.
@@ -999,7 +1048,8 @@
   body.modal-aberto .blob-glow i,
   body.modal-aberto .float,
   body.modal-aberto .float-slow,
-  body.modal-aberto .marquee-faixa { animation-play-state: paused !important; }
+  body.modal-aberto .marquee-faixa,
+  body.modal-aberto .aurora i { animation-play-state: paused !important; }
   .modal-panel {
     position: relative; width: 100%; max-width: 800px; max-height: 88vh;
     display: flex; flex-direction: column; overflow: hidden;
@@ -1072,7 +1122,17 @@
   /* variante em linha, pra perguntas de "nível" */
   .pick.is-row { flex-direction: row; align-items: center; min-height: 74px; gap: 15px; padding: 16px 20px; border-radius: var(--r-base); }
   .pick.is-row .pick-ico { width: 26px; height: 26px; border-radius: 999px; }
-  .pick.is-row .pick-ico b { width: 11px; height: 11px; border-radius: 999px; background: var(--accent); display: none; }
+  .pick.is-row .pick-ico b { width: 11px; height: 11px; border-radius: 999px; background: var(--tom-q, var(--accent)); display: none; }
+  /* No formato lista o unico elemento era um radio cinza - a tela inteira ficava
+     sem cor. O anel do radio e a barra da esquerda resolvem sem fingir selecao. */
+  .pick.is-row .pick-ico { box-shadow: var(--nm-in-sm), inset 0 0 0 2px var(--tom-q, var(--accent)); }
+  .pick.is-row { position: relative; overflow: hidden; }
+  .pick.is-row::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: var(--tom-q, var(--accent)); opacity: .5;
+    transition: opacity .25s var(--ease), width .25s var(--ease);
+  }
+  .pick.is-row:hover::before, .pick.is-row.is-picked::before { opacity: 1; width: 6px; }
   .pick.is-row.is-picked .pick-ico { box-shadow: var(--nm-in-sm); }
   .pick.is-row.is-picked .pick-ico b { display: block; }
 
@@ -1391,6 +1451,9 @@
 </helmet>
 
 <div style="background: #E0E5EC; color: #3D4852; font-family: 'DM Sans', system-ui, sans-serif; overflow-x: hidden; position: relative;">
+  <!-- As cores que passam no fundo. Fica atras de tudo (z-index 0 contra o 1 das
+       secoes) e so aparece nos vaos entre os cards, que sao opacos. -->
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 
   <header style="position: sticky; top: 0; z-index: 40; background: rgba(224,229,236,.82); backdrop-filter: blur(18px);">
     <div class="wrap" style="padding-top: 16px; padding-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
@@ -1399,7 +1462,7 @@
              tirado. So o simbolo: o logo cheio traz "Python" e "Java" escritos, que
              nao dizem nada pra quem veio comprar site pra padaria. -->
         <img src="imgs/marca.webp" alt="" width="56" height="45" style="display: block; width: 56px; height: auto; flex: none;" />
-        <span class="font-display" style="font-weight: 800; font-size: 19px;">ACTech <span style="color: #6B7280; font-weight: 600;">Informática</span></span>
+        <span class="font-display" style="font-weight: 800; font-size: 19px;">ACTech <span style="color: #59616E; font-weight: 600;">Informática</span></span>
       </div>
 
       <nav class="nav-desktop" style="display: flex; align-items: center; gap: 6px;">
@@ -1445,7 +1508,7 @@
           Site e marketing<br />no mesmo lugar.<br /><span style="background: linear-gradient(100deg, #6C63FF 10%, #8B84FF 90%); -webkit-background-clip: text; background-clip: text; color: transparent;">Sem complicação.</span>
         </h1>
 
-        <p data-reveal="1" style="margin: 26px 0 0; max-width: 52ch; font-size: clamp(16.5px, 1.5vw, 18.5px); line-height: 1.65; color: #6B7280;">
+        <p data-reveal="1" style="margin: 26px 0 0; max-width: 52ch; font-size: clamp(16.5px, 1.5vw, 18.5px); line-height: 1.65; color: #59616E;">
           A ACTech cuida do seu site, das suas redes sociais e da sua presença no Google — tudo em uma mensalidade única, feita para comércios, mercados, lojas e prestadores de serviço.
         </p>
 
@@ -1539,21 +1602,21 @@
     <div data-reveal="1" class="grid-auto" style="margin-top: 64px;">
       <div class="nm-card nm-card--lift" style="padding: 26px 28px;">
         <div class="font-display" style="font-size: 34px; font-weight: 800; color: #6C63FF;">5 dias</div>
-        <div style="margin-top: 8px; font-size: 14.5px; color: #6B7280; line-height: 1.55;">Site pronto em até 5 dias úteis</div>
+        <div style="margin-top: 8px; font-size: 14.5px; color: #59616E; line-height: 1.55;">Site pronto em até 5 dias úteis</div>
       </div>
       <div class="nm-card nm-card--lift" style="padding: 26px 28px;">
         <div class="font-display" style="font-size: 34px; font-weight: 800; color: #3D4852;">R$ 0</div>
-        <div style="margin-top: 8px; font-size: 14.5px; color: #6B7280; line-height: 1.55;">No primeiro mês, em qualquer plano</div>
+        <div style="margin-top: 8px; font-size: 14.5px; color: #59616E; line-height: 1.55;">No primeiro mês, em qualquer plano</div>
       </div>
       <div class="nm-card nm-card--lift" style="padding: 26px 28px;">
         <div class="font-display" style="font-size: 34px; font-weight: 800; color: #3D4852;">1 conta</div>
-        <div style="margin-top: 8px; font-size: 14.5px; color: #6B7280; line-height: 1.55;">Site, redes e Google com a mesma equipe</div>
+        <div style="margin-top: 8px; font-size: 14.5px; color: #59616E; line-height: 1.55;">Site, redes e Google com a mesma equipe</div>
       </div>
     </div>
   </section>
 
 
-  <section id="redes" class="wrap pad-section tom tom--lavanda" style="position: relative; z-index: 1; padding-top: 24px; padding-bottom: 96px;">
+  <section id="redes" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 24px; padding-bottom: 96px;">
     <div class="two-col" style="align-items: center;">
 
       <!-- Perfil de exemplo. Para trocar: o @ e o nome estão logo abaixo, os números
@@ -1620,20 +1683,22 @@
               </div>
 
               <div class="iph-grade">
-                <!-- As oito artes novas primeiro, como num perfil de verdade:
-                     insta-9..16 sao o caso do painel do banco (set/2026), insta-1..8
-                     sao as de maio. Recortadas no centro porque a celula e quadrada. -->
+                <!-- Intercalado de proposito. As oito novas (insta-9..16) sao todas do
+                     mesmo caso e todas azul-marinho: enfileiradas viravam um bloco unico
+                     e a grade parecia um post so repetido. As antigas (1..8) trazem branco,
+                     creme, laranja e verde, entao alternar da o xadrez claro/escuro que uma
+                     grade de perfil precisa ter. Ao acrescentar arte, olhe o conjunto. -->
                 <img src="imgs/insta-9.webp" alt="" loading="lazy" decoding="async" />
-                <img src="imgs/insta-10.webp" alt="" loading="lazy" decoding="async" />
-                <img src="imgs/insta-11.webp" alt="" loading="lazy" decoding="async" />
-                <img src="imgs/insta-12.webp" alt="" loading="lazy" decoding="async" />
-                <img src="imgs/insta-13.webp" alt="" loading="lazy" decoding="async" />
-                <img src="imgs/insta-14.webp" alt="" loading="lazy" decoding="async" />
-                <img src="imgs/insta-15.webp" alt="" loading="lazy" decoding="async" />
-                <img src="imgs/insta-16.webp" alt="" loading="lazy" decoding="async" />
                 <img src="imgs/insta-5.webp" alt="" loading="lazy" decoding="async" />
-                <img src="imgs/insta-1.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-12.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-8.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-13.webp" alt="" loading="lazy" decoding="async" />
                 <img src="imgs/insta-7.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-10.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-6.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-16.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-4.webp" alt="" loading="lazy" decoding="async" />
+                <img src="imgs/insta-14.webp" alt="" loading="lazy" decoding="async" />
                 <img src="imgs/insta-2.webp" alt="" loading="lazy" decoding="async" />
               </div>
             </div>
@@ -1655,7 +1720,7 @@
       <div data-reveal="1">
         <div class="eyebrow">Redes sociais</div>
         <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 17ch; color: #3D4852;">Seu Instagram publicando, mesmo na semana corrida.</h2>
-        <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #6B7280; max-width: 46ch;">
+        <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #59616E; max-width: 46ch;">
           Todo mês a gente monta o plano de conteúdo, cria as artes e escreve as legendas.
           Chega tudo pronto no seu WhatsApp — você só dá o ok.
         </p>
@@ -1692,8 +1757,8 @@
   <div class="wrap" data-anima style="position: relative; z-index: 1;">
     <div class="nm-track" style="border-radius: 999px; overflow: hidden; padding: 16px 0;">
       <div class="marquee-faixa" style="display: flex; width: max-content; animation: marquee 34s linear infinite; gap: 44px; padding-left: 44px;">
-        <span style="font-size: 13px; letter-spacing: .22em; color: #6B7280; text-transform: uppercase; white-space: nowrap;">Mercados · Lojas de bairro · Pet shops · Barbearias · Restaurantes · Clínicas · Autopeças · Prestadores de serviço · Mercados · Lojas de bairro · Pet shops · Barbearias · Restaurantes · Clínicas · Autopeças · Prestadores de serviço ·</span>
-        <span style="font-size: 13px; letter-spacing: .22em; color: #6B7280; text-transform: uppercase; white-space: nowrap;">Mercados · Lojas de bairro · Pet shops · Barbearias · Restaurantes · Clínicas · Autopeças · Prestadores de serviço · Mercados · Lojas de bairro · Pet shops · Barbearias · Restaurantes · Clínicas · Autopeças · Prestadores de serviço ·</span>
+        <span style="font-size: 13px; letter-spacing: .22em; color: #59616E; text-transform: uppercase; white-space: nowrap;">Mercados · Lojas de bairro · Pet shops · Barbearias · Restaurantes · Clínicas · Autopeças · Prestadores de serviço · Mercados · Lojas de bairro · Pet shops · Barbearias · Restaurantes · Clínicas · Autopeças · Prestadores de serviço ·</span>
+        <span style="font-size: 13px; letter-spacing: .22em; color: #59616E; text-transform: uppercase; white-space: nowrap;">Mercados · Lojas de bairro · Pet shops · Barbearias · Restaurantes · Clínicas · Autopeças · Prestadores de serviço · Mercados · Lojas de bairro · Pet shops · Barbearias · Restaurantes · Clínicas · Autopeças · Prestadores de serviço ·</span>
       </div>
     </div>
   </div>
@@ -1705,7 +1770,7 @@
         <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; color: #3D4852;">
           Todo dia sem presença digital é um cliente indo pro concorrente.
         </h2>
-        <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #6B7280; max-width: 46ch;">
+        <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #59616E; max-width: 46ch;">
           Seu cliente pesquisa no Google antes de comprar, olha o Instagram pra saber se você existe e desiste quando não encontra nada. Sem site, sem posts e sem ficha no Google, o negócio bom fica invisível.
         </p>
       </div>
@@ -1714,19 +1779,19 @@
           <div class="nm-well" style="width: 52px; height: 52px; border-radius: 16px;">
             <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.5-4.5"></path></svg>
           </div>
-          <div><div style="font-weight: 700; font-size: 16.5px; color: #3D4852;">Ninguém te acha no Google</div><div style="margin-top: 6px; font-size: 14.5px; color: #6B7280; line-height: 1.6;">Sem site e sem ficha otimizada, a busca local mostra só os concorrentes.</div></div>
+          <div><div style="font-weight: 700; font-size: 16.5px; color: #3D4852;">Ninguém te acha no Google</div><div style="margin-top: 6px; font-size: 14.5px; color: #59616E; line-height: 1.6;">Sem site e sem ficha otimizada, a busca local mostra só os concorrentes.</div></div>
         </div>
         <div class="nm-card nm-card--lift" style="padding: 24px 26px; display: flex; gap: 18px; align-items: flex-start;">
           <div class="nm-well" style="width: 52px; height: 52px; border-radius: 16px;">
             <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
           </div>
-          <div><div style="font-weight: 700; font-size: 16.5px; color: #3D4852;">Redes sociais paradas</div><div style="margin-top: 6px; font-size: 14.5px; color: #6B7280; line-height: 1.6;">Último post há três meses passa a impressão de que a loja fechou.</div></div>
+          <div><div style="font-weight: 700; font-size: 16.5px; color: #3D4852;">Redes sociais paradas</div><div style="margin-top: 6px; font-size: 14.5px; color: #59616E; line-height: 1.6;">Último post há três meses passa a impressão de que a loja fechou.</div></div>
         </div>
         <div class="nm-card nm-card--lift" style="padding: 24px 26px; display: flex; gap: 18px; align-items: flex-start;">
           <div class="nm-well" style="width: 52px; height: 52px; border-radius: 16px;">
             <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg>
           </div>
-          <div><div style="font-weight: 700; font-size: 16.5px; color: #3D4852;">Cada um cuidando de um pedaço</div><div style="margin-top: 6px; font-size: 14.5px; color: #6B7280; line-height: 1.6;">Um faz o site, outro os posts, ninguém responde pelo resultado.</div></div>
+          <div><div style="font-weight: 700; font-size: 16.5px; color: #3D4852;">Cada um cuidando de um pedaço</div><div style="margin-top: 6px; font-size: 14.5px; color: #59616E; line-height: 1.6;">Um faz o site, outro os posts, ninguém responde pelo resultado.</div></div>
         </div>
       </div>
     </div>
@@ -1770,23 +1835,23 @@
                 </div>
                 <div class="srv-grade">
                   <img src="imgs/insta-9.webp" alt="" loading="lazy" decoding="async" />
-                  <img src="imgs/insta-10.webp" alt="" loading="lazy" decoding="async" />
-                  <img src="imgs/insta-11.webp" alt="" loading="lazy" decoding="async" />
-                  <img src="imgs/insta-12.webp" alt="" loading="lazy" decoding="async" />
-                  <img src="imgs/insta-13.webp" alt="" loading="lazy" decoding="async" />
-                  <img src="imgs/insta-14.webp" alt="" loading="lazy" decoding="async" />
-                  <img src="imgs/insta-15.webp" alt="" loading="lazy" decoding="async" />
-                  <img src="imgs/insta-16.webp" alt="" loading="lazy" decoding="async" />
                   <img src="imgs/insta-5.webp" alt="" loading="lazy" decoding="async" />
-                  <img src="imgs/insta-1.webp" alt="" loading="lazy" decoding="async" />
-                  <img src="imgs/insta-7.webp" alt="" loading="lazy" decoding="async" />
-                  <img src="imgs/insta-2.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-12.webp" alt="" loading="lazy" decoding="async" />
                   <img src="imgs/insta-8.webp" alt="" loading="lazy" decoding="async" />
-                  <img src="imgs/insta-3.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-13.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-7.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-10.webp" alt="" loading="lazy" decoding="async" />
                   <img src="imgs/insta-6.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-16.webp" alt="" loading="lazy" decoding="async" />
                   <img src="imgs/insta-4.webp" alt="" loading="lazy" decoding="async" />
-                  <img src="imgs/insta-9.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-14.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-2.webp" alt="" loading="lazy" decoding="async" />
                   <img src="imgs/insta-11.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-1.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-15.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-3.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-12.webp" alt="" loading="lazy" decoding="async" />
+                  <img src="imgs/insta-6.webp" alt="" loading="lazy" decoding="async" />
                 </div>
               </div>
             </div>
@@ -1899,11 +1964,11 @@
     </div>
   </section>
 
-  <section id="google" class="wrap pad-section tom tom--menta" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
+  <section id="google" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
     <div data-reveal="1" style="margin-bottom: 58px; max-width: 62ch;">
       <div class="eyebrow">Google e busca local</div>
       <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 19ch; color: #3D4852;">A ficha do Google é a sua vitrine.</h2>
-      <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #6B7280;">
+      <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #59616E;">
         Quem procura "perto de mim" vê a ficha antes de ver o site. Quando ela está vazia,
         sem foto, sem horário e sem resposta, o cliente vai no concorrente que preencheu a dele.
       </p>
@@ -2014,7 +2079,7 @@
     <div class="ads-faixa" data-reveal="1">
       <div>
         <h3 class="font-display" style="font-weight: 800; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.15; margin: 0; color: #3D4852; max-width: 18ch;">Com a ficha em dia, o anúncio rende.</h3>
-        <p style="margin: 16px 0 0; font-size: 15.5px; line-height: 1.7; color: #6B7280; max-width: 46ch;">
+        <p style="margin: 16px 0 0; font-size: 15.5px; line-height: 1.7; color: #59616E; max-width: 46ch;">
           A gente cria, acompanha e ajusta as campanhas. A verba do anúncio é sua e vai direto
           pra plataforma — o que a gente cuida é de onde ela é gasta.
         </p>
@@ -2080,7 +2145,7 @@
 
   </section>
 
-  <section id="diagnostico" class="wrap pad-section tom tom--lavanda" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
+  <section id="diagnostico" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
     <div data-reveal="1" class="nm-card" style="position: relative; overflow: hidden; padding: clamp(34px, 5vw, 62px) clamp(22px, 4vw, 54px); text-align: center;">
       <div class="nm-well" style="position: absolute; width: 280px; height: 280px; border-radius: 999px; top: -150px; left: -110px;"></div>
       <div class="nm-tile" style="position: absolute; width: 170px; height: 170px; border-radius: 999px; bottom: -80px; right: -60px;"></div>
@@ -2088,7 +2153,7 @@
       <div style="position: relative;">
         <div class="eyebrow">Diagnóstico gratuito</div>
         <h2 class="font-display" style="font-weight: 800; font-size: clamp(28px, 4.2vw, 48px); line-height: 1.06; margin: 18px auto 0; max-width: 20ch; color: #3D4852;">Antes de vender qualquer coisa, a gente quer te conhecer.</h2>
-        <p style="margin: 18px auto 0; max-width: 52ch; font-size: 16.5px; color: #6B7280; line-height: 1.7;">
+        <p style="margin: 18px auto 0; max-width: 52ch; font-size: 16.5px; color: #59616E; line-height: 1.7;">
           Dez perguntas sobre o seu negócio. No fim você recebe um diagnóstico da sua presença digital — o que já está de pé, o que está faltando e por onde começar. É seu, mesmo que não contrate nada.
         </p>
 
@@ -2096,7 +2161,7 @@
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.5-4.5"></path></svg>
           Fazer meu diagnóstico
         </button>
-        <div style="margin-top: 15px; font-size: 13.5px; color: #6B7280;">1 minuto · sem cadastro · sem e-mail</div>
+        <div style="margin-top: 15px; font-size: 13.5px; color: #59616E;">1 minuto · sem cadastro · sem e-mail</div>
 
         <div class="grid-auto" style="margin-top: 42px; gap: 14px; text-align: left;">
           <div class="nm-tile" style="padding: 20px 22px; display: flex; gap: 14px; align-items: center;">
@@ -2145,7 +2210,7 @@
               </div>
 
               <div>
-                <p style="margin: 0; font-size: 15.5px; line-height: 1.7; color: #6B7280;">
+                <p style="margin: 0; font-size: 15.5px; line-height: 1.7; color: #59616E;">
                   Sem enrolação e sem palavra difícil — é o que a gente te explicaria tomando um café.
                   Serve mesmo que você nunca contrate a ACTech.
                 </p>
@@ -2197,12 +2262,12 @@
         <span class="focus-word">Duas</span><span class="focus-word">mensalidades.</span><span class="focus-word">Zero</span><span class="focus-word">surpresa.</span>
         <span class="focus-frame" data-focus-frame><i></i><i></i><i></i><i></i></span>
       </h2>
-      <p style="margin: 16px 0 0; font-size: 16.5px; color: #6B7280; line-height: 1.65;">O primeiro mês é grátis nos dois planos. Fidelidade de 6 meses.</p>
+      <p style="margin: 16px 0 0; font-size: 16.5px; color: #59616E; line-height: 1.65;">O primeiro mês é grátis nos dois planos. Fidelidade de 6 meses.</p>
     </div>
 
     <div class="pricing-grid">
 
-      <div data-reveal="1" class="blob-card tilt" data-tilt>
+      <div data-reveal="1" class="blob-card blob-card--verde tilt" data-tilt>
         <div class="blob-glow"><i></i></div>
         <div class="blob-inner" style="box-shadow: 9px 9px 16px rgba(163,177,198,.6), -9px -9px 16px rgba(255,255,255,.5);">
           <div class="blob-header">
@@ -2224,7 +2289,7 @@
           </div>
 
           <div class="blob-body">
-            <p style="margin: 0; font-size: 15px; color: #6B7280; line-height: 1.6;">Para quem precisa existir bem no digital com o básico feito direito.</p>
+            <p style="margin: 0; font-size: 15px; color: #59616E; line-height: 1.6;">Para quem precisa existir bem no digital com o básico feito direito.</p>
             <a class="btn btn-secondary btn-block" href="{{ whatsUrl }}" target="_blank" style="margin: 24px 0 4px;">Começar com o Essencial</a>
             <div class="nm-track" style="height: 6px; border-radius: 999px; margin: 28px 0 20px;"></div>
             <sc-for list="{{ essencial }}" as="item" hint-placeholder-count="7">
@@ -2264,7 +2329,7 @@
           </div>
 
           <div class="blob-body">
-            <p style="margin: 0; font-size: 15px; color: #6B7280; line-height: 1.6;">Para quem quer crescer: conteúdo forte, Google ativo e relatório de resultado.</p>
+            <p style="margin: 0; font-size: 15px; color: #59616E; line-height: 1.6;">Para quem quer crescer: conteúdo forte, Google ativo e relatório de resultado.</p>
             <a class="btn btn-primary btn-block" href="{{ whatsUrl }}" target="_blank" style="margin: 24px 0 4px;">Quero o Completo</a>
             <div class="nm-track" style="height: 6px; border-radius: 999px; margin: 28px 0 20px;"></div>
             <div style="font-size: 14px; font-weight: 700; color: #6C63FF; letter-spacing: .04em; margin-bottom: 8px;">Tudo do Essencial, mais:</div>
@@ -2288,7 +2353,7 @@
       <div class="conta-cab">
         <div class="eyebrow">A conta</div>
         <h3 class="font-display" style="font-weight: 800; font-size: clamp(24px, 3vw, 34px); line-height: 1.1; margin: 14px 0 0; color: #3D4852; max-width: 20ch;">Quando é que o plano se paga?</h3>
-        <p style="margin: 14px 0 0; font-size: 15.5px; line-height: 1.7; color: #6B7280; max-width: 44ch;">
+        <p style="margin: 14px 0 0; font-size: 15.5px; line-height: 1.7; color: #59616E; max-width: 44ch;">
           A mensalidade não é uma despesa a mais no mês — é a conta mais simples que você faz hoje.
         </p>
       </div>
@@ -2315,7 +2380,7 @@
           <span style="width: 8px; height: 8px; border-radius: 999px; background: #38B2AC; display: block;"></span>
           Do quinto cliente em diante, é lucro
         </div>
-        <p style="margin: 0; font-size: 12.5px; line-height: 1.6; color: #A0AEC0; max-width: 52ch;">
+        <p style="margin: 0; font-size: 12.5px; line-height: 1.6; color: #7F8898; max-width: 52ch;">
           Conta feita com ticket médio de R$ 50 — troque pelo seu que a lógica é a mesma
           (no Completo, R$ 397, são 8 clientes). É um exemplo de como pensar o investimento,
           não uma promessa de resultado.
@@ -2329,11 +2394,11 @@
        Esta seção responde ela com o mesmo mês visto dos dois lados. As linhas dos
        dois painéis se emparelham pelo data-tema, não pela altura: passar o mouse
        numa acende a irmã do outro lado (setupDuelo, lá embaixo no script). -->
-  <section data-anima id="sozinho" class="wrap pad-section tom tom--menta" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
+  <section data-anima id="sozinho" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
     <div data-reveal="1" style="max-width: 62ch;">
       <div class="eyebrow">Sozinho x com a ACTech</div>
       <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 20ch; color: #3D4852;">Dá pra fazer sozinho. A conta é outra.</h2>
-      <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #6B7280;">
+      <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #59616E;">
         Nada do que a gente faz é segredo de sete chaves — dá pra aprender e fazer por conta.
         O que quase ninguém tem é o mês inteiro sobrando pra isso. Veja o mesmo mês dos dois lados.
       </p>
@@ -2435,7 +2500,7 @@
             <div data-reveal="1" class="nm-card nm-card--lift" style="padding: 30px 26px 28px;">
               <div class="nm-well" style="width: 58px; height: 58px; border-radius: 18px; margin-bottom: 20px;">{{ d.icon }}</div>
               <div class="font-display" style="font-weight: 700; font-size: 18px; color: #3D4852;">{{ d.title }}</div>
-              <div style="margin-top: 10px; font-size: 14.5px; color: #6B7280; line-height: 1.65;">{{ d.body }}</div>
+              <div style="margin-top: 10px; font-size: 14.5px; color: #59616E; line-height: 1.65;">{{ d.body }}</div>
             </div>
           </sc-for>
         </div>
@@ -2450,7 +2515,7 @@
             </div>
             <div>
               <div class="font-display" style="font-weight: 800; font-size: 22px; color: #3D4852;">Site no ar</div>
-              <div style="margin-top: 8px; font-size: 14.5px; color: #6B7280; line-height: 1.6;">Pronto em até 5 dias úteis, com domínio e hospedagem inclusos.</div>
+              <div style="margin-top: 8px; font-size: 14.5px; color: #59616E; line-height: 1.6;">Pronto em até 5 dias úteis, com domínio e hospedagem inclusos.</div>
             </div>
           </div>
           <div class="swap-card">
@@ -2459,7 +2524,7 @@
             </div>
             <div>
               <div class="font-display" style="font-weight: 800; font-size: 22px; color: #3D4852;">Redes no ritmo</div>
-              <div style="margin-top: 8px; font-size: 14.5px; color: #6B7280; line-height: 1.6;">De 8 a 20 posts por mês, criados e publicados pela gente.</div>
+              <div style="margin-top: 8px; font-size: 14.5px; color: #59616E; line-height: 1.6;">De 8 a 20 posts por mês, criados e publicados pela gente.</div>
             </div>
           </div>
           <div class="swap-card">
@@ -2468,7 +2533,7 @@
             </div>
             <div>
               <div class="font-display" style="font-weight: 800; font-size: 22px; color: #3D4852;">Achado no Google</div>
-              <div style="margin-top: 8px; font-size: 14.5px; color: #6B7280; line-height: 1.6;">Ficha otimizada pra aparecer em quem busca perto de você.</div>
+              <div style="margin-top: 8px; font-size: 14.5px; color: #59616E; line-height: 1.6;">Ficha otimizada pra aparecer em quem busca perto de você.</div>
             </div>
           </div>
         </div>
@@ -2506,7 +2571,7 @@
       <div data-reveal="1">
         <div class="eyebrow">Depoimentos</div>
         <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 16ch; color: #3D4852;">O que os clientes falam da gente.</h2>
-        <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #6B7280; max-width: 42ch;">
+        <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #59616E; max-width: 42ch;">
           A conversa continua depois que o site entra no ar — é assim que a gente trabalha, no WhatsApp, direto com quem faz.
         </p>
         <div class="nm-pill" style="margin-top: 26px; padding: 12px 20px;">
@@ -2578,7 +2643,7 @@
 
   </script>
 
-  <section data-anima id="trabalhos" class="wrap pad-section tom tom--pessego" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 96px;">
+  <section data-anima id="trabalhos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 96px;">
     <div data-reveal="1" style="text-align: center; margin-bottom: 34px;">
       <div class="eyebrow">Nosso trabalho</div>
       <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px auto 0; max-width: 18ch; color: #3D4852;">Um pedaço do que já está no ar.</h2>
@@ -2625,7 +2690,7 @@
             <span class="{{ f.signClass }}">{{ f.sign }}</span>
           </div>
           <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
-            <div style="padding: 0 26px 26px; font-size: 15.5px; line-height: 1.75; color: #6B7280; max-width: 68ch;">{{ f.a }}</div>
+            <div style="padding: 0 26px 26px; font-size: 15.5px; line-height: 1.75; color: #59616E; max-width: 68ch;">{{ f.a }}</div>
           </sc-if>
         </div>
       </sc-for>
@@ -2639,7 +2704,7 @@
 
       <div style="position: relative;">
         <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.6vw, 54px); line-height: 1.05; margin: 0 auto; max-width: 22ch; color: #3D4852;">Comece hoje. O primeiro mês é por nossa conta.</h2>
-        <p style="margin: 20px auto 0; max-width: 48ch; font-size: 17px; line-height: 1.65; color: #6B7280;">Manda uma mensagem contando do seu negócio. A gente responde com o plano ideal e a data de entrega do site.</p>
+        <p style="margin: 20px auto 0; max-width: 48ch; font-size: 17px; line-height: 1.65; color: #59616E;">Manda uma mensagem contando do seu negócio. A gente responde com o plano ideal e a data de entrega do site.</p>
         <!-- Botão líquido: a "mordida" é subtrativa — uma máscara SVG abre um furo
              na pílula e o filtro goo arredonda esse furo, revelando a camada teal atrás. -->
         <a class="goo" data-goo href="{{ whatsUrl }}" target="_blank" style="margin-top: 38px;">
@@ -2672,11 +2737,11 @@
             Falar no WhatsApp agora
           </span>
         </a>
-        <div style="margin-top: 18px; font-size: 14px; color: #6B7280;">Atendimento direto com quem desenvolve. Sem call center.</div>
+        <div style="margin-top: 18px; font-size: 14px; color: #59616E;">Atendimento direto com quem desenvolve. Sem call center.</div>
         <!-- Segunda porta de entrada: quem não quer puxar conversa no WhatsApp
              chama no direct ou só dá uma olhada no perfil antes. -->
         <div style="margin-top: 22px; display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;">
-          <span style="font-size: 14px; color: #A0AEC0;">ou chama no direct</span>
+          <span style="font-size: 14px; color: #7F8898;">ou chama no direct</span>
           <a class="btn btn-secondary btn-sm" href="{{ instaUrl }}" target="_blank" rel="noopener">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
             {{ instaUser }}
@@ -2688,7 +2753,7 @@
 
   <footer style="position: relative; z-index: 1; padding: 0 24px 110px;">
     <div class="nm-track" style="max-width: 1180px; margin: 0 auto 28px; height: 6px; border-radius: 999px;"></div>
-    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 14px; color: #6B7280;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 14px; color: #59616E;">
       <div>ACTech Informática — sites e marketing digital para pequenos e médios negócios.</div>
       <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
         <a class="rodape-link" href="{{ whatsUrl }}" target="_blank" rel="noopener">
@@ -2727,7 +2792,7 @@
                 em um minuto você recebe um diagnóstico e a gente já fala com você sabendo do que precisa.
               </p>
               <button class="btn btn-primary" onClick="{{ quizComecar }}" style="min-width: 240px;">Vamos lá</button>
-              <div style="margin-top: 14px; font-size: 13.5px; color: #6B7280;">Sem cadastro, sem e-mail</div>
+              <div style="margin-top: 14px; font-size: 13.5px; color: #59616E;">Sem cadastro, sem e-mail</div>
               <button class="quiz-back" onClick="{{ quizPular }}">Prefiro falar direto no WhatsApp</button>
             </div>
           </sc-if>
@@ -2809,7 +2874,7 @@
                   </span>
                   <div>
                     <div style="font-weight: 700; font-size: 15.5px; color: #3D4852;">{{ g.t }}</div>
-                    <div style="font-size: 14.5px; color: #6B7280; line-height: 1.6; margin-top: 4px;">{{ g.d }}</div>
+                    <div style="font-size: 14.5px; color: #59616E; line-height: 1.6; margin-top: 4px;">{{ g.d }}</div>
                   </div>
                 </div>
               </sc-for>
@@ -2828,10 +2893,10 @@
                 <div style="font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: #6C63FF;">O que a gente indica pra você</div>
                 <div style="display: flex; align-items: baseline; gap: 10px; margin-top: 12px; flex-wrap: wrap;">
                   <span class="font-display" style="font-weight: 800; font-size: 30px; color: #3D4852;">Plano {{ resPlan }}</span>
-                  <span style="font-size: 17px; color: #6B7280;">{{ resPrice }}</span>
+                  <span style="font-size: 17px; color: #59616E;">{{ resPrice }}</span>
                 </div>
-                <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.7; color: #6B7280;">{{ resWhy }}</p>
-                <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.7; color: #6B7280;">{{ resPrazo }}</p>
+                <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.7; color: #59616E;">{{ resWhy }}</p>
+                <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.7; color: #59616E;">{{ resPrazo }}</p>
               </div>
 
               <!-- Daqui não se sai direto pro WhatsApp: o próximo passo é a tela de oferta,
@@ -2932,7 +2997,7 @@
 
               <div class="nm-track" style="height: 6px; border-radius: 999px; margin: 26px 0 20px;"></div>
 
-              <div style="font-size: 15px; line-height: 1.7; color: #6B7280;">
+              <div style="font-size: 15px; line-height: 1.7; color: #59616E;">
                 Ou pula tudo isso: a gente já tem o seu diagnóstico em mãos e resolve o
                 <b style="color: #3D4852; font-weight: 700;">plano {{ resPlan }}</b> com você agora mesmo.
               </div>
