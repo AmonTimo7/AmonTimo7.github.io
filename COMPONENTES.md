@@ -373,33 +373,34 @@ WebP e o custo em tela segue zero.
 
 A virada da página: até `#modelos` tudo falava de site. Aqui entra o outro lado do negócio.
 
-O **caso do banco** é a prova mais forte que existe no material da ACTech — e estava diluído
-na parede de `#trabalhos`, entre capturas de site, com o mesmo peso de tudo. Aqui ele ganha o
-palco: a captura real do painel numa moldura, o selo "caso real", a história em um parágrafo e
-quatro números concretos (12 indicadores, meta por dia útil, gap em tempo real, roda na rede).
+São **três casos reais num carrossel**: o painel de indicadores de um banco, o controle
+financeiro (painel + livro caixa) e a calculadora de taxas de maquininha com simulador de
+margem. Os textos do primeiro saíram da legenda que a própria ACTech escreveu para o
+carrossel do Instagram (`imgs2/legendas.txt`).
 
-O texto saiu da legenda que a própria ACTech escreveu para o carrossel do Instagram
-(`imgs2/legendas.txt`) — é a versão deles do caso, não uma inventada aqui.
+**Como o carrossel funciona.** A pista é um flex e trocar de caso é mover o `translateX` — os
+três slides ficam em fluxo, então a altura do palco é a do slide mais alto e **nada pula** na
+troca. Anda por seta, por ponto, pelas setas do teclado e por arrasto.
 
-> **O cliente não é nomeado.** "Um banco" é o que a legenda do próprio Instagram já diz
-> publicamente, e nenhum número da seção identifica de quem se trata. Vale manter essa régua
-> ao acrescentar caso novo. Lembrando que **"Agência 3309" aparece na captura** — não nomeia o
-> banco, mas é específico; se incomodar, borre antes de republicar.
+> **O palco é UM cartão e os slides são conteúdo puro dentro dele.** Se cada slide tivesse a
+> própria sombra, o `overflow: hidden` da janela cortaria ela.
 
-**O segundo caso** é o controle financeiro, espelhado (texto à esquerda, telas à direita) —
-alternar a ordem evita que dois casos seguidos virem a mesma página duas vezes. São duas telas
-do mesmo sistema: o painel que o dono abre de manhã e o livro caixa onde a equipe lança o dia.
-No celular a mídia vem primeiro nos dois, senão o espelhado empurraria a imagem pro fim e o
-texto ficaria órfão no topo.
+> O arrasto usa Pointer Events — mouse e dedo pelo mesmo código — e só vira troca de slide
+> depois de **45px**. Abaixo disso é rolagem da página, não gesto de carrossel. O `dragstart`
+> é cancelado porque o arrasto nativo da imagem atrapalha o gesto.
 
-> **As capturas do financeiro carregam números reais do cliente.** Saldo de caixa, valor em
-> contratos, vendas do mês, e o extrato traz descrições de lançamento com nome de pessoa
-> ("almoço semana Vanessa"). Elas já estavam publicadas na parede de `#trabalhos`, mas aqui
-> aparecem muito maiores. **Se isso incomodar o cliente, borre os valores antes de
-> republicar** — os números não são o que vende a seção, a organização é.
+Slide fora da vez leva `aria-hidden` **e** `visibility: hidden`: sem isso, leitor de tela leria
+os três casos em sequência e o Tab passaria por dentro de slide invisível.
+
+**As capturas foram reduzidas para 1100px de largura** e a moldura tem `max-width: 560px` —
+antes ocupavam metade da tela e engoliam o texto do caso.
+
+> **As capturas do financeiro carregam números reais do cliente**: saldo de caixa, valor em
+> contratos, vendas do mês, e o extrato traz descrições com nome de pessoa. **Se isso
+> incomodar, borre os valores antes de republicar** — os números não são o que vende a seção.
 >
-> Os números dos quatro chips desse caso são estruturais de propósito (2 cliques, dia e mês,
-> extrato vivo, uma tela) e não os valores do cliente. Mantenha essa régua.
+> Os chips de cada caso são fatos estruturais de propósito (2 cliques, dia e mês, 1x a 12x) e
+> nunca os valores do cliente. Mantenha essa régua.
 
 Abaixo, quatro tipos de sistema (painel de gestão, financeiro, agenda, integração), cada um
 com a sua cor da roda. E o rodapé diz o que precisa ser dito: **sistema sob medida é orçado à
