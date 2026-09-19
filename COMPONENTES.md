@@ -94,19 +94,30 @@ barras de volume e eixos.
 - O `key="{{ mxFaixa }}"` no `<path>` é o que faz o traço se redesenhar ao trocar de período:
   mudando a key, o React remonta o elemento e a animação roda de novo.
 
-## Ficha do Google, anúncios e "a conta" (`#google` e `#planos`)
+## Ficha do Google e "a conta" (`#google` e `#planos`)
 
 - **Antes e depois da ficha** (`#google`): as duas fichas são HTML montado à mão, não captura
   de cliente — dá pra editar item por item. A da esquerda usa `--nm-in` (afundada, cinza) e a
   da direita `--nm-out` (em relevo, branca): a hierarquia é a própria física da página.
   Dentro dos cartões a tipografia é Roboto e as cores são as do Google (`#1A73E8`, `#FBBC04`,
   `#188038`), porque ali a ilusão tem que ser de painel do Google, não de página nossa.
-- **Logos das plataformas**: SVG desenhado aqui, nenhum arquivo externo. Uso nominativo —
-  serve pra dizer em que plataformas a gente trabalha.
+- **Tráfego pago saiu (ADS OFF)**: a ACTech não cuida mais de Google Ads / Meta Ads. Nada
+  foi apagado — a faixa de plataformas, o painel do post patrocinado, o CSS dos dois, o item
+  do plano Completo e a pergunta do FAQ sobre "verba de anúncio separada" estão comentados
+  e marcados com `ADS OFF` no `index.html`. São sete pontos; o comentário grande do CSS
+  (`.ads-faixa`) lista todos. Pra religar, é tirar os comentários desses sete.
 - **A conta do padeiro** (fim de `#planos`): `R$ 197 ÷ R$ 50 = 4 clientes`. Os dois números
   de entrada estão no HTML da seção; se o preço do plano mudar, o resultado **não** se
   recalcula sozinho — é texto. O ticket de R$ 50 é o chute que faz fechar em 4.
   A letra miúda existe de propósito: sem ela a conta vira promessa de resultado.
+- **Sozinho x com a ACTech** (`#sozinho`, entre `#planos` e `#diferenciais`): responde a
+  objeção que vem depois do preço — "isso eu mesmo faço". Dois painéis com o mesmo mês:
+  o da esquerda afundado (`--nm-in`, cinza), o da direita em relevo (`--nm-out`, roxo),
+  a mesma física do antes/depois da ficha. As linhas **não** se alinham pixel a pixel;
+  o par é feito pelo `data-tema`, e `setupDuelo()` acende as duas ao passar o mouse.
+  Não tem `tabindex`: o realce é decorativo e dez paradas de tabulação só atrapalhariam.
+  O medidor de horas embaixo só enche quando entra na tela. As 14h são estimativa, e a
+  letra miúda diz isso — mesma regra da conta do padeiro.
 - **Cabeçalho**: dois caminhos no topo — "Ver planos" (secundário, âncora pra `#planos`)
   para quem quer preço antes de conversa, e "Fale com a gente" (primário, WhatsApp).
   O link de texto "Planos" saiu do menu: com o botão do lado, era o mesmo destino duas vezes.
@@ -172,10 +183,14 @@ que `#trabalhos` e `#redes` já carregam, então não pesou um byte a mais:
 | Sites que vendem | moldura de navegador com a home de um cliente + "no ar em 5 dias" |
 | Redes sociais ativas | celular com a grade do perfil |
 | Google Meu Negócio | a ficha, no estilo do painel do Google |
-| Anúncios | post patrocinado + contagem de cliques |
 | Manutenção e suporte | painel do sistema + conversa de aprovação |
 
-Os mesmos cinco existem como pranchas no canvas do Claude Design (`Painéis O Que Fazemos`),
+> O painel de anúncios (post patrocinado + contagem de cliques) era o quarto desta lista
+> e está comentado com `ADS OFF`. Os painéis casam com os itens da lista **pela ordem** em
+> que aparecem no HTML, não pelo número em `data-slide` / `data-item` — por isso comentar
+> os dois (painel e item) de uma vez mantém tudo alinhado. Se religar um, religue o outro.
+
+Os mesmos quatro existem como pranchas no canvas do Claude Design (`Painéis O Que Fazemos`),
 que é onde dá pra mexer neles no olho e exportar PNG. Os arquivos-fonte `.dc.html` são
 irmãos deste formato — o projeto todo roda no mesmo runtime `x-dc`.
 
@@ -200,8 +215,18 @@ acompanham.
   "4 atualizações de conteúdo por mês" — o Essencial tem 1, então a escada fica clara sem
   precisar de letra miúda. Quando o contrato existir, vale definir lá o que conta como
   atualização.
-- **Depoimentos**: os textos em `#depoimentos` são exemplo. Trocar pelos depoimentos reais
-  antes de publicar.
+- **Depoimentos — seção desligada**: os seis depoimentos eram exemplo, com nome e negócio
+  inventados, e por isso a seção saiu do ar antes da publicação. Ela está guardada inteira
+  num `<script type="text/html" data-depoimentos-desligados>`, e não num comentário HTML,
+  porque o bloco tem um comentário dentro dele e vários `--` (`--tdur`, `tcol--down`) —
+  comentário aninhado quebraria o parser. Script de tipo desconhecido o navegador não
+  renderiza, não carrega imagem e o runtime não percorre.
+
+  Pra religar: troque texto, nome e negócio de cada `.tcard`, lembrando que **cada card
+  aparece duas vezes** (a duplicata é o que fecha a emenda do loop), e apague as linhas do
+  `<script>` e do `</script>`. O CSS `.tcols` / `.tcard` ficou de pé de propósito.
+
+  Duas ou três depoimentos reais já resolvem — a coluna rola em loop e repete os cards.
 - **Instagram**: as artes vieram de `imgs2/` (34 MB em PNG) convertidas para WebP quadrado
   de 520px em `imgs/insta-1..8.webp` — 137 KB no total, avatar incluso. A pasta `imgs2/`
   é só o arquivo-fonte; não precisa ir pro site.
@@ -210,6 +235,20 @@ acompanham.
   (logo borrado, nome removido do subtítulo). Os arquivos originais estão no histórico do git.
   Ao acrescentar um trabalho, confira a captura antes: o nome costuma aparecer em logo, título e
   rodapé.
+- **Logo e card social**: o logo real está em `imgs2/logo.jpeg`, num quadrado de 1024px
+  com fundo branco. Dele saíram dois arquivos:
+  - `imgs/marca.webp` — só o símbolo (o "A"), sem o fundo. O logo completo traz "Python" e
+    "Java" escritos embaixo, que não dizem nada pra quem veio comprar site pra padaria.
+    O fundo branco saiu por preenchimento a partir da borda, não por teste de cor: o brilho
+    azul em volta do DNA não é branco neutro, e um teste de cor ou deixava o halo ou comia
+    a tela do celular junto. O que separa os dois é a topologia — o halo encosta na borda,
+    as telas estão trancadas dentro de um contorno escuro.
+  - `imgs/og.png` — o card 1200×630 que aparece quando alguém cola o link no WhatsApp.
+    A URL no `og:image` é **absoluta** (`https://amontimo7.github.io/...`) porque raspador
+    de rede social não resolve caminho relativo. Se o domínio mudar, muda lá também.
+
+  O símbolo **não** virou favicon: a 16px e 32px ele vira borrão (testado). O favicon
+  segue sendo o `< >` em SVG, que é nítido em qualquer tamanho.
 - **Imagens**: as duas seções usam material real de `imgs/`. Se um dia entrarem fotos de
   verdade (a loja, a equipe, o cliente usando o sistema), elas caem nos mesmos lugares —
   `.srv-visual img` em `#servicos` e as capturas da parede em `#trabalhos`.
@@ -262,6 +301,7 @@ link para o WhatsApp — CTA do topo, hero, os dois planos, o botão do CTA fina
 o flutuante — e abre o modal antes. Depois que a pessoa responde (ou escolhe
 falar direto), os links voltam a funcionar normalmente.
 
-As imagens do carrossel ficam em `imgs/`. São capturas grandes (~1,6 MB no
-total); se a página começar a pesar, vale reduzir para 1600px de largura e
-converter para WebP.
+As imagens do carrossel ficam em `imgs/`, agora em WebP: `site-home`,
+`site-portfolio`, `painel-caixa` e `livro-caixa` saíram de 1,31 MB em PNG para
+205 KB, sem mexer nas dimensões. Os `.png` originais continuam na pasta como
+fonte — nada no HTML aponta pra eles, mas eles ainda sobem no deploy.
