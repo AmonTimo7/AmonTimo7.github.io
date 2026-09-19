@@ -321,42 +321,6 @@ Onde a roda é usada: cada **opção do quiz** (pela posição na grade), cada *
 os quatro **ícones de "Por que ACTech"**, e o **check de cada plano**, que acompanha a cor do
 próprio card — verde-água no Essencial, roxo no Completo.
 
-### O diagnóstico é escuro
-
-O diagnóstico não é mais uma versão cinza do resto da página: ele roda sobre **`#0D2240`
-com menta `#30D9BB`** — as cores das artes que a ACTech posta no Instagram, tiradas com
-conta-gotas de `imgs2/carrossel-01.png`. O funil fala a mesma língua do conteúdo real.
-
-**Como a pele inteira troca de uma vez.** Tudo ali dentro já usava `var(--bg)`, `var(--fg)` e
-os tokens de sombra, então basta redefinir os tokens **no `.modal-panel`**: cartão, ladrilho,
-campo de texto, anel e botão seguem juntos pela cascata. O neumorfismo continua de pé — o que
-muda é a superfície de onde ele nasce.
-
-> Os seis `--nm-*` são redeclarados ali pelo mesmo motivo de sempre: o valor computado deles
-> já sai do `:root` com o `var(--sh-dark)` resolvido, então trocar só as sombras não
-> reescreveria nada. Mesma pegadinha da aurora.
-
-O cartão de `#diagnostico` na página (`.diag-cartao`) usa **a mesma pele** e é a única
-superfície escura do site — anuncia o que vem. **Mexeu num, mexa no outro.**
-
-**A roda ganhou uma terceira versão.** `--l1..--l8`, clareadas até 6,2:1 sobre o navy. As
-`--cN`, que servem no claro, cairiam para perto de 2 ali. No escuro não há separação entre
-"viva" e "de texto": a `--lN` já nasce clara o bastante para os dois papéis.
-
-**Três armadilhas que a conta pegou:**
-
-- **Branco sobre a menta dá 1,78:1.** O botão primário dentro do modal inverte: texto navy
-  sobre o botão, que dá 8,92. Vale para os ícones dentro dele também — viraram `currentColor`.
-- **Sombra não desenha em superfície escura.** A barra de progresso e o campo de texto sumiam
-  com `--nm-in-sm`. Ali o relevo vem de `rgba(255,255,255,.07)` e borda, não de sombra. Pelo
-  mesmo motivo o cartão de opção acende pela **borda** no hover, não pela sombra.
-- **Os hex chumbados no HTML do modal eram para fundo claro.** Seis `#3D4852` e seis `#59616E`
-  deixavam os títulos do resultado quase invisíveis no navy. Viraram `var(--fg)` e
-  `var(--muted)`. O mesmo no cartão da seção. **Ao editar o modal, use token, nunca hex.**
-
-Medido no render, sobre o navy: título **15,9**, dica **7,7**, contador **6,2**, rótulo da
-opção **15,9**. A versão clara tinha a dica em 4,9 e o contador em 3,4.
-
 ### Cor que carrega informação
 
 `icon()` e `ico()` usam `currentColor` — quem manda na cor é o recipiente.
