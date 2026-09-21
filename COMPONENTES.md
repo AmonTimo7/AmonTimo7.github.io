@@ -395,12 +395,35 @@ os três casos em sequência e o Tab passaria por dentro de slide invisível.
 **As capturas foram reduzidas para 1100px de largura** e a moldura tem `max-width: 560px` —
 antes ocupavam metade da tela e engoliam o texto do caso.
 
-> **As capturas do financeiro carregam números reais do cliente**: saldo de caixa, valor em
-> contratos, vendas do mês, e o extrato traz descrições com nome de pessoa. **Se isso
-> incomodar, borre os valores antes de republicar** — os números não são o que vende a seção.
+> **Os números do financeiro estão borrados.** As capturas traziam dados reais de um
+> cliente: saldo de caixa, total em contratos, vendas do mês e um extrato com nome de
+> pessoa na descrição. O desfoque é gaussiano (raio 13), aplicado banda a banda — só em
+> cima do número, nunca do rótulo, que é o que faz a tela continuar legível como sistema.
+> As bandas foram medidas por perfil de linha, não no olho; o script está no histórico
+> deste commit. **Os rótulos continuam nítidos de propósito** — "SALDO DO CAIXA",
+> "A RECEBER CP", a coluna "MÉTODO": é isso que vende a seção, não o valor. O PNG é a
+> origem e o WebP sai dele por redimensionamento; ao regerar, borre o PNG e reexporte,
+> senão a versão em alta continua legível na pasta `imgs/` — e ela é servida pela URL
+> também. Ao acrescentar captura nova, o mesmo trabalho.
 >
 > Os chips de cada caso são fatos estruturais de propósito (2 cliques, dia e mês, 1x a 12x) e
 > nunca os valores do cliente. Mantenha essa régua.
+
+### A saída da seção
+
+Até aqui `#sistemas` terminava na letra miúda do orçamento e emendava no Google: o
+visitante via o caso do banco e não tinha para onde ir, enquanto todo o resto da página
+levava ao WhatsApp. Agora tem três portas:
+
+- **O cartão de saída** no fim da seção (`.sis-cta`), com link próprio: `sistemaUrl`, a
+  mesma linha do `whatsUrl` mas com outra mensagem — quem chega por aqui não está pedindo
+  plano mensal, e a conversa começa errada se a mensagem disser "planos". A mensagem é
+  fixa no código, e não `prop`: mais um campo no editor é mais um campo pra esquecer.
+- **"Sistemas" no menu**, no desktop e no mobile, como primeiro item. Era a única seção
+  grande sem entrada no topo.
+- **Uma linha no hero**, abaixo dos dois botões. O H1 segue falando de site e marketing —
+  é o que a maioria vem buscar — mas quem chega com dor interna (planilha, controle,
+  caixa) não deveria precisar rolar meia página pra descobrir que a ACTech faz isso.
 
 Abaixo, quatro tipos de sistema (painel de gestão, financeiro, agenda, integração), cada um
 com a sua cor da roda. E o rodapé diz o que precisa ser dito: **sistema sob medida é orçado à

@@ -788,6 +788,24 @@
 
   .sis-pe { margin: 26px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--placeholder); text-align: center; }
 
+  /* ---- a saida da secao ----
+     A secao terminava na letra miuda: o visitante via o caso do banco e nao
+     tinha para onde ir. O link e o mesmo WhatsApp do resto da pagina, mas com
+     mensagem propria (`sistemaUrl`) -- quem chega por aqui nao esta pedindo
+     plano mensal, e a conversa comeca errada se a mensagem disser "planos". */
+  .sis-cta {
+    margin-top: 34px; padding: clamp(30px, 4vw, 46px); text-align: center;
+    border-radius: var(--r-base); background: var(--bg); box-shadow: var(--nm-out-sm);
+  }
+  .sis-cta h3 {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800;
+    font-size: clamp(21px, 2.6vw, 30px); line-height: 1.14; letter-spacing: -.025em;
+    margin: 0; color: var(--fg);
+  }
+  .sis-cta > p { margin: 14px auto 0; max-width: 48ch; font-size: 15.5px; line-height: 1.65; color: var(--muted); }
+  .sis-cta .btn { margin-top: 26px; }
+  .sis-cta .sis-pe { margin-top: 22px; }
+
   @media (max-width: 980px) {
     .sis-slide { grid-template-columns: minmax(0,1fr); gap: 24px; }
     .sis-midia { order: -1; justify-items: center; }
@@ -1809,6 +1827,7 @@
       </div>
 
       <nav class="nav-desktop" style="display: flex; align-items: center; gap: 6px;">
+        <a class="nav-link" href="#sistemas">Sistemas</a>
         <a class="nav-link" href="#diferenciais">Por que ACTech</a>
         <a class="nav-link" href="#faq">Dúvidas</a>
         <!-- Dois caminhos no topo: quem quer ver preço antes de falar com alguém
@@ -1830,6 +1849,7 @@
     <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
       <div class="mobile-menu wrap" style="padding-bottom: 18px;">
         <div class="nm-card" style="padding: 14px; display: grid; gap: 4px;">
+          <a class="nav-link" href="#sistemas" onClick="{{ closeMenu }}" style="display: block;">Sistemas</a>
           <a class="nav-link" href="#diferenciais" onClick="{{ closeMenu }}" style="display: block;">Por que ACTech</a>
           <a class="nav-link" href="#faq" onClick="{{ closeMenu }}" style="display: block;">Dúvidas</a>
           <a class="btn btn-secondary btn-block" href="#planos" onClick="{{ closeMenu }}" style="margin-top: 10px;">Ver planos</a>
@@ -1861,6 +1881,14 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="#38B2AC"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path><path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"></path></svg>
             Falar no WhatsApp
           </a>
+        </div>
+
+        <!-- A outra metade do negocio. O hero fala de site e marketing; quem chega
+             com dor interna (planilha, controle, caixa) precisa de uma porta aqui
+             em cima, senao so descobre #sistemas se rolar meia pagina. -->
+        <div data-reveal="1" style="margin-top: 24px; font-size: 14.5px; line-height: 1.6; color: #59616E;">
+          Precisa de um sistema interno?
+          <a href="#sistemas" style="color: #6C63FF; font-weight: 700; text-decoration: none; border-bottom: 1.5px solid rgba(108,99,255,.35);">Veja três que a gente construiu →</a>
         </div>
       </div>
 
@@ -2551,7 +2579,15 @@
         </div>
     </div>
 
-    <p class="sis-pe">Sistema sob medida é orçado à parte, fora dos planos mensais — cada um tem um tamanho.</p>
+    <div class="sis-cta" data-reveal="1">
+      <h3>Tem uma planilha que já não dá conta?</h3>
+      <p>Conta o que trava o seu dia hoje. A gente responde se dá pra resolver com um sistema — e o que ele teria que fazer.</p>
+      <a class="btn btn-primary" href="{{ sistemaUrl }}" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path><path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"></path></svg>
+        Falar sobre um sistema
+      </a>
+      <p class="sis-pe">Sistema sob medida é orçado à parte, fora dos planos mensais — cada um tem um tamanho.</p>
+    </div>
   </section>
 
   <section id="google" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
@@ -4789,6 +4825,10 @@ class Component extends DCLogic {
     // O @ do perfil: trocar aqui (ou no campo Contato) muda todos os links de uma vez.
     const insta = (this.props.instagramUser ?? 'actech.systems').replace(/^@/, '');
     const msg = encodeURIComponent(this.props.whatsappMessage ?? 'Olá! Vi a página da ACTech e quero saber mais sobre os planos.');
+    // Quem vem de #sistemas nao esta pedindo plano mensal: a conversa chega no
+    // WhatsApp ja dizendo o assunto certo. Mensagem fixa de proposito -- se virar
+    // prop, vira mais um campo pra esquecer de preencher no editor.
+    const msgSistema = encodeURIComponent('Olá! Vi os sistemas sob medida na página da ACTech e queria conversar sobre um para o meu negócio.');
     const faqData = this.memo('faq', () => [
       { q: 'Em quanto tempo meu site fica pronto?', a: 'Até 5 dias úteis depois que recebemos o material básico: logo, fotos, textos e informações de contato. Se preferir, a gente ajuda a organizar esse conteúdo antes de começar.' },
       { q: 'Como funciona o 1º mês grátis?', a: 'Você não paga a primeira mensalidade. Nesse período já fazemos o site, publicamos os posts e configuramos o Google Meu Negócio. A cobrança começa no segundo mês.' },
@@ -4841,6 +4881,7 @@ class Component extends DCLogic {
 
     return {
       whatsUrl: 'https://wa.me/' + phone + '?text=' + msg,
+      sistemaUrl: 'https://wa.me/' + phone + '?text=' + msgSistema,
       instaUrl: 'https://instagram.com/' + insta,
       instaUser: '@' + insta,
 
