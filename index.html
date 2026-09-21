@@ -4,27 +4,114 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>ACTech Informática — site e marketing digital para o seu negócio</title>
-<meta name="description" content="Site, redes sociais e Google Meu Negócio em uma mensalidade única. Site no ar em até 5 dias úteis e o primeiro mês grátis. Para comércios, mercados, lojas e prestadores de serviço." />
+<title>Criação de Sites e Marketing Digital em Brasília | ACTech</title>
+<meta name="description" content="Criação de sites, Instagram e Google Meu Negócio em uma mensalidade, para comércios e prestadores de serviço em Brasília. Sistemas sob medida. Primeiro mês grátis." />
 <meta name="theme-color" content="#E0E5EC" />
-<link rel="canonical" href="./" />
+<!-- Absoluto de proposito: o mesmo HTML e servido tambem em
+     amontimo7.github.io (ambiente de teste). Com canonical relativo, os
+     dois dominios se declaram originais e o Google escolhe qual indexar. -->
+<link rel="canonical" href="https://actechsystems.github.io/" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='8'%20fill='%23E0E5EC'/%3E%3Cpath%20d='M12%2011l-5%205%205%205M20%2011l5%205-5%205'%20fill='none'%20stroke='%236C63FF'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E" />
 
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="pt_BR" />
 <meta property="og:site_name" content="ACTech Informática" />
-<meta property="og:title" content="ACTech Informática — site e marketing digital para o seu negócio" />
+<meta property="og:title" content="Criação de Sites e Marketing Digital em Brasília | ACTech" />
 <meta property="og:description" content="Site, redes sociais e Google Meu Negócio em uma mensalidade única. Primeiro mês grátis." />
-<meta property="og:url" content="https://amontimo7.github.io/" />
+<meta property="og:url" content="https://actechsystems.github.io/" />
 <!-- O card que aparece quando alguem cola o link no WhatsApp, que e o canal
      principal daqui. A URL precisa ser absoluta: raspador de rede social nao
      resolve caminho relativo. Gerado a partir de imgs2/logo.jpeg. -->
-<meta property="og:image" content="https://amontimo7.github.io/imgs/og.png" />
+<meta property="og:image" content="https://actechsystems.github.io/imgs/og.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="ACTech Informática — site e marketing no mesmo lugar, primeiro mês grátis" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://amontimo7.github.io/imgs/og.png" />
+<meta name="twitter:image" content="https://actechsystems.github.io/imgs/og.png" />
+
+<!-- Dados estruturados. E o que permite o Google entender que isto e um
+     negocio local, e nao um site qualquer: nome, telefone, area atendida e o
+     que e vendido. Sem endereco de rua de proposito - a ACTech atende no
+     cliente e remoto, entao a ficha e de area de servico (SAB). Endereco
+     publicado aqui e nao publicado na ficha do Google vira inconsistencia de
+     NAP, que derruba posicao em vez de subir. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://actechsystems.github.io/#empresa",
+  "name": "ACTech Informática",
+  "alternateName": "ACTech",
+  "url": "https://actechsystems.github.io/",
+  "image": "https://actechsystems.github.io/imgs/og.png",
+  "logo": "https://actechsystems.github.io/imgs/og.png",
+  "description": "Criação de sites, gestão de Instagram e Google Meu Negócio em uma mensalidade única, e sistemas sob medida orçados à parte. Para comércios, mercados, lojas e prestadores de serviço.",
+  "telephone": "+55-61-99429-9823",
+  "priceRange": "R$197-R$397",
+  "currenciesAccepted": "BRL",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Brasília",
+    "addressRegion": "DF",
+    "addressCountry": "BR"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Brasília" },
+    { "@type": "AdministrativeArea", "name": "Distrito Federal" },
+    { "@type": "Country", "name": "Brasil" }
+  ],
+  "sameAs": [
+    "https://www.instagram.com/actech.systems"
+  ],
+  "knowsAbout": [
+    "Criação de sites para comércios locais",
+    "Gestão de Instagram",
+    "Google Meu Negócio",
+    "Sistemas sob medida",
+    "Painel de gestão",
+    "Controle financeiro e caixa",
+    "Agenda online e ordens de serviço"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Planos e serviços da ACTech",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "name": "Plano Essencial",
+        "description": "Site próprio, domínio e hospedagem e ficha do Google Meu Negócio. Primeiro mês grátis.",
+        "price": "197",
+        "priceCurrency": "BRL",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "197",
+          "priceCurrency": "BRL",
+          "unitCode": "MON"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Plano Completo",
+        "description": "Tudo do Essencial mais gestão de redes sociais, com posts e acompanhamento. Primeiro mês grátis.",
+        "price": "397",
+        "priceCurrency": "BRL",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "397",
+          "priceCurrency": "BRL",
+          "unitCode": "MON"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Sistema sob medida",
+        "description": "Painel de gestão, financeiro e caixa, agenda e ordens, ou integração entre sistemas. Orçado à parte, fora dos planos mensais.",
+        "priceCurrency": "BRL"
+      }
+    ]
+  }
+}
+</script>
 
 <script src="./support.js"></script>
 </head>
@@ -33,8 +120,9 @@
   <div style="max-width: 640px; margin: 0 auto; padding: 64px 24px; font-family: system-ui, sans-serif; color: #3D4852; background: #E0E5EC;">
     <h1 style="font-size: 32px; line-height: 1.15; margin: 0 0 16px;">ACTech Informática</h1>
     <p style="font-size: 17px; line-height: 1.6; color: #59616E; margin: 0 0 12px;">
-      Site, redes sociais e presença no Google em uma mensalidade única — para comércios,
-      mercados, lojas e prestadores de serviço. Site no ar em até 5 dias úteis e o primeiro mês grátis.
+      Criação de sites, gestão de Instagram e Google Meu Negócio em uma mensalidade única —
+      para comércios, mercados, lojas e prestadores de serviço em Brasília. Site no ar em até
+      5 dias úteis e o primeiro mês grátis. Sistemas sob medida orçados à parte.
     </p>
     <p style="font-size: 15px; line-height: 1.6; color: #59616E; margin: 0;">
       Esta página precisa de JavaScript para carregar. Ative o JavaScript no seu navegador e atualize.
@@ -1872,7 +1960,8 @@
         </h1>
 
         <p data-reveal="1" style="margin: 26px 0 0; max-width: 52ch; font-size: clamp(16.5px, 1.5vw, 18.5px); line-height: 1.65; color: #59616E;">
-          A ACTech cuida do seu site, das suas redes sociais e da sua presença no Google — tudo em uma mensalidade única, feita para comércios, mercados, lojas e prestadores de serviço.
+          A ACTech cuida do seu site, das suas redes sociais e da sua presença no Google — tudo em uma mensalidade única, feita para comércios, mercados, lojas e prestadores
+          de serviço de Brasília — e, no caso de site e sistema, de qualquer lugar do Brasil.
         </p>
 
         <div data-reveal="1" class="hero-cta" style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px;">
@@ -3401,7 +3490,11 @@
     </div>
     <div class="nm-track" style="max-width: 1180px; margin: 0 auto 28px; height: 6px; border-radius: 999px;"></div>
     <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 14px; color: #59616E;">
-      <div>ACTech Informática — sites e marketing digital para pequenos e médios negócios.</div>
+      <div>
+        ACTech Informática — criação de sites, gestão de Instagram, Google Meu Negócio
+        e sistemas sob medida para pequenos e médios negócios.<br />
+        Brasília, DF — atendemos todo o Brasil.
+      </div>
       <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
         <a class="rodape-link" href="{{ whatsUrl }}" target="_blank" rel="noopener">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path><path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"></path></svg>

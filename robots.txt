@@ -1,0 +1,9 @@
+# ACTech Informática — https://actechsystems.github.io
+# O mesmo arquivo é servido no ambiente de teste (amontimo7.github.io). Não dá
+# pra bloquear só o teste aqui, porque é o mesmo repositório nos dois lugares —
+# quem resolve a duplicidade é a tag canonical no <head> do index.html.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://actechsystems.github.io/sitemap.xml
