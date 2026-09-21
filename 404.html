@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Página não encontrada — ACTech Informática</title>
+<meta name="description" content="A página que você procurou não existe neste endereço. Veja os planos da ACTech Informática ou fale no WhatsApp." />
+<!-- Página de erro não entra no índice. O GitHub Pages já devolve status 404
+     de verdade aqui, então não é soft 404 — isto é só o cinto de segurança. -->
+<meta name="robots" content="noindex, follow" />
+<meta name="theme-color" content="#E0E5EC" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='8'%20fill='%23E0E5EC'/%3E%3Cpath%20d='M12%2011l-5%205%205%205M20%2011l5%205-5%205'%20fill='none'%20stroke='%236C63FF'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+
+<style>
+  /* Esta página é HTML puro de propósito: sem x-dc, sem support.js, sem GSAP.
+     Página de erro que depende de runtime é página de erro que falha
+     justamente na hora em que é chamada. Os tokens abaixo são cópia dos do
+     index.html — se a paleta mudar lá, muda aqui também. */
+  :root {
+    --bg: #E0E5EC;
+    --fg: #3D4852;
+    --muted: #59616E;
+    --placeholder: #7F8898;
+    --accent: #6C63FF;
+    --accent-light: #8B84FF;
+    --accent-2: #38B2AC;
+
+    --sh-dark: rgba(163,177,198,.6);
+    --sh-dark-strong: rgba(163,177,198,.7);
+    --sh-light: rgba(255,255,255,.5);
+    --sh-light-strong: rgba(255,255,255,.6);
+
+    --nm-out:       9px 9px 16px var(--sh-dark), -9px -9px 16px var(--sh-light);
+    --nm-out-hover: 12px 12px 20px var(--sh-dark-strong), -12px -12px 20px var(--sh-light-strong);
+    --nm-out-sm:    5px 5px 10px var(--sh-dark), -5px -5px 10px var(--sh-light);
+    --nm-in-deep:   inset 10px 10px 20px var(--sh-dark-strong), inset -10px -10px 20px var(--sh-light-strong);
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* A mesma aurora do site, em versão discreta: dá cor ao cinza sem roubar
+     a atenção do que importa aqui, que é o caminho de volta. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -20%;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(38% 42% at 18% 22%, rgba(108,99,255,.20), transparent 70%),
+      radial-gradient(34% 38% at 84% 76%, rgba(56,178,172,.18), transparent 70%),
+      radial-gradient(30% 34% at 72% 14%, rgba(198,42,122,.10), transparent 70%);
+    filter: blur(20px);
+  }
+
+  .folha { position: relative; z-index: 1; width: 100%; max-width: 660px; text-align: center; }
+
+  .marca {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 18px 10px 12px; margin: 0 0 40px;
+    border-radius: 999px; background: var(--bg);
+    box-shadow: var(--nm-out-sm);
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    font-weight: 700; font-size: 15px; color: var(--fg);
+    text-decoration: none;
+  }
+  .marca span { font-weight: 500; color: var(--muted); }
+
+  /* O 404 é cavado, não colocado sobre: é a regra da superfície do site.
+     Block com width fit-content, e não inline-block: como a marca acima é
+     inline-flex, os dois caíam lado a lado na mesma linha. */
+  .buraco {
+    display: block; width: fit-content; margin: 0 auto;
+    padding: 26px 54px; border-radius: 34px;
+    background: var(--bg); box-shadow: var(--nm-in-deep);
+  }
+  .buraco b {
+    display: block;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    font-weight: 800; font-size: clamp(64px, 14vw, 104px);
+    line-height: 1; letter-spacing: -.045em;
+    background: linear-gradient(100deg, var(--accent) 10%, var(--accent-light) 90%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  h1 {
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    font-weight: 800; font-size: clamp(27px, 4.6vw, 40px);
+    line-height: 1.1; letter-spacing: -.03em;
+    margin: 36px 0 0; text-wrap: balance;
+  }
+
+  .conta { margin: 16px auto 0; max-width: 46ch; font-size: 16.5px; line-height: 1.65; color: var(--muted); }
+
+  .botoes { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 34px; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 14px 26px; border-radius: 16px;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    font-weight: 700; font-size: 15px; text-decoration: none;
+    transition: box-shadow .3s var(--ease), transform .3s var(--ease);
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-1 { background: var(--accent); color: #fff; box-shadow: var(--nm-out); }
+  .btn-1:hover { box-shadow: var(--nm-out-hover); }
+  .btn-2 { background: var(--bg); color: var(--fg); box-shadow: var(--nm-out); }
+  .btn-2:hover { box-shadow: var(--nm-out-hover); }
+
+  /* Em vez de despejar a pessoa na home e lavar as mãos, as portas que ela
+     provavelmente queria. Um 404 útil é um 404 que recupera a visita. */
+  .portas {
+    display: grid; gap: 12px; margin: 46px 0 0;
+    /* 240px força duas colunas nos 660px da folha: com 178px cabiam três e a
+       quarta porta ficava órfã numa fileira só dela. */
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .porta {
+    display: block; padding: 18px 20px; border-radius: 18px;
+    background: var(--bg); box-shadow: var(--nm-out-sm);
+    text-align: left; text-decoration: none;
+    transition: box-shadow .3s var(--ease), transform .3s var(--ease);
+  }
+  .porta:hover { transform: translateY(-2px); box-shadow: var(--nm-out); }
+  .porta i { display: block; width: 26px; height: 3px; border-radius: 2px; margin-bottom: 12px; }
+  .porta b {
+    display: block; font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    font-weight: 700; font-size: 15.5px; color: var(--fg); margin-bottom: 3px;
+  }
+  .porta span { font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+
+  .rodape { margin: 44px 0 0; font-size: 13px; line-height: 1.6; color: var(--placeholder); }
+  .rodape a { color: var(--muted); text-decoration: none; border-bottom: 1px solid rgba(89,97,110,.28); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .porta { transition: none; }
+    .btn:hover, .porta:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<main class="folha">
+
+  <a class="marca" href="/">
+    <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" rx="8" fill="#E0E5EC"></rect>
+      <path d="M12 11l-5 5 5 5M20 11l5 5-5 5" fill="none" stroke="#6C63FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    ACTech <span>Informática</span>
+  </a>
+
+  <div class="buraco"><b>404</b></div>
+
+  <h1>Esta página não existe por aqui.</h1>
+
+  <p class="conta">
+    O endereço pode ter mudado, ou o link que te trouxe veio com um pedaço a mais.
+    O site da ACTech é de página única — o que você procura provavelmente está logo ali embaixo.
+  </p>
+
+  <div class="botoes">
+    <a class="btn btn-1" href="/">Voltar para o início</a>
+    <a class="btn btn-2" href="https://wa.me/5561994299823" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#38B2AC" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path><path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"></path></svg>
+      Falar no WhatsApp
+    </a>
+  </div>
+
+  <nav class="portas" aria-label="Seções do site">
+    <a class="porta" href="/#planos">
+      <i style="background:#6C63FF"></i>
+      <b>Planos</b>
+      <span>Site, redes e Google numa mensalidade. 1º mês grátis.</span>
+    </a>
+    <a class="porta" href="/#sistemas">
+      <i style="background:#0E9C8A"></i>
+      <b>Sistemas sob medida</b>
+      <span>Painel, caixa, agenda. Quando a planilha não dá conta.</span>
+    </a>
+    <a class="porta" href="/#trabalhos">
+      <i style="background:#C62A7A"></i>
+      <b>Trabalhos</b>
+      <span>Um pedaço do que já está no ar.</span>
+    </a>
+    <a class="porta" href="/#faq">
+      <i style="background:#B5800C"></i>
+      <b>Dúvidas</b>
+      <span>Prazo, fidelidade, domínio e o que entra em cada plano.</span>
+    </a>
+  </nav>
+
+  <p class="rodape">
+    ACTech Informática — Brasília, DF. Atendemos todo o Brasil.<br />
+    <a href="https://www.instagram.com/actech.systems" target="_blank" rel="noopener">@actech.systems</a>
+  </p>
+
+</main>
+
+</body>
+</html>
