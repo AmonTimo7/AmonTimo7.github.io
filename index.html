@@ -11,7 +11,7 @@
      amontimo7.github.io (ambiente de teste). Com canonical relativo, os
      dois dominios se declaram originais e o Google escolhe qual indexar. -->
 <link rel="canonical" href="https://actechsystems.github.io/" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='8'%20fill='%23E0E5EC'/%3E%3Cpath%20d='M12%2011l-5%205%205%205M20%2011l5%205-5%205'%20fill='none'%20stroke='%236C63FF'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='8'%20fill='%23E0E5EC'/%3E%3Cpath%20d='M12%2011l-5%205%205%205M20%2011l5%205-5%205'%20fill='none'%20stroke='%23AD5928'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E" />
 
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="pt_BR" />
@@ -152,8 +152,8 @@
     /* Letra miuda. Continua abaixo de 4,5 (e decorativa), mas #7F8898 dava 1,78
        e sob a aurora caia pra 1,49. Este da 2,82 / 2,37. */
     --placeholder: #7F8898;
-    --accent: #6C63FF;
-    --accent-light: #8B84FF;
+    --accent: #AD5928;
+    --accent-light: #C4753F;
     --accent-2: #38B2AC;
 
     /* ---- a roda de cor da pagina ----
@@ -164,7 +164,7 @@
          --fN  o fundo palido do ladrilho
        Trocar um --tN pelo --cN correspondente parece inofensivo e reprova o
        contraste na hora: as vivas ficam entre 2,0 e 3,1 sobre a aurora. */
-    --c1: #6C63FF; --t1: #4038C4; --f1: rgba(108,99,255,.14);   /* roxo */
+    --c1: #AD5928; --t1: #7A3F1C; --f1: rgba(173,89,40,.14);   /* terracota */
     --c2: #E0642F; --t2: #913812; --f2: rgba(224,100,47,.14);   /* laranja */
     --c3: #0E9C8A; --t3: #065F54; --f3: rgba(14,156,138,.14);   /* verde-agua */
     --c4: #C62A7A; --t4: #9D1E5F; --f4: rgba(198,42,122,.14);   /* magenta */
@@ -190,6 +190,9 @@
     --r-card: 32px;
     --r-base: 16px;
     --r-inner: 12px;
+    /* Badges, chips e CTAs em pílula (999px) liam como template de IA.
+       10px fecha o resto da régua sem virar retângulo. */
+    --r-pill: 10px;
     --ease: cubic-bezier(.2,.7,.2,1);
   }
 
@@ -251,7 +254,7 @@
     align-items: center;
     gap: 10px;
     padding: 9px 16px;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: var(--bg);
     box-shadow: var(--nm-in-sm);
     font-size: 13.5px;
@@ -260,7 +263,7 @@
   .nm-chip {
     display: inline-flex;
     align-items: center;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: var(--accent);
     color: #fff;
     font-weight: 700;
@@ -380,14 +383,6 @@
   }
   .mx-delta { font-size: 15px; font-weight: 700; letter-spacing: -.01em; color: var(--pos); }
   .mx-sub { font-size: 13.5px; color: var(--muted); margin-top: 5px; }
-  .mx-faixas { display: flex; gap: 4px; border-radius: 999px; padding: 5px; box-shadow: var(--nm-in-sm); }
-  .mx-faixa {
-    border: none; background: none; font: inherit; font-size: 12px; font-weight: 700;
-    color: var(--muted); padding: 7px 12px; border-radius: 999px; cursor: pointer;
-    transition: color .25s var(--ease), box-shadow .25s var(--ease);
-  }
-  .mx-faixa:hover { color: var(--fg); }
-  .mx-faixa.is-on { color: var(--fg); box-shadow: var(--nm-out-sm); }
   .mx-plot { position: relative; padding-right: 44px; margin-top: 20px; }
   .mx-svgbox { position: relative; }
   .mx-chart { display: block; width: 100%; height: auto; overflow: visible; }
@@ -399,7 +394,7 @@
   .mx-ponto {
     position: absolute; width: 8px; height: 8px; border-radius: 999px;
     background: var(--accent); transform: translate(-50%, -50%);
-    box-shadow: 0 0 0 5px rgba(108,99,255,.15);
+    box-shadow: 0 0 0 5px rgba(173,89,40,.15);
   }
   .mx-ylab {
     position: absolute; right: 0; width: 40px; text-align: right;
@@ -493,7 +488,7 @@
 
   .rodape-link {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 9px 15px; border-radius: 999px; text-decoration: none;
+    padding: 9px 15px; border-radius: var(--r-pill); text-decoration: none;
     background: var(--bg); color: var(--fg); font-weight: 600; font-size: 13.5px;
     box-shadow: var(--nm-out-sm); transition: box-shadow .25s var(--ease), transform .25s var(--ease), color .25s var(--ease);
   }
@@ -517,7 +512,7 @@
   }
   .srv-chip {
     flex: none; align-self: flex-start; display: inline-flex; align-items: center; gap: 9px;
-    padding: 10px 15px; border-radius: 999px; background: var(--bg); box-shadow: var(--nm-out-sm);
+    padding: 10px 15px; border-radius: var(--r-pill); background: var(--bg); box-shadow: var(--nm-out-sm);
     font-size: 11.5px; font-weight: 700; color: var(--fg); line-height: 1.25;
   }
   .srv-chip b { display: block; font-size: 10.5px; font-weight: 400; color: var(--muted); }
@@ -710,7 +705,7 @@
   .focus-frame i {
     position: absolute; width: 14px; height: 14px; display: block;
     border: 3px solid var(--accent); border-radius: 3px;
-    filter: drop-shadow(0 0 5px rgba(108,99,255,.55));
+    filter: drop-shadow(0 0 5px rgba(173,89,40,.55));
   }
   .focus-frame i:nth-child(1) { top: -10px; left: -10px; border-right: none; border-bottom: none; }
   .focus-frame i:nth-child(2) { top: -10px; right: -10px; border-left: none; border-bottom: none; }
@@ -821,7 +816,7 @@
   .sis-selo {
     display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px;
     font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase;
-    color: var(--sel, var(--t7)); padding: 7px 15px; border-radius: 999px; background: var(--self, var(--f7));
+    color: var(--sel, var(--t7)); padding: 7px 15px; border-radius: var(--r-pill); background: var(--self, var(--f7));
   }
   .sis-selo i { width: 7px; height: 7px; border-radius: 999px; background: currentColor; flex: none; }
   .sis-slide h3 {
@@ -920,7 +915,7 @@
   .mod-abas { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 26px; }
   .mod-aba {
     border: none; cursor: pointer; font: inherit; font-size: 14.5px; font-weight: 700;
-    padding: 12px 22px; border-radius: 999px; color: var(--muted);
+    padding: 12px 22px; border-radius: var(--r-pill); color: var(--muted);
     background: var(--bg); box-shadow: var(--nm-out-sm);
     transition: color .25s var(--ease), box-shadow .25s var(--ease), transform .25s var(--ease);
   }
@@ -1024,8 +1019,11 @@
     background: rgba(224,229,236,.62);
   }
   .aurora i:nth-child(1) {
-    width: 62vmax; height: 62vmax; top: -8vmax; left: -6vmax;
-    background: radial-gradient(circle closest-side, rgba(108,99,255,.42), rgba(108,99,255,0) 72%);
+    /* Reduzida: era a mancha mais forte, bem atrás do título do hero, e deixava
+       o fundo com cara de glow de dashboard de IA. Metade do tamanho, alpha
+       bem mais baixo — ainda participa da aurora, mas sem dominar o hero. */
+    width: 46vmax; height: 46vmax; top: -8vmax; left: -6vmax;
+    background: radial-gradient(circle closest-side, rgba(173,89,40,.18), rgba(173,89,40,0) 72%);
     animation: auroraA 34s ease-in-out infinite;
   }
   .aurora i:nth-child(2) {
@@ -1095,7 +1093,7 @@
   .pick:nth-child(8) { --tom-q: var(--c8); --tom-q-bg: var(--f8); --tom-q-txt: var(--t8); }
   /* so no formato cartao: no formato lista o .pick-ico e o proprio radio, e
      tingir ele faria a opcao parecer ja escolhida. */
-  .pick:not(.is-row) .pick-ico { background: var(--tom-q-bg, rgba(108,99,255,.13)); }
+  .pick:not(.is-row) .pick-ico { background: var(--tom-q-bg, rgba(173,89,40,.13)); }
 
   /* ---------- o diagnostico com movimento ----------
      Tudo aqui anima so transform e opacity, que o compositor resolve sem
@@ -1118,7 +1116,7 @@
     to   { opacity: 1; transform: none; }
   }
   /* o hover tinge o cartao inteiro, nao so o ladrilho */
-  .pick:not(.is-row):hover { background: var(--tom-q-bg, rgba(108,99,255,.13)); }
+  .pick:not(.is-row):hover { background: var(--tom-q-bg, rgba(173,89,40,.13)); }
   .pick:hover .pick-ico { transform: scale(1.12) rotate(-6deg); }
   .pick-ico { transition: background .3s var(--ease), box-shadow .25s var(--ease), transform .3s var(--ease); }
 
@@ -1165,7 +1163,7 @@
   .score-num { transition: color .5s var(--ease); }
   .score-faixa {
     display: inline-flex; align-items: center; gap: 7px; margin-bottom: 10px;
-    padding: 6px 14px; border-radius: 999px; box-shadow: var(--nm-out-sm);
+    padding: 6px 14px; border-radius: var(--r-pill); box-shadow: var(--nm-out-sm);
     font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
   }
   .score-faixa i { width: 8px; height: 8px; border-radius: 999px; background: currentColor; flex: none; }
@@ -1204,7 +1202,7 @@
   }
   .duelo-lista .duelo-linha:first-child { border-top: 0; }
   .duelo-linha.is-par { background: rgba(255,255,255,.42); }
-  .duelo-col--nos .duelo-linha.is-par { background: rgba(108,99,255,.07); }
+  .duelo-col--nos .duelo-linha.is-par { background: rgba(173,89,40,.07); }
   .duelo-tema {
     display: block; margin-bottom: 6px;
     font-size: 10.5px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase;
@@ -1268,7 +1266,7 @@
   .gmn-selo {
     position: absolute; top: -13px; left: 22px; z-index: 2;
     font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
-    padding: 7px 14px; border-radius: 999px; background: var(--bg); box-shadow: var(--nm-out-sm);
+    padding: 7px 14px; border-radius: var(--r-pill); background: var(--bg); box-shadow: var(--nm-out-sm);
   }
   .gmn-selo--ruim { color: var(--placeholder); }
   .gmn-selo--bom { color: var(--accent-2); }
@@ -1322,7 +1320,7 @@
   .ads-logos { display: flex; flex-wrap: wrap; gap: 12px; }
   .ads-chip {
     display: inline-flex; align-items: center; gap: 10px;
-    padding: 12px 18px 12px 13px; border-radius: 999px;
+    padding: 12px 18px 12px 13px; border-radius: var(--r-pill);
     background: var(--bg); box-shadow: var(--nm-out-sm);
     font-size: 14px; font-weight: 700; color: var(--fg); white-space: nowrap;
     transition: transform .25s var(--ease), box-shadow .25s var(--ease);
@@ -1644,7 +1642,7 @@
   /* a "capa" do ebook: um livro de pé, montado com sombras */
   .ebook-capa {
     width: 132px; flex: none; aspect-ratio: 3 / 4; border-radius: 6px 14px 14px 6px;
-    background: linear-gradient(135deg, #6C63FF, #8B84FF 55%, #38B2AC);
+    background: linear-gradient(135deg, #AD5928, #C4753F 55%, #38B2AC);
     box-shadow: 12px 12px 24px rgba(163,177,198,.7), -6px -6px 14px rgba(255,255,255,.55);
     display: flex; flex-direction: column; justify-content: space-between;
     padding: 18px 16px; color: #fff; position: relative; overflow: hidden;
@@ -1672,7 +1670,7 @@
     position: absolute; top: -11px; right: 20px;
     font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
     color: var(--accent-2); background: var(--bg); box-shadow: var(--nm-out-sm);
-    padding: 6px 13px; border-radius: 999px;
+    padding: 6px 13px; border-radius: var(--r-pill);
   }
   .oferta-topo { display: flex; gap: 16px; align-items: flex-start; }
   /* a capa aqui é miniatura: menos padding e tipo menor, senão o título vaza */
@@ -1707,7 +1705,7 @@
   .mat-tag {
     margin-top: auto; font-size: 11.5px; font-weight: 700; letter-spacing: .1em;
     text-transform: uppercase; color: var(--muted);
-    padding: 6px 12px; border-radius: 999px; box-shadow: var(--nm-in-sm);
+    padding: 6px 12px; border-radius: var(--r-pill); box-shadow: var(--nm-in-sm);
   }
   a.mat .mat-tag { color: var(--accent); box-shadow: var(--nm-out-sm); }
 
@@ -1956,7 +1954,7 @@
         </div>
 
         <h1 data-reveal="1" class="font-display" style="font-weight: 800; font-size: clamp(40px, 6.4vw, 76px); line-height: .98; letter-spacing: -.035em; margin: 26px 0 0; max-width: 15ch; text-wrap: balance; color: #3D4852;">
-          Site e marketing<br />no mesmo lugar.<br /><span style="background: linear-gradient(100deg, #6C63FF 10%, #8B84FF 90%); -webkit-background-clip: text; background-clip: text; color: transparent;">Sem complicação.</span>
+          Site e marketing<br />no mesmo lugar.<br /><span style="background: linear-gradient(100deg, #AD5928 10%, #C4753F 90%); -webkit-background-clip: text; background-clip: text; color: transparent;">Sem complicação.</span>
         </h1>
 
         <p data-reveal="1" style="margin: 26px 0 0; max-width: 52ch; font-size: clamp(16.5px, 1.5vw, 18.5px); line-height: 1.65; color: #59616E;">
@@ -1977,7 +1975,7 @@
              em cima, senao so descobre #sistemas se rolar meia pagina. -->
         <div data-reveal="1" style="margin-top: 24px; font-size: 14.5px; line-height: 1.6; color: #59616E;">
           Precisa de um sistema interno?
-          <a href="#sistemas" style="color: #6C63FF; font-weight: 700; text-decoration: none; border-bottom: 1.5px solid rgba(108,99,255,.35);">Veja três que a gente construiu →</a>
+          <a href="#sistemas" style="color: #AD5928; font-weight: 700; text-decoration: none; border-bottom: 1.5px solid rgba(173,89,40,.35);">Veja três que a gente construiu →</a>
         </div>
       </div>
 
@@ -1993,11 +1991,6 @@
                 <span class="mx-delta">▲ {{ mxDelta }}</span>
               </div>
               <div class="mx-sub">{{ mxSub }}</div>
-            </div>
-            <div class="mx-faixas" role="group" aria-label="Período">
-              <sc-for list="{{ mxFaixas }}" as="f" hint-placeholder-count="4">
-                <button class="{{ f.cls }}" onClick="{{ f.ir }}" aria-pressed="{{ f.on }}">{{ f.rotulo }}</button>
-              </sc-for>
             </div>
           </div>
 
@@ -2015,8 +2008,8 @@
             <svg class="mx-chart" viewBox="0 0 280 104" role="img" aria-label="{{ mxAlt }}">
               <defs>
                 <linearGradient id="mxfill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#6C63FF" stop-opacity=".26"></stop>
-                  <stop offset="100%" stop-color="#6C63FF" stop-opacity="0"></stop>
+                  <stop offset="0%" stop-color="#AD5928" stop-opacity=".26"></stop>
+                  <stop offset="100%" stop-color="#AD5928" stop-opacity="0"></stop>
                 </linearGradient>
               </defs>
               <path d="{{ mxArea }}" fill="url(#mxfill)"></path>
@@ -2047,12 +2040,12 @@
           </div>
         </div>
 
-        <div class="nm-tile float" style="position: absolute; top: -18px; right: -10px; padding: 11px 17px; border-radius: 999px; display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; color: #3D4852;">
+        <div class="nm-tile float" style="position: absolute; top: -18px; right: -10px; padding: 11px 17px; border-radius: var(--r-pill); display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; color: #3D4852;">
           <span style="width: 8px; height: 8px; border-radius: 999px; background: #38B2AC; display: block;"></span>
           Site no ar
         </div>
-        <div class="nm-tile float-slow" style="position: absolute; top: -22px; left: -12px; padding: 11px 17px; border-radius: 999px; display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; color: #3D4852;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg>
+        <div class="nm-tile float-slow" style="position: absolute; top: -22px; left: -12px; padding: 11px 17px; border-radius: var(--r-pill); display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; color: #3D4852;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg>
           Mais vendas locais
         </div>
       </div>
@@ -2187,7 +2180,7 @@
 
         <ul class="rede-lista">
           <li>
-            <span class="rede-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path></svg></span>
+            <span class="rede-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path></svg></span>
             <span><b>Arte feita pro seu negócio</b>, com a sua cara — não template genérico com o nome trocado.</span>
           </li>
           <li>
@@ -2195,7 +2188,7 @@
             <span><b>Aprovação por WhatsApp</b>, sem reunião e sem sistema novo pra aprender.</span>
           </li>
           <li>
-            <span class="rede-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg></span>
+            <span class="rede-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg></span>
             <span><b>De 8 a 20 posts por mês</b>, conforme o plano, com data marcada pra cada um.</span>
           </li>
         </ul>
@@ -2355,7 +2348,7 @@
               </div>
             </div>
             <div class="srv-chip">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
               Achado por quem busca perto
             </div>
           </div>
@@ -2377,7 +2370,7 @@
               <img class="arte" src="imgs/insta-7.webp" alt="" loading="lazy" decoding="async" />
             </div>
             <div class="srv-chip">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg>
               <span><b>Cliques no anúncio</b>1.284 no mês</span>
             </div>
           </div>
@@ -2917,7 +2910,7 @@
           <div style="position: relative;">
             <div style="display: flex; gap: 16px; align-items: center;">
               <div class="nm-well" style="width: 56px; height: 56px; border-radius: 18px;">
-                <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><path d="M2 7h20v5H2z"></path><path d="M12 21V7"></path><path d="M12 7C9 7 7 5.5 7 4a2 2 0 014 0c0 1.5 1 3 1 3z"></path></svg>
+                <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><path d="M2 7h20v5H2z"></path><path d="M12 21V7"></path><path d="M12 7C9 7 7 5.5 7 4a2 2 0 014 0c0 1.5 1 3 1 3z"></path></svg>
               </div>
               <div>
                 <div class="quiz-step">Presente liberado</div>
@@ -2939,11 +2932,11 @@
                   Serve mesmo que você nunca contrate a ACTech.
                 </p>
                 <ul class="ebook-lista">
-                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>A busca local</b> — como o cliente já procura você hoje</span></li>
-                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>A ficha do Google</b> — vale mais que cem posts</span></li>
-                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>O que postar</b> — cinco tipos que resolvem o mês</span></li>
-                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>A foto que vende</b> — tirada no celular mesmo</span></li>
-                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>Responder rápido</b> — metade da venda está aí</span></li>
+                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>A busca local</b> — como o cliente já procura você hoje</span></li>
+                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>A ficha do Google</b> — vale mais que cem posts</span></li>
+                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>O que postar</b> — cinco tipos que resolvem o mês</span></li>
+                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>A foto que vende</b> — tirada no celular mesmo</span></li>
+                  <li><span class="ebook-tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span><span><b>Responder rápido</b> — metade da venda está aí</span></li>
                 </ul>
               </div>
             </div>
@@ -2966,7 +2959,7 @@
             <div class="mat-grid">
               <div class="mat" data-vazio>
                 <span class="mat-ico">
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h9l5 5v11H5z"></path><path d="M14 4v5h5"></path><path d="M9 13h6"></path><path d="M9 16.5h4"></path></svg>
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h9l5 5v11H5z"></path><path d="M14 4v5h5"></path><path d="M9 13h6"></path><path d="M9 16.5h4"></path></svg>
                 </span>
                 <span class="mat-t">Ebook em PDF</span>
                 <span class="mat-s">O guia completo pra ler com calma</span>
@@ -3003,7 +2996,7 @@
                 <div style="font-size: 12.5px; color: rgba(255,255,255,.78);">Fidelidade 6 meses</div>
               </div>
               <div style="margin: 16px 0 12px;">
-                <span style="display: inline-flex; background: rgba(255,255,255,.2); color: #fff; font-weight: 700; font-size: 12px; letter-spacing: .08em; padding: 7px 14px; border-radius: 999px;">1º MÊS GRÁTIS</span>
+                <span style="display: inline-flex; background: rgba(255,255,255,.2); color: #fff; font-weight: 700; font-size: 12px; letter-spacing: .08em; padding: 7px 14px; border-radius: var(--r-pill);">1º MÊS GRÁTIS</span>
               </div>
               <div style="display: flex; align-items: baseline; gap: 8px;">
                 <span class="font-display" style="font-weight: 800; font-size: 52px; line-height: 1; letter-spacing: -.04em;">R$ 197</span>
@@ -3043,7 +3036,7 @@
                 <div style="font-size: 12.5px; color: rgba(255,255,255,.78);">Fidelidade 6 meses</div>
               </div>
               <div style="margin: 16px 0 12px;">
-                <span style="display: inline-flex; background: rgba(255,255,255,.22); color: #fff; font-weight: 700; font-size: 12px; letter-spacing: .08em; padding: 7px 14px; border-radius: 999px;">1º MÊS GRÁTIS</span>
+                <span style="display: inline-flex; background: rgba(255,255,255,.22); color: #fff; font-weight: 700; font-size: 12px; letter-spacing: .08em; padding: 7px 14px; border-radius: var(--r-pill);">1º MÊS GRÁTIS</span>
               </div>
               <div style="display: flex; align-items: baseline; gap: 8px;">
                 <span class="font-display" style="font-weight: 800; font-size: 52px; line-height: 1; letter-spacing: -.04em;">R$ 397</span>
@@ -3056,7 +3049,7 @@
             <p style="margin: 0; font-size: 15px; color: #59616E; line-height: 1.6;">Para quem quer crescer: conteúdo forte, Google ativo e relatório de resultado.</p>
             <a class="btn btn-primary btn-block" href="{{ whatsUrl }}" target="_blank" style="margin: 24px 0 4px;">Quero o Completo</a>
             <div class="nm-track" style="height: 6px; border-radius: 999px; margin: 28px 0 20px;"></div>
-            <div style="font-size: 14px; font-weight: 700; color: #6C63FF; letter-spacing: .04em; margin-bottom: 8px;">Tudo do Essencial, mais:</div>
+            <div style="font-size: 14px; font-weight: 700; color: #AD5928; letter-spacing: .04em; margin-bottom: 8px;">Tudo do Essencial, mais:</div>
             <sc-for list="{{ completo }}" as="item" hint-placeholder-count="6">
               <div class="check-row">
                 <span class="check-mark">
@@ -3235,7 +3228,7 @@
         <div class="swap-container" data-swap>
           <div class="swap-card">
             <div class="nm-well" style="width: 52px; height: 52px; border-radius: 16px;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v12H3z"></path><path d="M8 21h8"></path><path d="M12 17v4"></path></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v12H3z"></path><path d="M8 21h8"></path><path d="M12 17v4"></path></svg>
             </div>
             <div>
               <div class="font-display" style="font-weight: 800; font-size: 22px; color: #3D4852;">Site no ar</div>
@@ -3244,7 +3237,7 @@
           </div>
           <div class="swap-card">
             <div class="nm-well" style="width: 52px; height: 52px; border-radius: 16px;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17" cy="7" r="1"></circle></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17" cy="7" r="1"></circle></svg>
             </div>
             <div>
               <div class="font-display" style="font-weight: 800; font-size: 22px; color: #3D4852;">Redes no ritmo</div>
@@ -3253,7 +3246,7 @@
           </div>
           <div class="swap-card">
             <div class="nm-well" style="width: 52px; height: 52px; border-radius: 16px;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.4 7-11a7 7 0 10-14 0c0 4.6 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.4 7-11a7 7 0 10-14 0c0 4.6 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg>
             </div>
             <div>
               <div class="font-display" style="font-weight: 800; font-size: 22px; color: #3D4852;">Achado no Google</div>
@@ -3453,7 +3446,7 @@
               <rect x="0" y="0" width="100%" height="100%" rx="30" ry="30" fill="#38B2AC"></rect>
             </g>
             <g filter="url(#goo-filter)">
-              <rect x="0" y="0" width="100%" height="100%" rx="30" ry="30" fill="#6C63FF" mask="url(#goo-bite)"></rect>
+              <rect x="0" y="0" width="100%" height="100%" rx="30" ry="30" fill="#AD5928" mask="url(#goo-bite)"></rect>
             </g>
           </svg>
           <span class="goo-label">
@@ -3524,7 +3517,7 @@
           <sc-if value="{{ quizPortal }}" hint-placeholder-val="{{ false }}">
             <div class="{{ stepCls }}" style="text-align: center; padding: 10px 0 6px;">
               <div class="nm-well" style="width: 78px; height: 78px; border-radius: 26px; margin: 0 auto 24px;">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
               </div>
               <h3 class="quiz-q" style="margin-top: 0;">{{ portalTitulo }}</h3>
               <p class="quiz-hint" style="max-width: 46ch; margin: 0 auto 26px;">
@@ -3577,7 +3570,7 @@
             <div class="quiz-load {{ stepCls }}">
               <div class="quiz-ring">
                 <i></i>
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.5-4.5"></path></svg>
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.5-4.5"></path></svg>
               </div>
               <div class="quiz-load-msg">{{ quizLoadMsg }}</div>
             </div>
@@ -3630,7 +3623,7 @@
               </sc-for>
 
               <div class="rec">
-                <div style="font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: #6C63FF;">O que a gente indica pra você</div>
+                <div style="font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: #AD5928;">O que a gente indica pra você</div>
                 <div style="display: flex; align-items: baseline; gap: 10px; margin-top: 12px; flex-wrap: wrap;">
                   <span class="font-display" style="font-weight: 800; font-size: 30px; color: #3D4852;">Plano {{ resPlan }}</span>
                   <span style="font-size: 17px; color: #59616E;">{{ resPrice }}</span>
@@ -3696,7 +3689,7 @@
                   <div class="mat-grid" style="margin-top: 18px;">
                     <div class="mat" data-vazio>
                       <span class="mat-ico">
-                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h9l5 5v11H5z"></path><path d="M14 4v5h5"></path><path d="M9 13h6"></path><path d="M9 16.5h4"></path></svg>
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#AD5928" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h9l5 5v11H5z"></path><path d="M14 4v5h5"></path><path d="M9 13h6"></path><path d="M9 16.5h4"></path></svg>
                       </span>
                       <span class="mat-t">Ebook em PDF</span>
                       <span class="mat-s">O guia completo pra ler com calma</span>
@@ -3759,7 +3752,7 @@
     </div>
   </sc-if>
 
-  <a class="fab float-slow" href="{{ whatsUrl }}" target="_blank" aria-label="Falar no WhatsApp" style="position: fixed; z-index: 60; right: 22px; bottom: 22px; display: inline-flex; align-items: center; gap: 11px; min-height: 48px; background: #E0E5EC; color: #3D4852; font-weight: 700; font-size: 15px; padding: 15px 24px; border-radius: 999px; box-shadow: 9px 9px 16px rgba(163,177,198,.6), -9px -9px 16px rgba(255,255,255,.5);">
+  <a class="fab float-slow" href="{{ whatsUrl }}" target="_blank" aria-label="Falar no WhatsApp" style="position: fixed; z-index: 60; right: 22px; bottom: 22px; display: inline-flex; align-items: center; gap: 11px; min-height: 48px; background: #E0E5EC; color: #3D4852; font-weight: 700; font-size: 15px; padding: 15px 24px; border-radius: var(--r-pill); box-shadow: 9px 9px 16px rgba(163,177,198,.6), -9px -9px 16px rgba(255,255,255,.5);">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="#38B2AC" style="flex: none;"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"></path></svg>
     <span>Fale no WhatsApp</span>
   </a>
@@ -4239,7 +4232,7 @@ class Component extends DCLogic {
     const g = window.gsap;
 
     const NS = 'http://www.w3.org/2000/svg';
-    const COLOR = '#6C63FF';
+    const COLOR = '#AD5928';
     const SIZE = 90;
     const STROKE = 2;
     const DUR = 0.3;
@@ -5051,8 +5044,8 @@ class Component extends DCLogic {
       // diz o resultado em texto, entao o anel pode puxar saturacao sem cobrar
       // legibilidade. As faixas sao as mesmas que ja decidem o titulo do
       // resultado, em quizResult() - mexeu numa, mexa na outra.
-      scoreCor: !res ? '#6C63FF' : res.score < 40 ? '#E5484D' : res.score < 68 ? '#F5A524' : '#12A594',
-      scoreCorTexto: !res ? '#6C63FF' : res.score < 40 ? '#C62A2F' : res.score < 68 ? '#A76800' : '#0E7C6F',
+      scoreCor: !res ? '#AD5928' : res.score < 40 ? '#E5484D' : res.score < 68 ? '#F5A524' : '#12A594',
+      scoreCorTexto: !res ? '#AD5928' : res.score < 40 ? '#C62A2F' : res.score < 68 ? '#A76800' : '#0E7C6F',
       scoreFaixa: !res ? '' : res.score < 40 ? 'Precisa de atenção' : res.score < 68 ? 'Base no lugar' : 'Bem posicionado',
       resWho: res ? res.who : '',
       resTitle: res ? res.title : '',
