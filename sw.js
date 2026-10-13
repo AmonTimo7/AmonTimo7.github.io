@@ -14,7 +14,7 @@
      São versionados pelo deploy e não mudam no meio do dia.
 */
 
-var VERSAO = 'actech-v8';
+var VERSAO = 'actech-v9';
 var C_CASCA = VERSAO + '-casca';
 var C_USO = VERSAO + '-uso';
 
@@ -46,6 +46,8 @@ var CASCA = [
   'fontes/plus-jakarta-sans-700.woff2',
   'fontes/plus-jakarta-sans-800.woff2',
   'imgs/marca.webp',
+  'imgs/amon.webp',
+  'imgs/amon-mini.webp',
 
   /* O que faz o site principal FUNCIONAR, não só aparecer. Sem estes, o
      index abria offline com o esqueleto do HTML e nada respondia: sem abas,

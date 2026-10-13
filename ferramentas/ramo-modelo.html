@@ -271,6 +271,10 @@
   /* ---------- fim ---------- */
   .fim { text-align: center; background: var(--bg); border-radius: var(--r-card); box-shadow: var(--nm-out); padding: 56px 32px; }
   .fim .acoes { justify-content: center; }
+  .quem { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 22px auto 0; max-width: 46ch; text-align: left; }
+  .quem img { flex: none; width: 54px; height: 54px; border-radius: 999px; object-fit: cover; border: 3px solid var(--bg); box-shadow: var(--nm-out-sm); }
+  .quem p { margin: 0; font-size: 16.5px; line-height: 1.55; color: var(--muted); }
+  .quem b { color: var(--fg); }
   .rodape { padding: 48px 24px 110px; font-size: 14px; color: var(--muted); }
   .rodape .wrap { display: grid; gap: 14px; padding: 0; }
   .rodape a { color: var(--muted); text-underline-offset: 3px; text-decoration-color: rgba(89,97,110,.35); }
@@ -459,7 +463,7 @@
   <section class="wrap sec">
     <div class="fim">
       <h2 style="max-width: 22ch; margin: 0 auto;">Vamos colocar [[ARTIGO]] no ar?</h2>
-      <p class="lead" style="margin-left: auto; margin-right: auto;">Manda um oi no WhatsApp. Quem responde é o Amon, que faz o seu site.</p>
+      <div class="quem"><img src="../imgs/amon-mini.webp" alt="" width="120" height="120" loading="lazy" decoding="async"><p>Manda um oi no WhatsApp. Quem responde é o <b>Amon</b>, que faz o seu site.</p></div>
       <div class="acoes">
         <a class="btn btn-1" href="[[ZAP]]" target="_blank" rel="noopener">[[ZAP_SVG]] Falar no WhatsApp</a>
         <a class="btn btn-2" href="#planos">Ver os planos</a>

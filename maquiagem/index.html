@@ -271,6 +271,10 @@
   /* ---------- fim ---------- */
   .fim { text-align: center; background: var(--bg); border-radius: var(--r-card); box-shadow: var(--nm-out); padding: 56px 32px; }
   .fim .acoes { justify-content: center; }
+  .quem { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 22px auto 0; max-width: 46ch; text-align: left; }
+  .quem img { flex: none; width: 54px; height: 54px; border-radius: 999px; object-fit: cover; border: 3px solid var(--bg); box-shadow: var(--nm-out-sm); }
+  .quem p { margin: 0; font-size: 16.5px; line-height: 1.55; color: var(--muted); }
+  .quem b { color: var(--fg); }
   .rodape { padding: 48px 24px 110px; font-size: 14px; color: var(--muted); }
   .rodape .wrap { display: grid; gap: 14px; padding: 0; }
   .rodape a { color: var(--muted); text-underline-offset: 3px; text-decoration-color: rgba(89,97,110,.35); }
@@ -459,7 +463,7 @@
   <section class="wrap sec">
     <div class="fim">
       <h2 style="max-width: 22ch; margin: 0 auto;">Vamos colocar o seu trabalho de make no ar?</h2>
-      <p class="lead" style="margin-left: auto; margin-right: auto;">Manda um oi no WhatsApp. Quem responde é o Amon, que faz o seu site.</p>
+      <div class="quem"><img src="../imgs/amon-mini.webp" alt="" width="120" height="120" loading="lazy" decoding="async"><p>Manda um oi no WhatsApp. Quem responde é o <b>Amon</b>, que faz o seu site.</p></div>
       <div class="acoes">
         <a class="btn btn-1" href="https://wa.me/5561994299823?text=Ol%C3%A1%21%20Vi%20a%20p%C3%A1gina%20de%20site%20para%20maquiadora%20da%20ACTech%20e%20quero%20saber%20mais." target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path><path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"></path></svg> Falar no WhatsApp</a>
         <a class="btn btn-2" href="#planos">Ver os planos</a>

@@ -417,12 +417,9 @@
   .combinado-assina { display: flex; gap: 13px; align-items: center; margin-top: 6px; padding-top: 18px; border-top: 1px solid rgba(163,177,198,.34); }
   .combinado-assina b { display: block; font-size: 14.5px; color: var(--fg); }
   .combinado-assina span:not(.combinado-mono) { display: block; font-size: 13px; color: var(--muted); }
-  /* Monograma no lugar da foto ate o Amon mandar uma: trocar por
-     <img class="combinado-mono" src="imgs/amon.webp" alt=""> com o mesmo tamanho. */
   .combinado-mono {
-    flex: none; width: 44px; height: 44px; border-radius: 999px; display: grid; place-items: center;
-    background: var(--accent); color: #fff; font: 800 18px 'Plus Jakarta Sans', system-ui, sans-serif;
-    box-shadow: var(--nm-out-sm); object-fit: cover;
+    display: block; flex: none; width: 46px; height: 46px; border-radius: 999px; object-fit: cover;
+    border: 3px solid var(--bg); box-shadow: var(--nm-out-sm); background: var(--bg);
   }
 
   /* O combinado como faixa larga logo abaixo do hero: titulo e assinatura a
@@ -471,16 +468,17 @@
   /* ---------- Quem faz ---------- */
   .quem { display: grid; grid-template-columns: 260px minmax(0,1fr); gap: 56px; align-items: center; padding: 48px 52px; }
   .quem-lado { text-align: center; }
-  .quem-mono, .quem-foto {
-    width: 220px; height: 220px; border-radius: 999px; margin: 0 auto; display: grid; place-items: center;
-    background: var(--bg); box-shadow: var(--nm-out), inset 0 0 0 14px var(--bg), inset 0 0 0 16px rgba(61,106,153,.18);
-    color: var(--accent); font: 800 96px/1 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: -.04em; object-fit: cover;
+  /* a moldura e uma borda da cor da superficie + o relevo de fora: parece
+     que a foto foi encaixada na placa, como o resto da pagina */
+  .quem-foto {
+    display: block; width: 220px; height: 220px; border-radius: 999px; margin: 0 auto; object-fit: cover;
+    border: 10px solid var(--bg); box-shadow: var(--nm-out), 0 0 0 1px rgba(163,177,198,.25); background: var(--bg);
   }
   .quem-local { margin-top: 18px; font-size: 13.5px; font-weight: 700; color: var(--muted); }
   .quem-txt { margin: 18px 0 0; font-size: 16.5px; line-height: 1.7; color: var(--muted); max-width: 56ch; }
   @media (max-width: 760px) {
     .quem { grid-template-columns: 1fr; gap: 28px; padding: 32px 22px; text-align: left; }
-    .quem-mono, .quem-foto { width: 120px; height: 120px; font-size: 52px; margin: 0; }
+    .quem-foto { width: 112px; height: 112px; border-width: 6px; margin: 0; }
     .quem-lado { display: flex; align-items: center; gap: 18px; text-align: left; }
     .quem-local { margin-top: 0; }
   }
@@ -1649,7 +1647,7 @@
           </li>
         </ul>
         <div class="combinado-assina">
-          <span class="combinado-mono" aria-hidden="true">A</span>
+          <img class="combinado-mono" src="imgs/amon-mini.webp" alt="" width="120" height="120" decoding="async" />
           <div><b>Amon, da ACTech</b><span>Quem faz o seu site e responde o seu WhatsApp</span></div>
         </div>
       </div>
@@ -2364,12 +2362,12 @@
 
   <!-- Quem faz. Pagina de agencia sem rosto nenhum parece fachada; o
        diferencial "voce fala com quem faz" so convence com um nome do lado.
-       FOTO: quando o Amon mandar, trocar o .quem-mono por
-       <img class="quem-foto" src="imgs/amon.webp" alt="Amon, da ACTech" width="260" height="260">. -->
+       A foto (imgs/amon.webp) e um recorte quadrado da original que ele mandou
+       em 13/10/2026; imgs/amon-mini.webp e a mesma, pequena, pra assinatura. -->
   <section data-anima id="quem" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 96px;">
     <div class="quem nm-card" data-reveal="1">
-      <div class="quem-lado" aria-hidden="true">
-        <div class="quem-mono">A</div>
+      <div class="quem-lado">
+        <img class="quem-foto" src="imgs/amon.webp" alt="Amon, da ACTech, sorrindo, de camisa social" width="560" height="560" loading="lazy" decoding="async" />
         <div class="quem-local">Brasília, DF</div>
       </div>
       <div>
