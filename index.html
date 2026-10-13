@@ -168,8 +168,11 @@
     --accent-2: #38B2AC;
     /* Laranja só pros botões de ação (CTA) -- marcante de propósito, separado
        do azul de marca pra saltar contra o resto da página. */
-    --cta: #CC5200;
-    --cta-light: #E8690A;
+    /* #CC5200 dava 4,4:1 com texto branco, raspando abaixo dos 4,5. Este da
+       4,7 e o olho nao ve diferenca. O hover agora escurece (5,2:1): o claro
+       antigo (#E8690A) caia pra 3,3 justamente quando a pessoa ia clicar. */
+    --cta: #C44F00;
+    --cta-light: #B84A00;
     --cta-active: #7A3000;
 
     /* ---- a roda de cor da pagina ----
@@ -394,24 +397,72 @@
   .faq-sign--closed { box-shadow: var(--nm-out-sm); }  /* fechado = em relevo */
   .faq-sign--open   { box-shadow: var(--nm-in); }      /* aberto  = afundado  */
 
-  /* ---------- Hero: cartão de resultado ----------
-     Era um gráfico de linha+barras com toggle de período -- o cliché de
-     "dashboard de crescimento" que qualquer gerador de landing desenha
-     sozinho. Virou um cartão de estatística só: número grande, variação,
-     legenda e o aviso de que é ilustrativo. Sem eixo, sem curva, sem barra. */
-  .mx { background: var(--bg); border-radius: var(--r-card); box-shadow: var(--nm-out); padding: 30px 28px; }
-  @media (max-width: 640px) { .mx { padding: 24px 20px; } }
-  .mx-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
-  .mx-eyebrow { font-size: 10.5px; letter-spacing: .15em; text-transform: uppercase; font-weight: 700; color: var(--accent); }
-  .mx-val {
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    font-weight: 800; font-size: clamp(38px, 4.6vw, 54px); letter-spacing: -.035em;
-    color: var(--fg); margin-top: 14px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  /* ---------- Hero: o combinado ----------
+     No lugar do cartao de numero ilustrativo: as quatro promessas que a ACTech
+     cumpre, cada uma com a condicao escrita do lado, e quem assina embaixo.
+     A lista e a prova -- por isso texto de verdade, nao selo. */
+  .combinado { background: var(--bg); border-radius: var(--r-card); box-shadow: var(--nm-out); padding: 30px 30px 26px; }
+  @media (max-width: 640px) { .combinado { padding: 24px 20px 22px; } }
+  .combinado-tit { font-weight: 800; font-size: 26px; color: var(--fg); }
+  .combinado-sub { margin-top: 4px; font-size: 14.5px; color: var(--muted); }
+  .combinado-lista { list-style: none; margin: 22px 0 0; padding: 0; }
+  .combinado-lista li { display: flex; gap: 15px; align-items: flex-start; padding: 15px 0; border-top: 1px solid rgba(163,177,198,.34); }
+  .combinado-lista b { display: block; font-size: 16px; color: var(--fg); }
+  .combinado-lista span:not(.combinado-ico) { display: block; margin-top: 3px; font-size: 14px; line-height: 1.55; color: var(--muted); }
+  .combinado-ico { width: 40px; height: 40px; border-radius: 13px; box-shadow: var(--nm-in); }
+  .combinado-lista li:nth-child(1) .combinado-ico { color: var(--t1); }
+  .combinado-lista li:nth-child(2) .combinado-ico { color: var(--t8); }
+  .combinado-lista li:nth-child(3) .combinado-ico { color: var(--t7); }
+  .combinado-lista li:nth-child(4) .combinado-ico { color: var(--t3); }
+  .combinado-assina { display: flex; gap: 13px; align-items: center; margin-top: 6px; padding-top: 18px; border-top: 1px solid rgba(163,177,198,.34); }
+  .combinado-assina b { display: block; font-size: 14.5px; color: var(--fg); }
+  .combinado-assina span:not(.combinado-mono) { display: block; font-size: 13px; color: var(--muted); }
+  /* Monograma no lugar da foto ate o Amon mandar uma: trocar por
+     <img class="combinado-mono" src="imgs/amon.webp" alt=""> com o mesmo tamanho. */
+  .combinado-mono {
+    flex: none; width: 44px; height: 44px; border-radius: 999px; display: grid; place-items: center;
+    background: var(--accent); color: #fff; font: 800 18px 'Plus Jakarta Sans', system-ui, sans-serif;
+    box-shadow: var(--nm-out-sm); object-fit: cover;
   }
-  .mx-delta { font-size: 16px; font-weight: 700; letter-spacing: -.01em; color: var(--pos); }
-  .mx-sub { font-size: 14px; color: var(--muted); margin-top: 6px; }
-  .mx-foot { margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(163,177,198,.34); }
-  .mx-nota { font-size: 11.5px; color: var(--placeholder); text-align: left; line-height: 1.5; }
+
+  /* ---------- Como funciona ----------
+     Linha do tempo: um trilho cavado liga os tres numeros. No celular o
+     trilho fica em pe, a esquerda. */
+  .passos { list-style: none; margin: 52px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 36px; position: relative; }
+  .passos::before { content: ''; position: absolute; top: 25px; left: 26px; right: calc(33.33% - 26px); height: 6px; border-radius: 6px; background: var(--bg); box-shadow: var(--nm-in-sm); }
+  .passos li { position: relative; }
+  .passo-n {
+    position: relative; z-index: 1; width: 56px; height: 56px; border-radius: 999px; display: grid; place-items: center;
+    background: var(--bg); box-shadow: var(--nm-out); color: var(--fg);
+    font: 800 21px 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+  .passo-quando { margin-top: 22px; font-size: 13.5px; font-weight: 700; }
+  .passo-tit { margin-top: 6px; font-weight: 800; font-size: 21px; line-height: 1.2; color: var(--fg); }
+  .passos p { margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--muted); max-width: 34ch; }
+  @media (max-width: 760px) {
+    .passos { grid-template-columns: 1fr; gap: 28px; margin-top: 36px; }
+    .passos::before { top: 28px; bottom: 28px; left: 25px; right: auto; width: 6px; height: auto; }
+    .passos li { padding-left: 76px; min-height: 56px; }
+    .passo-n { position: absolute; left: 0; top: 0; }
+    .passo-quando { margin-top: 2px; }
+  }
+
+  /* ---------- Quem faz ---------- */
+  .quem { display: grid; grid-template-columns: 260px minmax(0,1fr); gap: 56px; align-items: center; padding: 48px 52px; }
+  .quem-lado { text-align: center; }
+  .quem-mono, .quem-foto {
+    width: 220px; height: 220px; border-radius: 999px; margin: 0 auto; display: grid; place-items: center;
+    background: var(--bg); box-shadow: var(--nm-out), inset 0 0 0 14px var(--bg), inset 0 0 0 16px rgba(61,106,153,.18);
+    color: var(--accent); font: 800 96px/1 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: -.04em; object-fit: cover;
+  }
+  .quem-local { margin-top: 18px; font-size: 13.5px; font-weight: 700; color: var(--muted); }
+  .quem-txt { margin: 18px 0 0; font-size: 16.5px; line-height: 1.7; color: var(--muted); max-width: 56ch; }
+  @media (max-width: 760px) {
+    .quem { grid-template-columns: 1fr; gap: 28px; padding: 32px 22px; text-align: left; }
+    .quem-mono, .quem-foto { width: 120px; height: 120px; font-size: 52px; margin: 0; }
+    .quem-lado { display: flex; align-items: center; gap: 18px; text-align: left; }
+    .quem-local { margin-top: 0; }
+  }
 
   .float { animation: float 3s ease-in-out infinite; }
   .float-slow { animation: float 4.5s ease-in-out infinite; }
@@ -485,6 +536,12 @@
   }
   .rodape-link:hover { transform: translateY(-1px); box-shadow: var(--nm-out); color: var(--accent); }
   .rodape-link:active { transform: translateY(.5px); box-shadow: var(--nm-in-sm); }
+  .rodape-mini { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+  .rodape-mini:hover { color: var(--accent); }
+  .rodape-ramos { max-width: 1180px; margin: 22px auto 0; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13.5px; color: var(--muted); }
+  .rodape-ramos span { font-weight: 700; }
+  .rodape-ramos a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(89,97,110,.35); }
+  .rodape-ramos a:hover { color: var(--accent); text-decoration-color: currentColor; }
 
   /* ---------- Painéis de #servicos (os mesmos do canvas do Claude Design) ----------
      O quadro é 300x400 no desktop e 420x300 no celular, então tudo aqui é fluido:
@@ -714,16 +771,6 @@
   .focus-frame i:nth-child(2) { top: -10px; right: -10px; border-left: none; border-bottom: none; }
   .focus-frame i:nth-child(3) { bottom: -10px; left: -10px; border-right: none; border-top: none; }
   .focus-frame i:nth-child(4) { bottom: -10px; right: -10px; border-left: none; border-top: none; }
-
-  /* ---------- CardSwap ---------- */
-  .swap-stage { position: relative; height: 420px; }
-  .swap-container { position: absolute; bottom: 0; right: 0; transform: translate(5%, 14%); transform-origin: bottom right; perspective: 900px; overflow: visible; }
-  .swap-card {
-    position: absolute; top: 50%; left: 50%;
-    border-radius: 24px; background: var(--bg); box-shadow: var(--nm-out);
-    transform-style: preserve-3d; will-change: transform; backface-visibility: hidden;
-    padding: 26px 28px; display: flex; flex-direction: column; justify-content: space-between;
-  }
 
   /* ---------- A conta do padeiro (em quantos clientes o plano se paga) ---------- */
   .conta {
@@ -1050,10 +1097,6 @@
      .nm-well usa o accent da marca. */
   .nm-well { color: var(--accent); }
   /* os quatro cartoes de "Por que ACTech", um de cada cor */
-  .grid-2 > *:nth-child(1) .dif-ico { color: var(--c1); background: var(--f1); }
-  .grid-2 > *:nth-child(2) .dif-ico { color: var(--c3); background: var(--f3); }
-  .grid-2 > *:nth-child(3) .dif-ico { color: var(--c2); background: var(--f2); }
-  .grid-2 > *:nth-child(4) .dif-ico { color: var(--c5); background: var(--f5); }
   /* Dois valores por pergunta, e nao um color-mix: --tom-q pinta o traco e
      --tom-q-bg tinge o ladrilho. Explicito assim funciona em navegador antigo
      e deixa a dose de cada tinta no olho, nao numa formula. */
@@ -1435,8 +1478,6 @@
     .tcols { height: 500px; }
 
     /* a pilha 3D não cabe em coluna única no tamanho original */
-    .swap-stage { height: 320px; }
-    .swap-container { right: 50%; transform: translate(50%, 4%) scale(.8); transform-origin: bottom center; }
 
     /* antes e depois um embaixo do outro; a seta gira pra continuar apontando */
     .duelo { grid-template-columns: minmax(0,1fr); gap: 14px; }
@@ -1520,8 +1561,6 @@
 
   @media (max-width: 560px) {
     .grid-4, .grid-2 { grid-template-columns: 1fr; }
-    .swap-stage { height: 270px; }
-    .swap-container { transform: translate(50%, 4%) scale(.6); }
   }
 
   @media (max-width: 380px) {
@@ -1536,7 +1575,6 @@
     /* sem o loop, as colunas viram listas que a pessoa rola no dedo */
     .tcols { height: auto; max-height: 560px; overflow-y: auto; -webkit-mask-image: none; mask-image: none; }
     /* sem a animação, o traço ficaria escondido no dash — desenha ele de uma vez */
-    .mx-linha { stroke-dasharray: none; stroke-dashoffset: 0; }
     /* parada, a parede 3D vira só um recorte: melhor deixar a rolagem no dedo */
     .wall { height: auto; max-height: 620px; overflow-y: auto; perspective: none; }
     .wall-3d { position: static; transform: none; }
@@ -1562,7 +1600,7 @@
 
       <nav class="nav-desktop" style="display: flex; align-items: center; gap: 6px;">
         <a class="nav-link" href="#sistemas">Sistemas</a>
-        <a class="nav-link" href="#diferenciais">Por que ACTech</a>
+        <a class="nav-link" href="#quem">Quem faz</a>
         <a class="nav-link" href="#faq">Dúvidas</a>
         <a class="nav-link" href="apresentar.html">Apresentação</a>
         <!-- Dois caminhos no topo: quem quer ver preço antes de falar com alguém
@@ -1585,7 +1623,7 @@
       <div class="mobile-menu wrap" style="padding-bottom: 18px;">
         <div class="nm-card" style="padding: 14px; display: grid; gap: 4px;">
           <a class="nav-link" href="#sistemas" onClick="{{ closeMenu }}" style="display: block;">Sistemas</a>
-          <a class="nav-link" href="#diferenciais" onClick="{{ closeMenu }}" style="display: block;">Por que ACTech</a>
+          <a class="nav-link" href="#quem" onClick="{{ closeMenu }}" style="display: block;">Quem faz</a>
           <a class="nav-link" href="#faq" onClick="{{ closeMenu }}" style="display: block;">Dúvidas</a>
           <a class="nav-link" href="apresentar.html" style="display: block;">Apresentação</a>
           <a class="btn btn-secondary btn-block" href="#planos" onClick="{{ closeMenu }}" style="margin-top: 10px;">Ver planos</a>
@@ -1603,13 +1641,14 @@
           Sem taxa de setup. Cancele quando quiser.
         </div>
 
-        <h1 data-reveal="1" class="font-display" style="font-weight: 800; font-size: clamp(40px, 6.4vw, 76px); line-height: .98; letter-spacing: -.035em; margin: 26px 0 0; max-width: 15ch; text-wrap: balance; color: #3D4852;">
-          Site e marketing<br />no mesmo lugar.<br /><span style="color: #3D6A99;">Sem complicação.</span>
+        <h1 data-reveal="1" class="font-display" style="font-weight: 800; font-size: clamp(38px, 5.2vw, 64px); line-height: 1; letter-spacing: -.035em; margin: 26px 0 0; max-width: 17ch; text-wrap: balance; color: #3D4852;">
+          Cliente te achando no Google e no Instagram.<br /><span style="color: #3D6A99;">A gente faz, você aprova.</span>
         </h1>
 
-        <p data-reveal="1" style="margin: 26px 0 0; max-width: 52ch; font-size: clamp(16.5px, 1.5vw, 18.5px); line-height: 1.65; color: #59616E;">
-          A ACTech cuida do seu site, das suas redes sociais e da sua presença no Google — tudo em uma mensalidade única, feita para comércios, mercados, lojas e prestadores
-          de serviço de Brasília — e, no caso de site e sistema, de qualquer lugar do Brasil.
+        <!-- O titulo antigo ("Site e marketing no mesmo lugar") dizia o que a
+             ACTech e, nao o que o dono ganha. Este diz o resultado e o esforco. -->
+        <p data-reveal="1" style="margin: 26px 0 0; max-width: 46ch; font-size: clamp(16.5px, 1.5vw, 18.5px); line-height: 1.65; color: #59616E;">
+          Site, posts e ficha do Google numa mensalidade só, pra comércio e prestador de serviço de Brasília. O site fica pronto em 5 dias úteis, e o primeiro mês é por nossa conta.
         </p>
 
         <div data-reveal="1" class="hero-cta" style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px;">
@@ -1630,56 +1669,43 @@
         </div>
       </div>
 
+      <!-- Aqui havia um grafico com numero inventado (3.590 pessoas, +218%) e o
+           aviso "exemplo ilustrativo". Era a primeira prova da pagina e era de
+           mentira: quem le isso desconfia do resto. Saiu pelo que a ACTech de
+           fato se compromete a cumprir, assinado por quem cumpre. -->
       <div data-reveal="1" class="hero-visual" style="position: relative; width: 100%;">
-        <!-- Números ilustrativos: mostram a forma de um resultado possível, não o
-             histórico de um cliente. Estão todos em `metrica()`, na lógica lá embaixo. -->
-        <div class="mx">
-          <div class="mx-top">
-            <div>
-              <div class="mx-eyebrow">Resultados que você pode alcançar</div>
-              <div class="mx-val">
-                {{ mxValor }}
-                <span class="mx-delta">▲ {{ mxDelta }}</span>
-              </div>
-              <div class="mx-sub">{{ mxSub }}</div>
-            </div>
+        <div class="combinado">
+          <div class="combinado-cab">
+            <div class="font-display combinado-tit">O combinado</div>
+            <div class="combinado-sub">O que a gente promete, por escrito.</div>
           </div>
-
-          <div class="mx-foot">
-            <div class="mx-nota">Exemplo ilustrativo — a forma de um resultado possível, não o histórico de um cliente.</div>
+          <ul class="combinado-lista">
+            <li>
+              <span class="nm-well combinado-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span>
+              <div><b>Site no ar em até 5 dias úteis</b><span>Contados de quando você manda o material. Se passar disso, o 2º mês é por nossa conta.</span></div>
+            </li>
+            <li>
+              <span class="nm-well combinado-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><path d="M2 7h20v5H2z"></path><path d="M12 21V7"></path></svg></span>
+              <div><b>1º mês grátis</b><span>Você vê o site e os posts prontos antes de pagar qualquer coisa.</span></div>
+            </li>
+            <li>
+              <span class="nm-well combinado-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 017.6-1.7"></path></svg></span>
+              <div><b>Sem fidelidade e sem multa</b><span>Cancela quando quiser, direto no app do Mercado Pago.</span></div>
+            </li>
+            <li>
+              <span class="nm-well combinado-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path><path d="M10 20v-5h4v5"></path></svg></span>
+              <div><b>O site é seu</b><span>Se um dia sair, a gente entrega os arquivos e passa o domínio pra você.</span></div>
+            </li>
+          </ul>
+          <div class="combinado-assina">
+            <span class="combinado-mono" aria-hidden="true">A</span>
+            <div><b>Amon, da ACTech</b><span>Quem faz o seu site e responde o seu WhatsApp</span></div>
           </div>
         </div>
-
-        <div class="nm-tile float-slow" style="position: absolute; top: -22px; left: -12px; padding: 11px 17px; border-radius: var(--r-pill); display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; color: #3D4852;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3D6A99" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg>
-          Mais vendas locais
-        </div>
-        <div class="nm-tile float" style="position: absolute; top: -18px; right: -10px; padding: 11px 17px; border-radius: var(--r-pill); display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; color: #3D4852;">
-          <span style="width: 8px; height: 8px; border-radius: 999px; background: #38B2AC; display: block;"></span>
-          Pronto em até 5 dias
-        </div>
       </div>
 
-    </div>
-
-    <div data-reveal="1" class="grid-auto" style="margin-top: 64px;">
-      <div class="nm-card nm-card--lift" style="padding: 26px 28px;">
-        <div class="font-display" style="font-size: 34px; font-weight: 800; color: var(--t1);">5 dias</div>
-        <div style="margin-top: 8px; font-size: 14.5px; color: #59616E; line-height: 1.55;">Site pronto em até 5 dias úteis</div>
-      </div>
-      <div class="nm-card nm-card--lift" style="padding: 26px 28px;">
-        <div class="font-display" style="font-size: 34px; font-weight: 800; color: var(--t8);">R$ 0</div>
-        <div style="margin-top: 8px; font-size: 14.5px; color: #59616E; line-height: 1.55;">No primeiro mês, em qualquer plano</div>
-      </div>
-      <div class="nm-card nm-card--lift" style="padding: 26px 28px;">
-        <div class="font-display" style="font-size: 34px; font-weight: 800; color: var(--t2);">1 conta</div>
-        <div style="margin-top: 8px; font-size: 14.5px; color: #59616E; line-height: 1.55;">Site, redes e Google com a mesma equipe</div>
-      </div>
     </div>
   </section>
-
-
-
 
   <section id="redes" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 24px; padding-bottom: 96px;">
     <div class="two-col" style="align-items: center;">
@@ -1940,7 +1966,6 @@
     </div>
   </section>
 
-
   <!-- "Veja como ficaria o seu site": a pessoa escolhe um estilo, diz o nome,
        o ramo e a cidade, e ve um mini-site de verdade com o nome dela, em
        nove estilos. O [data-estilos] sai do React VAZIO de proposito: quem
@@ -1961,7 +1986,488 @@
     <p class="mod-pe">Prévia ilustrativa, montada aqui mesmo. O seu site é feito com a sua marca, as suas fotos e os seus textos.</p>
   </section>
 
+  <!-- Como funciona: o medo de quem nunca contratou isso e "vai dar trabalho".
+       Tres passos com QUANDO cada um acontece, colado nos planos -- e a
+       resposta que precisa estar a mao na hora de decidir. -->
+  <section data-anima id="como" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 72px;">
+    <h2 data-reveal="1" class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 0 auto; max-width: 20ch; text-align: center; text-wrap: balance; color: var(--fg);">Do primeiro oi ao site no ar: cinco dias.</h2>
+    <ol class="passos" data-reveal="1">
+      <li>
+        <span class="passo-n" aria-hidden="true">1</span>
+        <div class="passo-quando" style="color: var(--t1);">Hoje</div>
+        <div class="font-display passo-tit">Você assina e manda o que tiver</div>
+        <p>Logo, fotos de celular, horário e preços, tudo pelo WhatsApp. Não tem nada pronto? A gente monta junto.</p>
+      </li>
+      <li>
+        <span class="passo-n" aria-hidden="true">2</span>
+        <div class="passo-quando" style="color: var(--t3);">Até o 5º dia útil</div>
+        <div class="font-display passo-tit">O site entra no ar</div>
+        <p>Você aprova pelo WhatsApp, sem reunião. Os posts começam a sair e a ficha do Google fica em dia.</p>
+      </li>
+      <li>
+        <span class="passo-n" aria-hidden="true">3</span>
+        <div class="passo-quando" style="color: var(--t2);">No 2º mês</div>
+        <div class="font-display passo-tit">Só aí começa a cobrança</div>
+        <p>Não gostou do que viu no primeiro mês? Cancela antes e não paga nada.</p>
+      </li>
+    </ol>
+  </section>
 
+  <section data-anima id="planos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 40px; padding-bottom: 96px;">
+    <div data-reveal="1" style="text-align: center; max-width: 620px; margin: 0 auto 56px;">
+      <div class="eyebrow eyebrow--4">Planos</div>
+      <h2 class="font-display focus" data-focus style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; color: #3D4852;">
+        <span class="focus-word">Duas</span><span class="focus-word">mensalidades.</span><span class="focus-word">Zero</span><span class="focus-word">surpresa.</span>
+        <span class="focus-frame" data-focus-frame><i></i><i></i><i></i><i></i></span>
+      </h2>
+      <p style="margin: 16px 0 0; font-size: 16.5px; color: #59616E; line-height: 1.65;">O primeiro mês é grátis nos dois planos. Sem fidelidade.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <div data-reveal="1" class="blob-card blob-card--verde tilt" data-tilt>
+        <div class="blob-glow"><i></i></div>
+        <div class="blob-inner" style="box-shadow: 9px 9px 16px rgba(163,177,198,.6), -9px -9px 16px rgba(255,255,255,.5);">
+          <div class="blob-header">
+            <div class="fluid"><i></i><i></i></div>
+            <div class="blob-fade"></div>
+            <div class="blob-head">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+                <div class="font-display" style="font-weight: 800; font-size: 25px;">Essencial</div>
+                <div style="font-size: 12.5px; color: rgba(255,255,255,.78);">Sem fidelidade</div>
+              </div>
+              <div style="margin: 16px 0 12px;">
+                <span style="display: inline-flex; background: rgba(255,255,255,.2); color: #fff; font-weight: 700; font-size: 12px; letter-spacing: .08em; padding: 7px 14px; border-radius: var(--r-pill);">1º MÊS GRÁTIS</span>
+              </div>
+              <div style="font-size: 17px; text-decoration: line-through; color: rgba(255,255,255,.55);">R$ 449,99</div>
+              <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 2px;">
+                <span class="font-display" style="font-weight: 800; font-size: 52px; line-height: 1; letter-spacing: -.04em;">R$ 359<span style="font-size: .45em;">,99</span></span>
+                <span style="font-size: 16px; color: rgba(255,255,255,.8);">/mês</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="blob-body">
+            <p style="margin: 0; font-size: 15px; color: #59616E; line-height: 1.6;">Para quem precisa existir bem no digital com o básico feito direito.</p>
+            <a class="btn btn-secondary btn-block" href="{{ assinarEssencial }}" target="_blank" style="margin: 24px 0 4px;">Começar com o Essencial</a>
+            <a class="plano-duvida" href="{{ whatsUrl }}" target="_blank">Prefere tirar uma dúvida antes? <u>Fale no WhatsApp</u></a>
+            <div class="nm-track" style="height: 6px; border-radius: 999px; margin: 28px 0 20px;"></div>
+            <sc-for list="{{ essencial }}" as="item" hint-placeholder-count="7">
+              <div class="check-row">
+                <span class="check-mark">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
+                </span>
+                <span style="font-size: 15.5px; line-height: 1.55; color: #3D4852;">{{ item }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div data-reveal="1" class="blob-card tilt" data-tilt style="position: relative;">
+        <div style="position: absolute; top: -16px; left: 50%; transform: translateX(-50%); z-index: 3;">
+          <span class="nm-chip" style="font-size: 12px; padding: 9px 20px; letter-spacing: .1em; box-shadow: 9px 9px 16px rgba(163,177,198,.6), -9px -9px 16px rgba(255,255,255,.5);">MAIS COMPLETO</span>
+        </div>
+        <div class="blob-glow"><i></i></div>
+        <div class="blob-inner" style="box-shadow: 12px 12px 20px rgba(163,177,198,.7), -12px -12px 20px rgba(255,255,255,.6);">
+          <div class="blob-header">
+            <div class="fluid"><i></i><i></i></div>
+            <div class="blob-fade"></div>
+            <div class="blob-head">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+                <div class="font-display" style="font-weight: 800; font-size: 25px;">Completo</div>
+                <div style="font-size: 12.5px; color: rgba(255,255,255,.78);">Sem fidelidade</div>
+              </div>
+              <div style="margin: 16px 0 12px;">
+                <span style="display: inline-flex; background: rgba(255,255,255,.22); color: #fff; font-weight: 700; font-size: 12px; letter-spacing: .08em; padding: 7px 14px; border-radius: var(--r-pill);">1º MÊS GRÁTIS</span>
+              </div>
+              <div style="font-size: 17px; text-decoration: line-through; color: rgba(255,255,255,.55);">R$ 797,99</div>
+              <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 2px;">
+                <span class="font-display" style="font-weight: 800; font-size: 52px; line-height: 1; letter-spacing: -.04em;">R$ 597<span style="font-size: .45em;">,99</span></span>
+                <span style="font-size: 16px; color: rgba(255,255,255,.8);">/mês</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="blob-body">
+            <p style="margin: 0; font-size: 15px; color: #59616E; line-height: 1.6;">Para quem quer crescer: conteúdo forte, Google ativo e relatório de resultado.</p>
+            <a class="btn btn-primary btn-block" href="{{ assinarCompleto }}" target="_blank" style="margin: 24px 0 4px;">Quero o Completo</a>
+            <a class="plano-duvida" href="{{ whatsUrl }}" target="_blank">Prefere tirar uma dúvida antes? <u>Fale no WhatsApp</u></a>
+            <div class="nm-track" style="height: 6px; border-radius: 999px; margin: 28px 0 20px;"></div>
+            <div style="font-size: 14px; font-weight: 700; color: #3D6A99; letter-spacing: .04em; margin-bottom: 8px;">Tudo do Essencial, mais:</div>
+            <sc-for list="{{ completo }}" as="item" hint-placeholder-count="6">
+              <div class="check-row">
+                <span class="check-mark">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
+                </span>
+                <span style="font-size: 15.5px; line-height: 1.55; color: #3D4852;">{{ item }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- A conta do padeiro, agora mexivel: em quantos clientes a mensalidade se
+         paga. Os precos dos planos estao em PLANOS, no extras/calculadora.js --
+         mexeu no preco dos cards, muda la tambem. -->
+    <div data-reveal="1" class="conta">
+      <div class="conta-cab">
+        <div class="eyebrow eyebrow--8">A conta</div>
+        <h3 class="font-display" style="font-weight: 800; font-size: clamp(24px, 3vw, 34px); line-height: 1.1; margin: 14px 0 0; color: #3D4852; max-width: 20ch;">Quando é que o plano se paga?</h3>
+        <p style="margin: 14px 0 0; font-size: 15.5px; line-height: 1.7; color: #59616E; max-width: 44ch;">
+          Coloque os seus números: quanto um cliente gasta, quantas vezes volta e quantos
+          clientes novos você espera. A conta aparece na hora.
+        </p>
+      </div>
+
+      <!-- A calculadora (extras/calculadora.js): plano, ticket, frequencia e
+           clientes novos, tudo informado pela pessoa. Monta vazia do React e
+           e preenchida quando a secao chega perto (setupCalculadora). -->
+      <div class="calc" data-calc></div>
+    </div>
+  </section>
+
+  <!-- A objeção que vem depois do preço nunca é "é caro", é "isso eu mesmo faço".
+       Esta seção responde ela com o mesmo mês visto dos dois lados. As linhas dos
+       dois painéis se emparelham pelo data-tema, não pela altura: passar o mouse
+       numa acende a irmã do outro lado (setupDuelo, lá embaixo no script). -->
+  <section data-anima id="sozinho" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
+    <div data-reveal="1" style="max-width: 62ch;">
+      <div class="eyebrow eyebrow--2">Sozinho x com a ACTech</div>
+      <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 20ch; color: #3D4852;">Dá pra fazer sozinho. A conta é outra.</h2>
+      <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #59616E;">
+        Nada do que a gente faz é segredo de sete chaves — dá pra aprender e fazer por conta.
+        O que quase ninguém tem é o mês inteiro sobrando pra isso. Veja o mesmo mês dos dois lados.
+      </p>
+    </div>
+
+    <div class="duelo" data-reveal="1" data-duelo>
+      <div class="duelo-col duelo-col--voce">
+        <div class="duelo-cab">
+          <span class="duelo-selo">Você sozinho</span>
+          <span class="duelo-sub">como costuma ser hoje</span>
+        </div>
+        <ul class="duelo-lista">
+          <li class="duelo-linha" data-tema="seu-tempo">
+            <span class="duelo-tema">Seu tempo</span>
+            <p class="duelo-txt" style="margin: 0;">Umas <b>14 horas por mês</b> montando post, respondendo avaliação e mexendo no site — quase sempre depois que a loja já fechou.</p>
+          </li>
+          <li class="duelo-linha" data-tema="o-que-sai-do-caixa">
+            <span class="duelo-tema">O que sai do caixa</span>
+            <p class="duelo-txt" style="margin: 0;"><b>R$ 0</b> de mensalidade. E 14 horas do seu mês, que é o que você tem de mais caro.</p>
+          </li>
+          <li class="duelo-linha" data-tema="o-site">
+            <span class="duelo-tema">O site</span>
+            <p class="duelo-txt" style="margin: 0;">Fica meses do jeito que subiu: preço velho, promoção que já acabou, horário de Natal ainda no ar em março.</p>
+          </li>
+          <li class="duelo-linha" data-tema="as-redes">
+            <span class="duelo-tema">As redes</span>
+            <p class="duelo-txt" style="margin: 0;">Post quando sobra tempo. E tempo é justamente o que não sobra.</p>
+          </li>
+          <li class="duelo-linha" data-tema="o-google">
+            <span class="duelo-tema">O Google</span>
+            <p class="duelo-txt" style="margin: 0;">Ficha no automático e avaliação sem resposta — inclusive as ruins, que são as que o cliente novo lê primeiro.</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="duelo-vs" aria-hidden="true">vs</div>
+
+      <div class="duelo-col duelo-col--nos">
+        <div class="duelo-cab">
+          <span class="duelo-selo">Com a ACTech</span>
+          <span class="duelo-sub">plano Completo</span>
+        </div>
+        <ul class="duelo-lista">
+          <li class="duelo-linha" data-tema="seu-tempo">
+            <span class="duelo-tema">Seu tempo</span>
+            <p class="duelo-txt" style="margin: 0;">Uns <b>20 minutos</b>: você manda a foto e o que quer dizer no WhatsApp. O resto sai daqui.</p>
+          </li>
+          <li class="duelo-linha" data-tema="o-que-sai-do-caixa">
+            <span class="duelo-tema">O que sai do caixa</span>
+            <p class="duelo-txt" style="margin: 0;"><b>R$ 597,99 por mês</b>, sem taxa de setup e com o primeiro mês grátis.</p>
+          </li>
+          <li class="duelo-linha" data-tema="o-site">
+            <span class="duelo-tema">O site</span>
+            <p class="duelo-txt" style="margin: 0;"><b>4 atualizações por mês</b> — e o que é urgente entra no mesmo dia, sem abrir chamado.</p>
+          </li>
+          <li class="duelo-linha" data-tema="as-redes">
+            <span class="duelo-tema">As redes</span>
+            <p class="duelo-txt" style="margin: 0;"><b>20 posts por mês</b> com arte feita, no calendário, saindo mesmo na semana corrida.</p>
+          </li>
+          <li class="duelo-linha" data-tema="o-google">
+            <span class="duelo-tema">O Google</span>
+            <p class="duelo-txt" style="margin: 0;"><b>Post toda semana</b> na ficha e cada avaliação respondida, uma a uma.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="duelo-medidor" data-reveal="1" data-duelo-medidor>
+      <div class="duelo-barra duelo-barra--voce">
+        <div class="duelo-barra-cab">
+          <span class="duelo-barra-rot">Horas suas, fazendo tudo por conta</span>
+          <span class="duelo-barra-num">~14h por mês</span>
+        </div>
+        <div class="duelo-trilho"><i style="--w: 100%;"></i></div>
+      </div>
+
+      <div class="duelo-barra duelo-barra--nos">
+        <div class="duelo-barra-cab">
+          <span class="duelo-barra-rot">Horas suas, com a ACTech cuidando</span>
+          <span class="duelo-barra-num">~20 min por mês</span>
+        </div>
+        <div class="duelo-trilho"><i style="--w: 2.4%;"></i></div>
+      </div>
+
+      <p class="duelo-pe">
+        As 14 horas são uma estimativa do que costuma levar fazer isso sozinho: 20 posts com arte,
+        as respostas no Google e as mexidas no site. Faça a sua — o ponto não é acertar o número,
+        é enxergar de onde esse tempo está saindo hoje.
+      </p>
+    </div>
+  </section>
+
+  <section id="google" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
+    <div data-reveal="1" style="margin-bottom: 58px; max-width: 62ch;">
+      <div class="eyebrow eyebrow--6">Google e busca local</div>
+      <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 19ch; color: #3D4852;">A ficha do Google é a sua vitrine.</h2>
+      <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #59616E;">
+        Quem procura "perto de mim" vê a ficha antes de ver o site. Quando ela está vazia,
+        sem foto, sem horário e sem resposta, o cliente vai no concorrente que preencheu a dele.
+      </p>
+    </div>
+
+    <!-- Antes e depois de uma ficha. As duas são exemplo, montadas em HTML aqui mesmo —
+         nenhuma captura de cliente. Para mudar os itens, é só editar as listas. -->
+    <div data-reveal="1" class="gmn-grid">
+      <div class="gmn gmn--antes">
+        <span class="gmn-selo gmn-selo--ruim">Antes</span>
+        <div class="gmn-card">
+          <div class="gmn-nome">Mercado do Bairro</div>
+          <div class="gmn-cat">Mercearia</div>
+          <div class="gmn-nota">
+            <span class="gmn-estrelas">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#DADCE0"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#DADCE0"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#DADCE0"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#DADCE0"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#DADCE0"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+            </span>
+            <span>Sem avaliações</span>
+          </div>
+
+          <div class="gmn-vazio">Nenhuma foto adicionada</div>
+
+          <ul class="gmn-linhas">
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA0A6" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+              <span>Horário não informado</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA0A6" stroke-width="2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.4 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"></path></svg>
+              <span>Telefone desatualizado</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA0A6" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18 15 15 0 010-18z"></path></svg>
+              <span>Nenhum site cadastrado</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA0A6" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
+              <span>Perguntas de clientes sem resposta</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gmn-seta" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+      </div>
+
+      <div class="gmn gmn--depois">
+        <span class="gmn-selo gmn-selo--bom">Depois</span>
+        <div class="gmn-card">
+          <div class="gmn-nome">Mercado do Bairro</div>
+          <div class="gmn-cat">Mercearia · Entrega no bairro</div>
+          <div class="gmn-nota">
+            <b>4,8</b>
+            <span class="gmn-estrelas">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
+            </span>
+            <span>124 avaliações</span>
+          </div>
+
+          <!-- Fotos de verdade: ficha do Google sem foto e ficha morta, e o
+               "depois" precisa mostrar isso. As tres contam a historia de um
+               mercado - a banca, o corredor e o hortifruti. -->
+          <div class="gmn-fotos">
+            <img src="imgs/ficha-1.webp" alt="Banca de feira com engradados de fruta e verdura" loading="lazy" decoding="async" />
+            <img src="imgs/ficha-2.webp" alt="Corredor de mercado com prateleiras cheias" loading="lazy" decoding="async" />
+            <img src="imgs/ficha-3.webp" alt="Legumes e verduras frescos sobre a bancada" loading="lazy" decoding="async" />
+          </div>
+
+          <ul class="gmn-linhas">
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#188038" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+              <span><b style="color: #188038;">Aberto agora</b> · seg a sáb, 8h às 19h</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.4 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"></path></svg>
+              <span>Telefone e WhatsApp no topo da ficha</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18 15 15 0 010-18z"></path></svg>
+              <span>Link do site e do cardápio funcionando</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
+              <span>Avaliações respondidas uma a uma</span>
+            </li>
+          </ul>
+
+          <div class="gmn-acoes">
+            <span class="cheio">Ligar</span>
+            <span>Como chegar</span>
+            <span>Site</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="gmn-nota-pe" data-reveal="1">Exemplo ilustrativo de ficha — os itens do “depois” são os que a gente preenche e mantém.</p>
+
+    <!-- ADS OFF - faixa "com a ficha em dia, o anúncio rende" com os chips das
+         plataformas. Fora do ar junto com o resto da frente de tráfego pago.
+
+    <div class="ads-faixa" data-reveal="1">
+      <div>
+        <h3 class="font-display" style="font-weight: 800; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.15; margin: 0; color: #3D4852; max-width: 18ch;">Com a ficha em dia, o anúncio rende.</h3>
+        <p style="margin: 16px 0 0; font-size: 15.5px; line-height: 1.7; color: #59616E; max-width: 46ch;">
+          A gente cria, acompanha e ajusta as campanhas. A verba do anúncio é sua e vai direto
+          pra plataforma — o que a gente cuida é de onde ela é gasta.
+        </p>
+      </div>
+
+      <div class="ads-logos">
+        <span class="ads-chip">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="8.5" y="1.5" width="7" height="21" rx="3.5" fill="#FBBC04" transform="rotate(-30 12 12)"></rect>
+            <rect x="8.5" y="1.5" width="7" height="21" rx="3.5" fill="#4285F4" transform="rotate(30 12 12)"></rect>
+            <circle cx="6" cy="18" r="3.6" fill="#34A853"></circle>
+          </svg>
+          Google Ads
+        </span>
+
+        <span class="ads-chip">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <rect width="24" height="24" rx="6.5" fill="#1877F2"></rect>
+            <path d="M16 12.4h-2.4V20h-3.1v-7.6H8.8V9.8h1.7V8.3c0-2 1.1-3.1 3.4-3.1h2v2.7h-1.3c-.8 0-1 .3-1 .9v1h2.3l-.3 2.6z" fill="#fff"></path>
+          </svg>
+          Facebook Ads
+        </span>
+
+        <span class="ads-chip">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <defs>
+              <linearGradient id="igmark" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0" stop-color="#FEDA75"></stop>
+                <stop offset=".35" stop-color="#FA7E1E"></stop>
+                <stop offset=".62" stop-color="#D62976"></stop>
+                <stop offset="1" stop-color="#962FBF"></stop>
+              </linearGradient>
+            </defs>
+            <rect width="24" height="24" rx="6.5" fill="url(#igmark)"></rect>
+            <rect x="5.6" y="5.6" width="12.8" height="12.8" rx="4.2" fill="none" stroke="#fff" stroke-width="1.7"></rect>
+            <circle cx="12" cy="12" r="3.1" fill="none" stroke="#fff" stroke-width="1.7"></circle>
+            <circle cx="17" cy="7" r="1.1" fill="#fff"></circle>
+          </svg>
+          Instagram Ads
+        </span>
+
+        <span class="ads-chip">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 22.5s7.5-6.6 7.5-11.8a7.5 7.5 0 10-15 0c0 5.2 7.5 11.8 7.5 11.8z" fill="#4285F4"></path>
+            <path d="M12 3.2a7.5 7.5 0 016.6 4l-4.1 3.2z" fill="#EA4335"></path>
+            <path d="M19.5 10.7c0 1.5-.6 3.1-1.5 4.6l-3.9-4.6z" fill="#FBBC04"></path>
+            <path d="M12 22.5c-2.4-2.3-5-5.4-6.2-8.3l6.2-3.5z" fill="#34A853"></path>
+            <circle cx="12" cy="10.7" r="3" fill="#fff"></circle>
+          </svg>
+          Google Meu Negócio
+        </span>
+
+        <span class="ads-chip">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
+            <path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path>
+            <path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"></path>
+          </svg>
+          WhatsApp Business
+        </span>
+      </div>
+    </div>
+    fim ADS OFF -->
+
+  </section>
+
+  <!-- Quem faz. Pagina de agencia sem rosto nenhum parece fachada; o
+       diferencial "voce fala com quem faz" so convence com um nome do lado.
+       FOTO: quando o Amon mandar, trocar o .quem-mono por
+       <img class="quem-foto" src="imgs/amon.webp" alt="Amon, da ACTech" width="260" height="260">. -->
+  <section data-anima id="quem" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 96px;">
+    <div class="quem nm-card" data-reveal="1">
+      <div class="quem-lado" aria-hidden="true">
+        <div class="quem-mono">A</div>
+        <div class="quem-local">Brasília, DF</div>
+      </div>
+      <div>
+        <h2 class="font-display" style="font-weight: 800; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.06; margin: 0; color: var(--fg);">Você fala com quem faz.</h2>
+        <p class="quem-txt">Eu sou o Amon. A ACTech começou escrevendo sistema: painel de metas pra banco, controle de caixa pra empresa. Hoje esse mesmo cuidado vai pro site e pro Instagram do comércio do bairro.</p>
+        <p class="quem-txt">Quem responde o seu WhatsApp é quem faz o seu site. Sem atendente, sem call center e sem chamado aberto.</p>
+        <a class="btn btn-primary" href="{{ whatsUrl }}" target="_blank" style="margin-top: 28px;">Falar com o Amon no WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <section data-anima id="trabalhos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 96px;">
+    <div data-reveal="1" style="text-align: center; margin-bottom: 34px;">
+      <div class="eyebrow eyebrow--5">Nosso trabalho</div>
+      <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px auto 0; max-width: 18ch; color: #3D4852;">Um pedaço do que já está no ar.</h2>
+    </div>
+
+    <!-- Parede 3D em marquee. Para trocar ou acrescentar trabalho, mexa só em `trabalhos()`
+         na lógica lá embaixo e jogue a imagem em imgs/ — as colunas, o giro da lista em cada
+         uma e a duplicata que fecha o loop são montadas sozinhas no estado. -->
+    <div class="wall" data-reveal="1" aria-label="Trabalhos que já estão no ar">
+      <div class="wall-3d">
+        <sc-for list="{{ wallCols }}" as="c" hint-placeholder-count="5">
+          <div class="{{ c.cls }}" style="--tz: {{ c.tz }};">
+            <div class="{{ c.lane }}" style="--tdur: {{ c.dur }};">
+              <sc-for list="{{ c.itens }}" as="t" hint-placeholder-count="8">
+                <div class="wtile" aria-hidden="{{ t.dup }}">
+                  <div class="tela">
+                    <div class="tela-topo">
+                      <i></i><i></i><i></i>
+                      <span class="tela-url">{{ t.url }}</span>
+                    </div>
+                    <img class="tela-img" src="{{ t.img }}" alt="{{ t.alt }}" loading="lazy" decoding="async" />
+                  </div>
+                  <div class="wtile-info">
+                    <div class="wtile-tag">{{ t.tag }}</div>
+                    <h3 class="wtile-t">{{ t.titulo }}</h3>
+                    <p class="wtile-d">{{ t.texto }}</p>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
 
   <!-- A virada: ate aqui a pagina so falou de site. O caso do banco e a prova
        mais forte que existe no material da ACTech e estava diluido na parede
@@ -2189,191 +2695,6 @@
     </div>
   </section>
 
-
-  <section id="google" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
-    <div data-reveal="1" style="margin-bottom: 58px; max-width: 62ch;">
-      <div class="eyebrow eyebrow--6">Google e busca local</div>
-      <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 19ch; color: #3D4852;">A ficha do Google é a sua vitrine.</h2>
-      <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #59616E;">
-        Quem procura "perto de mim" vê a ficha antes de ver o site. Quando ela está vazia,
-        sem foto, sem horário e sem resposta, o cliente vai no concorrente que preencheu a dele.
-      </p>
-    </div>
-
-    <!-- Antes e depois de uma ficha. As duas são exemplo, montadas em HTML aqui mesmo —
-         nenhuma captura de cliente. Para mudar os itens, é só editar as listas. -->
-    <div data-reveal="1" class="gmn-grid">
-      <div class="gmn gmn--antes">
-        <span class="gmn-selo gmn-selo--ruim">Antes</span>
-        <div class="gmn-card">
-          <div class="gmn-nome">Mercado do Bairro</div>
-          <div class="gmn-cat">Mercearia</div>
-          <div class="gmn-nota">
-            <span class="gmn-estrelas">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#DADCE0"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#DADCE0"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#DADCE0"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#DADCE0"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#DADCE0"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
-            </span>
-            <span>Sem avaliações</span>
-          </div>
-
-          <div class="gmn-vazio">Nenhuma foto adicionada</div>
-
-          <ul class="gmn-linhas">
-            <li>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA0A6" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
-              <span>Horário não informado</span>
-            </li>
-            <li>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA0A6" stroke-width="2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.4 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"></path></svg>
-              <span>Telefone desatualizado</span>
-            </li>
-            <li>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA0A6" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18 15 15 0 010-18z"></path></svg>
-              <span>Nenhum site cadastrado</span>
-            </li>
-            <li>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA0A6" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
-              <span>Perguntas de clientes sem resposta</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="gmn-seta" aria-hidden="true">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
-      </div>
-
-      <div class="gmn gmn--depois">
-        <span class="gmn-selo gmn-selo--bom">Depois</span>
-        <div class="gmn-card">
-          <div class="gmn-nome">Mercado do Bairro</div>
-          <div class="gmn-cat">Mercearia · Entrega no bairro</div>
-          <div class="gmn-nota">
-            <b>4,8</b>
-            <span class="gmn-estrelas">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 2l3 6.9 7 .6-5.3 4.7 1.6 7.3L12 17.6 5.7 21.5l1.6-7.3L2 9.5l7-.6z"></path></svg>
-            </span>
-            <span>124 avaliações</span>
-          </div>
-
-          <!-- Fotos de verdade: ficha do Google sem foto e ficha morta, e o
-               "depois" precisa mostrar isso. As tres contam a historia de um
-               mercado - a banca, o corredor e o hortifruti. -->
-          <div class="gmn-fotos">
-            <img src="imgs/ficha-1.webp" alt="Banca de feira com engradados de fruta e verdura" loading="lazy" decoding="async" />
-            <img src="imgs/ficha-2.webp" alt="Corredor de mercado com prateleiras cheias" loading="lazy" decoding="async" />
-            <img src="imgs/ficha-3.webp" alt="Legumes e verduras frescos sobre a bancada" loading="lazy" decoding="async" />
-          </div>
-
-          <ul class="gmn-linhas">
-            <li>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#188038" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
-              <span><b style="color: #188038;">Aberto agora</b> · seg a sáb, 8h às 19h</span>
-            </li>
-            <li>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.4 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"></path></svg>
-              <span>Telefone e WhatsApp no topo da ficha</span>
-            </li>
-            <li>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18 15 15 0 010-18z"></path></svg>
-              <span>Link do site e do cardápio funcionando</span>
-            </li>
-            <li>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
-              <span>Avaliações respondidas uma a uma</span>
-            </li>
-          </ul>
-
-          <div class="gmn-acoes">
-            <span class="cheio">Ligar</span>
-            <span>Como chegar</span>
-            <span>Site</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <p class="gmn-nota-pe" data-reveal="1">Exemplo ilustrativo de ficha — os itens do “depois” são os que a gente preenche e mantém.</p>
-
-    <!-- ADS OFF - faixa "com a ficha em dia, o anúncio rende" com os chips das
-         plataformas. Fora do ar junto com o resto da frente de tráfego pago.
-
-    <div class="ads-faixa" data-reveal="1">
-      <div>
-        <h3 class="font-display" style="font-weight: 800; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.15; margin: 0; color: #3D4852; max-width: 18ch;">Com a ficha em dia, o anúncio rende.</h3>
-        <p style="margin: 16px 0 0; font-size: 15.5px; line-height: 1.7; color: #59616E; max-width: 46ch;">
-          A gente cria, acompanha e ajusta as campanhas. A verba do anúncio é sua e vai direto
-          pra plataforma — o que a gente cuida é de onde ela é gasta.
-        </p>
-      </div>
-
-      <div class="ads-logos">
-        <span class="ads-chip">
-          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="8.5" y="1.5" width="7" height="21" rx="3.5" fill="#FBBC04" transform="rotate(-30 12 12)"></rect>
-            <rect x="8.5" y="1.5" width="7" height="21" rx="3.5" fill="#4285F4" transform="rotate(30 12 12)"></rect>
-            <circle cx="6" cy="18" r="3.6" fill="#34A853"></circle>
-          </svg>
-          Google Ads
-        </span>
-
-        <span class="ads-chip">
-          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-            <rect width="24" height="24" rx="6.5" fill="#1877F2"></rect>
-            <path d="M16 12.4h-2.4V20h-3.1v-7.6H8.8V9.8h1.7V8.3c0-2 1.1-3.1 3.4-3.1h2v2.7h-1.3c-.8 0-1 .3-1 .9v1h2.3l-.3 2.6z" fill="#fff"></path>
-          </svg>
-          Facebook Ads
-        </span>
-
-        <span class="ads-chip">
-          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-            <defs>
-              <linearGradient id="igmark" x1="0" y1="1" x2="1" y2="0">
-                <stop offset="0" stop-color="#FEDA75"></stop>
-                <stop offset=".35" stop-color="#FA7E1E"></stop>
-                <stop offset=".62" stop-color="#D62976"></stop>
-                <stop offset="1" stop-color="#962FBF"></stop>
-              </linearGradient>
-            </defs>
-            <rect width="24" height="24" rx="6.5" fill="url(#igmark)"></rect>
-            <rect x="5.6" y="5.6" width="12.8" height="12.8" rx="4.2" fill="none" stroke="#fff" stroke-width="1.7"></rect>
-            <circle cx="12" cy="12" r="3.1" fill="none" stroke="#fff" stroke-width="1.7"></circle>
-            <circle cx="17" cy="7" r="1.1" fill="#fff"></circle>
-          </svg>
-          Instagram Ads
-        </span>
-
-        <span class="ads-chip">
-          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 22.5s7.5-6.6 7.5-11.8a7.5 7.5 0 10-15 0c0 5.2 7.5 11.8 7.5 11.8z" fill="#4285F4"></path>
-            <path d="M12 3.2a7.5 7.5 0 016.6 4l-4.1 3.2z" fill="#EA4335"></path>
-            <path d="M19.5 10.7c0 1.5-.6 3.1-1.5 4.6l-3.9-4.6z" fill="#FBBC04"></path>
-            <path d="M12 22.5c-2.4-2.3-5-5.4-6.2-8.3l6.2-3.5z" fill="#34A853"></path>
-            <circle cx="12" cy="10.7" r="3" fill="#fff"></circle>
-          </svg>
-          Google Meu Negócio
-        </span>
-
-        <span class="ads-chip">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
-            <path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path>
-            <path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"></path>
-          </svg>
-          WhatsApp Business
-        </span>
-      </div>
-    </div>
-    fim ADS OFF -->
-
-  </section>
-
   <!-- Aqui havia um diagnostico de dez perguntas, com modal e um portao que
        segurava todo clique de WhatsApp. Saiu em 01/10/2026: pedir dez
        respostas antes de entregar qualquer coisa e friccao, nao qualificacao.
@@ -2418,273 +2739,6 @@
                 Baixar o guia em PDF
               </a>
               <div style="margin-top: 12px; font-size: 13.5px; color: #59616E;">Sem cadastro, sem e-mail. É só clicar.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section data-anima id="planos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 40px; padding-bottom: 96px;">
-    <div data-reveal="1" style="text-align: center; max-width: 620px; margin: 0 auto 56px;">
-      <div class="eyebrow eyebrow--4">Planos</div>
-      <h2 class="font-display focus" data-focus style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; color: #3D4852;">
-        <span class="focus-word">Duas</span><span class="focus-word">mensalidades.</span><span class="focus-word">Zero</span><span class="focus-word">surpresa.</span>
-        <span class="focus-frame" data-focus-frame><i></i><i></i><i></i><i></i></span>
-      </h2>
-      <p style="margin: 16px 0 0; font-size: 16.5px; color: #59616E; line-height: 1.65;">O primeiro mês é grátis nos dois planos. Sem fidelidade.</p>
-    </div>
-
-    <div class="pricing-grid">
-
-      <div data-reveal="1" class="blob-card blob-card--verde tilt" data-tilt>
-        <div class="blob-glow"><i></i></div>
-        <div class="blob-inner" style="box-shadow: 9px 9px 16px rgba(163,177,198,.6), -9px -9px 16px rgba(255,255,255,.5);">
-          <div class="blob-header">
-            <div class="fluid"><i></i><i></i></div>
-            <div class="blob-fade"></div>
-            <div class="blob-head">
-              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
-                <div class="font-display" style="font-weight: 800; font-size: 25px;">Essencial</div>
-                <div style="font-size: 12.5px; color: rgba(255,255,255,.78);">Sem fidelidade</div>
-              </div>
-              <div style="margin: 16px 0 12px;">
-                <span style="display: inline-flex; background: rgba(255,255,255,.2); color: #fff; font-weight: 700; font-size: 12px; letter-spacing: .08em; padding: 7px 14px; border-radius: var(--r-pill);">1º MÊS GRÁTIS</span>
-              </div>
-              <div style="font-size: 17px; text-decoration: line-through; color: rgba(255,255,255,.55);">R$ 449,99</div>
-              <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 2px;">
-                <span class="font-display" style="font-weight: 800; font-size: 52px; line-height: 1; letter-spacing: -.04em;">R$ 359<span style="font-size: .45em;">,99</span></span>
-                <span style="font-size: 16px; color: rgba(255,255,255,.8);">/mês</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="blob-body">
-            <p style="margin: 0; font-size: 15px; color: #59616E; line-height: 1.6;">Para quem precisa existir bem no digital com o básico feito direito.</p>
-            <a class="btn btn-secondary btn-block" href="{{ assinarEssencial }}" target="_blank" style="margin: 24px 0 4px;">Começar com o Essencial</a>
-            <a class="plano-duvida" href="{{ whatsUrl }}" target="_blank">Prefere tirar uma dúvida antes? <u>Fale no WhatsApp</u></a>
-            <div class="nm-track" style="height: 6px; border-radius: 999px; margin: 28px 0 20px;"></div>
-            <sc-for list="{{ essencial }}" as="item" hint-placeholder-count="7">
-              <div class="check-row">
-                <span class="check-mark">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-                </span>
-                <span style="font-size: 15.5px; line-height: 1.55; color: #3D4852;">{{ item }}</span>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-      </div>
-
-      <div data-reveal="1" class="blob-card tilt" data-tilt style="position: relative;">
-        <div style="position: absolute; top: -16px; left: 50%; transform: translateX(-50%); z-index: 3;">
-          <span class="nm-chip" style="font-size: 12px; padding: 9px 20px; letter-spacing: .1em; box-shadow: 9px 9px 16px rgba(163,177,198,.6), -9px -9px 16px rgba(255,255,255,.5);">MAIS POPULAR</span>
-        </div>
-        <div class="blob-glow"><i></i></div>
-        <div class="blob-inner" style="box-shadow: 12px 12px 20px rgba(163,177,198,.7), -12px -12px 20px rgba(255,255,255,.6);">
-          <div class="blob-header">
-            <div class="fluid"><i></i><i></i></div>
-            <div class="blob-fade"></div>
-            <div class="blob-head">
-              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
-                <div class="font-display" style="font-weight: 800; font-size: 25px;">Completo</div>
-                <div style="font-size: 12.5px; color: rgba(255,255,255,.78);">Sem fidelidade</div>
-              </div>
-              <div style="margin: 16px 0 12px;">
-                <span style="display: inline-flex; background: rgba(255,255,255,.22); color: #fff; font-weight: 700; font-size: 12px; letter-spacing: .08em; padding: 7px 14px; border-radius: var(--r-pill);">1º MÊS GRÁTIS</span>
-              </div>
-              <div style="font-size: 17px; text-decoration: line-through; color: rgba(255,255,255,.55);">R$ 797,99</div>
-              <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 2px;">
-                <span class="font-display" style="font-weight: 800; font-size: 52px; line-height: 1; letter-spacing: -.04em;">R$ 597<span style="font-size: .45em;">,99</span></span>
-                <span style="font-size: 16px; color: rgba(255,255,255,.8);">/mês</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="blob-body">
-            <p style="margin: 0; font-size: 15px; color: #59616E; line-height: 1.6;">Para quem quer crescer: conteúdo forte, Google ativo e relatório de resultado.</p>
-            <a class="btn btn-primary btn-block" href="{{ assinarCompleto }}" target="_blank" style="margin: 24px 0 4px;">Quero o Completo</a>
-            <a class="plano-duvida" href="{{ whatsUrl }}" target="_blank">Prefere tirar uma dúvida antes? <u>Fale no WhatsApp</u></a>
-            <div class="nm-track" style="height: 6px; border-radius: 999px; margin: 28px 0 20px;"></div>
-            <div style="font-size: 14px; font-weight: 700; color: #3D6A99; letter-spacing: .04em; margin-bottom: 8px;">Tudo do Essencial, mais:</div>
-            <sc-for list="{{ completo }}" as="item" hint-placeholder-count="6">
-              <div class="check-row">
-                <span class="check-mark">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-                </span>
-                <span style="font-size: 15.5px; line-height: 1.55; color: #3D4852;">{{ item }}</span>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- A conta do padeiro, agora mexivel: em quantos clientes a mensalidade se
-         paga. Os precos dos planos estao em PLANOS, no extras/calculadora.js --
-         mexeu no preco dos cards, muda la tambem. -->
-    <div data-reveal="1" class="conta">
-      <div class="conta-cab">
-        <div class="eyebrow eyebrow--8">A conta</div>
-        <h3 class="font-display" style="font-weight: 800; font-size: clamp(24px, 3vw, 34px); line-height: 1.1; margin: 14px 0 0; color: #3D4852; max-width: 20ch;">Quando é que o plano se paga?</h3>
-        <p style="margin: 14px 0 0; font-size: 15.5px; line-height: 1.7; color: #59616E; max-width: 44ch;">
-          Coloque os seus números: quanto um cliente gasta, quantas vezes volta e quantos
-          clientes novos você espera. A conta aparece na hora.
-        </p>
-      </div>
-
-      <!-- A calculadora (extras/calculadora.js): plano, ticket, frequencia e
-           clientes novos, tudo informado pela pessoa. Monta vazia do React e
-           e preenchida quando a secao chega perto (setupCalculadora). -->
-      <div class="calc" data-calc></div>
-    </div>
-  </section>
-
-
-  <!-- A objeção que vem depois do preço nunca é "é caro", é "isso eu mesmo faço".
-       Esta seção responde ela com o mesmo mês visto dos dois lados. As linhas dos
-       dois painéis se emparelham pelo data-tema, não pela altura: passar o mouse
-       numa acende a irmã do outro lado (setupDuelo, lá embaixo no script). -->
-  <section data-anima id="sozinho" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
-    <div data-reveal="1" style="max-width: 62ch;">
-      <div class="eyebrow eyebrow--2">Sozinho x com a ACTech</div>
-      <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 20ch; color: #3D4852;">Dá pra fazer sozinho. A conta é outra.</h2>
-      <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #59616E;">
-        Nada do que a gente faz é segredo de sete chaves — dá pra aprender e fazer por conta.
-        O que quase ninguém tem é o mês inteiro sobrando pra isso. Veja o mesmo mês dos dois lados.
-      </p>
-    </div>
-
-    <div class="duelo" data-reveal="1" data-duelo>
-      <div class="duelo-col duelo-col--voce">
-        <div class="duelo-cab">
-          <span class="duelo-selo">Você sozinho</span>
-          <span class="duelo-sub">como costuma ser hoje</span>
-        </div>
-        <ul class="duelo-lista">
-          <li class="duelo-linha" data-tema="seu-tempo">
-            <span class="duelo-tema">Seu tempo</span>
-            <p class="duelo-txt" style="margin: 0;">Umas <b>14 horas por mês</b> montando post, respondendo avaliação e mexendo no site — quase sempre depois que a loja já fechou.</p>
-          </li>
-          <li class="duelo-linha" data-tema="o-que-sai-do-caixa">
-            <span class="duelo-tema">O que sai do caixa</span>
-            <p class="duelo-txt" style="margin: 0;"><b>R$ 0</b> de mensalidade. E 14 horas do seu mês, que é o que você tem de mais caro.</p>
-          </li>
-          <li class="duelo-linha" data-tema="o-site">
-            <span class="duelo-tema">O site</span>
-            <p class="duelo-txt" style="margin: 0;">Fica meses do jeito que subiu: preço velho, promoção que já acabou, horário de Natal ainda no ar em março.</p>
-          </li>
-          <li class="duelo-linha" data-tema="as-redes">
-            <span class="duelo-tema">As redes</span>
-            <p class="duelo-txt" style="margin: 0;">Post quando sobra tempo. E tempo é justamente o que não sobra.</p>
-          </li>
-          <li class="duelo-linha" data-tema="o-google">
-            <span class="duelo-tema">O Google</span>
-            <p class="duelo-txt" style="margin: 0;">Ficha no automático e avaliação sem resposta — inclusive as ruins, que são as que o cliente novo lê primeiro.</p>
-          </li>
-        </ul>
-      </div>
-
-      <div class="duelo-vs" aria-hidden="true">vs</div>
-
-      <div class="duelo-col duelo-col--nos">
-        <div class="duelo-cab">
-          <span class="duelo-selo">Com a ACTech</span>
-          <span class="duelo-sub">plano Completo</span>
-        </div>
-        <ul class="duelo-lista">
-          <li class="duelo-linha" data-tema="seu-tempo">
-            <span class="duelo-tema">Seu tempo</span>
-            <p class="duelo-txt" style="margin: 0;">Uns <b>20 minutos</b>: você manda a foto e o que quer dizer no WhatsApp. O resto sai daqui.</p>
-          </li>
-          <li class="duelo-linha" data-tema="o-que-sai-do-caixa">
-            <span class="duelo-tema">O que sai do caixa</span>
-            <p class="duelo-txt" style="margin: 0;"><b>R$ 597,99 por mês</b>, sem taxa de setup e com o primeiro mês grátis.</p>
-          </li>
-          <li class="duelo-linha" data-tema="o-site">
-            <span class="duelo-tema">O site</span>
-            <p class="duelo-txt" style="margin: 0;"><b>4 atualizações por mês</b> — e o que é urgente entra no mesmo dia, sem abrir chamado.</p>
-          </li>
-          <li class="duelo-linha" data-tema="as-redes">
-            <span class="duelo-tema">As redes</span>
-            <p class="duelo-txt" style="margin: 0;"><b>20 posts por mês</b> com arte feita, no calendário, saindo mesmo na semana corrida.</p>
-          </li>
-          <li class="duelo-linha" data-tema="o-google">
-            <span class="duelo-tema">O Google</span>
-            <p class="duelo-txt" style="margin: 0;"><b>Post toda semana</b> na ficha e cada avaliação respondida, uma a uma.</p>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="duelo-medidor" data-reveal="1" data-duelo-medidor>
-      <div class="duelo-barra duelo-barra--voce">
-        <div class="duelo-barra-cab">
-          <span class="duelo-barra-rot">Horas suas, fazendo tudo por conta</span>
-          <span class="duelo-barra-num">~14h por mês</span>
-        </div>
-        <div class="duelo-trilho"><i style="--w: 100%;"></i></div>
-      </div>
-
-      <div class="duelo-barra duelo-barra--nos">
-        <div class="duelo-barra-cab">
-          <span class="duelo-barra-rot">Horas suas, com a ACTech cuidando</span>
-          <span class="duelo-barra-num">~20 min por mês</span>
-        </div>
-        <div class="duelo-trilho"><i style="--w: 2.4%;"></i></div>
-      </div>
-
-      <p class="duelo-pe">
-        As 14 horas são uma estimativa do que costuma levar fazer isso sozinho: 20 posts com arte,
-        as respostas no Google e as mexidas no site. Faça a sua — o ponto não é acertar o número,
-        é enxergar de onde esse tempo está saindo hoje.
-      </p>
-    </div>
-  </section>
-
-  <section data-anima id="diferenciais" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 40px; padding-bottom: 96px;">
-    <div class="two-col" style="align-items: start;">
-      <div>
-        <h2 data-reveal="1" class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 0 0 40px; max-width: 20ch; color: #3D4852;">Por que ACTech</h2>
-        <div class="grid-2">
-          <sc-for list="{{ diferenciais }}" as="d" hint-placeholder-count="4">
-            <div data-reveal="1" class="nm-card nm-card--lift" style="padding: 30px 26px 28px;">
-              <div class="nm-well dif-ico" style="width: 58px; height: 58px; border-radius: 18px; margin-bottom: 20px;">{{ d.icon }}</div>
-              <div class="font-display" style="font-weight: 700; font-size: 18px; color: #3D4852;">{{ d.title }}</div>
-              <div style="margin-top: 10px; font-size: 14.5px; color: #59616E; line-height: 1.65;">{{ d.body }}</div>
-            </div>
-          </sc-for>
-        </div>
-      </div>
-
-      <!-- CardSwap: pilha que troca a cada 5s (GSAP, ease elastic) -->
-      <div class="swap-stage" data-reveal="1">
-        <div class="swap-container" data-swap>
-          <div class="swap-card">
-            <div class="nm-well" style="width: 52px; height: 52px; border-radius: 16px;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3D6A99" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v12H3z"></path><path d="M8 21h8"></path><path d="M12 17v4"></path></svg>
-            </div>
-            <div>
-              <div class="font-display" style="font-weight: 800; font-size: 22px; color: #3D4852;">Site no ar</div>
-              <div style="margin-top: 8px; font-size: 14.5px; color: #59616E; line-height: 1.6;">Pronto em até 5 dias úteis, com domínio e hospedagem inclusos.</div>
-            </div>
-          </div>
-          <div class="swap-card">
-            <div class="nm-well" style="width: 52px; height: 52px; border-radius: 16px;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3D6A99" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17" cy="7" r="1"></circle></svg>
-            </div>
-            <div>
-              <div class="font-display" style="font-weight: 800; font-size: 22px; color: #3D4852;">Redes no ritmo</div>
-              <div style="margin-top: 8px; font-size: 14.5px; color: #59616E; line-height: 1.6;">De 8 a 20 posts por mês, criados e publicados pela gente.</div>
-            </div>
-          </div>
-          <div class="swap-card">
-            <div class="nm-well" style="width: 52px; height: 52px; border-radius: 16px;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3D6A99" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.4 7-11a7 7 0 10-14 0c0 4.6 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg>
-            </div>
-            <div>
-              <div class="font-display" style="font-weight: 800; font-size: 22px; color: #3D4852;">Achado no Google</div>
-              <div style="margin-top: 8px; font-size: 14.5px; color: #59616E; line-height: 1.6;">Ficha otimizada pra aparecer em quem busca perto de você.</div>
             </div>
           </div>
         </div>
@@ -2794,47 +2848,10 @@
 
   </script>
 
-  <section data-anima id="trabalhos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 96px;">
-    <div data-reveal="1" style="text-align: center; margin-bottom: 34px;">
-      <div class="eyebrow eyebrow--5">Nosso trabalho</div>
-      <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px auto 0; max-width: 18ch; color: #3D4852;">Um pedaço do que já está no ar.</h2>
-    </div>
-
-    <!-- Parede 3D em marquee. Para trocar ou acrescentar trabalho, mexa só em `trabalhos()`
-         na lógica lá embaixo e jogue a imagem em imgs/ — as colunas, o giro da lista em cada
-         uma e a duplicata que fecha o loop são montadas sozinhas no estado. -->
-    <div class="wall" data-reveal="1" aria-label="Trabalhos que já estão no ar">
-      <div class="wall-3d">
-        <sc-for list="{{ wallCols }}" as="c" hint-placeholder-count="5">
-          <div class="{{ c.cls }}" style="--tz: {{ c.tz }};">
-            <div class="{{ c.lane }}" style="--tdur: {{ c.dur }};">
-              <sc-for list="{{ c.itens }}" as="t" hint-placeholder-count="8">
-                <div class="wtile" aria-hidden="{{ t.dup }}">
-                  <div class="tela">
-                    <div class="tela-topo">
-                      <i></i><i></i><i></i>
-                      <span class="tela-url">{{ t.url }}</span>
-                    </div>
-                    <img class="tela-img" src="{{ t.img }}" alt="{{ t.alt }}" loading="lazy" decoding="async" />
-                  </div>
-                  <div class="wtile-info">
-                    <div class="wtile-tag">{{ t.tag }}</div>
-                    <h3 class="wtile-t">{{ t.titulo }}</h3>
-                    <p class="wtile-d">{{ t.texto }}</p>
-                  </div>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-        </sc-for>
-      </div>
-    </div>
-  </section>
-
   <section id="faq" class="pad-section" style="position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 40px 24px 96px;">
     <h2 data-reveal="1" class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 0 0 44px; color: #3D4852;">Dúvidas frequentes</h2>
     <div style="display: grid; gap: 18px;">
-      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="4">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="10">
         <div class="nm-card">
           <div class="faq-head" onClick="{{ f.toggle }}" role="button" tabindex="0">
             <span style="font-size: 16.5px; font-weight: 700; line-height: 1.45; color: #3D4852;">{{ f.q }}</span>
@@ -2902,6 +2919,7 @@
     </div>
   </section>
 
+
   <footer style="position: relative; z-index: 1; padding: 0 24px 110px;">
     <!-- A assinatura fecha a pagina. Veio do banner original em fundo creme
          (#F4F1EC): o fundo saiu por preenchimento a partir da borda, e o alpha
@@ -2932,8 +2950,21 @@
           {{ instaUser }}
         </a>
       </div>
-      <div>© 2026 ACTech Informática</div>
+      <div>© 2026 ACTech Informática · <a class="rodape-mini" href="privacidade.html">Privacidade</a></div>
     </div>
+    <!-- Uma pagina por ramo (geradas por ferramentas/gerar-ramos.py). O link daqui e o que
+         faz o Google achar as oito; o anuncio de cada ramo aponta direto pra ela. -->
+    <nav class="rodape-ramos" aria-label="Site para o seu ramo">
+      <span>Site para</span>
+      <a href="barbearia/">barbearia</a>
+      <a href="salao-de-beleza/">salão de beleza</a>
+      <a href="maquiagem/">maquiadora</a>
+      <a href="loja-de-roupa/">loja de roupa</a>
+      <a href="pet-shop/">pet shop</a>
+      <a href="mercado/">mercado</a>
+      <a href="restaurante/">restaurante</a>
+      <a href="clinica/">clínica</a>
+    </nav>
   </footer>
 
 
@@ -2945,7 +2976,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5561994299823&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;whatsappMessage&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Olá! Vi a página da ACTech e quero saber mais sobre os planos.&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;instagramUser&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;actech.systems&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;assinaturaEssencial&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://mpago.la/1JApXpJ&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Pagamento&quot;},&quot;assinaturaCompleto&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://mpago.la/2pHpdGa&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Pagamento&quot;},&quot;ga4Id&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Medição&quot;},&quot;googleAdsId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Medição&quot;},&quot;googleAdsConversao&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Medição&quot;},&quot;metaPixelId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;2217077532566142&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Medição&quot;}}">
 class Component extends DCLogic {
-  state = { open: 0, menu: false, lesson: -1, faixa: '6M' };
+  state = { open: 0, menu: false, lesson: -1 };
 
   componentDidMount() {
     const els = Array.from(document.querySelectorAll('[data-reveal]'));
@@ -2981,7 +3012,6 @@ class Component extends DCLogic {
     this.setupGooButton();
     this.setupTilt();
     this.setupTrueFocus();
-    this.setupCardSwap();
     this.setupDuelo();
     this.setupEstilos();
     this.setupSistemas();
@@ -3346,76 +3376,6 @@ class Component extends DCLogic {
     this._teardown.push(() => {
       clearInterval(iv);
       window.removeEventListener('resize', onResize);
-    });
-  }
-
-  /* ---------------------------------------------------------------
-     7. CardSwap — pilha que derruba a carta da frente e promove o resto
-     --------------------------------------------------------------- */
-  setupCardSwap() {
-    const container = document.querySelector('[data-swap]');
-    if (!container) return;
-    const cards = [...container.querySelectorAll('.swap-card')];
-    if (cards.length < 2) return;
-
-    const W = 320;
-    const H = 200;
-    const distX = 60;
-    const distY = 70;
-    const skew = 6;
-    const delay = 5000;
-    const cfg = {
-      ease: 'elastic.out(0.6,0.9)',
-      durDrop: 2, durMove: 2, durReturn: 2,
-      promoteOverlap: 0.9, returnDelay: 0.05
-    };
-
-    container.style.width = W + 'px';
-    container.style.height = H + 'px';
-    cards.forEach((c) => { c.style.width = W + 'px'; c.style.height = H + 'px'; });
-
-    this.whenGsap((g) => {
-      const total = cards.length;
-      const slot = (i) => ({ x: i * distX, y: -i * distY, z: -i * distX * 1.5, zIndex: total - i });
-      const place = (el, s) => g.set(el, {
-        x: s.x, y: s.y, z: s.z,
-        xPercent: -50, yPercent: -50,
-        skewY: skew, transformOrigin: 'center center',
-        zIndex: s.zIndex, force3D: true
-      });
-
-      cards.forEach((c, i) => place(c, slot(i)));
-      if (this.reduced()) return;
-
-      let order = cards.map((_, i) => i);
-      const swap = () => {
-        if (order.length < 2) return;
-        const front = order[0];
-        const rest = order.slice(1);
-        const elFront = cards[front];
-        const tl = g.timeline();
-
-        tl.to(elFront, { y: '+=500', duration: cfg.durDrop, ease: cfg.ease });
-        tl.addLabel('promote', '-=' + cfg.durDrop * cfg.promoteOverlap);
-        rest.forEach((idx, i) => {
-          const s = slot(i);
-          tl.set(cards[idx], { zIndex: s.zIndex }, 'promote');
-          tl.to(cards[idx], { x: s.x, y: s.y, z: s.z, duration: cfg.durMove, ease: cfg.ease },
-            'promote+=' + i * 0.15);
-        });
-
-        const back = slot(total - 1);
-        tl.addLabel('return', 'promote+=' + cfg.durMove * cfg.returnDelay);
-        tl.call(() => { g.set(elFront, { zIndex: back.zIndex }); }, undefined, 'return');
-        tl.to(elFront, { x: back.x, y: back.y, z: back.z, duration: cfg.durReturn, ease: cfg.ease }, 'return');
-        tl.call(() => { order = rest.concat([front]); });
-      };
-
-      swap();
-      // sem isto o GSAP mantém uma timeline viva (e um rAF por quadro) mesmo com
-      // a seção longe da tela
-      const iv = setInterval(() => { if (this.podeAnimar(container)) swap(); }, delay);
-      this._teardown.push(() => clearInterval(iv));
     });
   }
 
@@ -3847,14 +3807,6 @@ class Component extends DCLogic {
     });
   }
 
-  // Ícones dos diferenciais usam o accent violeta do sistema neumórfico.
-  icon(path) {
-    // currentColor, e nao um roxo fixo: quem manda na cor passa a ser o
-    // recipiente (.nm-well segue roxo, .pick-ico troca a cada pergunta).
-    return React.createElement('svg', { width: 24, height: 24, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
-      path.map((d, i) => React.createElement('path', { key: i, d })));
-  }
-
   /* =================================================================
      DIAGNÓSTICO — as perguntas, o cálculo e o texto do resultado.
      ================================================================= */
@@ -3887,90 +3839,6 @@ class Component extends DCLogic {
     return this._memo[chave];
   }
 
-
-  /* ---------------------------------------------------------------
-     Cartão de métrica do hero.
-
-     Os números são ILUSTRATIVOS: mostram a forma de um resultado possível,
-     não o histórico de um cliente. Para mexer, é só aqui —
-       total  = o número grande no topo (e o fim da curva)
-       delta  = crescimento no período; a linha tracejada é o ponto de partida
-       escala = topo do eixo da direita
-       subida = quanto a curva "empurra" para o fim (0 = reta, 1 = tudo no fim)
-     --------------------------------------------------------------- */
-  metricaFaixas() {
-    return [
-      { id: '1M', rotulo: '1M', total: 412, delta: 34, escala: 600, subida: 1.15, semente: 7,
-        sub: 'pessoas encontraram seu negócio no último mês',
-        datas: ['1ª sem', '2ª sem', '3ª sem', '4ª sem'] },
-      { id: '3M', rotulo: '3M', total: 1284, delta: 126, escala: 1600, subida: 1.3, semente: 23,
-        sub: 'pessoas encontraram seu negócio em 3 meses',
-        datas: ['mês 1', 'mês 2', 'mês 3'] },
-      { id: '6M', rotulo: '6M', total: 3590, delta: 218, escala: 4200, subida: 1.45, semente: 41,
-        sub: 'pessoas encontraram seu negócio em 6 meses',
-        datas: ['jan', 'mar', 'mai', 'jun'] },
-      { id: '1A', rotulo: '1A', total: 8740, delta: 410, escala: 10000, subida: 1.6, semente: 59,
-        sub: 'pessoas encontraram seu negócio em 1 ano',
-        datas: ['jan', 'abr', 'jul', 'out', 'dez'] }
-    ];
-  }
-
-  /** Monta a geometria do gráfico (linha, área, barras e eixos) de uma faixa. */
-  metricaDesenho(f) {
-    const W = 280, H = 104, X0 = 3, X1 = 277, Y0 = 7, Y1 = 97;
-    const N = 30;
-    const num = (n) => Math.round(n).toLocaleString('pt-BR');
-    const pct = (v) => +(v * 100).toFixed(2) + '%';
-
-    // Ruído estável: a mesma faixa desenha sempre a mesma curva. Com Math.random
-    // o gráfico mudaria a cada re-render (abrir o menu, trocar de faixa...).
-    let s = f.semente * 9301 + 49297;
-    const rnd = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
-
-    const fim = f.total / f.escala;
-    const ini = fim / (1 + f.delta / 100);
-
-    const vals = [];
-    for (let i = 0; i < N; i++) {
-      const t = i / (N - 1);
-      const curva = ini + (fim - ini) * Math.pow(t, f.subida);
-      const ruido = i === 0 || i === N - 1 ? 0 : (rnd() - 0.5) * 0.085;
-      vals.push(Math.max(0.04, Math.min(0.98, curva + ruido)));
-    }
-
-    const px = (i) => X0 + (X1 - X0) * (i / (N - 1));
-    const py = (v) => Y1 - (Y1 - Y0) * v;
-    const pts = vals.map((v, i) => ({ x: +px(i).toFixed(1), y: +py(v).toFixed(1) }));
-
-    // Curva suave: cada trecho vira uma cúbica com os controles no meio do vão.
-    let linha = 'M' + pts[0].x + ',' + pts[0].y;
-    for (let i = 1; i < pts.length; i++) {
-      const p = pts[i - 1], q = pts[i], mx = +((p.x + q.x) / 2).toFixed(1);
-      linha += ' C' + mx + ',' + p.y + ' ' + mx + ',' + q.y + ' ' + q.x + ',' + q.y;
-    }
-
-    return {
-      valor: num(f.total),
-      delta: '+' + f.delta + '%',
-      sub: f.sub,
-      alt: 'Gráfico ilustrativo: ' + num(f.total) + ' pessoas encontraram o negócio, ' +
-           f.delta + '% a mais que no início do período.',
-      linha: linha,
-      area: linha + ' L' + X1 + ',' + Y1 + ' L' + X0 + ',' + Y1 + ' Z',
-      baseTop: pct(py(ini) / H),
-      fimLeft: pct(pts[N - 1].x / W),
-      fimTop: pct(pts[N - 1].y / H),
-      barras: vals.map((v, i) => ({
-        cls: i >= N - 4 ? 'mx-barra--alta' : '',
-        h: pct(Math.max(0.12, Math.min(1, 0.22 + 0.72 * v * (0.78 + rnd() * 0.44))))
-      })),
-      eixo: [0, 0.5, 1].map((p) => ({
-        top: pct(py(p) / H),
-        txt: num(f.escala * p)
-      })),
-      datas: f.datas.map((txt) => ({ txt: txt }))
-    };
-  }
 
   /* Os trabalhos que rolam em #trabalhos. Acrescentar é só somar um objeto
      aqui e jogar a imagem em imgs/ — as colunas se montam sozinhas.
@@ -4029,7 +3897,13 @@ class Component extends DCLogic {
       { q: 'Em quanto tempo meu site fica pronto?', a: 'Até 5 dias úteis depois que recebemos o material básico: logo, fotos, textos e informações de contato. Se preferir, a gente ajuda a organizar esse conteúdo antes de começar.' },
       { q: 'Como funciona o 1º mês grátis?', a: 'Você não paga a primeira mensalidade. Nesse período já fazemos o site, publicamos os posts e configuramos o Google Meu Negócio. A cobrança começa no segundo mês.' },
       { q: 'Tenho que ficar preso por algum tempo?', a: 'Não. Não há fidelidade nem multa: o plano é mês a mês e você cancela quando quiser, direto pelo app do Mercado Pago. Só um aviso honesto: presença digital rende com constância, e quem desiste no segundo mês costuma sair antes de o resultado aparecer. O site continua seu — a gente passa os arquivos e o domínio se você decidir sair.' },
-      { q: 'Qual é a diferença entre o Essencial e o Completo?', a: 'O Essencial põe a base de pé: site no ar, 8 posts por mês e a ficha do Google otimizada. O Completo é para quem quer acelerar — sobe para 20 posts com artes elaboradas, mantém a ficha do Google ativa toda semana, faz 4 atualizações no site e entrega um relatório mensal do que deu resultado.' }
+      { q: 'Qual é a diferença entre o Essencial e o Completo?', a: 'O Essencial põe a base de pé: site no ar, 8 posts por mês e a ficha do Google otimizada. O Completo é para quem quer acelerar — sobe para 20 posts com artes elaboradas, mantém a ficha do Google ativa toda semana, faz 4 atualizações no site e entrega um relatório mensal do que deu resultado.' },
+      { q: 'E se o site não ficar pronto em 5 dias úteis?', a: 'Aí o segundo mês é por nossa conta. O prazo conta a partir do dia em que chega o material básico (logo, fotos, horário e contato). Se faltar alguma coisa, a gente avisa no mesmo dia, pra ninguém ficar esperando à toa.' },
+      { q: 'Eu já tenho site ou Instagram. Serve pra mim?', a: 'Serve, e melhor ainda: a gente aproveita o que já existe. O site pode ser refeito no mesmo endereço, e o Instagram continua sendo o seu, só que publicando toda semana.' },
+      { q: 'O domínio e o site ficam no meu nome?', a: 'O site é seu. Se um dia você sair, a gente transfere o domínio pro seu CPF ou CNPJ e entrega os arquivos do site. Nada fica preso com a ACTech.' },
+      { q: 'Preciso tirar fotos profissionais?', a: 'Não. Foto de celular resolve, e o guia gratuito desta página mostra como tirar uma que vende. Se você não tiver nenhuma, a gente começa com imagens de banco e troca pelas suas quando chegarem.' },
+      { q: 'Como eu pago?', a: 'É uma assinatura mensal pelo Mercado Pago, no cartão de crédito. A primeira cobrança só acontece no segundo mês, e o cancelamento é pelo próprio app do Mercado Pago, sem precisar falar com ninguém.' },
+      { q: 'Vocês atendem fora de Brasília?', a: 'Site e sistema, sim: atendemos o Brasil inteiro, tudo pelo WhatsApp. Os planos com Instagram e ficha do Google são pensados pra quem atende em Brasília e no entorno.' }
       // ADS OFF - pergunta da verba de anúncio, guardada para quando o tráfego pago voltar:
       // { q: 'O que significa "verba de anúncio separada"?', a: 'No plano Completo a ACTech cria, configura e otimiza as campanhas no Google e Meta. O valor que vai para o anúncio em si é pago diretamente às plataformas e você define quanto quer investir — ele não está incluído na mensalidade.' }
     ]);
@@ -4037,9 +3911,6 @@ class Component extends DCLogic {
     // Cada coluna da parede mostra a lista inteira, girada pelo índice da coluna
     // (assim duas vizinhas nunca ficam iguais) e repetida duas vezes — a duplicata
     // é o que faz a emenda do loop ficar invisível.
-    const MF = this.memo('faixas', () => this.metricaFaixas());
-    const faixa = MF.find((f) => f.id === this.state.faixa) || MF[2];
-    const MX = this.memo('mx:' + faixa.id, () => this.metricaDesenho(faixa));
 
     const wallCols = this.memo('parede', () => {
       const TR = this.trabalhos();
@@ -4067,26 +3938,6 @@ class Component extends DCLogic {
 
       assinarEssencial: assEssencial || ('https://wa.me/' + phone + '?text=' + encodeURIComponent('Olá! Quero assinar o plano Essencial da ACTech.')),
       assinarCompleto: assCompleto || ('https://wa.me/' + phone + '?text=' + encodeURIComponent('Olá! Quero assinar o plano Completo da ACTech.')),
-
-      mxValor: MX.valor,
-      mxDelta: MX.delta,
-      mxSub: MX.sub,
-      mxAlt: MX.alt,
-      mxLinha: MX.linha,
-      mxArea: MX.area,
-      mxBaseTop: MX.baseTop,
-      mxFimLeft: MX.fimLeft,
-      mxFimTop: MX.fimTop,
-      mxBarras: MX.barras,
-      mxEixo: MX.eixo,
-      mxDatas: MX.datas,
-      mxFaixa: faixa.id,
-      mxFaixas: MF.map((f) => ({
-        rotulo: f.rotulo,
-        cls: 'mx-faixa' + (f.id === faixa.id ? ' is-on' : ''),
-        on: f.id === faixa.id ? 'true' : 'false',
-        ir: () => this.setState({ faixa: f.id })
-      })),
 
       wallCols: wallCols,
 
@@ -4118,12 +3969,6 @@ class Component extends DCLogic {
         'Suporte prioritário',
         'Sem fidelidade: cancele quando quiser'
       ],
-      diferenciais: this.memo('difs', () => [
-        { title: 'Site pronto em até 5 dias', body: 'Processo enxuto e direto: você aprova, a gente publica. Sem meses de espera.', icon: this.icon(['M13 2L3 14h7l-1 8 10-12h-7z']) },
-        { title: '1º mês grátis', body: 'Você vê o trabalho acontecendo antes de pagar a primeira mensalidade.', icon: this.icon(['M20 12v9H4v-9', 'M2 7h20v5H2z', 'M12 21V7', 'M12 7C9 7 7 5.5 7 4a2 2 0 014 0c0 1.5 1 3 1 3z']) },
-        { title: 'Atendimento próximo', body: 'Você fala com quem desenvolve e cria, no WhatsApp, sem intermediário.', icon: this.icon(['M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z']) },
-        { title: 'Foco em pequenos negócios', body: 'Soluções do tamanho do seu comércio, com preço que cabe no mês.', icon: this.icon(['M3 21h18', 'M5 21V8l7-5 7 5v13', 'M10 21v-6h4v6']) }
-      ]),
       faqs: faqData.map((f, i) => ({
         q: f.q,
         a: f.a,
