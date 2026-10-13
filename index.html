@@ -780,7 +780,12 @@
   .goo:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 30px; }
   [data-goo-bite] { transition: transform .8s cubic-bezier(.44, 0, .56, 1); }
 
-  /* ---------- BlobCard: cabeçalho de blobs fluidos azuis + glow rotativo ---------- */
+  /* ---------- BlobCard: cabecalho de blobs fluidos + glow rotativo ----------
+     Cores pela teoria de cor (13/10/2026): a pagina e um par complementar,
+     azul petroleo + laranja. Essencial = analogas frias (petroleo -> verde-agua,
+     calma). Completo = navy com luz laranja/ambar, o complemento: quente sobre
+     escuro e o maior contraste da pagina, entao o olho cai nele primeiro.
+     Texturas geradas por ferramentas/gerar-texturas-planos.py. */
   .blob-card { position: relative; width: 100%; }
   .blob-glow { position: absolute; inset: -2px; border-radius: 34px; overflow: hidden; z-index: 0; }
   .blob-glow i {
@@ -789,14 +794,14 @@
        filtrada gigante; girar uma imagem é o compositor virando uma textura.
        Do anel inteiro aparecem uns 2px — o cartão cobre o resto. */
     display: block; position: absolute; inset: -35%;
-    background: url('imgs/plano-glow.webp') center / cover no-repeat;
+    background: url('imgs/plano-glow-essencial.webp') center / cover no-repeat;
     animation: glowspin 5s linear infinite;
     will-change: transform;
   }
   @keyframes glowspin { to { transform: rotate(360deg); } }
   .blob-inner { position: relative; z-index: 1; border-radius: var(--r-card); overflow: hidden; background: var(--bg); }
-  .blob-header { position: relative; overflow: hidden; height: 224px; background: #12224E; }
-  /* O desfoque vem assado nas duas texturas (imgs/plano-blobs-*.webp, ~2 KB cada).
+  .blob-header { position: relative; overflow: hidden; height: 224px; background: #162E4C; }
+  /* O desfoque vem assado nas duas texturas (imgs/plano-essencial-*.webp e plano-completo-*.webp, ~2 KB cada).
      Antes eram quatro elipses animadas dentro de um `filter: blur(40px)`: o navegador
      refazia o desfoque da área inteira a cada quadro, nos dois cards, e era isso que
      travava a página ao chegar nos preços. Agora as camadas só trocam de opacidade e
@@ -807,19 +812,15 @@
     background: center / cover no-repeat;
     will-change: transform, opacity;
   }
-  .fluid i:nth-child(1) { background-image: url('imgs/plano-blobs-1.webp'); animation: blobA 17s ease-in-out infinite; }
-  .fluid i:nth-child(2) { background-image: url('imgs/plano-blobs-2.webp'); animation: blobB 17s ease-in-out infinite; }
+  .fluid i:nth-child(1) { background-image: url('imgs/plano-essencial-1.webp'); animation: blobA 17s ease-in-out infinite; }
+  .fluid i:nth-child(2) { background-image: url('imgs/plano-essencial-2.webp'); animation: blobB 17s ease-in-out infinite; }
 
-  /* Um plano de cada cor. As texturas verdes sao as mesmas de sempre com o matiz
-     girado -55 graus (script de geracao no historico) - ou seja, o desfoque
-     continua assado dentro do arquivo e o custo em tela segue zero. So trocar a
-     imagem, nao filtrar em runtime: hue-rotate no CSS repintaria a area inteira
-     a cada quadro, que e exatamente o que essa secao ja pagou caro pra evitar. */
-  .blob-card--verde .blob-header { background: #124E43; }
-  /* o check acompanha a cor do proprio card */
-  .blob-card--verde .check-mark { color: var(--accent-2); }
-  .blob-card--verde .fluid i:nth-child(1) { background-image: url('imgs/plano-blobs-1-verde.webp'); }
-  .blob-card--verde .fluid i:nth-child(2) { background-image: url('imgs/plano-blobs-2-verde.webp'); }
+  /* o Completo ganha a luz quente sobre o navy */
+  .blob-card--quente .blob-header { background: #121B30; }
+  .blob-card--quente .blob-glow i { background-image: url('imgs/plano-glow-completo.webp'); }
+  .blob-card--quente .fluid i:nth-child(1) { background-image: url('imgs/plano-completo-1.webp'); }
+  .blob-card--quente .fluid i:nth-child(2) { background-image: url('imgs/plano-completo-2.webp'); }
+  .blob-card--quente .check-mark { color: var(--t2); }
   @keyframes blobA {
     0%, 100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1.02); }
     50%      { opacity: 0; transform: translate3d(-3%, 2%, 0) scale(1.12); }
@@ -828,7 +829,7 @@
     0%, 100% { opacity: 0; transform: translate3d(3%, -2%, 0) scale(1.1); }
     50%      { opacity: 1; transform: translate3d(0, 0, 0) scale(1.02); }
   }
-  .blob-fade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, transparent 0%, transparent 46%, var(--bg) 100%); }
+  .blob-fade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(100deg, rgba(10,18,32,.55) 0%, rgba(10,18,32,.18) 55%, transparent 80%); }
   .blob-head { position: relative; z-index: 2; padding: 30px 32px 0; color: #fff; }
   .blob-body { padding: 26px 32px 34px; }
 
@@ -1521,7 +1522,7 @@
     .pad-section { padding-top: 52px !important; padding-bottom: 56px !important; }
     .pricing-grid { gap: 44px; }
 
-    .blob-header { height: 190px; }
+    .blob-header { height: 214px; }
     .blob-head { padding: 24px 22px 0; }
     .blob-body { padding: 22px 22px 28px; }
 
@@ -1572,7 +1573,7 @@
 
   @media (max-width: 380px) {
     .wrap { padding-left: 14px; padding-right: 14px; }
-    .blob-header { height: 176px; }
+    .blob-header { height: 206px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -2033,7 +2034,7 @@
 
     <div class="pricing-grid">
 
-      <div data-reveal="1" class="blob-card blob-card--verde tilt" data-tilt>
+      <div data-reveal="1" class="blob-card tilt" data-tilt>
         <div class="blob-glow"><i></i></div>
         <div class="blob-inner" style="box-shadow: 9px 9px 16px rgba(163,177,198,.6), -9px -9px 16px rgba(255,255,255,.5);">
           <div class="blob-header">
@@ -2072,7 +2073,7 @@
         </div>
       </div>
 
-      <div data-reveal="1" class="blob-card tilt" data-tilt style="position: relative;">
+      <div data-reveal="1" class="blob-card blob-card--quente tilt" data-tilt style="position: relative;">
         <div style="position: absolute; top: -16px; left: 50%; transform: translateX(-50%); z-index: 3;">
           <span class="nm-chip" style="font-size: 12px; padding: 9px 20px; letter-spacing: .1em; box-shadow: 9px 9px 16px rgba(163,177,198,.6), -9px -9px 16px rgba(255,255,255,.5);">MAIS COMPLETO</span>
         </div>

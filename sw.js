@@ -14,7 +14,7 @@
      São versionados pelo deploy e não mudam no meio do dia.
 */
 
-var VERSAO = 'actech-v9';
+var VERSAO = 'actech-v10';
 var C_CASCA = VERSAO + '-casca';
 var C_USO = VERSAO + '-uso';
 
@@ -65,11 +65,12 @@ var CASCA = [
   'extras/calculadora.js',
   'extras/vitrine.css',
   'extras/vitrine.js',
-  'imgs/plano-glow.webp',
-  'imgs/plano-blobs-1.webp',
-  'imgs/plano-blobs-2.webp',
-  'imgs/plano-blobs-1-verde.webp',
-  'imgs/plano-blobs-2-verde.webp',
+  'imgs/plano-glow-essencial.webp',
+  'imgs/plano-glow-completo.webp',
+  'imgs/plano-essencial-1.webp',
+  'imgs/plano-essencial-2.webp',
+  'imgs/plano-completo-1.webp',
+  'imgs/plano-completo-2.webp',
   /* As duas fotos de cada ramo: a previa agora rola e mostra as duas. */
   'imgs/ramos/roupa-1.webp',      'imgs/ramos/roupa-2.webp',
   'imgs/ramos/barbearia-1.webp',  'imgs/ramos/barbearia-3.webp',
