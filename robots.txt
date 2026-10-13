@@ -5,5 +5,7 @@
 
 User-agent: *
 Allow: /
+# Gerador e modelo das paginas por ramo: nao sao pagina de ninguem.
+Disallow: /ferramentas/
 
 Sitemap: https://actechsystems.github.io/sitemap.xml
