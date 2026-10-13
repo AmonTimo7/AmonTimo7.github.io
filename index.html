@@ -1262,83 +1262,81 @@
   /* "o que falta" alerta, "o que faremos" avanca - e a cor diz qual e qual */
 
   /* ---------- sozinho x com a ACTech: o mesmo mes, dos dois lados ----------
-     Os dois painéis não se alinham linha a linha (o texto tem tamanhos
-     diferentes e forçar isso quebraria no celular). Quem faz o par é o
-     rótulo do tema: passar o mouse numa linha acende a irmã do outro lado. */
-  .duelo {
-    margin-top: 44px; display: grid; gap: 20px; align-items: stretch;
-    grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
-  }
-  .duelo-col {
-    padding: 32px 30px 28px; border-radius: var(--r-card); background: var(--bg);
-  }
-  .duelo-col--voce { box-shadow: var(--nm-in); }
-  .duelo-col--nos { box-shadow: var(--nm-out); }
-  .duelo-cab { display: flex; align-items: baseline; gap: 11px; flex-wrap: wrap; }
-  .duelo-selo {
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    font-weight: 800; font-size: 20px; letter-spacing: -.02em; color: var(--placeholder);
-  }
-  .duelo-col--nos .duelo-selo { color: var(--accent); }
-  .duelo-sub { font-size: 12.5px; color: var(--placeholder); }
+     Esquerda: as sete noites que o dono gasta sozinho, cavadas na superficie
+     (o mes "afundado"). Direita: uma conversa no WhatsApp, em relevo. Com
+     .is-vivo (setupDuelo) as noites aparecem uma por uma e o contador sobe;
+     sem JS, tudo ja aparece pronto. Embaixo, a tabela item por item. */
+  .sz { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: 28px; margin-top: 44px; align-items: stretch; }
+  .sz-lado { border-radius: var(--r-card); padding: 30px 30px 26px; display: flex; flex-direction: column; }
+  .sz-lado--voce { box-shadow: var(--nm-in); background: var(--bg); }
+  .sz-lado--nos { box-shadow: var(--nm-out); background: var(--bg); }
+  .sz-cab { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .sz-quem { font: 800 20px 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: -.02em; color: var(--muted); }
+  .sz-lado--nos .sz-quem { color: var(--accent); }
+  .sz-total { font-size: 14px; color: var(--muted); }
+  .sz-total b { font: 800 34px 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: -.04em; color: var(--fg); margin-right: 4px; font-variant-numeric: tabular-nums; }
+  .sz-lado--nos .sz-total b { color: var(--accent); }
+  .sz-fim { margin: auto 0 0; padding-top: 18px; font-size: 14.5px; font-weight: 700; color: var(--muted); }
+  .sz-lado--nos .sz-fim { color: var(--fg); }
 
-  .duelo-lista { list-style: none; margin: 20px 0 0; padding: 0; }
-  .duelo-linha {
-    padding: 15px 14px; margin: 0 -14px; border-radius: var(--r-inner);
-    border-top: 1px solid rgba(163,177,198,.3);
-    transition: background .28s var(--ease), transform .28s var(--ease);
+  /* as noites: uma faixa escura por noite, como um extrato de horas */
+  .sz-noites { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 7px; }
+  .sz-noites li {
+    display: grid; grid-template-columns: 26px 112px minmax(0, 1fr); align-items: center; gap: 12px;
+    padding: 10px 14px; border-radius: 13px; background: #1F2B44; color: #C9D3E3; font-size: 14px;
   }
-  .duelo-lista .duelo-linha:first-child { border-top: 0; }
-  .duelo-linha.is-par { background: rgba(255,255,255,.42); }
-  .duelo-col--nos .duelo-linha.is-par { background: rgba(61,106,153,.07); }
-  .duelo-tema {
-    display: block; margin-bottom: 6px;
-    font-size: 10.5px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase;
-    color: var(--placeholder); transition: color .28s var(--ease);
-  }
-  .duelo-linha.is-par .duelo-tema { color: var(--accent); }
-  .duelo-txt { font-size: 14.8px; line-height: 1.55; color: var(--muted); }
-  .duelo-col--nos .duelo-txt { color: var(--fg); }
-  .duelo-txt b { font-weight: 700; color: var(--fg); }
-  .duelo-col--nos .duelo-txt b { color: var(--accent); }
+  .sz-noites li b { color: #fff; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .sz-noites li span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  /* a lua: um circulo com outro deslocado por cima, na cor da faixa */
+  .sz-lua { position: relative; width: 16px; height: 16px; border-radius: 99px; background: #F2C76B; overflow: hidden; }
+  .sz-lua::after { content: ''; position: absolute; left: 5px; top: -3px; width: 16px; height: 16px; border-radius: 99px; background: #1F2B44; }
+  .sz.is-pronto .sz-noites li { opacity: 0; transform: translateX(-14px); }
+  .sz.is-vivo .sz-noites li { opacity: 1; transform: none; transition: opacity .45s ease, transform .6s cubic-bezier(.16,1,.3,1); transition-delay: calc(var(--i) * .24s); }
 
-  .duelo-vs {
-    align-self: center; flex: none; display: grid; place-items: center;
-    width: 54px; height: 54px; border-radius: 999px;
-    background: var(--bg); box-shadow: var(--nm-out-sm);
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    font-weight: 800; font-size: 13px; letter-spacing: .04em; color: var(--placeholder);
-  }
+  /* a conversa */
+  .sz-chat { margin-top: 20px; padding: 16px; border-radius: 20px; background: #efe7dd; display: flex; flex-direction: column; gap: 8px; }
+  .sz-b { align-self: flex-start; max-width: 88%; padding: 9px 12px; border-radius: 12px 12px 12px 3px; background: #fff; color: #111; font-size: 14.5px; line-height: 1.45; box-shadow: 0 1px 1px rgba(0,0,0,.08); }
+  .sz-b--eu { align-self: flex-end; background: #d9fdd3; border-radius: 12px 12px 3px 12px; }
+  .sz-artes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 8px; }
+  .sz-artes img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 7px; }
+  .sz.is-pronto .sz-b { opacity: 0; transform: translateY(10px) scale(.97); }
+  .sz.is-vivo .sz-b { opacity: 1; transform: none; transition: opacity .45s ease, transform .6s cubic-bezier(.16,1,.3,1); transition-delay: calc(1.9s + var(--i) * .55s); }
 
-  /* o medidor de horas: as duas barras enchem quando a seção entra na tela */
-  .duelo-medidor {
-    margin-top: 22px; padding: 30px 34px;
-    background: var(--bg); border-radius: var(--r-card); box-shadow: var(--nm-out-sm);
-  }
-  .duelo-barra { display: grid; grid-template-columns: 1fr; gap: 9px; }
-  .duelo-barra + .duelo-barra { margin-top: 22px; }
-  .duelo-barra-cab { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
-  .duelo-barra-rot { font-size: 13.5px; color: var(--muted); }
-  .duelo-barra-num {
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    font-weight: 800; font-size: 20px; letter-spacing: -.03em; color: var(--placeholder); white-space: nowrap;
-  }
-  .duelo-barra--nos .duelo-barra-num { color: var(--accent); }
-  .duelo-trilho {
-    height: 14px; border-radius: 999px; background: var(--bg);
-    box-shadow: var(--nm-in-sm); overflow: hidden;
-  }
-  .duelo-trilho i {
-    display: block; height: 100%; width: 0; border-radius: 999px;
-    background: linear-gradient(90deg, var(--placeholder), #C3CBD6);
-    transition: width 1.1s var(--ease);
-  }
-  .duelo-barra--nos .duelo-trilho i { background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
-  .duelo-medidor.is-cheio .duelo-trilho i { width: var(--w); }
-  .duelo-pe { margin: 18px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--placeholder); max-width: 62ch; }
+  /* a tabela item por item */
+  .sz-tabela { margin-top: 28px; border-radius: var(--r-card); background: var(--bg); box-shadow: var(--nm-out); padding: 10px 14px; }
+  .sz-tr { display: grid; grid-template-columns: 180px minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: baseline; padding: 15px 16px; border-radius: 14px; transition: background .25s var(--ease); }
+  .sz-tr + .sz-tr { border-top: 1px solid rgba(163,177,198,.3); }
+  .sz-tr--cab { font: 800 13.5px 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--muted); padding-bottom: 10px; }
+  .sz-tr--cab span:last-child { color: var(--accent); }
+  .sz-tr--cab small { font: 500 12px 'DM Sans', sans-serif; color: var(--muted); margin-left: 6px; }
+  .sz-tr.is-par { background: rgba(61,106,153,.07); }
+  .sz-tema { font-size: 13px; font-weight: 800; letter-spacing: .04em; color: var(--fg); }
+  .sz-nao, .sz-sim { position: relative; padding-left: 26px; font-size: 15px; line-height: 1.5; }
+  .sz-nao { color: var(--muted); }
+  .sz-sim { color: var(--fg); }
+  .sz-sim b { color: var(--accent); }
+  .sz-nao::before, .sz-sim::before { content: ''; position: absolute; left: 0; top: .2em; width: 16px; height: 16px; border-radius: 99px; }
+  .sz-nao::before { box-shadow: var(--nm-in-sm); background: linear-gradient(var(--placeholder), var(--placeholder)) center / 8px 2px no-repeat; }
+  .sz-sim::before { display: none; }
+  .sz-ic { position: absolute; left: 0; top: .2em; color: var(--accent); }
+  .sz-pe { margin: 16px 4px 0; font-size: 12.5px; line-height: 1.6; color: var(--muted); max-width: 70ch; }
 
+  @media (max-width: 900px) {
+    .sz { grid-template-columns: minmax(0, 1fr); }
+    .sz-tr { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px 16px; }
+    .sz-tema { grid-column: 1 / -1; }
+    .sz-tr--cab span:first-child { display: none; }
+  }
+  @media (max-width: 560px) {
+    .sz-lado { padding: 24px 18px 20px; }
+    .sz-noites li { grid-template-columns: 22px minmax(0, 1fr); gap: 4px 10px; padding: 10px 12px; }
+    .sz-noites li span:last-child { grid-column: 2; white-space: normal; }
+    .sz-tabela { padding: 6px 8px; }
+    .sz-tr { padding: 13px 10px; }
+    .sz-nao, .sz-sim { font-size: 14px; }
+  }
   @media (prefers-reduced-motion: reduce) {
-    .duelo-trilho i { transition: none; }
+    .sz.is-vivo .sz-noites li, .sz.is-vivo .sz-b, .sz-tr { transition: none; }
   }
 
   /* ---------- Ficha do Google: antes e depois ---------- */
@@ -1546,8 +1544,6 @@
     /* a pilha 3D não cabe em coluna única no tamanho original */
 
     /* antes e depois um embaixo do outro; a seta gira pra continuar apontando */
-    .duelo { grid-template-columns: minmax(0,1fr); gap: 14px; }
-    .duelo-vs { justify-self: center; width: 46px; height: 46px; font-size: 12px; }
     .gmn-grid { grid-template-columns: minmax(0,1fr); gap: 30px; justify-items: stretch; }
     .gmn-seta { transform: rotate(90deg); margin: 0 auto; }
     /* ADS OFF */
@@ -1573,10 +1569,6 @@
     .gmn-card { padding: 22px 18px 18px; }
     .gmn-selo { left: 16px; }
     .conta { padding: 30px 22px; }
-    .duelo-col { padding: 26px 20px 22px; }
-    .duelo-linha { padding: 13px 12px; margin: 0 -12px; }
-    .duelo-medidor { padding: 24px 20px; }
-    .duelo-barra-cab { flex-wrap: wrap; }
     /* ADS OFF */
     /* .ads-chip { font-size: 13px; padding: 10px 15px 10px 11px; } */
 
@@ -2173,104 +2165,83 @@
   </section>
 
   <!-- A objeção que vem depois do preço nunca é "é caro", é "isso eu mesmo faço".
-       Esta seção responde ela com o mesmo mês visto dos dois lados. As linhas dos
-       dois painéis se emparelham pelo data-tema, não pela altura: passar o mouse
-       numa acende a irmã do outro lado (setupDuelo, lá embaixo no script). -->
+       Antes eram dois paineis de texto lado a lado. Agora o mesmo mes visto em
+       imagem: as sete noites que o dono gasta sozinho contra uma conversa no
+       WhatsApp, e embaixo a tabela pra quem quer conferir item por item.
+       setupDuelo() acende as noites em sequencia e emparelha as linhas. -->
   <section data-anima id="sozinho" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
     <div data-reveal="1" style="max-width: 62ch;">
-      <div class="eyebrow eyebrow--2">Sozinho x com a ACTech</div>
-      <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; max-width: 20ch; color: #3D4852;">Dá pra fazer sozinho. A conta é outra.</h2>
-      <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #59616E;">
-        Nada do que a gente faz é segredo de sete chaves — dá pra aprender e fazer por conta.
-        O que quase ninguém tem é o mês inteiro sobrando pra isso. Veja o mesmo mês dos dois lados.
-      </p>
+      <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 0; max-width: 20ch; color: var(--fg);">Dá pra fazer sozinho. A conta é outra.</h2>
+      <p style="margin: 20px 0 0; font-size: 16.5px; line-height: 1.7; color: var(--muted);">Nada disso é segredo: dá pra aprender e fazer por conta. O que quase ninguém tem é tempo sobrando no mês. Olha o mesmo mês dos dois lados.</p>
     </div>
 
-    <div class="duelo" data-reveal="1" data-duelo>
-      <div class="duelo-col duelo-col--voce">
-        <div class="duelo-cab">
-          <span class="duelo-selo">Você sozinho</span>
-          <span class="duelo-sub">como costuma ser hoje</span>
+    <div class="sz" data-sz>
+      <div class="sz-lado sz-lado--voce">
+        <div class="sz-cab">
+          <span class="sz-quem">Fazendo sozinho</span>
+          <span class="sz-total"><b data-sz-horas>14h</b> no mês</span>
         </div>
-        <ul class="duelo-lista">
-          <li class="duelo-linha" data-tema="seu-tempo">
-            <span class="duelo-tema">Seu tempo</span>
-            <p class="duelo-txt" style="margin: 0;">Umas <b>14 horas por mês</b> montando post, respondendo avaliação e mexendo no site — quase sempre depois que a loja já fechou.</p>
-          </li>
-          <li class="duelo-linha" data-tema="o-que-sai-do-caixa">
-            <span class="duelo-tema">O que sai do caixa</span>
-            <p class="duelo-txt" style="margin: 0;"><b>R$ 0</b> de mensalidade. E 14 horas do seu mês, que é o que você tem de mais caro.</p>
-          </li>
-          <li class="duelo-linha" data-tema="o-site">
-            <span class="duelo-tema">O site</span>
-            <p class="duelo-txt" style="margin: 0;">Fica meses do jeito que subiu: preço velho, promoção que já acabou, horário de Natal ainda no ar em março.</p>
-          </li>
-          <li class="duelo-linha" data-tema="as-redes">
-            <span class="duelo-tema">As redes</span>
-            <p class="duelo-txt" style="margin: 0;">Post quando sobra tempo. E tempo é justamente o que não sobra.</p>
-          </li>
-          <li class="duelo-linha" data-tema="o-google">
-            <span class="duelo-tema">O Google</span>
-            <p class="duelo-txt" style="margin: 0;">Ficha no automático e avaliação sem resposta — inclusive as ruins, que são as que o cliente novo lê primeiro.</p>
-          </li>
-        </ul>
+        <ol class="sz-noites" aria-label="Sete noites do mês">
+          <li style="--i: 0;"><span class="sz-lua" aria-hidden="true"></span><b>Seg, 22h–0h</b><span>Montando os posts da semana</span></li>
+          <li style="--i: 1;"><span class="sz-lua" aria-hidden="true"></span><b>Qua, 22h–0h</b><span>Respondendo avaliação no Google</span></li>
+          <li style="--i: 2;"><span class="sz-lua" aria-hidden="true"></span><b>Qui, 23h–1h</b><span>Trocando o preço no site</span></li>
+          <li style="--i: 3;"><span class="sz-lua" aria-hidden="true"></span><b>Sáb, 21h–23h</b><span>Procurando foto pra postar</span></li>
+          <li style="--i: 4;"><span class="sz-lua" aria-hidden="true"></span><b>Dom, 20h–22h</b><span>Escrevendo legenda</span></li>
+          <li style="--i: 5;"><span class="sz-lua" aria-hidden="true"></span><b>Ter, 22h–0h</b><span>Arrumando o horário na ficha</span></li>
+          <li style="--i: 6;"><span class="sz-lua" aria-hidden="true"></span><b>Sex, 23h–1h</b><span>Montando a arte da promoção</span></li>
+        </ol>
+        <p class="sz-fim">Sete noites depois que a loja fecha.</p>
       </div>
 
-      <div class="duelo-vs" aria-hidden="true">vs</div>
-
-      <div class="duelo-col duelo-col--nos">
-        <div class="duelo-cab">
-          <span class="duelo-selo">Com a ACTech</span>
-          <span class="duelo-sub">plano Completo</span>
+      <div class="sz-lado sz-lado--nos">
+        <div class="sz-cab">
+          <span class="sz-quem">Com a ACTech</span>
+          <span class="sz-total"><b>20 min</b> no mês</span>
         </div>
-        <ul class="duelo-lista">
-          <li class="duelo-linha" data-tema="seu-tempo">
-            <span class="duelo-tema">Seu tempo</span>
-            <p class="duelo-txt" style="margin: 0;">Uns <b>20 minutos</b>: você manda a foto e o que quer dizer no WhatsApp. O resto sai daqui.</p>
-          </li>
-          <li class="duelo-linha" data-tema="o-que-sai-do-caixa">
-            <span class="duelo-tema">O que sai do caixa</span>
-            <p class="duelo-txt" style="margin: 0;"><b>R$ 597,99 por mês</b>, sem taxa de setup e com o primeiro mês grátis.</p>
-          </li>
-          <li class="duelo-linha" data-tema="o-site">
-            <span class="duelo-tema">O site</span>
-            <p class="duelo-txt" style="margin: 0;"><b>4 atualizações por mês</b> — e o que é urgente entra no mesmo dia, sem abrir chamado.</p>
-          </li>
-          <li class="duelo-linha" data-tema="as-redes">
-            <span class="duelo-tema">As redes</span>
-            <p class="duelo-txt" style="margin: 0;"><b>20 posts por mês</b> com arte feita, no calendário, saindo mesmo na semana corrida.</p>
-          </li>
-          <li class="duelo-linha" data-tema="o-google">
-            <span class="duelo-tema">O Google</span>
-            <p class="duelo-txt" style="margin: 0;"><b>Post toda semana</b> na ficha e cada avaliação respondida, uma a uma.</p>
-          </li>
-        </ul>
+        <div class="sz-chat" aria-label="Uma conversa no WhatsApp">
+          <div class="sz-b" style="--i: 0;">Os posts da semana estão prontos. Dá uma olhada?
+            <span class="sz-artes" aria-hidden="true"><img src="imgs/insta-9.webp" alt="" loading="lazy" decoding="async" /><img src="imgs/insta-12.webp" alt="" loading="lazy" decoding="async" /><img src="imgs/insta-5.webp" alt="" loading="lazy" decoding="async" /></span>
+          </div>
+          <div class="sz-b sz-b--eu" style="--i: 1;">Ficou ótimo, pode postar.</div>
+          <div class="sz-b" style="--i: 2;">Postado. E a avaliação nova do Google já foi respondida.</div>
+        </div>
+        <p class="sz-fim">Uma conversa. O resto sai daqui.</p>
       </div>
     </div>
 
-    <div class="duelo-medidor" data-reveal="1" data-duelo-medidor>
-      <div class="duelo-barra duelo-barra--voce">
-        <div class="duelo-barra-cab">
-          <span class="duelo-barra-rot">Horas suas, fazendo tudo por conta</span>
-          <span class="duelo-barra-num">~14h por mês</span>
-        </div>
-        <div class="duelo-trilho"><i style="--w: 100%;"></i></div>
+    <div class="sz-tabela" data-reveal="1" data-duelo role="table" aria-label="Sozinho ou com a ACTech, item por item">
+      <div class="sz-tr sz-tr--cab" role="row">
+        <span role="columnheader"></span>
+        <span role="columnheader">Sozinho</span>
+        <span role="columnheader">Com a ACTech <small>plano Completo</small></span>
       </div>
-
-      <div class="duelo-barra duelo-barra--nos">
-        <div class="duelo-barra-cab">
-          <span class="duelo-barra-rot">Horas suas, com a ACTech cuidando</span>
-          <span class="duelo-barra-num">~20 min por mês</span>
-        </div>
-        <div class="duelo-trilho"><i style="--w: 2.4%;"></i></div>
+      <div class="sz-tr duelo-linha" role="row">
+        <span class="sz-tema" role="rowheader">Seu tempo</span>
+        <span class="sz-nao" role="cell">~14h por mês, depois que a loja fecha</span>
+        <span class="sz-sim" role="cell"><svg class="sz-ic" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor"/><path d="M4.6 8.3l2.2 2.2 4.6-4.8" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg><b>~20 min</b>, pelo WhatsApp</span>
       </div>
-
-      <p class="duelo-pe">
-        As 14 horas são uma estimativa do que costuma levar fazer isso sozinho: 20 posts com arte,
-        as respostas no Google e as mexidas no site. Faça a sua — o ponto não é acertar o número,
-        é enxergar de onde esse tempo está saindo hoje.
-      </p>
+      <div class="sz-tr duelo-linha" role="row">
+        <span class="sz-tema" role="rowheader">O que sai do caixa</span>
+        <span class="sz-nao" role="cell">R$ 0, e 14 horas do seu mês</span>
+        <span class="sz-sim" role="cell"><svg class="sz-ic" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor"/><path d="M4.6 8.3l2.2 2.2 4.6-4.8" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg><b>R$ 597,99/mês</b>, 1º mês grátis</span>
+      </div>
+      <div class="sz-tr duelo-linha" role="row">
+        <span class="sz-tema" role="rowheader">O site</span>
+        <span class="sz-nao" role="cell">Preço velho e promoção vencida no ar</span>
+        <span class="sz-sim" role="cell"><svg class="sz-ic" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor"/><path d="M4.6 8.3l2.2 2.2 4.6-4.8" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg><b>4 atualizações/mês</b>, urgente no mesmo dia</span>
+      </div>
+      <div class="sz-tr duelo-linha" role="row">
+        <span class="sz-tema" role="rowheader">As redes</span>
+        <span class="sz-nao" role="cell">Post quando sobra tempo</span>
+        <span class="sz-sim" role="cell"><svg class="sz-ic" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor"/><path d="M4.6 8.3l2.2 2.2 4.6-4.8" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg><b>20 posts/mês</b> com arte, no calendário</span>
+      </div>
+      <div class="sz-tr duelo-linha" role="row">
+        <span class="sz-tema" role="rowheader">O Google</span>
+        <span class="sz-nao" role="cell">Avaliação sem resposta, inclusive as ruins</span>
+        <span class="sz-sim" role="cell"><svg class="sz-ic" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor"/><path d="M4.6 8.3l2.2 2.2 4.6-4.8" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg><b>Post toda semana</b> e cada avaliação respondida</span>
+      </div>
     </div>
+    <p class="sz-pe">As 14 horas são uma estimativa do que costuma levar fazer isso sozinho: 20 posts com arte, as respostas no Google e as mexidas no site. O ponto não é acertar o número, é ver de onde esse tempo sai hoje.</p>
   </section>
 
   <section id="google" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
@@ -3038,38 +3009,39 @@ class Component extends DCLogic {
         fora de vista é gastar quadro à toa e desperdiçar o efeito.
      --------------------------------------------------------------- */
   setupDuelo() {
+    // 1. A tabela: passar o mouse numa linha acende ela inteira. Sem
+    //    tabindex de proposito: o realce e decorativo e o texto se le sem ele.
     const raiz = document.querySelector('[data-duelo]');
     if (raiz) {
       const linhas = [...raiz.querySelectorAll('.duelo-linha')];
-      const acende = (tema) => linhas.forEach((l) => l.classList.toggle('is-par', tema != null && l.dataset.tema === tema));
-
-      // sem tabindex de proposito: o realce e decorativo e o texto ja se le
-      // inteiro sem ele. Dez paradas de tabulacao aqui so atrapalhariam quem
-      // navega pelo teclado.
       linhas.forEach((l) => {
-        const on = () => acende(l.dataset.tema);
+        const on = () => linhas.forEach((x) => x.classList.toggle('is-par', x === l));
         l.addEventListener('mouseenter', on);
         this._teardown.push(() => l.removeEventListener('mouseenter', on));
       });
-
-      const sai = () => acende(null);
+      const sai = () => linhas.forEach((x) => x.classList.remove('is-par'));
       raiz.addEventListener('mouseleave', sai);
       this._teardown.push(() => raiz.removeEventListener('mouseleave', sai));
     }
 
-    const medidor = document.querySelector('[data-duelo-medidor]');
-    if (medidor) {
-      const io2 = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (!e.isIntersecting) return;
-          // espera o fade do data-reveal terminar pra barra não competir com ele
-          setTimeout(() => medidor.classList.add('is-cheio'), 320);
-          io2.unobserve(e.target);
-        });
-      }, { threshold: 0.35 });
-      io2.observe(medidor);
-      this._teardown.push(() => io2.disconnect());
-    }
+    // 2. As noites: aparecem uma por uma e o contador sobe junto; depois chega
+    //    a conversa do outro lado. Uma vez so, quando a secao aparece.
+    const sz = document.querySelector('[data-sz]');
+    if (!sz || this.reduced() || !('IntersectionObserver' in window)) return;
+    const horas = sz.querySelector('[data-sz-horas]');
+    sz.classList.add('is-pronto');
+    horas.textContent = '0h';
+    // horas acumuladas a cada noite (2+2+2+2+2+2+2 = 14)
+    const SOMA = [2, 4, 6, 8, 10, 12, 14];
+    const timers = [];
+    const io = new IntersectionObserver((en) => {
+      if (!en.some((x) => x.isIntersecting)) return;
+      io.disconnect();
+      requestAnimationFrame(() => sz.classList.add('is-vivo'));
+      SOMA.forEach((h, i) => timers.push(setTimeout(() => { horas.textContent = h + 'h'; }, 240 * i + 260)));
+    }, { threshold: 0.35 });
+    io.observe(sz);
+    this._teardown.push(() => { io.disconnect(); timers.forEach(clearTimeout); });
   }
 
   /* ---------------------------------------------------------------
