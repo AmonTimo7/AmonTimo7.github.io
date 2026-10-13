@@ -540,13 +540,19 @@
     display: block; width: 220px; height: 220px; border-radius: 999px; margin: 0 auto; object-fit: cover;
     border: 10px solid var(--bg); box-shadow: var(--nm-out), 0 0 0 1px rgba(163,177,198,.25); background: var(--bg);
   }
-  .quem-local { margin-top: 18px; font-size: 13.5px; font-weight: 700; color: var(--muted); }
+  .quem-fatos { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .quem-fatos li { padding: 10px 14px; border-radius: 12px; box-shadow: var(--nm-in-sm); font-size: 13.5px; color: var(--muted); }
+  .quem-fatos b { display: block; font: 800 16px 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: -.02em; color: var(--fg); }
+  .quem-nome { margin-top: 18px; display: grid; gap: 3px; }
+  .quem-nome b { font-weight: 800; font-size: 21px; letter-spacing: -.02em; color: var(--fg); }
+  .quem-nome span { font-size: 13.5px; color: var(--muted); }
+  .quem-local { font-weight: 700; }
   .quem-txt { margin: 18px 0 0; font-size: 16.5px; line-height: 1.7; color: var(--muted); max-width: 56ch; }
   @media (max-width: 760px) {
     .quem { grid-template-columns: 1fr; gap: 28px; padding: 32px 22px; text-align: left; }
     .quem-foto { width: 112px; height: 112px; border-width: 6px; margin: 0; }
     .quem-lado { display: flex; align-items: center; gap: 18px; text-align: left; }
-    .quem-local { margin-top: 0; }
+    .quem-nome { margin-top: 0; text-align: left; }
   }
 
   .float { animation: float 3s ease-in-out infinite; }
@@ -1687,7 +1693,7 @@
         <!-- O titulo antigo ("Site e marketing no mesmo lugar") dizia o que a
              ACTech e, nao o que o dono ganha. Este diz o resultado e o esforco. -->
         <p data-reveal="1" style="margin: 26px 0 0; max-width: 46ch; font-size: clamp(16.5px, 1.5vw, 18.5px); line-height: 1.65; color: #59616E;">
-          Site, posts e ficha do Google numa mensalidade só, pra comércio e prestador de serviço de Brasília. O site fica pronto em 5 dias úteis, e o primeiro mês é por nossa conta.
+          Site, posts e ficha do Google numa mensalidade só, para comércio e prestador de serviço de Brasília. O site fica pronto em 5 dias úteis, e o primeiro mês é por nossa conta.
         </p>
 
         <div data-reveal="1" class="hero-cta" style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px;">
@@ -1740,12 +1746,12 @@
           </li>
           <li>
             <span class="nm-well combinado-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path><path d="M10 20v-5h4v5"></path></svg></span>
-            <div><b>O site é seu</b><span>Se um dia sair, a gente entrega os arquivos e passa o domínio pra você.</span></div>
+            <div><b>O site é seu</b><span>Se um dia sair, a gente entrega os arquivos e passa o domínio para você.</span></div>
           </li>
         </ul>
         <div class="combinado-assina">
           <img class="combinado-mono" src="imgs/amon-mini.webp" alt="" width="120" height="120" decoding="async" />
-          <div><b>Amon, da ACTech</b><span>Quem faz o seu site e responde o seu WhatsApp</span></div>
+          <div><b>Amon Timo, da ACTech</b><span>Quem faz o seu site e responde o seu WhatsApp</span></div>
         </div>
       </div>
     </div>
@@ -1774,15 +1780,15 @@
         <ul class="rede-lista">
           <li>
             <span class="rede-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3D6A99" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path></svg></span>
-            <span><b>Arte feita pro seu negócio</b>, com a sua cara — não template genérico com o nome trocado.</span>
+            <span><b>Arte feita para seu negócio</b>, com a sua cara — não template genérico com o nome trocado.</span>
           </li>
           <li>
             <span class="rede-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38B2AC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg></span>
-            <span><b>Aprovação por WhatsApp</b>, sem reunião e sem sistema novo pra aprender.</span>
+            <span><b>Aprovação por WhatsApp</b>, sem reunião e sem sistema novo para aprender.</span>
           </li>
           <li>
             <span class="rede-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3D6A99" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg></span>
-            <span><b>De 8 a 20 posts por mês</b>, conforme o plano, com data marcada pra cada um.</span>
+            <span><b>De 8 a 20 posts por mês</b>, conforme o plano, com data marcada para cada um.</span>
           </li>
         </ul>
 
@@ -1814,10 +1820,10 @@
       <div data-reveal="1">
         <div class="eyebrow eyebrow--7">O problema</div>
         <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px 0 0; color: #3D4852;">
-          Todo dia sem presença digital é um cliente indo pro concorrente.
+          Todo dia sem presença digital é um cliente indo para o concorrente.
         </h2>
         <p style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.7; color: #59616E; max-width: 46ch;">
-          Seu cliente pesquisa no Google antes de comprar, olha o Instagram pra saber se você existe e desiste quando não encontra nada. Sem site, sem posts e sem ficha no Google, o negócio bom fica invisível.
+          Seu cliente pesquisa no Google antes de comprar, olha o Instagram para saber se você existe e desiste quando não encontra nada. Sem site, sem posts e sem ficha no Google, o negócio bom fica invisível.
         </p>
       </div>
       <div data-reveal="1" style="display: grid; gap: 18px;">
@@ -1848,14 +1854,14 @@
        verdade da ACTech. Era uma lista que so mostrava algo no hover do mouse:
        no celular, ninguem via nada. setupTour() la embaixo cuida do ciclo. -->
   <section id="servicos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 40px; padding-bottom: 104px;">
-    <h2 data-reveal="1" class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 0 0 48px; max-width: 18ch; color: var(--fg);">Tudo que o seu negócio precisa pra ser achado.</h2>
+    <h2 data-reveal="1" class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 0 0 48px; max-width: 18ch; color: var(--fg);">Tudo que o seu negócio precisa para ser achado.</h2>
 
     <div class="tour" data-tour data-reveal="1">
       <div class="tour-abas" role="tablist" aria-label="O que entra no plano">
         <button class="tour-aba is-on" type="button" role="tab" aria-selected="true" data-aba="0" style="--ta: var(--t1);">
           <span class="tour-aba-tit font-display">Site que vende</span>
           <span class="tour-aba-corpo"><span class="tour-aba-dentro">
-            <span class="tour-aba-txt">Com a sua cara, no seu endereço, abrindo rápido no celular e levando direto pro WhatsApp.</span>
+            <span class="tour-aba-txt">Com a sua cara, no seu endereço, abrindo rápido no celular e levando direto para o WhatsApp.</span>
             <span class="tour-aba-lista"><i>Até 5 páginas, domínio e hospedagem</i><i>WhatsApp em toda tela</i><i>No ar em até 5 dias úteis</i></span>
           </span></span>
           <span class="tour-tempo" aria-hidden="true"><b></b></span>
@@ -1864,7 +1870,7 @@
           <span class="tour-aba-tit font-display">Instagram ativo</span>
           <span class="tour-aba-corpo"><span class="tour-aba-dentro">
             <span class="tour-aba-txt">Calendário do mês, arte e legenda prontos. Chega no seu WhatsApp, você só aprova.</span>
-            <span class="tour-aba-lista"><i>8 a 20 posts por mês</i><i>Arte feita pro seu negócio</i><i>Data marcada pra cada post</i></span>
+            <span class="tour-aba-lista"><i>8 a 20 posts por mês</i><i>Arte feita para seu negócio</i><i>Data marcada para cada post</i></span>
           </span></span>
           <span class="tour-tempo" aria-hidden="true"><b></b></span>
         </button>
@@ -1880,7 +1886,7 @@
           <span class="tour-aba-tit font-display">Manutenção sem chamado</span>
           <span class="tour-aba-corpo"><span class="tour-aba-dentro">
             <span class="tour-aba-txt">Mudou preço, foto ou horário? Manda no WhatsApp e a gente troca.</span>
-            <span class="tour-aba-lista"><i>1 a 4 atualizações por mês</i><i>O urgente entra no mesmo dia</i><i>Sem sistema novo pra aprender</i></span>
+            <span class="tour-aba-lista"><i>1 a 4 atualizações por mês</i><i>O urgente entra no mesmo dia</i><i>Sem sistema novo para aprender</i></span>
           </span></span>
           <span class="tour-tempo" aria-hidden="true"><b></b></span>
         </button>
@@ -1965,9 +1971,9 @@
           <div class="tc-chat">
             <div class="tc-chat-cab"><img src="imgs/amon-mini.webp" alt="" width="120" height="120" loading="lazy" decoding="async" /><div><b>ACTech · Amon</b><span>online</span></div></div>
             <div class="tc-chat-corpo">
-              <div class="tc-bolha" style="--d: 0;">Oi! Dá pra trocar o preço do corte pra R$ 50?</div>
-              <div class="tc-bolha tc-bolha--eu" style="--d: 1;">Claro, já tô mexendo.</div>
-              <div class="tc-bolha tc-bolha--eu tc-bolha--foto" style="--d: 2;"><img src="imgs/mod-barbearia.webp" alt="" loading="lazy" decoding="async" />Pronto, já tá no ar.</div>
+              <div class="tc-bolha" style="--d: 0;">Oi! Dá para trocar o preço do corte para R$ 50?</div>
+              <div class="tc-bolha tc-bolha--eu" style="--d: 1;">Claro, já estou mexendo.</div>
+              <div class="tc-bolha tc-bolha--eu tc-bolha--foto" style="--d: 2;"><img src="imgs/mod-barbearia.webp" alt="" loading="lazy" decoding="async" />Pronto, já está no ar.</div>
               <div class="tc-bolha" style="--d: 3;">Rápido demais. Obrigado!</div>
             </div>
             <span class="tc-selo"><i class="tc-ponto"></i>Troca no ar em minutos</span>
@@ -2171,8 +2177,8 @@
        setupDuelo() acende as noites em sequencia e emparelha as linhas. -->
   <section data-anima id="sozinho" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
     <div data-reveal="1" style="max-width: 62ch;">
-      <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 0; max-width: 20ch; color: var(--fg);">Dá pra fazer sozinho. A conta é outra.</h2>
-      <p style="margin: 20px 0 0; font-size: 16.5px; line-height: 1.7; color: var(--muted);">Nada disso é segredo: dá pra aprender e fazer por conta. O que quase ninguém tem é tempo sobrando no mês. Olha o mesmo mês dos dois lados.</p>
+      <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 0; max-width: 20ch; color: var(--fg);">Dá para fazer sozinho. A conta é outra.</h2>
+      <p style="margin: 20px 0 0; font-size: 16.5px; line-height: 1.7; color: var(--muted);">Nada disso é segredo: dá para aprender e fazer por conta. O que quase ninguém tem é tempo sobrando no mês. Olha o mesmo mês dos dois lados.</p>
     </div>
 
     <div class="sz" data-sz>
@@ -2185,7 +2191,7 @@
           <li style="--i: 0;"><span class="sz-lua" aria-hidden="true"></span><b>Seg, 22h–0h</b><span>Montando os posts da semana</span></li>
           <li style="--i: 1;"><span class="sz-lua" aria-hidden="true"></span><b>Qua, 22h–0h</b><span>Respondendo avaliação no Google</span></li>
           <li style="--i: 2;"><span class="sz-lua" aria-hidden="true"></span><b>Qui, 23h–1h</b><span>Trocando o preço no site</span></li>
-          <li style="--i: 3;"><span class="sz-lua" aria-hidden="true"></span><b>Sáb, 21h–23h</b><span>Procurando foto pra postar</span></li>
+          <li style="--i: 3;"><span class="sz-lua" aria-hidden="true"></span><b>Sáb, 21h–23h</b><span>Procurando foto para postar</span></li>
           <li style="--i: 4;"><span class="sz-lua" aria-hidden="true"></span><b>Dom, 20h–22h</b><span>Escrevendo legenda</span></li>
           <li style="--i: 5;"><span class="sz-lua" aria-hidden="true"></span><b>Ter, 22h–0h</b><span>Arrumando o horário na ficha</span></li>
           <li style="--i: 6;"><span class="sz-lua" aria-hidden="true"></span><b>Sex, 23h–1h</b><span>Montando a arte da promoção</span></li>
@@ -2435,13 +2441,22 @@
   <section data-anima id="quem" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 96px;">
     <div class="quem nm-card" data-reveal="1">
       <div class="quem-lado">
-        <img class="quem-foto" src="imgs/amon.webp" alt="Amon, da ACTech, sorrindo, de camisa social" width="560" height="560" loading="lazy" decoding="async" />
-        <div class="quem-local">Brasília, DF</div>
+        <img class="quem-foto" src="imgs/amon.webp" alt="Amon Timo, da ACTech, sorrindo, de camisa social" width="560" height="560" loading="lazy" decoding="async" />
+        <div class="quem-nome">
+          <b class="font-display">Amon Timo</b>
+          <span>Desenvolvedor e fundador da ACTech</span>
+          <span class="quem-local">Brasília, DF</span>
+        </div>
       </div>
       <div>
         <h2 class="font-display" style="font-weight: 800; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.06; margin: 0; color: var(--fg);">Você fala com quem faz.</h2>
-        <p class="quem-txt">Eu sou o Amon. A ACTech começou escrevendo sistema: painel de metas pra banco, controle de caixa pra empresa. Hoje esse mesmo cuidado vai pro site e pro Instagram do comércio do bairro.</p>
-        <p class="quem-txt">Quem responde o seu WhatsApp é quem faz o seu site. Sem atendente, sem call center e sem chamado aberto.</p>
+        <p class="quem-txt">Eu sou o Amon Timo, desenvolvedor há 3 anos. Nesse tempo desenvolvi inúmeros projetos: sites, sistemas de gestão, painel de metas para banco, controle de caixa para empresa.</p>
+        <p class="quem-txt">A ACTech é a minha empresa. Hoje esse mesmo cuidado vai para o site e o Instagram do comércio do bairro, e quem responde o seu WhatsApp é quem faz o seu site. Sem atendente e sem call center.</p>
+        <ul class="quem-fatos">
+          <li><b>3 anos</b>desenvolvendo</li>
+          <li><b>Sites e sistemas</b>feitos do zero</li>
+          <li><b>Direto comigo</b>no WhatsApp</li>
+        </ul>
         <a class="btn btn-primary" href="{{ whatsUrl }}" target="_blank" style="margin-top: 28px;">Falar com o Amon no WhatsApp</a>
       </div>
     </div>
@@ -2467,7 +2482,7 @@
          (lanca venda, marca horario, baixa estoque). Sai do React vazio pelo
          mesmo motivo do [data-estilos]: quem enche e o sistema/sistema.js. -->
     <div class="sx" data-reveal="1" data-sistema></div>
-    <p class="sis-pe" style="margin-top: 18px;">Números ilustrativos, pra sentir o formato. O seu sistema vem com os seus números, as suas categorias e o jeito da sua operação.</p>
+    <p class="sis-pe" style="margin-top: 18px;">Números ilustrativos, para sentir o formato. O seu sistema vem com os seus números, as suas categorias e o jeito da sua operação.</p>
 
     <!-- A vitrine dos casos reais. Uma aba por caso; dentro de cada caso, a
          tela principal grande e as miniaturas que trocam (e avançam sozinhas --
@@ -2515,7 +2530,7 @@
             <h3>O caixa da empresa sem planilha no meio.</h3>
             <p>Entrada e saída eram anotadas num lugar, contrato em outro e venda num terceiro — e só no fim do mês alguém juntava tudo. Viraram duas telas: o painel que o dono abre de manhã e o livro caixa onde a equipe lança o dia.</p>
             <div class="sis-nums">
-              <div class="sis-num"><b>2 cliques</b><span>pra registrar entrada ou saída</span></div>
+              <div class="sis-num"><b>2 cliques</b><span>para registrar entrada ou saída</span></div>
               <div class="sis-num"><b>Dia e mês</b><span>fechamento em um botão</span></div>
               <div class="sis-num"><b>Extrato vivo</b><span>filtra por tipo, método e data</span></div>
               <div class="sis-num"><b>Uma tela</b><span>caixa, contratos e vendas juntos</span></div>
@@ -2664,7 +2679,7 @@
 
     <div class="sis-cta" data-reveal="1">
       <h3>Tem uma planilha que já não dá conta?</h3>
-      <p>Conta o que trava o seu dia hoje. A gente responde se dá pra resolver com um sistema — e o que ele teria que fazer.</p>
+      <p>Conta o que trava o seu dia hoje. A gente responde se dá para resolver com um sistema — e o que ele teria que fazer.</p>
       <a class="btn btn-primary" href="{{ sistemaUrl }}" target="_blank" rel="noopener">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path><path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"></path></svg>
         Falar sobre um sistema
@@ -2773,11 +2788,11 @@
             <div class="tcard-who"><span class="tcard-av" aria-hidden="true">MS</span><span><span class="tcard-name">Marcos</span><br><span class="tcard-role">Mercado São Jorge</span></span></div>
           </div>
           <div class="tcard">
-            <p>O site ficou pronto em 4 dias. Eu tinha me preparado pra esperar um mês.</p>
+            <p>O site ficou pronto em 4 dias. Eu tinha me preparado para esperar um mês.</p>
             <div class="tcard-who"><span class="tcard-av" aria-hidden="true">RB</span><span><span class="tcard-name">Renata</span><br><span class="tcard-role">Studio Bella</span></span></div>
           </div>
           <div class="tcard">
-            <p>Parei de correr atrás de post no fim de semana. Chega tudo pronto pra aprovar.</p>
+            <p>Parei de correr atrás de post no fim de semana. Chega tudo pronto para aprovar.</p>
             <div class="tcard-who"><span class="tcard-av" aria-hidden="true">DP</span><span><span class="tcard-name">Diego</span><br><span class="tcard-role">Pet &amp; Cia</span></span></div>
           </div>
           <div class="tcard" aria-hidden="true">
@@ -2785,11 +2800,11 @@
             <div class="tcard-who"><span class="tcard-av" aria-hidden="true">MS</span><span><span class="tcard-name">Marcos</span><br><span class="tcard-role">Mercado São Jorge</span></span></div>
           </div>
           <div class="tcard" aria-hidden="true">
-            <p>O site ficou pronto em 4 dias. Eu tinha me preparado pra esperar um mês.</p>
+            <p>O site ficou pronto em 4 dias. Eu tinha me preparado para esperar um mês.</p>
             <div class="tcard-who"><span class="tcard-av" aria-hidden="true">RB</span><span><span class="tcard-name">Renata</span><br><span class="tcard-role">Studio Bella</span></span></div>
           </div>
           <div class="tcard" aria-hidden="true">
-            <p>Parei de correr atrás de post no fim de semana. Chega tudo pronto pra aprovar.</p>
+            <p>Parei de correr atrás de post no fim de semana. Chega tudo pronto para aprovar.</p>
             <div class="tcard-who"><span class="tcard-av" aria-hidden="true">DP</span><span><span class="tcard-name">Diego</span><br><span class="tcard-role">Pet &amp; Cia</span></span></div>
           </div>
         </div>
@@ -2804,7 +2819,7 @@
             <div class="tcard-who"><span class="tcard-av" aria-hidden="true">JB</span><span><span class="tcard-name">João</span><br><span class="tcard-role">Burger do Zé</span></span></div>
           </div>
           <div class="tcard">
-            <p>Eu não entendo nada de site. Eles resolveram tudo e só me chamaram pra aprovar.</p>
+            <p>Eu não entendo nada de site. Eles resolveram tudo e só me chamaram para aprovar.</p>
             <div class="tcard-who"><span class="tcard-av" aria-hidden="true">LF</span><span><span class="tcard-name">Luciana</span><br><span class="tcard-role">Odonto Sorriso</span></span></div>
           </div>
           <div class="tcard" aria-hidden="true">
@@ -2816,7 +2831,7 @@
             <div class="tcard-who"><span class="tcard-av" aria-hidden="true">JB</span><span><span class="tcard-name">João</span><br><span class="tcard-role">Burger do Zé</span></span></div>
           </div>
           <div class="tcard" aria-hidden="true">
-            <p>Eu não entendo nada de site. Eles resolveram tudo e só me chamaram pra aprovar.</p>
+            <p>Eu não entendo nada de site. Eles resolveram tudo e só me chamaram para aprovar.</p>
             <div class="tcard-who"><span class="tcard-av" aria-hidden="true">LF</span><span><span class="tcard-name">Luciana</span><br><span class="tcard-role">Odonto Sorriso</span></span></div>
           </div>
         </div>
@@ -2932,7 +2947,7 @@
     </div>
     <!-- Uma pagina por ramo (geradas por ferramentas/gerar-ramos.py). O link daqui e o que
          faz o Google achar as oito; o anuncio de cada ramo aponta direto pra ela. -->
-    <nav class="rodape-ramos" aria-label="Site para o seu ramo">
+    <nav class="rodape-ramos" aria-label="Site para seu ramo">
       <span>Site para</span>
       <a href="barbearia/">barbearia</a>
       <a href="salao-de-beleza/">salão de beleza</a>
@@ -3924,12 +3939,12 @@ class Component extends DCLogic {
       { q: 'Como funciona o 1º mês grátis?', a: 'Você não paga a primeira mensalidade. Nesse período já fazemos o site, publicamos os posts e configuramos o Google Meu Negócio. A cobrança começa no segundo mês.' },
       { q: 'Tenho que ficar preso por algum tempo?', a: 'Não. Não há fidelidade nem multa: o plano é mês a mês e você cancela quando quiser, direto pelo app do Mercado Pago. Só um aviso honesto: presença digital rende com constância, e quem desiste no segundo mês costuma sair antes de o resultado aparecer. O site continua seu — a gente passa os arquivos e o domínio se você decidir sair.' },
       { q: 'Qual é a diferença entre o Essencial e o Completo?', a: 'O Essencial põe a base de pé: site no ar, 8 posts por mês e a ficha do Google otimizada. O Completo é para quem quer acelerar — sobe para 20 posts com artes elaboradas, mantém a ficha do Google ativa toda semana, faz 4 atualizações no site e entrega um relatório mensal do que deu resultado.' },
-      { q: 'E se o site não ficar pronto em 5 dias úteis?', a: 'Aí o segundo mês é por nossa conta. O prazo conta a partir do dia em que chega o material básico (logo, fotos, horário e contato). Se faltar alguma coisa, a gente avisa no mesmo dia, pra ninguém ficar esperando à toa.' },
-      { q: 'Eu já tenho site ou Instagram. Serve pra mim?', a: 'Serve, e melhor ainda: a gente aproveita o que já existe. O site pode ser refeito no mesmo endereço, e o Instagram continua sendo o seu, só que publicando toda semana.' },
-      { q: 'O domínio e o site ficam no meu nome?', a: 'O site é seu. Se um dia você sair, a gente transfere o domínio pro seu CPF ou CNPJ e entrega os arquivos do site. Nada fica preso com a ACTech.' },
+      { q: 'E se o site não ficar pronto em 5 dias úteis?', a: 'Aí o segundo mês é por nossa conta. O prazo conta a partir do dia em que chega o material básico (logo, fotos, horário e contato). Se faltar alguma coisa, a gente avisa no mesmo dia, para ninguém ficar esperando à toa.' },
+      { q: 'Eu já tenho site ou Instagram. Serve para mim?', a: 'Serve, e melhor ainda: a gente aproveita o que já existe. O site pode ser refeito no mesmo endereço, e o Instagram continua sendo o seu, só que publicando toda semana.' },
+      { q: 'O domínio e o site ficam no meu nome?', a: 'O site é seu. Se um dia você sair, a gente transfere o domínio para seu CPF ou CNPJ e entrega os arquivos do site. Nada fica preso com a ACTech.' },
       { q: 'Preciso tirar fotos profissionais?', a: 'Não. Foto de celular resolve, e o guia gratuito desta página mostra como tirar uma que vende. Se você não tiver nenhuma, a gente começa com imagens de banco e troca pelas suas quando chegarem.' },
       { q: 'Como eu pago?', a: 'É uma assinatura mensal pelo Mercado Pago, no cartão de crédito. A primeira cobrança só acontece no segundo mês, e o cancelamento é pelo próprio app do Mercado Pago, sem precisar falar com ninguém.' },
-      { q: 'Vocês atendem fora de Brasília?', a: 'Site e sistema, sim: atendemos o Brasil inteiro, tudo pelo WhatsApp. Os planos com Instagram e ficha do Google são pensados pra quem atende em Brasília e no entorno.' }
+      { q: 'Vocês atendem fora de Brasília?', a: 'Site e sistema, sim: atendemos o Brasil inteiro, tudo pelo WhatsApp. Os planos com Instagram e ficha do Google são pensados para quem atende em Brasília e no entorno.' }
       // ADS OFF - pergunta da verba de anúncio, guardada para quando o tráfego pago voltar:
       // { q: 'O que significa "verba de anúncio separada"?', a: 'No plano Completo a ACTech cria, configura e otimiza as campanhas no Google e Meta. O valor que vai para o anúncio em si é pago diretamente às plataformas e você define quanto quer investir — ele não está incluído na mensalidade.' }
     ]);

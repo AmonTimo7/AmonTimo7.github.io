@@ -67,7 +67,7 @@
       ],
       dif: [
         ['Agenda online', 'Escolhe o dia e o barbeiro em trinta segundos.'],
-        ['Lembrete automático', 'Aviso na véspera pra ninguém esquecer.'],
+        ['Lembrete automático', 'Aviso na véspera para ninguém esquecer.'],
         ['Combo barba e cabelo', 'Preço fechado e tempo reservado.']
       ],
       numeros: [['4,9', 'nota no Google'], ['+2 mil', 'cortes por ano'], ['0 min', 'de fila']],
@@ -99,7 +99,7 @@
         ['Ofertas toda terça', 'A lista nova sai cedo, direto no WhatsApp.'],
         ['Conta do mês', 'Cliente antigo fecha no fim do mês, como sempre foi.']
       ],
-      numeros: [['+2 mil', 'itens na loja'], ['3h', 'pra entregar'], ['15 anos', 'no bairro']],
+      numeros: [['+2 mil', 'itens na loja'], ['3h', 'para entregar'], ['15 anos', 'no bairro']],
       horarios: ['10h–12h', '12h–14h', '14h–16h', '16h–18h', '18h–19h', '19h–20h'],
       agenda: 'Escolha a janela de entrega',
       depo: ['Faço a lista no WhatsApp de manhã e à tarde já está tudo em casa.', 'Dona Célia', 'cliente há 9 anos']
@@ -128,7 +128,7 @@
         ['Entrega própria', 'Sem taxa de aplicativo mordendo a margem.'],
         ['Reserva de mesa', 'Fim de semana com lugar garantido.']
       ],
-      numeros: [['4,8', 'nota no Google'], ['35 min', 'pra entregar'], ['200', 'pratos por dia']],
+      numeros: [['4,8', 'nota no Google'], ['35 min', 'para entregar'], ['200', 'pratos por dia']],
       horarios: ['11:30', '12:00', '12:30', '13:00', '19:30', '20:30'],
       agenda: 'Reserve a sua mesa',
       depo: ['O almoço chega quentinho no escritório, e o pudim vale a viagem.', 'Juliana', 'pede toda semana']
@@ -157,7 +157,7 @@
         ['Confirmação na hora', 'Sem telefone ocupado, sem retorno.'],
         ['Equipe e registros', 'Cada profissional com a sua formação.']
       ],
-      numeros: [['12', 'especialidades'], ['8', 'convênios aceitos'], ['24h', 'pra ter resultado']],
+      numeros: [['12', 'especialidades'], ['8', 'convênios aceitos'], ['24h', 'para ter resultado']],
       horarios: ['08:00', '08:40', '10:20', '14:00', '15:20', '16:40'],
       agenda: 'Escolha o seu horário',
       depo: ['Marquei a consulta da minha filha às onze da noite, pelo celular. Simples assim.', 'Patrícia', 'paciente']
@@ -168,7 +168,7 @@
       fotos: [
         ['imgs/ramos/petshop-1.webp', 'Cachorro tomando banho'],
         ['imgs/ramos/petshop-2.webp', 'Filhote sentado no tapete'],
-        ['imgs/ramos/petshop-3.webp', 'Gato olhando pra cima']
+        ['imgs/ramos/petshop-3.webp', 'Gato olhando para cima']
       ],
       nav: ['Serviços', 'Loja', 'Contato'],
       cta: 'Agendar banho', cta2: 'Ver serviços', acao: 'Agendar',
@@ -176,7 +176,7 @@
       curto: 'Banho marcado. Pet feliz.',
       sub: 'Agenda de banho e tosa online, com lembrete no WhatsApp e o histórico de cada bichinho guardado.',
       servicos: [
-        ['Banho', 'Shampoo certo pra cada pelagem.', 'R$ 55', '1h'],
+        ['Banho', 'Shampoo certo para cada pelagem.', 'R$ 55', '1h'],
         ['Banho e tosa', 'Tosa higiênica ou na tesoura.', 'R$ 90', '1h30'],
         ['Consulta', 'Veterinário com hora marcada.', 'R$ 150', '30 min'],
         ['Leva e traz', 'A gente busca e devolve cheiroso.', 'R$ 20', 'até 5 km']
@@ -213,7 +213,7 @@
       dif: [
         ['Agenda por profissional', 'Cada uma com a própria escala de horários.'],
         ['Portfólio de fotos', 'Trabalho recente, direto na tela.'],
-        ['Lembrete automático', 'Aviso na véspera pra ninguém faltar.']
+        ['Lembrete automático', 'Aviso na véspera para ninguém faltar.']
       ],
       numeros: [['5,0', 'nota no Google'], ['6', 'profissionais'], ['+300', 'clientes por mês']],
       horarios: ['09:00', '10:00', '11:30', '14:00', '15:30', '17:00'],
@@ -244,7 +244,7 @@
         ['Tudo na tela', 'Serviços, preços e fotos antes do primeiro contato.'],
         ['Avaliações reais', 'Quem já comprou conta como foi.']
       ],
-      numeros: [['4,9', 'nota no Google'], ['+500', 'clientes atendidos'], ['24h', 'pra responder']],
+      numeros: [['4,9', 'nota no Google'], ['+500', 'clientes atendidos'], ['24h', 'para responder']],
       horarios: ['08:00', '09:30', '11:00', '14:00', '15:30', '17:00'],
       agenda: 'Escolha o melhor horário',
       depo: ['Mandei mensagem de manhã e à tarde já tinha o orçamento. Atendimento de primeira.', 'Carlos', 'cliente']
@@ -484,7 +484,7 @@
             '<h1>' + r.titulo + '</h1><p>' + r.sub + '</p><div class="co-bts">' + bt('co-b1', r.cta) + bt('co-b2', r.cta2) + '</div></div>' +
             '<div class="co-ilustra">' + foto(v, 'co-foto') +
               '<i class="co-bola co-bola--1"></i><i class="co-bola co-bola--2"></i><i class="co-bola co-bola--3"></i></div></section>' +
-          '<section class="co-sec" data-sec="servicos"><small class="co-rotulo">O que a gente faz</small><h2>' + r.nav[0] + ' pra todo gosto.</h2><div class="co-cards">' +
+          '<section class="co-sec" data-sec="servicos"><small class="co-rotulo">O que a gente faz</small><h2>' + r.nav[0] + ' para todo gosto.</h2><div class="co-cards">' +
             r.servicos.map(function (s, i) {
               return '<div class="co-card co-card--' + i + '"><b>' + s[0] + '</b><span>' + s[1] + '</span><em class="co-frag">' + frag[i] + '</em></div>';
             }).join('') +
@@ -739,7 +739,7 @@
       '<div class="ad-camada ad-antes" aria-hidden="true">' + antigo(v) + '</div>' +
       '<span class="ad-selo ad-selo--antes">Do jeito antigo</span><span class="ad-selo ad-selo--depois">Com a ACTech</span>' +
       '<i class="ad-linha" aria-hidden="true"><b>‹ ›</b></i>' +
-      '<input type="range" class="ad-range" min="0" max="100" value="50" data-ad-range aria-label="Arraste pra comparar o antes e o depois" />' +
+      '<input type="range" class="ad-range" min="0" max="100" value="50" data-ad-range aria-label="Arraste para comparar o antes e o depois" />' +
     '</div>';
   }
 
@@ -822,7 +822,7 @@
           '<span class="est-qr-txt"><b data-qr-titulo></b><small>Aponte a câmera do celular e veja o de vocês funcionando.</small>' +
           '<a class="est-qr-link" data-qr-link target="_blank" rel="noopener">Abrir aqui</a></span></div>' +
         '<div class="est-acoes-bts"><button type="button" class="btn btn-secondary btn-sm" data-trocar>Trocar os dados</button>' +
-        '<a class="btn btn-secondary btn-sm" data-compartilhar target="_blank" rel="noopener">' + ico('seta') + 'Mandar pra alguém</a>' +
+        '<a class="btn btn-secondary btn-sm" data-compartilhar target="_blank" rel="noopener">' + ico('seta') + 'Mandar para alguém</a>' +
         '<a class="btn btn-primary btn-sm" data-quero target="_blank" rel="noopener">' + ico('whats') + 'Quero um site assim</a></div>' +
       '</div>' +
       '<p class="est-sr" aria-live="polite" data-fala></p>';
@@ -1034,7 +1034,7 @@
       if ((b = t.closest('[data-sel]'))) {
         var grupo = b.dataset.sel;
         site.querySelectorAll('[data-sel="' + grupo + '"]').forEach(function (x) { x.classList.toggle('is-on', x === b); });
-        if (grupo === 'hora') aviso('Horário escolhido. No site de verdade, a confirmação chega na hora pro seu cliente.');
+        if (grupo === 'hora') aviso('Horário escolhido. No site de verdade, a confirmação chega na hora para seu cliente.');
         return;
       }
       if ((b = t.closest('[data-coracao]'))) {
@@ -1043,7 +1043,7 @@
       }
       if (t.closest('[data-ad]')) return;
       if (t.closest('[data-acao]')) {
-        aviso('No site de verdade, este botão leva o cliente direto pro seu WhatsApp ou pra sua agenda.');
+        aviso('No site de verdade, este botão leva o cliente direto para seu WhatsApp ou para sua agenda.');
       }
     }
 

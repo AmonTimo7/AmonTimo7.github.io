@@ -32,7 +32,7 @@ RAMOS = [
     dict(
         slug='barbearia', rotulo='Barbearia', nome_ramo='barbearia', artigo='a sua barbearia',
         titulo_seo='Site e Instagram para barbearia em Brasília',
-        h1='Sua barbearia aparecendo pra quem procura corte perto de casa.',
+        h1='Sua barbearia aparecendo para quem procura corte perto de casa.',
         exemplo='Navalha', tom='#B07D2A', tom_txt='#7A5410',
         fotos=['barbearia-1', 'barbearia-3'], galeria=['barbearia-2'],
         busca='barbearia perto de mim',
@@ -45,7 +45,7 @@ RAMOS = [
         rodape='Ter a sáb, 9h às 20h · Agenda online',
         ig='navalha.barbearia', seguidores=1960, bio=['Corte e barba com hora marcada', 'Ter a sáb · Agende pelo link'],
         destaques=['Cortes', 'Barba', 'Equipe', 'Endereço'],
-        posts=['Agenda aberta pra sábado', 'Corte + barba R$ 70', 'Antes e depois', 'Terça tem promoção', 'Degradê na navalha'],
+        posts=['Agenda aberta para sábado', 'Corte + barba R$ 70', 'Antes e depois', 'Terça tem promoção', 'Degradê na navalha'],
     ),
     dict(
         slug='salao-de-beleza', rotulo='Salão de beleza', nome_ramo='salão de beleza', artigo='o seu salão',
@@ -63,7 +63,7 @@ RAMOS = [
         rodape='Ter a sáb, 9h às 19h · Agenda online',
         ig='studioalice', seguidores=3120, bio=['Cabelo, escova e coloração', 'Ter a sáb · Agende online'],
         destaques=['Cortes', 'Cor', 'Noivas', 'Endereço'],
-        posts=['Horários pra essa semana', 'Escova R$ 60', 'Antes e depois da cor', 'Dia da noiva', 'Hidratação de terça'],
+        posts=['Horários para essa semana', 'Escova R$ 60', 'Antes e depois da cor', 'Dia da noiva', 'Hidratação de terça'],
     ),
     dict(
         slug='maquiagem', rotulo='Maquiagem', nome_ramo='maquiadora', artigo='o seu trabalho de make',
@@ -128,7 +128,7 @@ RAMOS = [
         busca='mercado perto de mim',
         concorrentes=[['Supermercado Real', '4,5', 1204], ['Mercadinho Bom Preço', '4,4', 532]],
         site_tit='A feira da semana, entregue na sua porta.',
-        site_sub='Ofertas da semana e entrega no mesmo dia pra quem mora perto.',
+        site_sub='Ofertas da semana e entrega no mesmo dia para quem mora perto.',
         cta='Pedir no WhatsApp',
         itens=[['Hortifrúti', 'toda manhã'], ['Açougue', 'corte na hora'], ['Cesta da semana', 'R$ 189']],
         dep=['Peço pelo WhatsApp e chega em casa no mesmo dia.', 'Dona Marta, cliente'],
@@ -163,7 +163,7 @@ RAMOS = [
         fotos=['clinica-1', 'clinica-2'], galeria=['clinica-3'],
         busca='clínica perto de mim',
         concorrentes=[['Clínica Saúde Mais', '4,7', 643], ['Centro Médico Bem-Estar', '4,5', 318]],
-        site_tit='Consulta marcada sem ligar pra ninguém.',
+        site_tit='Consulta marcada sem ligar para ninguém.',
         site_sub='Agenda online, convênios na primeira tela e lembrete automático.',
         cta='Marcar consulta',
         itens=[['Consulta', 'particular e convênio'], ['Retorno', 'em 30 dias'], ['Exames', 'no local']],
@@ -276,9 +276,9 @@ def busca(r):
 FAQ = [
     ('Em quanto tempo o site fica pronto?', 'Em até 5 dias úteis depois que chega o material básico: logo, fotos, horário e contato. Se passar disso, o 2º mês é por nossa conta.'),
     ('Como funciona o 1º mês grátis?', 'Você não paga a primeira mensalidade. Nesse mês o site já sai, os posts começam e a ficha do Google é arrumada. A cobrança só começa no 2º mês.'),
-    ('Tem fidelidade ou multa?', 'Não. É mês a mês, e você cancela quando quiser pelo app do Mercado Pago. Se sair, a gente passa o domínio pra você e entrega os arquivos do site.'),
+    ('Tem fidelidade ou multa?', 'Não. É mês a mês, e você cancela quando quiser pelo app do Mercado Pago. Se sair, a gente passa o domínio para você e entrega os arquivos do site.'),
     ('Preciso tirar fotos profissionais?', 'Não. Foto de celular resolve. Se não tiver nenhuma, a gente começa com imagens de banco e troca pelas suas quando chegarem.'),
-    ('Eu já tenho Instagram. Serve?', 'Serve. A conta continua sendo sua, só que publicando toda semana, com arte feita pro seu negócio.'),
+    ('Eu já tenho Instagram. Serve?', 'Serve. A conta continua sendo sua, só que publicando toda semana, com arte feita para seu negócio.'),
 ]
 
 

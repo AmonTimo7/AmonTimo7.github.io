@@ -81,8 +81,8 @@
       s.classList.toggle('is-neg', sobra < 0);
       s.innerHTML = sobra >= 0
         ? 'Sobram <b>' + real(sobra) + ' por mês</b>, ' + real(sobra * 12) + ' no ano. Do ' + (paga + 1) + 'º cliente em diante, é lucro.'
-        : 'Com ' + st.novos + ' ' + (st.novos === 1 ? 'cliente' : 'clientes') + ' ainda falta ' + real(-sobra) + '. Faltam ' + (paga - st.novos) + ' pra empatar.';
-      $('[data-ramo]').textContent = st.ramo ? 'Começamos com valores comuns de ' + st.ramo + ', o ramo que você escolheu na prévia. Ajuste pro seu.' : '';
+        : 'Com ' + st.novos + ' ' + (st.novos === 1 ? 'cliente' : 'clientes') + ' ainda falta ' + real(-sobra) + '. Faltam ' + (paga - st.novos) + ' para empatar.';
+      $('[data-ramo]').textContent = st.ramo ? 'Começamos com valores comuns de ' + st.ramo + ', o ramo que você escolheu na prévia. Ajuste ao seu.' : '';
     }
     raiz.addEventListener('input', function (ev) {
       var k = ev.target.dataset.in; if (!k) return;

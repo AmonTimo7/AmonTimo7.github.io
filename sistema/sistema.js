@@ -240,8 +240,8 @@
     function telaRamo() {
       return '<div class="sx-cfg"><div class="sx-cfg-cartao">' +
         '<span class="sx-passo">Passo 1 de 2</span>' +
-        '<h3>Pra que tipo de negócio?</h3>' +
-        '<p>O painel abre com dados de exemplo que fazem sentido pro seu ramo.</p>' +
+        '<h3>Para que tipo de negócio?</h3>' +
+        '<p>O painel abre com dados de exemplo que fazem sentido para seu ramo.</p>' +
         '<div class="sx-chips" role="radiogroup" aria-label="Ramo">' +
           ORDEM.map(function (id) {
             var on = st.ramo === id;
@@ -256,7 +256,7 @@
       return '<div class="sx-cfg"><div class="sx-cfg-cartao sx-cfg-cartao--larga">' +
         '<div class="sx-passo-linha"><span class="sx-passo">Passo 2 de 2</span><button type="button" class="sx-link" data-voltar>Voltar</button></div>' +
         '<h3>O que o seu sistema precisa ter?</h3>' +
-        '<p>Já deixamos marcado o mais comum pra ' + esc(RAMOS[st.ramo].rotulo.toLowerCase()) + '. A visão geral vem sempre.</p>' +
+        '<p>Já deixamos marcado o mais comum para ' + esc(RAMOS[st.ramo].rotulo.toLowerCase()) + '. A visão geral vem sempre.</p>' +
         '<div class="sx-mods">' +
           MODULOS.map(function (m) {
             var on = st.mods.indexOf(m.id) > -1;
@@ -385,7 +385,7 @@
         '<h4>Resumo do dia</h4><ul class="sx-fecha-lista">' + porForma +
         '<li class="sx-fecha-sep"><span>Saídas</span><b class="sx-saida">− ' + real(sai) + '</b></li>' +
         '<li class="sx-fecha-total"><span>Saldo</span><b>' + real(ent - sai) + '</b></li></ul>' +
-        '<p>No sistema de verdade esse resumo sai em PDF ou vai pro seu WhatsApp todo dia, sozinho.</p>' +
+        '<p>No sistema de verdade esse resumo sai em PDF ou vai para seu WhatsApp todo dia, sozinho.</p>' +
         '<button type="button" class="sx-link" data-reabrir>Reabrir o caixa</button></div>';
     }
 
@@ -403,7 +403,7 @@
     }
     function painelSlot() {
       var d = st.d;
-      if (!st.sel) return '<p class="sx-vazio">' + ico('agenda') + 'Clique num horário livre pra marcar, ou num marcado pra concluir.</p>';
+      if (!st.sel) return '<p class="sx-vazio">' + ico('agenda') + 'Clique num horário livre para marcar, ou num marcado para concluir.</p>';
       var p = st.sel.split('|'), prof = d.R.profs[p[0]], a = d.agenda[st.sel];
       var titulo = '<small>' + esc(prof) + ' · ' + p[1] + '</small>';
       if (!a) {
@@ -436,7 +436,7 @@
         '<aside class="sx-caixa-ui">' + (c
           ? '<div class="sx-cli-ficha"><i>' + iniciais(c.nome) + '</i><h4>' + esc(c.nome) + '</h4><small>' + c.fone + '</small>' +
             '<dl><div><dt>Visitas</dt><dd>' + c.visitas + '</dd></div><div><dt>Já gastou</dt><dd>' + real(c.gasto) + '</dd></div><div><dt>Último</dt><dd>' + esc(c.ultimo) + '</dd></div></dl>' +
-            (c.aniver ? '<p class="sx-dica">🎂 Faz aniversário essa semana. O sistema manda o parabéns com um cupom.</p>' : '<p class="sx-dica">Faz ' + c.dias + ' dias da última visita.' + (c.dias > 25 ? ' Bom momento pra chamar de volta.' : '') + '</p>') +
+            (c.aniver ? '<p class="sx-dica">🎂 Faz aniversário essa semana. O sistema manda o parabéns com um cupom.</p>' : '<p class="sx-dica">Faz ' + c.dias + ' dias da última visita.' + (c.dias > 25 ? ' Bom momento para chamar de volta.' : '') + '</p>') +
             '<button type="button" class="sx-link" data-cli-fechar>Fechar ficha</button></div>'
           : '<h4>Novo cliente</h4><form class="sx-form sx-form--col" data-form="cliente"><label class="sx-campo"><span>Nome</span><input name="nome" required maxlength="40" /></label>' +
             '<label class="sx-campo"><span>WhatsApp</span><input name="fone" inputmode="tel" placeholder="(61) 9…" /></label><button type="submit" class="sx-cta sx-cta--sm">' + ico('mais') + 'Cadastrar</button></form>') +
