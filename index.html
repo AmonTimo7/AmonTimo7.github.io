@@ -549,7 +549,15 @@
   .tc-barra span { margin-left: 10px; padding: 3px 12px; border-radius: 6px; background: #fff; font-size: 11.5px; color: #6b7480; }
   .tc-janela img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
   .tc-fone { position: absolute; right: 0; top: 64px; width: 25%; aspect-ratio: 9 / 19; border-radius: 26px; padding: 7px; background: #1a2130; box-shadow: 14px 22px 40px -16px rgba(61,72,82,.55); }
-  .tc-fone img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 20px; display: block; }
+  .tc-fone-tela { width: 100%; height: 100%; border-radius: 20px; overflow: hidden; background: #fff; color: #1d2228; display: flex; flex-direction: column; container-type: inline-size; }
+  .tc-m-nav { display: flex; justify-content: space-between; align-items: center; padding: 14cqw 8cqw 5cqw; }
+  .tc-m-nav b { font: 800 8.5cqw 'Plus Jakarta Sans', sans-serif; }
+  .tc-m-nav i { width: 9cqw; height: 1.2cqw; background: #1d2228; box-shadow: 0 2.6cqw 0 #1d2228, 0 -2.6cqw 0 #1d2228; }
+  .tc-fone-tela img { display: block; width: 100%; height: 34%; object-fit: cover; flex: none; }
+  .tc-m-tit { padding: 7cqw 8cqw 0; font: 800 10cqw/1.1 'Plus Jakarta Sans', sans-serif; letter-spacing: -.02em; }
+  .tc-m-btn { align-self: flex-start; margin: 5cqw 8cqw 3cqw; padding: 3.4cqw 6cqw; border-radius: 4cqw; background: #8a6420; color: #fff; font-size: 6.4cqw; font-weight: 700; }
+  .tc-m-item { display: flex; justify-content: space-between; margin: 0 8cqw; padding: 3.4cqw 0; border-top: 1px solid #eef1f4; font-size: 6.6cqw; }
+  .tc-m-zap { margin: auto 8cqw 8cqw; padding: 3.6cqw; border-radius: 4cqw; background: #25D366; color: #fff; text-align: center; font-size: 6.6cqw; font-weight: 700; }
   .tc-modelos { position: absolute; left: 30%; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; }
   .tc-modelos img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; box-shadow: var(--nm-out-sm); }
   .is-on .tc-modelos img { animation: tc-sobe .6s cubic-bezier(.16,1,.3,1) both; }
@@ -1783,7 +1791,17 @@
               <div class="tc-barra"><i></i><i></i><i></i><span>seunegocio.com.br</span></div>
               <img src="imgs/site-home.webp" alt="Página inicial de um site feito pela ACTech" loading="lazy" decoding="async" />
             </div>
-            <div class="tc-fone"><img src="imgs/site-portfolio.webp" alt="" loading="lazy" decoding="async" /></div>
+            <!-- celular com site de celular de verdade (era a captura do site de PC
+                 espremida, que no celular ficava cortada no meio) -->
+            <div class="tc-fone" aria-hidden="true"><div class="tc-fone-tela">
+              <div class="tc-m-nav"><b>Navalha</b><i></i></div>
+              <img src="imgs/ramos/barbearia-1.webp" alt="" loading="lazy" decoding="async" />
+              <div class="tc-m-tit">Corte marcado. Sem fila.</div>
+              <span class="tc-m-btn">Agendar horário</span>
+              <div class="tc-m-item"><span>Corte</span><b>R$ 45</b></div>
+              <div class="tc-m-item"><span>Barba</span><b>R$ 35</b></div>
+              <div class="tc-m-zap">WhatsApp</div>
+            </div></div>
             <div class="tc-modelos" aria-hidden="true">
               <img src="imgs/mod-barbearia.webp" alt="" loading="lazy" decoding="async" />
               <img src="imgs/mod-salao.webp" alt="" loading="lazy" decoding="async" />
