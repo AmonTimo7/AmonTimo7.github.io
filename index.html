@@ -443,26 +443,92 @@
     .combinado-faixa .combinado-assina { padding-top: 16px; border-top: 1px solid rgba(163,177,198,.34); }
   }
 
-  /* ---------- Como funciona ----------
-     Linha do tempo: um trilho cavado liga os tres numeros. No celular o
-     trilho fica em pe, a esquerda. */
-  .passos { list-style: none; margin: 52px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 36px; position: relative; }
-  .passos::before { content: ''; position: absolute; top: 25px; left: 26px; right: calc(33.33% - 26px); height: 6px; border-radius: 6px; background: var(--bg); box-shadow: var(--nm-in-sm); }
-  .passos li { position: relative; }
-  .passo-n {
-    position: relative; z-index: 1; width: 56px; height: 56px; border-radius: 999px; display: grid; place-items: center;
-    background: var(--bg); box-shadow: var(--nm-out); color: var(--fg);
-    font: 800 21px 'Plus Jakarta Sans', system-ui, sans-serif;
+  /* ---------- Como funciona: a jornada ----------
+     Quatro passos num trilho. Cada um tem uma cena pequena com a coisa que
+     acontece naquele dia. Com .is-vivo (setupComo, quando a secao aparece)
+     o trilho enche e os passos acendem um por vez; sem JS ficam todos acesos. */
+  .jornada { list-style: none; margin: 56px 0 0; padding: 0; position: relative;
+    display: grid; grid-template-columns: 1fr 1fr 1.25fr 1fr; gap: 22px; }
+  .jornada::before, .jornada::after { content: ''; position: absolute; left: 10px; right: 10px; top: 9px; height: 4px; border-radius: 4px; }
+  .jornada::before { box-shadow: var(--nm-in-sm); background: var(--bg); }
+  .jornada::after { background: linear-gradient(90deg, var(--t1), var(--t5), var(--t3), var(--t2)); transform-origin: left; transform: scaleX(1); }
+  .jornada.is-pronto::after { transform: scaleX(0); }
+  .jornada.is-vivo::after { transform: scaleX(1); transition: transform 2.6s cubic-bezier(.45,0,.2,1); }
+
+  .jn { position: relative; padding-top: 62px; }
+  /* a bolinha fica no trilho e o rotulo embaixo dela, longe da linha */
+  .jn-quando { position: absolute; top: 0; left: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; font-size: 13.5px; font-weight: 800; color: var(--jn); }
+  .jn-bola { position: relative; z-index: 1; width: 22px; height: 22px; border-radius: 99px; background: var(--bg); box-shadow: var(--nm-out-sm); display: grid; place-items: center; }
+  .jn-bola::after { content: ''; width: 10px; height: 10px; border-radius: 99px; background: var(--jn); }
+
+  .jn-cena { height: 196px; border-radius: 22px; background: var(--bg); box-shadow: var(--nm-out); padding: 16px; overflow: hidden; position: relative; }
+  .jn-tit { margin-top: 20px; font-weight: 800; font-size: 20px; line-height: 1.2; letter-spacing: -.02em; color: var(--fg); }
+  .jn p { margin: 8px 0 0; font-size: 15px; line-height: 1.6; color: var(--muted); }
+
+  /* acender em sequencia */
+  .jornada.is-pronto .jn .jn-cena, .jornada.is-pronto .jn .jn-tit, .jornada.is-pronto .jn p { opacity: 0; transform: translateY(16px); }
+  .jornada.is-pronto .jn-bola::after { transform: scale(0); }
+  .jornada.is-vivo .jn .jn-cena, .jornada.is-vivo .jn .jn-tit, .jornada.is-vivo .jn p {
+    opacity: 1; transform: none; transition: opacity .6s ease, transform .8s cubic-bezier(.16,1,.3,1);
+    transition-delay: calc(var(--i) * .65s + .15s);
   }
-  .passo-quando { margin-top: 22px; font-size: 13.5px; font-weight: 700; }
-  .passo-tit { margin-top: 6px; font-weight: 800; font-size: 21px; line-height: 1.2; color: var(--fg); }
-  .passos p { margin: 10px 0 0; font-size: 15px; line-height: 1.65; color: var(--muted); max-width: 34ch; }
-  @media (max-width: 760px) {
-    .passos { grid-template-columns: 1fr; gap: 28px; margin-top: 36px; }
-    .passos::before { top: 28px; bottom: 28px; left: 25px; right: auto; width: 6px; height: auto; }
-    .passos li { padding-left: 76px; min-height: 56px; }
-    .passo-n { position: absolute; left: 0; top: 0; }
-    .passo-quando { margin-top: 2px; }
+  .jornada.is-vivo .jn .jn-tit { transition-delay: calc(var(--i) * .65s + .25s); }
+  .jornada.is-vivo .jn p { transition-delay: calc(var(--i) * .65s + .32s); }
+  .jornada.is-vivo .jn-bola::after { transform: scale(1); transition: transform .5s cubic-bezier(.34,1.56,.64,1) calc(var(--i) * .65s); }
+
+  /* cena 1: a mensagem com as fotos */
+  .jn-zap { height: calc(100% + 32px); display: flex; flex-direction: column; gap: 6px; padding: 10px; margin: -16px; background: #efe7dd; }
+  .jn-zap-b { align-self: flex-start; max-width: 88%; padding: 7px 10px; border-radius: 10px 10px 10px 3px; background: #fff; font-size: 12.5px; line-height: 1.35; color: #111; box-shadow: 0 1px 1px rgba(0,0,0,.08); }
+  .jn-zap-b--eu { align-self: flex-end; background: #d9fdd3; border-radius: 10px 10px 3px 10px; }
+  .jn-zap-fotos { align-self: flex-end; display: grid; grid-template-columns: repeat(3, 48px); gap: 3px; padding: 3px; border-radius: 9px; background: #d9fdd3; }
+  .jn-zap-fotos img { width: 48px; height: 48px; object-fit: cover; border-radius: 6px; display: block; }
+
+  /* cena 2: a previa com um pedido de ajuste */
+  .jn-previa { position: relative; height: 100%; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 1px 4px rgba(61,72,82,.15); }
+  .jn-previa-barra { display: flex; align-items: center; gap: 4px; padding: 7px 9px; background: #eef1f5; }
+  .jn-previa-barra i { width: 7px; height: 7px; border-radius: 9px; background: #c7ccd4; }
+  .jn-previa-barra span { margin-left: auto; font-size: 10.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--t5); }
+  .jn-previa img { display: block; width: 100%; height: calc(100% - 25px); object-fit: cover; object-position: top; }
+  .jn-previa-pin { position: absolute; right: 8px; bottom: 10px; max-width: 72%; padding: 7px 10px; border-radius: 10px 10px 3px 10px; background: #d9fdd3; font-size: 12px; line-height: 1.3; color: #111; box-shadow: 0 6px 16px -6px rgba(0,0,0,.3); }
+
+  /* cena 3: no ar */
+  .jn-ar { position: relative; height: 100%; }
+  .jn-ar-site { display: flex; gap: 10px; align-items: center; padding: 9px; border-radius: 14px; background: #fff; box-shadow: 0 1px 4px rgba(61,72,82,.15); }
+  .jn-ar-site img { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; display: block; }
+  .jn-ar-site b, .jn-ar-g b { display: block; font: 800 15px 'Plus Jakarta Sans', system-ui, sans-serif; color: #1d2228; }
+  .jn-ar-site span { font-size: 12.5px; color: #1a73e8; }
+  .jn-ar-g { margin-top: 10px; margin-left: 30px; padding: 10px 12px; border-radius: 14px; background: #fff; box-shadow: 0 8px 22px -10px rgba(61,72,82,.45); font-family: system-ui, -apple-system, sans-serif; }
+  .jn-ar-g span { font-size: 12.5px; color: #5f6368; }
+  .jn-ar-g i { font-style: normal; color: #FBBC05; letter-spacing: 1px; }
+  .jn-ar-selo { position: absolute; right: 2px; top: 2px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 9px; background: var(--t3); color: #fff; font-size: 12.5px; font-weight: 800; }
+  .jn-ar-selo i { width: 7px; height: 7px; border-radius: 9px; background: #8ff0dd; box-shadow: 0 0 0 3px rgba(143,240,221,.3); }
+  .jornada.is-vivo .jn-ar-selo i { animation: jn-pulso 1.8s ease-in-out infinite; }
+  @keyframes jn-pulso { 50% { box-shadow: 0 0 0 7px rgba(143,240,221,0); } }
+
+  /* cena 4: a conta */
+  .jn-conta { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  .jn-conta-l { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding-bottom: 10px; border-bottom: 1px dashed rgba(89,97,110,.3); font-size: 13.5px; color: var(--muted); }
+  .jn-conta-l b { font: 800 17px 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--fg); font-variant-numeric: tabular-nums; }
+  .jn-conta-l b.zero { font-size: 22px; color: var(--t3); }
+  .jn-conta-p { font-size: 12.5px; font-weight: 700; color: var(--t2); }
+
+  @media (max-width: 1080px) {
+    .jornada { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+    .jornada::before, .jornada::after { display: none; }
+  }
+  @media (max-width: 640px) {
+    .jornada { grid-template-columns: minmax(0, 1fr); gap: 34px; margin-top: 36px; padding-left: 34px; }
+    .jornada::before, .jornada::after { display: block; left: 9px; right: auto; top: 10px; bottom: 10px; width: 4px; height: auto; }
+    .jornada::after { background: linear-gradient(180deg, var(--t1), var(--t5), var(--t3), var(--t2)); transform-origin: top; }
+    .jornada.is-pronto::after { transform: scaleY(0); }
+    .jornada.is-vivo::after { transform: scaleY(1); }
+    .jn { padding-top: 34px; }
+    .jn-quando { left: -34px; flex-direction: row; align-items: center; gap: 10px; }
+    .jn-cena { height: 176px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .jornada.is-vivo::after, .jornada.is-vivo .jn .jn-cena, .jornada.is-vivo .jn .jn-tit, .jornada.is-vivo .jn p, .jornada.is-vivo .jn-bola::after { transition: none; }
+    .jornada.is-vivo .jn-ar-selo i { animation: none; }
   }
 
   /* ---------- Quem faz ---------- */
@@ -1896,27 +1962,60 @@
   </section>
 
   <!-- Como funciona: o medo de quem nunca contratou isso e "vai dar trabalho".
-       Tres passos com QUANDO cada um acontece, colado nos planos -- e a
-       resposta que precisa estar a mao na hora de decidir. -->
+       Era tres bolinhas numeradas; agora cada passo mostra a coisa que
+       acontece de fato -- a mensagem com as fotos, a previa, o site no ar e a
+       conta do mes zerada. O trilho enche um passo por vez quando a secao
+       aparece (setupComo). Sem JS, tudo ja aparece pronto. -->
   <section data-anima id="como" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 72px;">
     <h2 data-reveal="1" class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 0 auto; max-width: 20ch; text-align: center; text-wrap: balance; color: var(--fg);">Do primeiro oi ao site no ar: cinco dias.</h2>
-    <ol class="passos" data-reveal="1">
-      <li>
-        <span class="passo-n" aria-hidden="true">1</span>
-        <div class="passo-quando" style="color: var(--t1);">Hoje</div>
-        <div class="font-display passo-tit">Você assina e manda o que tiver</div>
-        <p>Logo, fotos de celular, horário e preços, tudo pelo WhatsApp. Não tem nada pronto? A gente monta junto.</p>
+
+    <ol class="jornada" data-como>
+      <li class="jn" style="--jn: var(--t1); --i: 0;">
+        <div class="jn-quando"><span class="jn-bola" aria-hidden="true"></span>Hoje</div>
+        <div class="jn-cena" aria-hidden="true">
+          <div class="jn-zap">
+            <div class="jn-zap-b jn-zap-b--eu">Segue o logo e umas fotos da barbearia</div>
+            <div class="jn-zap-fotos"><img src="imgs/ramos/barbearia-1.webp" alt="" loading="lazy" decoding="async" /><img src="imgs/ramos/barbearia-3.webp" alt="" loading="lazy" decoding="async" /><img src="imgs/ramos/barbearia-2.webp" alt="" loading="lazy" decoding="async" /></div>
+            <div class="jn-zap-b">Perfeito, já começo hoje.</div>
+          </div>
+        </div>
+        <div class="font-display jn-tit">Você assina e manda o que tiver</div>
+        <p>Logo, fotos de celular, horário e preços, pelo WhatsApp. Não tem nada pronto? A gente monta junto.</p>
       </li>
-      <li>
-        <span class="passo-n" aria-hidden="true">2</span>
-        <div class="passo-quando" style="color: var(--t3);">Até o 5º dia útil</div>
-        <div class="font-display passo-tit">O site entra no ar</div>
-        <p>Você aprova pelo WhatsApp, sem reunião. Os posts começam a sair e a ficha do Google fica em dia.</p>
+      <li class="jn" style="--jn: var(--t5); --i: 1;">
+        <div class="jn-quando"><span class="jn-bola" aria-hidden="true"></span>Nos dias seguintes</div>
+        <div class="jn-cena" aria-hidden="true">
+          <div class="jn-previa">
+            <div class="jn-previa-barra"><i></i><i></i><i></i><span>Prévia</span></div>
+            <img src="imgs/mod-barbearia.webp" alt="" loading="lazy" decoding="async" />
+            <div class="jn-previa-pin">Pode deixar o botão maior?</div>
+          </div>
+        </div>
+        <div class="font-display jn-tit">Você vê antes de todo mundo</div>
+        <p>A gente te manda a prévia no WhatsApp. Pede o que quiser mudar, quantas vezes precisar.</p>
       </li>
-      <li>
-        <span class="passo-n" aria-hidden="true">3</span>
-        <div class="passo-quando" style="color: var(--t2);">No 2º mês</div>
-        <div class="font-display passo-tit">Só aí começa a cobrança</div>
+      <li class="jn jn--grande" style="--jn: var(--t3); --i: 2;">
+        <div class="jn-quando"><span class="jn-bola" aria-hidden="true"></span>Até o 5º dia útil</div>
+        <div class="jn-cena" aria-hidden="true">
+          <div class="jn-ar">
+            <div class="jn-ar-site"><img src="imgs/ramos/barbearia-1.webp" alt="" loading="lazy" decoding="async" /><div><b>Navalha</b><span>navalha.com.br</span></div></div>
+            <div class="jn-ar-g"><b>Navalha</b><span><i>★★★★★</i> 4,9 · Aberto agora</span></div>
+            <span class="jn-ar-selo"><i></i>No ar</span>
+          </div>
+        </div>
+        <div class="font-display jn-tit">Site no ar, posts saindo</div>
+        <p>O endereço funciona, a ficha do Google fica em dia e o Instagram começa a publicar.</p>
+      </li>
+      <li class="jn" style="--jn: var(--t2); --i: 3;">
+        <div class="jn-quando"><span class="jn-bola" aria-hidden="true"></span>No 2º mês</div>
+        <div class="jn-cena" aria-hidden="true">
+          <div class="jn-conta">
+            <div class="jn-conta-l"><span>1º mês</span><b class="zero">R$ 0,00</b></div>
+            <div class="jn-conta-l"><span>2º mês em diante</span><b>R$ 359,99</b></div>
+            <div class="jn-conta-p">Cancela quando quiser, sem multa</div>
+          </div>
+        </div>
+        <div class="font-display jn-tit">Só aí começa a cobrança</div>
         <p>Não gostou do que viu no primeiro mês? Cancela antes e não paga nada.</p>
       </li>
     </ol>
@@ -2881,6 +2980,7 @@ class Component extends DCLogic {
     this.setupPausar();
     this.setupClickFx();
     this.setupTour();
+    this.setupComo();
     this.setupGooButton();
     this.setupTilt();
     this.setupTrueFocus();
@@ -3423,6 +3523,24 @@ class Component extends DCLogic {
       document.removeEventListener('click', onClick);
       layer.remove();
     });
+  }
+
+  /* ---------------------------------------------------------------
+     Como funciona: o trilho enche e os passos acendem um por vez, uma vez
+     so, quando a secao chega na tela. Com movimento reduzido fica tudo
+     aceso desde o comeco (nem chega a esconder).
+     --------------------------------------------------------------- */
+  setupComo() {
+    const el = document.querySelector('[data-como]');
+    if (!el || this.reduced() || !('IntersectionObserver' in window)) return;
+    el.classList.add('is-pronto');
+    const io = new IntersectionObserver((en) => {
+      if (!en.some((x) => x.isIntersecting)) return;
+      io.disconnect();
+      requestAnimationFrame(() => el.classList.add('is-vivo'));
+    }, { threshold: 0.3 });
+    io.observe(el);
+    this._teardown.push(() => io.disconnect());
   }
 
   /* ---------------------------------------------------------------
