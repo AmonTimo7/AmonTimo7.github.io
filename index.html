@@ -4090,6 +4090,15 @@ class Component extends DCLogic {
 
       wallCols: wallCols,
 
+      // Menu do celular. Sumiu num refactor (36ff67b) e o botão ficou um
+      // quadrado vazio que não abria nada -- o template ainda pede estes nomes.
+      menuOpen: this.state.menu,
+      menuClosed: !this.state.menu,
+      menuExpanded: this.state.menu ? 'true' : 'false',
+      menuLabel: this.state.menu ? 'Fechar menu' : 'Abrir menu',
+      toggleMenu: () => this.setState((s) => ({ menu: !s.menu })),
+      closeMenu: () => this.setState({ menu: false }),
+
       essencial: [
         'Site institucional (até 5 páginas)',
         'Hospedagem + domínio incluídos',
