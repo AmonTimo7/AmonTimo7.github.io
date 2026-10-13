@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Privacidade — ACTech Informática</title>
+<meta name="description" content="Quais dados a ACTech Informática coleta no site, no WhatsApp e na assinatura, pra que usa, com quem divide e como pedir pra ver, corrigir ou apagar." />
+<meta name="theme-color" content="#E0E5EC" />
+<link rel="canonical" href="https://actechsystems.github.io/privacidade.html" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='8'%20fill='%23E0E5EC'/%3E%3Cpath%20d='M12%2011l-5%205%205%205M20%2011l5%205-5%205'%20fill='none'%20stroke='%233D6A99'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="fontes/fontes.css" />
+<link rel="manifest" href="manifest.webmanifest" />
+
+<style>
+  /* HTML puro, como a 404: pagina de texto nao precisa de runtime nenhum.
+     Tokens copiados do index.html -- mudou a paleta la, muda aqui. */
+  :root {
+    --bg: #E0E5EC;
+    --fg: #3D4852;
+    --muted: #59616E;
+    --accent: #3D6A99;
+    --accent-light: #5E8CBA;
+    --sh-dark: rgba(163,177,198,.6);
+    --sh-light: rgba(255,255,255,.5);
+    --nm-out:    9px 9px 16px var(--sh-dark), -9px -9px 16px var(--sh-light);
+    --nm-out-sm: 5px 5px 10px var(--sh-dark), -5px -5px 10px var(--sh-light);
+    --nm-in-sm:  inset 3px 3px 6px var(--sh-dark), inset -3px -3px 6px var(--sh-light);
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; padding: 40px 24px 80px;
+    background: var(--bg); color: var(--fg);
+    font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: rgba(61,106,153,.22); }
+  /* link em texto corrido usa o azul escurecido (7,6:1); o --accent puro
+     fica em 4,46 sobre o cinza e o claro do hover caia pra 2,8 */
+  a { color: #24476B; text-underline-offset: 3px; }
+  a:hover { color: var(--accent); text-decoration-thickness: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+  .folha { max-width: 760px; margin: 0 auto; }
+  .marca {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 18px 10px 12px; border-radius: 14px; background: var(--bg); box-shadow: var(--nm-out-sm);
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-weight: 700; font-size: 15px; color: var(--fg); text-decoration: none;
+  }
+  .marca span { font-weight: 500; color: var(--muted); }
+
+  h1 {
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-weight: 800;
+    font-size: clamp(32px, 5.6vw, 50px); line-height: 1.05; letter-spacing: -.035em;
+    margin: 44px 0 0; text-wrap: balance;
+  }
+  .lead { margin: 18px 0 0; font-size: 18px; line-height: 1.65; color: var(--muted); max-width: 60ch; }
+  .data { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
+
+  /* O resumo e o que quase todo mundo vai ler: fica num poco, antes do resto. */
+  .resumo { margin: 36px 0 0; padding: 26px 28px; border-radius: 24px; background: var(--bg); box-shadow: var(--nm-in-sm); }
+  .resumo ul { margin: 0; padding-left: 20px; }
+  .resumo li { margin: 6px 0; font-size: 16px; line-height: 1.6; }
+
+  .texto { margin-top: 20px; }
+  .texto h2 {
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-weight: 800;
+    font-size: 23px; letter-spacing: -.02em; line-height: 1.2; margin: 44px 0 0;
+  }
+  .texto p, .texto li { font-size: 16.5px; line-height: 1.72; color: var(--muted); max-width: 68ch; }
+  .texto p { margin: 12px 0 0; }
+  .texto ul { margin: 12px 0 0; padding-left: 22px; }
+  .texto li { margin: 6px 0; }
+  .texto strong { color: var(--fg); }
+
+  .contato { margin: 52px 0 0; padding: 28px; border-radius: 24px; background: var(--bg); box-shadow: var(--nm-out); }
+  .contato b { display: block; font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-size: 19px; }
+  .contato p { margin: 8px 0 0; font-size: 15.5px; line-height: 1.6; color: var(--muted); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px; margin-top: 18px;
+    padding: 14px 24px; border-radius: 14px; background: #C44F00; color: #fff; box-shadow: var(--nm-out-sm);
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-weight: 700; font-size: 15px; text-decoration: none;
+    transition: transform .3s var(--ease);
+  }
+  .btn:hover { color: #fff; transform: translateY(-2px); }
+  .voltar { display: inline-block; margin-top: 36px; font-size: 15px; }
+
+  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:hover { transform: none; } }
+</style>
+</head>
+<body>
+
+<main class="folha">
+  <a class="marca" href="./">
+    <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" rx="8" fill="#E0E5EC"></rect>
+      <path d="M12 11l-5 5 5 5M20 11l5 5-5 5" fill="none" stroke="#3D6A99" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    ACTech <span>Informática</span>
+  </a>
+
+  <h1>Privacidade: o que a gente guarda e por quê.</h1>
+  <p class="lead">Escrito sem juridiquês. Vale para este site, para as conversas no WhatsApp e para quem assina um plano da ACTech Informática, de acordo com a Lei Geral de Proteção de Dados (Lei 13.709/2018).</p>
+  <p class="data">Atualizado em 13 de outubro de 2026.</p>
+
+  <div class="resumo">
+    <ul>
+      <li>A gente não vende nem empresta os seus dados pra ninguém.</li>
+      <li>O site mede visitas e cliques com o pixel da Meta, pra saber se os anúncios funcionam.</li>
+      <li>O pagamento é todo no Mercado Pago: a gente nunca vê o número do seu cartão.</li>
+      <li>Você pode pedir pra ver, corrigir ou apagar os seus dados a qualquer hora, pelo WhatsApp.</li>
+    </ul>
+  </div>
+
+  <div class="texto">
+    <h2>Quem cuida dos dados</h2>
+    <p>A ACTech Informática, de Brasília (DF), é a responsável pelos dados descritos aqui. O canal pra qualquer assunto de privacidade é o WhatsApp no fim desta página.</p>
+
+    <h2>O que é coletado</h2>
+    <ul>
+      <li><strong>Ao visitar o site:</strong> o pixel da Meta registra que a página foi aberta e os cliques nos botões de WhatsApp, de assinatura, do guia em PDF e do Instagram, junto com dados técnicos do navegador (como tipo de aparelho e endereço IP). Pra isso ele usa cookies da Meta.</li>
+      <li><strong>Ao falar no WhatsApp:</strong> o seu nome, o seu número e o que você escrever ou mandar na conversa.</li>
+      <li><strong>Ao assinar:</strong> o Mercado Pago passa pra gente o nome, o e-mail e a situação da assinatura (ativa, pausada, cancelada). Os dados do cartão ficam só no Mercado Pago.</li>
+      <li><strong>Ao virar cliente:</strong> o material que você manda pro site e pros posts, como logo, fotos, textos, horário, endereço e preços.</li>
+    </ul>
+    <p>O site também guarda uma cópia de si mesmo no seu aparelho pra abrir sem internet. Essa cópia tem só as páginas e as imagens do site, nenhum dado seu.</p>
+
+    <h2>Pra que é usado</h2>
+    <ul>
+      <li>Responder a sua mensagem e montar a proposta (procedimentos antes de um contrato).</li>
+      <li>Fazer o site, os posts e a ficha do Google de quem assina (execução do contrato).</li>
+      <li>Cobrar a mensalidade e cumprir obrigações fiscais (obrigação legal).</li>
+      <li>Medir se os anúncios trazem gente pro site e mostrar anúncio pra quem já visitou (interesse legítimo).</li>
+    </ul>
+
+    <h2>Com quem é compartilhado</h2>
+    <p>Só com os serviços que fazem o trabalho funcionar, cada um com a sua própria política de privacidade:</p>
+    <ul>
+      <li><strong>Meta</strong> (pixel, WhatsApp e Instagram).</li>
+      <li><strong>Mercado Pago</strong> (cobrança da assinatura).</li>
+      <li><strong>GitHub</strong> (hospedagem deste site).</li>
+      <li><strong>Google</strong> (a ficha do seu negócio, quando você é cliente).</li>
+    </ul>
+    <p>Algumas dessas empresas guardam dados fora do Brasil, o que a LGPD permite com as garantias que elas oferecem.</p>
+
+    <h2>Por quanto tempo</h2>
+    <p>Pelo tempo necessário pra atender você e prestar o serviço. Depois que o plano termina, a gente apaga o que não precisa guardar por lei. Os registros fiscais da cobrança, por exemplo, precisam ficar guardados pelo prazo que a lei manda.</p>
+
+    <h2>Cookies e como desligar a medição</h2>
+    <p>Você pode bloquear ou apagar os cookies nas configurações do seu navegador, e escolher os anúncios que vê nas <a href="https://www.facebook.com/adpreferences" target="_blank" rel="noopener">preferências de anúncios da Meta</a>. O site continua funcionando normal sem eles.</p>
+
+    <h2>Os seus direitos</h2>
+    <p>A qualquer momento você pode pedir:</p>
+    <ul>
+      <li>pra confirmar se a gente tem dados seus, e ver quais são;</li>
+      <li>pra corrigir o que estiver errado ou desatualizado;</li>
+      <li>pra apagar o que não for obrigatório guardar;</li>
+      <li>pra levar os seus dados pra outro fornecedor;</li>
+      <li>pra saber com quem eles foram compartilhados;</li>
+      <li>pra retirar uma autorização que você tenha dado.</li>
+    </ul>
+    <p>A resposta vem em até 15 dias. Se achar que não foi atendido, você também pode reclamar na Autoridade Nacional de Proteção de Dados (ANPD), em <a href="https://www.gov.br/anpd" target="_blank" rel="noopener">gov.br/anpd</a>.</p>
+  </div>
+
+  <div class="contato">
+    <b>Quer ver, corrigir ou apagar os seus dados?</b>
+    <p>Manda uma mensagem dizendo o que precisa. Quem responde é quem cuida dos dados, sem formulário.</p>
+    <a class="btn" href="https://wa.me/5561994299823?text=Ol%C3%A1!%20Quero%20falar%20sobre%20os%20meus%20dados%20(privacidade)." target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path></svg>
+      Falar no WhatsApp
+    </a>
+  </div>
+
+  <a class="voltar" href="./">← Voltar para o site</a>
+</main>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js')['catch'](function (e) { console.warn('[sw] nao registrou:', e); });
+    });
+  }
+</script>
+</body>
+</html>
