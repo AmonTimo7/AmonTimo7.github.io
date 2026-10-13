@@ -1,0 +1,204 @@
+/* ===================================================================
+   Vitrine viva (o palco do hero) -- ver extras/vitrine.js
+
+   Tudo em px de desenho: o .vv-palco tem 640 x 500 (360 x 470 no modo
+   compacto) e o JS encolhe ele inteiro via --s. Nao trocar por % ou rem:
+   o ponto e o palco ficar identico em qualquer tela.
+
+   --vv-tom e a cor do ramo. Registrada com @property pra mudar de cor
+   deslizando na troca de ramo, em vez de saltar.
+   =================================================================== */
+@property --vv-tom {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #9A6B1F;
+}
+
+.vv { --vv-tom: #9A6B1F; transition: --vv-tom .8s cubic-bezier(.16,1,.3,1); position: relative; }
+
+/* ------------------------------------------------------ botoes de ramo */
+.vv-ramos { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; margin-bottom: 18px; min-width: 0; }
+.vv-ramos-rot { flex: none; font-size: 13.5px; font-weight: 700; color: var(--muted, #59616E); }
+.vv-chips {
+  position: relative; display: flex; flex-wrap: wrap; gap: 4px; padding: 6px; min-width: 0; max-width: 100%;
+  border-radius: 14px; background: var(--bg, #E0E5EC); box-shadow: var(--nm-in-sm);
+}
+.vv-chips::-webkit-scrollbar { display: none; }
+.vv-chip {
+  position: relative; z-index: 1; flex: none; appearance: none; border: 0; background: none; cursor: pointer;
+  padding: 9px 13px; border-radius: 10px; overflow: hidden;
+  font: 700 13.5px 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: -.01em;
+  color: var(--muted, #59616E); white-space: nowrap;
+  transition: color .3s cubic-bezier(.16,1,.3,1);
+}
+.vv-chip:hover { color: var(--fg, #3D4852); }
+.vv-chip.is-on { color: #fff; }
+.vv-chip:focus-visible { outline: 2px solid var(--accent, #3D6A99); outline-offset: 2px; }
+/* a pilula que desliza ate o ramo escolhido */
+.vv-chip-luz {
+  position: absolute; z-index: 0; left: 0; top: 0; width: 0; height: 0;
+  border-radius: 10px; background: var(--vv-tom);
+  box-shadow: 3px 4px 10px -2px color-mix(in srgb, var(--vv-tom) 55%, transparent);
+  transition: transform .55s cubic-bezier(.16,1,.3,1), width .55s cubic-bezier(.16,1,.3,1), height .55s cubic-bezier(.16,1,.3,1);
+}
+/* a barrinha de tempo: diz "isto vai trocar sozinho, toque no seu" */
+.vv-chip-tempo { position: absolute; left: 10px; right: 10px; bottom: 4px; height: 2px; border-radius: 2px; background: rgba(255,255,255,.75); transform: scaleX(0); transform-origin: left; }
+.vv-chip.is-tempo .vv-chip-tempo { animation: vv-tempo 5.2s linear forwards; }
+@keyframes vv-tempo { to { transform: scaleX(1); } }
+
+/* --------------------------------------------------------------- palco */
+.vv-caixa { position: relative; width: 100%; height: 500px; perspective: 1600px; }
+.vv-palco {
+  --s: 1; --rx: 0deg; --ry: 0deg;
+  position: absolute; left: 0; top: 0; width: 640px; height: 500px;
+  transform-origin: 0 0; transform: scale(var(--s)) rotateX(var(--rx)) rotateY(var(--ry));
+  transform-style: preserve-3d;
+}
+.vv--compacto .vv-palco { width: 360px; height: 470px; }
+.vv-p { position: absolute; }
+.vv-boia { animation: vv-boia 6s ease-in-out infinite; }
+.vv-p-cel .vv-boia { animation-duration: 7.2s; animation-delay: -2s; }
+.vv-p-g .vv-boia { animation-duration: 5.4s; animation-delay: -1s; }
+.vv-p-z .vv-boia { animation-duration: 4.8s; animation-delay: -3s; }
+@keyframes vv-boia { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+.vv--fora .vv-boia, .vv--fora .vv-chip-tempo { animation-play-state: paused; }
+
+/* posicoes -- PC */
+.vv-p-lap { left: 0; top: 74px; }
+.vv-p-cel { left: 466px; top: 128px; z-index: 2; }
+.vv-p-g   { left: 14px; top: 318px; z-index: 3; }
+.vv-p-z   { left: 296px; top: 6px; z-index: 4; }
+/* posicoes -- compacto (celular) */
+.vv--compacto .vv-p-lap { left: 0; top: 80px; }
+.vv--compacto .vv-p-cel { left: 226px; top: 118px; }
+.vv--compacto .vv-p-g   { left: 0; top: 272px; }
+.vv--compacto .vv-p-z   { left: 8px; top: 0; }
+
+/* -------------------------------------------------------------- notebook */
+.vv-lap { position: relative; width: 1000px; height: 624px; transform-origin: 0 0; transform: scale(.52); }
+.vv--compacto .vv-lap { transform: scale(.31); }
+.vv-lap-tela {
+  position: absolute; left: 50px; top: 0; width: 900px; height: 600px; padding: 16px;
+  border-radius: 26px 26px 6px 6px; background: #1a2130;
+  box-shadow: 30px 50px 90px -30px rgba(61,72,82,.55), 0 0 0 2px #2b3446 inset;
+}
+.vv-lap-vidro { position: relative; width: 868px; height: 568px; border-radius: 8px; overflow: hidden; background: #fff; }
+.vv-lap-barra { height: 34px; background: #eef1f5; display: flex; align-items: center; gap: 7px; padding: 0 14px; }
+.vv-lap-barra i { width: 11px; height: 11px; border-radius: 99px; background: #ff5f56; }
+.vv-lap-barra i:nth-child(2) { background: #ffbd2e; }
+.vv-lap-barra i:nth-child(3) { background: #27c93f; }
+.vv-lap-barra u { margin-left: 14px; width: 340px; height: 20px; border-radius: 6px; background: #fff; text-decoration: none; font: 12px 'DM Sans', sans-serif; color: #828b98; display: flex; align-items: center; padding: 0 10px; }
+.vv-lap-visor { position: absolute; top: 34px; left: 0; right: 0; bottom: 0; overflow: hidden; }
+.vv-lap-base { position: absolute; left: 0; bottom: 0; width: 1000px; height: 24px; border-radius: 0 0 26px 26px; background: linear-gradient(#c6cdd7, #98a1ae); }
+.vv-lap-base::before { content: ''; position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: 150px; height: 9px; border-radius: 0 0 10px 10px; background: #8a93a0; }
+
+.vv-camada { position: absolute; inset: 0; background: #fff; }
+.vv-ds { width: 868px; color: #1d2228; font-family: 'DM Sans', sans-serif; }
+.vv-ds-nav { display: flex; align-items: center; gap: 26px; padding: 20px 40px; border-bottom: 1px solid #eef1f4; }
+.vv-ds-nav b { font: 800 21px 'Plus Jakarta Sans', sans-serif; letter-spacing: -.02em; margin-right: auto; }
+.vv-ds-nav span { font-size: 14.5px; color: #5b636d; }
+.vv-ds-nav em { font-style: normal; font-weight: 700; font-size: 14px; color: #fff; background: var(--vv-tom); padding: 10px 18px; border-radius: 10px; }
+.vv-ds-hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 34px; align-items: center; padding: 38px 40px 28px; }
+.vv-ds-olho { font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--vv-tom); }
+.vv-ds-tit { font: 800 42px/1.05 'Plus Jakarta Sans', sans-serif; letter-spacing: -.035em; margin-top: 12px; }
+.vv-ds-sub { margin-top: 14px; font-size: 17px; line-height: 1.55; color: #5b636d; }
+.vv-ds-bts { margin-top: 22px; display: flex; gap: 10px; }
+.vv-ds-bts span { font-weight: 700; font-size: 15px; padding: 13px 22px; border-radius: 12px; }
+.vv-ds-bts .a { color: #fff; background: var(--vv-tom); }
+.vv-ds-bts .b { color: #1d2228; background: #f1f3f6; }
+.vv-ds-hero img { display: block; width: 100%; height: 310px; object-fit: cover; border-radius: 18px; }
+.vv-ds-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 4px 40px 30px; }
+.vv-ds-cards div { border: 1px solid #eef1f4; border-radius: 14px; padding: 18px; }
+.vv-ds-cards b { display: block; font: 700 18px 'Plus Jakarta Sans', sans-serif; }
+.vv-ds-cards span { display: block; margin-top: 6px; font-size: 15px; color: var(--vv-tom); font-weight: 700; }
+
+/* --------------------------------------------------------------- celular */
+.vv-cel {
+  position: relative; width: 300px; height: 620px; border-radius: 48px; padding: 12px;
+  background: linear-gradient(150deg, #2a3342, #11161f); transform-origin: 0 0; transform: scale(.56);
+  box-shadow: 26px 44px 70px -24px rgba(61,72,82,.6), 0 0 0 2px #2f394b inset;
+}
+.vv--compacto .vv-cel { transform: scale(.44); }
+.vv-ilha { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); width: 96px; height: 26px; border-radius: 99px; background: #05070b; z-index: 3; }
+.vv-cel-tela { position: relative; width: 276px; height: 596px; border-radius: 37px; overflow: hidden; background: #fff; }
+.vv-ig { width: 276px; color: #111; font-family: system-ui, -apple-system, 'DM Sans', sans-serif; }
+.vv-ig-top { padding: 50px 14px 8px; font-size: 16px; }
+.vv-ig-perfil { display: flex; align-items: center; gap: 10px; padding: 4px 14px 10px; }
+.vv-ig-av { flex: none; width: 74px; height: 74px; border-radius: 999px; padding: 3px; background: conic-gradient(#feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5, #feda75); }
+.vv-ig-av i { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 999px; border: 3px solid #fff; background: var(--vv-tom); color: #fff; font: normal 800 26px 'Plus Jakarta Sans', sans-serif; }
+.vv-ig-nums { flex: 1; display: flex; justify-content: space-around; text-align: center; }
+.vv-ig-nums b { display: block; font-size: 16px; font-variant-numeric: tabular-nums; }
+.vv-ig-nums span { font-size: 11.5px; color: #333; }
+.vv-ig-bio { padding: 0 14px; font-size: 12.5px; line-height: 1.45; color: #333; }
+.vv-ig-bio b { display: block; font-size: 13px; color: #111; }
+.vv-ig-bio a { color: #00376b; font-weight: 600; }
+.vv-ig-bts { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; padding: 10px 14px 12px; }
+.vv-ig-bts span { text-align: center; font-size: 12.5px; font-weight: 600; padding: 7px 0; border-radius: 8px; background: #efefef; }
+.vv-ig-bts .s { background: #0095f6; color: #fff; }
+.vv-ig-grade { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.vv-ig-t { position: relative; display: block; aspect-ratio: 1; overflow: hidden; background: #eee; }
+.vv-ig-t img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.vv-ig-t.arte { display: grid; place-items: center; padding: 8px; text-align: center; }
+.vv-ig-t.arte span { font: 800 12.5px/1.15 'Plus Jakarta Sans', sans-serif; letter-spacing: -.01em; }
+.vv-ig-t.e0 { background: var(--vv-tom); color: #fff; }
+.vv-ig-t.e1 { background: #1d2228; color: color-mix(in srgb, var(--vv-tom) 55%, #fff); }
+.vv-ig-t.e2 { background: #f4efe8; color: #1d2228; }
+
+/* --------------------------------------------------------- ficha do Google */
+.vv-g {
+  width: 268px; padding: 15px 18px 16px; border-radius: 18px; background: #fff; color: #202124;
+  font-family: system-ui, -apple-system, 'DM Sans', sans-serif;
+  box-shadow: 18px 28px 50px -18px rgba(61,72,82,.5), 0 1px 3px rgba(60,64,67,.15);
+}
+.vv--compacto .vv-g { width: 222px; padding: 13px 15px 14px; }
+.vv-g-logo { font: 700 14px 'Plus Jakarta Sans', sans-serif; letter-spacing: -.02em; margin-bottom: 8px; }
+.vv-g-nome { font-size: 18px; font-weight: 600; line-height: 1.2; }
+.vv-g-nota { display: flex; align-items: center; gap: 5px; margin-top: 5px; font-size: 13.5px; color: #70757a; }
+.vv-g-nota b { color: #202124; font-weight: 600; }
+.vv-g-est { display: inline-flex; gap: 1px; }
+.vv-g-est svg { width: 13px; height: 13px; fill: #FBBC05; }
+.vv-g-cat { margin-top: 3px; font-size: 13px; color: #70757a; }
+.vv-g-hora { margin-top: 3px; font-size: 13px; color: #70757a; }
+.vv-g-hora b { color: #188038; font-weight: 600; }
+.vv-g-bts { display: flex; gap: 6px; margin-top: 12px; }
+.vv-g-bts span { display: inline-flex; align-items: center; gap: 5px; padding: 6px 10px; border-radius: 99px; border: 1px solid #dadce0; font-size: 12px; font-weight: 600; color: #1a73e8; }
+.vv-g-bts svg { width: 13px; height: 13px; stroke: #1a73e8; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.vv--compacto .vv-g-bts span { padding: 5px 8px; font-size: 11.5px; }
+
+/* ------------------------------------------------ mensagem no WhatsApp */
+.vv-z {
+  width: 300px; padding: 12px 15px 13px; border-radius: 20px; color: #111;
+  background: rgba(255,255,255,.94); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  font-family: system-ui, -apple-system, 'DM Sans', sans-serif;
+  box-shadow: 16px 26px 46px -16px rgba(61,72,82,.5), 0 1px 3px rgba(60,64,67,.12);
+}
+.vv--compacto .vv-z { width: 280px; }
+.vv-z-cab { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: #6b7280; }
+.vv-z-cab b { color: #111; font-weight: 600; margin-right: auto; }
+.vv-z-ic { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: #25D366; }
+.vv-z-ic svg { width: 14px; height: 14px; fill: #fff; }
+.vv-z-de { margin-top: 7px; font-size: 13.5px; font-weight: 700; }
+.vv-z-txt { margin-top: 2px; font-size: 14px; line-height: 1.4; color: #222; }
+
+.vv-legenda { margin: 14px 0 0; font-size: 13px; line-height: 1.5; color: var(--muted, #59616E); min-height: 2.9em; }
+
+/* sem JS ainda: o espaco ja fica reservado, sem pulo de layout */
+.vv:not(.vv--pronto) { min-height: 600px; }
+
+/* no celular os oito ramos viram uma fileira que corre no dedo; a borda
+   direita some no fundo pra dizer que tem mais */
+@media (max-width: 560px) {
+  .vv-ramos { align-items: stretch; }
+  .vv-chips {
+    flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain;
+    -webkit-mask-image: linear-gradient(to right, #000 82%, transparent);
+            mask-image: linear-gradient(to right, #000 82%, transparent);
+  }
+  .vv-chips.is-fim { -webkit-mask-image: none; mask-image: none; }
+  .vv-chips::-webkit-scrollbar { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vv, .vv-chip-luz, .vv-chip { transition: none; }
+  .vv-boia { animation: none; }
+}

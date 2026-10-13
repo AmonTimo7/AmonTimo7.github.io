@@ -425,6 +425,27 @@
     box-shadow: var(--nm-out-sm); object-fit: cover;
   }
 
+  /* O combinado como faixa larga logo abaixo do hero: titulo e assinatura a
+     esquerda, as quatro promessas lado a lado. */
+  .combinado-faixa { margin-top: 64px; }
+  .combinado-faixa .combinado { display: grid; grid-template-columns: 230px minmax(0,1fr); gap: 18px 40px; padding: 32px 36px; }
+  .combinado-faixa .combinado-cab { grid-column: 1; grid-row: 1; }
+  .combinado-faixa .combinado-assina { grid-column: 1; grid-row: 2; align-self: end; margin: 0; padding: 0; border: 0; }
+  .combinado-faixa .combinado-lista { grid-column: 2; grid-row: 1 / span 2; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 28px; }
+  .combinado-faixa .combinado-lista li { flex-direction: column; gap: 14px; padding: 0; border: 0; }
+  @media (max-width: 1080px) {
+    .combinado-faixa .combinado { grid-template-columns: 1fr; }
+    .combinado-faixa .combinado-assina { grid-row: 3; }
+    .combinado-faixa .combinado-lista { grid-column: 1; grid-row: 2; grid-template-columns: repeat(2, minmax(0,1fr)); }
+  }
+  @media (max-width: 640px) {
+    .combinado-faixa { margin-top: 44px; }
+    .combinado-faixa .combinado { padding: 24px 20px 22px; gap: 14px; }
+    .combinado-faixa .combinado-lista { grid-template-columns: 1fr; gap: 0; }
+    .combinado-faixa .combinado-lista li { flex-direction: row; padding: 14px 0; border-top: 1px solid rgba(163,177,198,.34); }
+    .combinado-faixa .combinado-assina { padding-top: 16px; border-top: 1px solid rgba(163,177,198,.34); }
+  }
+
   /* ---------- Como funciona ----------
      Linha do tempo: um trilho cavado liga os tres numeros. No celular o
      trilho fica em pe, a esquerda. */
@@ -1367,7 +1388,7 @@
 
   /* ---------- layout ---------- */
   .wrap { max-width: 1180px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
-  .hero-grid { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr); gap: 64px; align-items: center; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: 52px; align-items: center; }
   .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 56px; align-items: center; }
   .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 24px; }
   /* 4 colunas exatas: evita o "card órfão" que o auto-fit cria em telas médias */
@@ -1389,8 +1410,10 @@
   }
 
   @media (max-width: 980px) {
-    .hero-grid { grid-template-columns: 1fr; gap: 44px; }
-    .hero-visual { max-width: 470px; margin: 0 auto; }
+    /* minmax(0,..) e nao 1fr: com 1fr a fileira de ramos da vitrine esticava a
+       coluna ate caber os oito botoes, e o palco vazava da tela no celular */
+    .hero-grid { grid-template-columns: minmax(0,1fr); gap: 44px; }
+    .hero-visual { max-width: 640px; margin: 0 auto; }
   }
 
   /* Ponto em que o mouse deixa de existir. Tudo que dependia de hover
@@ -1562,7 +1585,7 @@
           Sem taxa de setup. Cancele quando quiser.
         </div>
 
-        <h1 data-reveal="1" class="font-display" style="font-weight: 800; font-size: clamp(38px, 5.2vw, 64px); line-height: 1; letter-spacing: -.035em; margin: 26px 0 0; max-width: 17ch; text-wrap: balance; color: #3D4852;">
+        <h1 data-reveal="1" class="font-display" style="font-weight: 800; font-size: clamp(34px, 4.2vw, 56px); line-height: 1.02; letter-spacing: -.035em; margin: 26px 0 0; max-width: 17ch; text-wrap: balance; color: #3D4852;">
           Cliente te achando no Google e no Instagram.<br /><span style="color: #3D6A99;">A gente faz, você aprova.</span>
         </h1>
 
@@ -1590,41 +1613,46 @@
         </div>
       </div>
 
-      <!-- Aqui havia um grafico com numero inventado (3.590 pessoas, +218%) e o
-           aviso "exemplo ilustrativo". Era a primeira prova da pagina e era de
-           mentira: quem le isso desconfia do resto. Saiu pelo que a ACTech de
-           fato se compromete a cumprir, assinado por quem cumpre. -->
-      <div data-reveal="1" class="hero-visual" style="position: relative; width: 100%;">
-        <div class="combinado">
-          <div class="combinado-cab">
-            <div class="font-display combinado-tit">O combinado</div>
-            <div class="combinado-sub">O que a gente promete, por escrito.</div>
-          </div>
-          <ul class="combinado-lista">
-            <li>
-              <span class="nm-well combinado-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span>
-              <div><b>Site no ar em até 5 dias úteis</b><span>Contados de quando você manda o material. Se passar disso, o 2º mês é por nossa conta.</span></div>
-            </li>
-            <li>
-              <span class="nm-well combinado-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><path d="M2 7h20v5H2z"></path><path d="M12 21V7"></path></svg></span>
-              <div><b>1º mês grátis</b><span>Você vê o site e os posts prontos antes de pagar qualquer coisa.</span></div>
-            </li>
-            <li>
-              <span class="nm-well combinado-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 017.6-1.7"></path></svg></span>
-              <div><b>Sem fidelidade e sem multa</b><span>Cancela quando quiser, direto no app do Mercado Pago.</span></div>
-            </li>
-            <li>
-              <span class="nm-well combinado-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path><path d="M10 20v-5h4v5"></path></svg></span>
-              <div><b>O site é seu</b><span>Se um dia sair, a gente entrega os arquivos e passa o domínio pra você.</span></div>
-            </li>
-          </ul>
-          <div class="combinado-assina">
-            <span class="combinado-mono" aria-hidden="true">A</span>
-            <div><b>Amon, da ACTech</b><span>Quem faz o seu site e responde o seu WhatsApp</span></div>
-          </div>
-        </div>
+      <!-- Vitrine viva: o mesmo negocio no site, no Instagram, no Google e no
+           WhatsApp, trocando de ramo. Sai do React VAZIO de proposito (como o
+           [data-estilos]): quem enche e o extras/vitrine.js, via setupVitrine(). -->
+      <div class="hero-visual" style="position: relative; width: 100%;">
+        <div class="vv" data-vitrine aria-label="Exemplo do mesmo negócio no site, no Instagram, no Google e no WhatsApp"></div>
       </div>
 
+    </div>
+
+    <!-- O combinado saiu do lado do titulo pra dar o palco a vitrine, mas fica
+         logo embaixo: e a prova que segura quem acabou de ver a cena. -->
+    <div data-reveal="1" class="combinado-faixa">
+      <div class="combinado">
+        <div class="combinado-cab">
+          <div class="font-display combinado-tit">O combinado</div>
+          <div class="combinado-sub">O que a gente promete, por escrito.</div>
+        </div>
+        <ul class="combinado-lista">
+          <li>
+            <span class="nm-well combinado-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span>
+            <div><b>Site no ar em até 5 dias úteis</b><span>Contados de quando você manda o material. Se passar disso, o 2º mês é por nossa conta.</span></div>
+          </li>
+          <li>
+            <span class="nm-well combinado-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><path d="M2 7h20v5H2z"></path><path d="M12 21V7"></path></svg></span>
+            <div><b>1º mês grátis</b><span>Você vê o site e os posts prontos antes de pagar qualquer coisa.</span></div>
+          </li>
+          <li>
+            <span class="nm-well combinado-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 017.6-1.7"></path></svg></span>
+            <div><b>Sem fidelidade e sem multa</b><span>Cancela quando quiser, direto no app do Mercado Pago.</span></div>
+          </li>
+          <li>
+            <span class="nm-well combinado-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path><path d="M10 20v-5h4v5"></path></svg></span>
+            <div><b>O site é seu</b><span>Se um dia sair, a gente entrega os arquivos e passa o domínio pra você.</span></div>
+          </li>
+        </ul>
+        <div class="combinado-assina">
+          <span class="combinado-mono" aria-hidden="true">A</span>
+          <div><b>Amon, da ACTech</b><span>Quem faz o seu site e responde o seu WhatsApp</span></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -2897,6 +2925,7 @@ class Component extends DCLogic {
     this.setupTilt();
     this.setupTrueFocus();
     this.setupDuelo();
+    this.setupVitrine();
     this.setupEstilos();
     this.setupSistemas();
     this.setupSistema();
@@ -2945,6 +2974,31 @@ class Component extends DCLogic {
       io2.observe(medidor);
       this._teardown.push(() => io2.disconnect());
     }
+  }
+
+  /* ---------------------------------------------------------------
+     Vitrine viva do hero (extras/vitrine.js + .css). Fica no topo, entao
+     desce na hora, sem esperar rolagem. Mexeu nos dois arquivos, suba o V.
+     --------------------------------------------------------------- */
+  setupVitrine() {
+    const raiz = document.querySelector('[data-vitrine]');
+    if (!raiz) return;
+    const V = '2';
+    let api = null;
+    const montar = () => { if (window.ACTechVitrine && raiz.isConnected) api = window.ACTechVitrine.montar(raiz); };
+    if (window.ACTechVitrine) montar();
+    else if (!document.querySelector('script[data-vitrine-js]')) {
+      const css = document.createElement('link');
+      css.rel = 'stylesheet'; css.href = 'extras/vitrine.css?v=' + V;
+      const js = document.createElement('script');
+      js.src = 'extras/vitrine.js?v=' + V; js.async = true; js.dataset.vitrineJs = '';
+      // monta so com o CSS ja aplicado, senao o palco pisca sem estilo
+      let prontos = 0;
+      const um = () => { if (++prontos === 2) montar(); };
+      css.onload = um; css.onerror = um; js.onload = um;
+      document.head.appendChild(css); document.head.appendChild(js);
+    }
+    this._teardown.push(() => { if (api) api.destruir(); });
   }
 
   /* ---------------------------------------------------------------
@@ -3752,7 +3806,6 @@ class Component extends DCLogic {
       // ADS OFF - pergunta da verba de anúncio, guardada para quando o tráfego pago voltar:
       // { q: 'O que significa "verba de anúncio separada"?', a: 'No plano Completo a ACTech cria, configura e otimiza as campanhas no Google e Meta. O valor que vai para o anúncio em si é pago diretamente às plataformas e você define quanto quer investir — ele não está incluído na mensalidade.' }
     ]);
-
 
     return {
       whatsUrl: 'https://wa.me/' + phone + '?text=' + msg,
