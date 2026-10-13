@@ -1300,72 +1300,9 @@
   .rede-lista b { color: var(--fg); font-weight: 700; }
   .rede-ico { flex: none; width: 34px; height: 34px; border-radius: 12px; display: grid; place-items: center; background: var(--bg); box-shadow: var(--nm-out-sm); margin-top: 1px; }
 
-  /* ---------- Trabalhos: parede 3D em marquee ---------- */
-  .wall {
-    position: relative;
-    height: 660px;
-    /* sangra até a borda da tela: a parede tem que passar por baixo do corte */
-    width: 100vw; margin-left: calc(50% - 50vw);
-    overflow: hidden;
-    perspective: 1200px;
-    perspective-origin: 50% 50%;
-  }
-  .wall-3d {
-    position: absolute; top: 50%; left: 50%;
-    display: flex; gap: 18px;
-    transform-style: preserve-3d;
-    /* inclina pra trás (16) e vira (-14): o lado direito vem pra frente, o esquerdo recua */
-    transform: translate(-50%, -50%) rotateX(16deg) rotateY(-14deg) rotateZ(-3deg) scale(1.14);
-  }
-  .wall-col { transform: translateZ(var(--tz, 0px)); }   /* profundidade fora da animação */
-  .wall-lane {
-    display: flex; flex-direction: column; gap: 18px;
-    padding-bottom: 18px;        /* fecha a emenda: metade da coluna = 1 volta exata */
-    will-change: transform;
-    animation: tscroll var(--tdur, 46s) linear infinite;
-  }
-  .wall-lane--down { animation-direction: reverse; }
-  .wall:hover .wall-lane { animation-play-state: paused; }
-
-  /* as bordas dissolvem na superfície da página, sem moldura */
-  .wall::after {
-    content: ''; position: absolute; inset: -1px; z-index: 2; pointer-events: none;
-    background:
-      linear-gradient(to bottom, var(--bg) 0%, rgba(224,229,236,0) 26%, rgba(224,229,236,0) 74%, var(--bg) 100%),
-      linear-gradient(to right, var(--bg) 0%, rgba(224,229,236,0) 15%, rgba(224,229,236,0) 85%, var(--bg) 100%);
-  }
-
-  .wtile { width: 215px; flex: none; }
-  .wtile-info { padding: 13px 4px 0; }
-  .wtile-tag {
-    font-size: 9.5px; letter-spacing: .15em; text-transform: uppercase;
-    font-weight: 700; color: var(--accent);
-  }
-  .wtile-t {
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    font-weight: 800; font-size: 14px; letter-spacing: -.02em; line-height: 1.25;
-    margin: 6px 0 0; color: var(--fg);
-  }
-  .wtile-d {
-    font-size: 11.5px; line-height: 1.5; color: var(--muted); margin: 6px 0 0;
-    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
-  }
-
-  /* moldura de navegador: dá contexto de "isto é um site no ar" */
-  .tela { background: var(--bg); border-radius: 18px; box-shadow: var(--nm-out); overflow: hidden; }
-  .tela-topo { display: flex; align-items: center; gap: 5px; padding: 9px 11px; }
-  .tela-topo i { width: 7px; height: 7px; border-radius: 999px; background: rgba(163,177,198,.75); display: block; flex: none; }
-  .tela-url {
-    margin-left: 6px; flex: 1; height: 18px; border-radius: 999px;
-    box-shadow: var(--nm-in-sm); display: flex; align-items: center;
-    padding: 0 10px; font-size: 9.5px; color: var(--muted); overflow: hidden; white-space: nowrap;
-  }
-  .tela-img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; background: #eef1f5; }
-
   /* Só anima o que está na tela. Sete faixas em loop, quatro blobs com blur de
      50px e o glow girando, tudo ao mesmo tempo, é GPU gasta desenhando o que
      ninguém está olhando. */
-  .fora-de-vista .wall-lane,
   .fora-de-vista .tcol,
   .fora-de-vista .fluid i,
   .fora-de-vista .blob-glow i,
@@ -1489,8 +1426,6 @@
 
     .iph-palco { height: 570px; }
     .iph-foto { max-height: 570px; }
-    .wall { height: 560px; }
-    .wall-col--4 { display: none; }
     .two-col { gap: 44px; }
   }
 
@@ -1521,16 +1456,6 @@
     .iph-palco { height: 480px; }
     .iph-foto { max-height: 480px; }
 
-    /* cinco colunas em 375px viram tiras de 40px: a parede fica com três */
-    .wall { height: 470px; }
-    .wall-3d { transform: translate(-50%, -50%) rotateX(14deg) rotateY(-12deg) rotateZ(-3deg) scale(1.15); }
-    .wall-col--3, .wall-col--4 { display: none; }
-    .wtile { width: 190px; }
-    .tela { border-radius: 18px; }
-    .tela-topo { padding: 10px 12px; }
-    .tela-url { font-size: 10px; height: 20px; }
-    .wtile-t { font-size: 14px; }
-    .wtile-d { display: none; }
 
     /* o botão flutuante vira só o ícone: com texto ele cobria a página numa tela de 375px */
     .fab { padding: 0 !important; width: 56px; height: 56px; justify-content: center; right: 16px; bottom: 16px; }
@@ -1575,10 +1500,6 @@
     /* sem o loop, as colunas viram listas que a pessoa rola no dedo */
     .tcols { height: auto; max-height: 560px; overflow-y: auto; -webkit-mask-image: none; mask-image: none; }
     /* sem a animação, o traço ficaria escondido no dash — desenha ele de uma vez */
-    /* parada, a parede 3D vira só um recorte: melhor deixar a rolagem no dedo */
-    .wall { height: auto; max-height: 620px; overflow-y: auto; perspective: none; }
-    .wall-3d { position: static; transform: none; }
-    .wall::after { display: none; }
   }
 </style>
 </helmet>
@@ -2428,43 +2349,6 @@
         <p class="quem-txt">Eu sou o Amon. A ACTech começou escrevendo sistema: painel de metas pra banco, controle de caixa pra empresa. Hoje esse mesmo cuidado vai pro site e pro Instagram do comércio do bairro.</p>
         <p class="quem-txt">Quem responde o seu WhatsApp é quem faz o seu site. Sem atendente, sem call center e sem chamado aberto.</p>
         <a class="btn btn-primary" href="{{ whatsUrl }}" target="_blank" style="margin-top: 28px;">Falar com o Amon no WhatsApp</a>
-      </div>
-    </div>
-  </section>
-
-  <section data-anima id="trabalhos" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 96px;">
-    <div data-reveal="1" style="text-align: center; margin-bottom: 34px;">
-      <div class="eyebrow eyebrow--5">Nosso trabalho</div>
-      <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 18px auto 0; max-width: 18ch; color: #3D4852;">Um pedaço do que já está no ar.</h2>
-    </div>
-
-    <!-- Parede 3D em marquee. Para trocar ou acrescentar trabalho, mexa só em `trabalhos()`
-         na lógica lá embaixo e jogue a imagem em imgs/ — as colunas, o giro da lista em cada
-         uma e a duplicata que fecha o loop são montadas sozinhas no estado. -->
-    <div class="wall" data-reveal="1" aria-label="Trabalhos que já estão no ar">
-      <div class="wall-3d">
-        <sc-for list="{{ wallCols }}" as="c" hint-placeholder-count="5">
-          <div class="{{ c.cls }}" style="--tz: {{ c.tz }};">
-            <div class="{{ c.lane }}" style="--tdur: {{ c.dur }};">
-              <sc-for list="{{ c.itens }}" as="t" hint-placeholder-count="8">
-                <div class="wtile" aria-hidden="{{ t.dup }}">
-                  <div class="tela">
-                    <div class="tela-topo">
-                      <i></i><i></i><i></i>
-                      <span class="tela-url">{{ t.url }}</span>
-                    </div>
-                    <img class="tela-img" src="{{ t.img }}" alt="{{ t.alt }}" loading="lazy" decoding="async" />
-                  </div>
-                  <div class="wtile-info">
-                    <div class="wtile-tag">{{ t.tag }}</div>
-                    <h3 class="wtile-t">{{ t.titulo }}</h3>
-                    <p class="wtile-d">{{ t.texto }}</p>
-                  </div>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-        </sc-for>
       </div>
     </div>
   </section>
@@ -3840,45 +3724,6 @@ class Component extends DCLogic {
   }
 
 
-  /* Os trabalhos que rolam em #trabalhos. Acrescentar é só somar um objeto
-     aqui e jogar a imagem em imgs/ — as colunas se montam sozinhas.
-     Sem nome de cliente: nem no texto, nem na barra de endereço da moldura. */
-  trabalhos() {
-    return [
-      // O painel de indicadores feito pra um banco. O cliente nao e nomeado em
-      // lugar nenhum: nem aqui, nem na barra de endereco das molduras.
-      { img: 'imgs/sistema-indicadores.webp', url: 'cliente.com.br/indicadores', alt: 'Dashboard de indicadores comerciais com metas e gap do mes',
-        tag: 'Sistema sob medida',
-        titulo: '12 indicadores comerciais numa tela só',
-        texto: 'A empresa cria cada indicador, define a meta e a ordem. Gap, projeção de fechamento e ritmo do mês saem calculados, sem ninguém fechar planilha.' },
-      { img: 'imgs/sistema-metas-dia.webp', url: 'cliente.com.br/metas', alt: 'Calendario de metas por dia util com lancamento diario',
-        tag: 'Sistema sob medida',
-        titulo: 'Do dia 30 para o dia 1',
-        texto: 'Antes, o quanto faltava aparecia só no fechamento. Agora aparece todo dia, com meta por dia útil e feriado já descontado — ainda dá tempo de reagir.' },
-      { img: 'imgs/sistema-login.webp', url: 'cliente.com.br/entrar', alt: 'Tela de login do painel de indicadores',
-        tag: 'Sistema sob medida',
-        titulo: 'Roda na rede da própria empresa',
-        texto: 'Acesso por usuário, com níveis de permissão para equipe, gestão e administração. Instalação local: o dado não sai para nuvem nenhuma.' },
-      { img: 'imgs/painel-caixa.webp', url: 'cliente.com.br/painel', alt: 'Painel de controle de um sistema sob medida',
-        tag: 'Sistema sob medida',
-        titulo: 'Um painel que mostra o caixa em tempo real',
-        texto: 'Saldo, entradas, saídas, contratos e vendas do mês numa tela só. O dono abre de manhã e sabe exatamente onde o negócio está, sem abrir planilha.' },
-      { img: 'imgs/livro-caixa.webp', url: 'cliente.com.br/livro-caixa', alt: 'Tela de livro caixa de um sistema sob medida',
-        tag: 'Sistema sob medida',
-        titulo: 'Livro caixa que qualquer um consegue usar',
-        texto: 'Registrar entrada e saída virou dois cliques, com extrato do dia, filtro por tipo e fechamento de mês. Menos papel, menos erro no fim do mês.' },
-      { img: 'imgs/site-home.webp', url: 'cliente.com.br', alt: 'Página inicial de um site institucional',
-        tag: 'Site institucional',
-        titulo: 'Um site que explica o serviço em cinco segundos',
-        texto: 'Estúdio de impressão 3D sob demanda. A pessoa entende o que é, vê exemplos e cai no WhatsApp ou no orçamento sem precisar procurar.' },
-      { img: 'imgs/site-portfolio.webp', url: 'cliente.com.br/portfolio', alt: 'Página de portfólio de um site institucional',
-        tag: 'Site institucional',
-        titulo: 'Portfólio que vende antes da conversa',
-        texto: 'Galeria de peças e projetos mostrando na prática o que a tecnologia faz. Quem chega curioso sai com a ideia pronta do que quer pedir.' }
-    ];
-  }
-
-
   renderVals() {
     const phone = this.props.whatsappNumber ?? '5561994299823';
     // O @ do perfil: trocar aqui (ou no campo Contato) muda todos os links de uma vez.
@@ -3908,27 +3753,6 @@ class Component extends DCLogic {
       // { q: 'O que significa "verba de anúncio separada"?', a: 'No plano Completo a ACTech cria, configura e otimiza as campanhas no Google e Meta. O valor que vai para o anúncio em si é pago diretamente às plataformas e você define quanto quer investir — ele não está incluído na mensalidade.' }
     ]);
 
-    // Cada coluna da parede mostra a lista inteira, girada pelo índice da coluna
-    // (assim duas vizinhas nunca ficam iguais) e repetida duas vezes — a duplicata
-    // é o que faz a emenda do loop ficar invisível.
-
-    const wallCols = this.memo('parede', () => {
-      const TR = this.trabalhos();
-      const TZ = [0, -40, -80, -40, 0];
-      return TZ.map((tz, c) => {
-        const gira = TR.slice(c % TR.length).concat(TR.slice(0, c % TR.length));
-        return {
-          cls: 'wall-col wall-col--' + c,
-          lane: 'wall-lane' + (c % 2 ? ' wall-lane--down' : ''),
-          tz: tz + 'px',
-          dur: (42 + c * 5) + 's',
-          itens: [
-            ...gira.map((t) => ({ ...t, dup: 'false' })),
-            ...gira.map((t) => ({ ...t, dup: 'true' }))
-          ]
-        };
-      });
-    });
 
     return {
       whatsUrl: 'https://wa.me/' + phone + '?text=' + msg,
@@ -3938,8 +3762,6 @@ class Component extends DCLogic {
 
       assinarEssencial: assEssencial || ('https://wa.me/' + phone + '?text=' + encodeURIComponent('Olá! Quero assinar o plano Essencial da ACTech.')),
       assinarCompleto: assCompleto || ('https://wa.me/' + phone + '?text=' + encodeURIComponent('Olá! Quero assinar o plano Completo da ACTech.')),
-
-      wallCols: wallCols,
 
       // Menu do celular. Sumiu num refactor (36ff67b) e o botão ficou um
       // quadrado vazio que não abria nada -- o template ainda pede estes nomes.
