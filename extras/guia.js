@@ -34,9 +34,9 @@
     { alvo: ['#como .jornada', '#como .jn'], tit: 'Como funciona',
       txt: 'Você manda o que tiver pelo WhatsApp, aprova a prévia e o site entra no ar em até 5 dias úteis. A cobrança só começa no 2º mês.',
       dica: '' },
-    { alvo: ['#planos .pricing-grid', '#planos .blob-card--quente .blob-inner', '#planos .blob-card--quente .blob-header'], tit: 'Os planos',
+    { alvo: ['#planos .pricing-grid', 'todos:#planos .blob-header', '#planos .blob-card--quente .blob-header'], tit: 'Os planos',
       txt: 'Essencial, para começar com o básico bem feito, e Completo, com 20 posts por mês, Google ativo e o atendente com IA. Os dois com o 1º mês grátis e sem fidelidade.',
-      dica: 'O botão de cada plano leva direto para a assinatura.' },
+      dica: 'Logo abaixo de cada preço tem o botão que leva direto para a assinatura.' },
     { alvo: ['#quem .quem', '#quem .quem-lado'], tit: 'Quem faz o seu site',
       txt: 'Você fala direto com o Amon Timo, que faz o seu site e responde o seu WhatsApp. Sem atendente e sem call center.',
       dica: '' },
@@ -66,7 +66,7 @@
     if (cssPronto) return cssPronto;
     cssPronto = new Promise(function (ok) {
       var l = document.createElement('link');
-      l.rel = 'stylesheet'; l.href = 'extras/guia.css?v=4'; l.setAttribute('data-guia-css', '');
+      l.rel = 'stylesheet'; l.href = 'extras/guia.css?v=5'; l.setAttribute('data-guia-css', '');
       l.onload = l.onerror = function () { ok(); };
       document.head.appendChild(l);
       setTimeout(ok, 2500);
@@ -84,13 +84,30 @@
   /* Escolhe o primeiro alvo que cabe na tela junto com o cartao. Se nenhum
      cabe, fica com o ultimo e o holofote passa da borda da tela (sem cortar
      o conteudo no meio com uma linha). */
+  /* "todos:.x" junta varios elementos (os dois cards de plano, lado a lado)
+     num alvo so, do tamanho do retangulo que contem todos */
+  function pega(sel) {
+    if (sel.indexOf('todos:') !== 0) return document.querySelector(sel);
+    var els = [].slice.call(document.querySelectorAll(sel.slice(6))).filter(function (e) { return e.offsetParent; });
+    if (els.length < 2) return els[0] || null;
+    return {
+      offsetParent: true, grupo: els,
+      getBoundingClientRect: function () {
+        var rs = els.map(function (e) { return e.getBoundingClientRect(); });
+        var t = Math.min.apply(null, rs.map(function (r) { return r.top; })), b = Math.max.apply(null, rs.map(function (r) { return r.bottom; }));
+        var l = Math.min.apply(null, rs.map(function (r) { return r.left; })), d = Math.max.apply(null, rs.map(function (r) { return r.right; }));
+        return { top: t, bottom: b, left: l, right: d, width: d - l, height: b - t };
+      }
+    };
+  }
+
   function achar(passo) {
     if (!passo.alvo) return null;
     var vw = window.innerWidth, vh = window.innerHeight, celular = vw < 720;
     var cw = celular ? vw : (cartao.offsetWidth || 400), ch = cartao.offsetHeight || 280;
     var ult = null;
     for (var i = 0; i < passo.alvo.length; i++) {
-      var el = document.querySelector(passo.alvo[i]);
+      var el = pega(passo.alvo[i]);
       if (!el || !el.offsetParent || el.getBoundingClientRect().height < 24) continue;
       ult = el;
       var r = el.getBoundingClientRect(), h = r.height + 2 * M, w = r.width + 2 * M;
@@ -157,7 +174,7 @@
     raiz.classList.remove('is-centro');
     var r = alvoEl.getBoundingClientRect();
     // o recorte acompanha o alvo inteiro e as quinas dele
-    var raio = parseFloat(getComputedStyle(alvoEl).borderTopLeftRadius) || 0;
+    var raio = parseFloat(getComputedStyle(alvoEl.grupo ? alvoEl.grupo[0] : alvoEl).borderTopLeftRadius) || 0;
     var t = r.top - M, l = Math.max(r.left - M, 6), d = Math.min(r.right + M, vw - 6), b = r.bottom + M;
     holo.style.cssText = 'opacity:1;top:' + t + 'px;left:' + l + 'px;width:' + (d - l) + 'px;height:' + (b - t) + 'px;border-radius:' + Math.max(14, raio + M) + 'px;';
     if (celular) { cartao.style.left = ''; cartao.style.top = ''; return; }
@@ -227,7 +244,8 @@
     setTimeout(function () {
       if (atual !== meuPasso || !raiz.classList.contains('is-on')) return;
       var novo = achar(p);
-      if (novo && novo !== alvoEl) ir(meuPasso);
+      var mesmo = novo && alvoEl && (novo === alvoEl || (novo.grupo && alvoEl.grupo && novo.grupo[0] === alvoEl.grupo[0]));
+      if (novo && !mesmo) ir(meuPasso);
     }, 1000);
     cartao.focus({ preventScroll: true });
     if (p.fim) mede('guia_concluido');
