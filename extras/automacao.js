@@ -114,17 +114,22 @@
   function montar(raiz) {
     if (!raiz || raiz.__ia) return raiz && raiz.__ia;
 
+    var STATUS = '<svg viewBox="0 0 18 12" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="1" fill="currentColor"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx="1" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="1" fill="currentColor"/></svg>' +
+      '<svg viewBox="0 0 16 12" aria-hidden="true"><path d="M8 11.5l2.4-2.9a3.6 3.6 0 00-4.8 0z" fill="currentColor"/><path d="M3.2 5.8a7 7 0 019.6 0l-1.5 1.8a4.6 4.6 0 00-6.6 0z" fill="currentColor"/><path d="M.8 2.9a10.6 10.6 0 0114.4 0L13.8 4.6a8.2 8.2 0 00-11.6 0z" fill="currentColor"/></svg>' +
+      '<span class="ip-bat"><i></i></span>';
+
     raiz.innerHTML =
-      '<div class="ia-tipos" role="tablist" aria-label="Automações">' +
-        TIPOS.map(function (t, i) {
-          return '<button type="button" class="ia-tipo" role="tab" data-t="' + i + '" aria-selected="false">' +
-            '<span class="ia-tipo-ic">' + IC[IC_TIPO[t.id]] + '</span>' +
-            '<span class="ia-tipo-txt"><b class="font-display">' + e(t.tit) + '</b><span>' + e(t.sub) + '</span></span>' +
-            '<i class="ia-tempo" aria-hidden="true"><i></i></i></button>';
-        }).join('') +
-      '</div>' +
       '<div class="ia-palco">' +
-        '<div class="ia-fundo" aria-hidden="true"><i></i><i></i><i></i></div>' +
+        '<div class="ia-fundo" aria-hidden="true"><i></i><i></i><i></i><i></i></div>' +
+        '<div class="ia-bolhas" aria-hidden="true"><i></i><i></i><i></i></div>' +
+        '<div class="ia-tipos" role="tablist" aria-label="Automações">' +
+          TIPOS.map(function (t, i) {
+            return '<button type="button" class="ia-tipo" role="tab" data-t="' + i + '" aria-selected="false">' +
+              '<span class="ia-tipo-ic">' + IC[IC_TIPO[t.id]] + '</span>' +
+              '<span class="ia-tipo-txt"><b class="font-display">' + e(t.tit) + '</b><span>' + e(t.sub) + '</span></span>' +
+              '<i class="ia-tempo" aria-hidden="true"><i></i></i></button>';
+          }).join('') +
+        '</div>' +
         '<div class="ia-barra">' +
           '<div class="ia-ramos" role="group" aria-label="Ramo do exemplo"><span>Ver em</span>' +
             RAMOS.map(function (r, i) { return '<button type="button" class="ia-ramo" data-r="' + i + '">' + e(r.rotulo) + '</button>'; }).join('') +
@@ -136,12 +141,23 @@
           '</div>' +
         '</div>' +
         '<div class="ia-grade">' +
-          '<div class="ia-fone-wrap"><div class="ia-fone" aria-live="polite">' +
-            '<div class="ia-cab" data-cab></div>' +
-            '<div class="ia-corpo" data-corpo></div>' +
-            '<div class="ia-pe" aria-hidden="true"><span>Mensagem</span><i></i></div>' +
-            '<span class="ia-brilho" aria-hidden="true"></span>' +
-          '</div></div>' +
+          '<div class="ia-fone-wrap">' +
+            '<span class="ia-fone-sombra" aria-hidden="true"></span>' +
+            // iPhone: moldura de titanio, botoes laterais, Dynamic Island, barra de status
+            '<div class="ia-fone" aria-live="polite">' +
+              '<span class="ip-b ip-acao" aria-hidden="true"></span><span class="ip-b ip-vol1" aria-hidden="true"></span>' +
+              '<span class="ip-b ip-vol2" aria-hidden="true"></span><span class="ip-b ip-lado" aria-hidden="true"></span>' +
+              '<div class="ia-tela">' +
+                '<div class="ip-status" aria-hidden="true"><b>9:41</b><span class="ip-ilha"><i></i></span><span class="ip-ics">' + STATUS + '</span></div>' +
+                '<div class="ip-notif" data-notif aria-hidden="true"></div>' +
+                '<div class="ia-cab" data-cab></div>' +
+                '<div class="ia-corpo" data-corpo></div>' +
+                '<div class="ia-pe" aria-hidden="true"><span>Mensagem</span><i></i></div>' +
+                '<span class="ip-home" aria-hidden="true"></span>' +
+                '<span class="ia-brilho" aria-hidden="true"></span>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
           '<div class="ia-bastidor">' +
             '<div class="ia-bas-tit"><span class="ia-bas-ic">' + IC.ia + '</span>Enquanto isso, por trás</div>' +
             '<ol class="ia-passos" data-passos></ol>' +
@@ -162,6 +178,15 @@
     var orbes = raiz.querySelector('[data-orbes]');
     var contador = raiz.querySelector('[data-contador]');
     var conversas = 127;
+    var notifEl = raiz.querySelector('[data-notif]');
+    var notifT = null;
+    function notif(app, tit, txt) {
+      var ic = app === 'insta' ? IC.insta : app === 'agenda' ? IC.agenda : IC.zap;
+      notifEl.innerHTML = '<span class="ip-notif-ic ip-notif-ic--' + app + '">' + ic + '</span><span><b>' + e(tit) + '</b>' + e(txt) + '</span><small>agora</small>';
+      notifEl.classList.remove('is-on'); void notifEl.offsetWidth; notifEl.classList.add('is-on');
+      clearTimeout(notifT);
+      notifT = setTimeout(function () { notifEl.classList.remove('is-on'); }, REDUZ ? 100000 : 2800);
+    }
 
     var tipo = 0, ramo = 0, parado = false, visivel = false, gen = 0, timers = [];
 
@@ -251,6 +276,7 @@
           var de = m[0], txt = m[1];
           if (de === 'c') {
             em(t, function () { bolha('c', e(txt) + hora(h[i])); if (i === 0) passo(0); });
+            if (i === 0) em(t - 350, function () { notif('zap', 'Nova mensagem', 'Cliente às 23:47, fora do horário'); });
             t += 1100 + txt.length * 10;
           } else {
             em(t, function () { digita(true); if (i === 1) passo(1); });
@@ -289,6 +315,7 @@
           passo(2);
           var l = extra.querySelector('.is-alvo');
           if (l) setTimeout(function () { l.classList.add('is-marcado'); l.querySelector('span').textContent = a.quem; }, REDUZ ? 0 : 600);
+          em(700, function () { notif('agenda', 'Agenda', a.quem + ' · ' + a.slots[a.escolha]); });
         });
         t += 1100 + 2700;
         em(t, function () { passo(3); });
@@ -299,6 +326,7 @@
         var arte = r.foto ? '<img src="' + r.foto + '" alt="">' : '<span class="ia-post-arte">' + e(a.post) + '</span>';
         extra.innerHTML = '<div class="ia-fluxo"><span>' + IC.insta + 'Comentário</span><i></i><span>' + IC.ia + 'Direct</span><i></i><span>' + IC.zap + 'WhatsApp</span></div>';
         em(t, function () {
+          notif('insta', 'Instagram', a.cliente + ' comentou no seu post');
           bolha('sis', '<span class="ia-post">' + arte + '<span class="ia-post-txt"><b>' + e(r.nome) + '</b> ' + e(a.post) + '<span class="ia-post-cora">' + IC.ia + ' 1.204 curtidas</span></span></span>' +
             '<span class="ia-coment"><b>' + e(a.cliente) + '</b> ' + e(a.comentario) + '</span>', 'ia-b--post');
           passo(0);
@@ -322,7 +350,7 @@
         var maior = Math.max.apply(null, a.linhas.map(function (l) { return +l[0]; }));
         extra.innerHTML = '<div class="ia-card"><span class="ia-card-rot">' + IC.relogio + 'Chega para você</span><b>Todo dia, às 8h</b>' +
           '<span class="ia-card-txt">Sem abrir sistema nenhum: o resumo cai no seu WhatsApp.</span></div>';
-        em(t, function () { passo(0); });
+        em(t, function () { passo(0); notif('zap', 'Assistente da ' + r.nome, 'Seu resumo de ontem chegou'); });
         t += 1100;
         em(t, function () { digita(true); passo(1); });
         em(t + 1400, function () {
@@ -359,13 +387,13 @@
     }
 
     function tocar() {
-      gen++; limpa(); digitando = null; orbes.innerHTML = '';
+      gen++; limpa(); digitando = null; orbes.innerHTML = ''; notifEl.classList.remove('is-on');
       var r = RAMOS[ramo], tp = TIPOS[tipo].id;
       raiz.style.setProperty('--ia-tom', r.tom);
       raiz.setAttribute('data-tipo', tp);
       // fileira que corre (celular): traz a aba ativa para a vista, sem rolar a pagina
       var fila = bTipos[tipo].parentElement;
-      if (fila.scrollWidth > fila.clientWidth + 2) fila.scrollTo({ left: Math.max(0, bTipos[tipo].offsetLeft - 14), behavior: REDUZ ? 'auto' : 'smooth' });
+      if (fila.scrollWidth > fila.clientWidth + 2) fila.scrollTo({ left: Math.max(0, bTipos[tipo].getBoundingClientRect().left - fila.getBoundingClientRect().left + fila.scrollLeft - 16), behavior: REDUZ ? 'auto' : 'smooth' });
       bTipos.forEach(function (b, i) {
         b.classList.toggle('is-on', i === tipo);
         b.setAttribute('aria-selected', i === tipo ? 'true' : 'false');

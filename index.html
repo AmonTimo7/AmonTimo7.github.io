@@ -3148,7 +3148,7 @@ class Component extends DCLogic {
   setupAutomacao() {
     const raiz = document.querySelector('[data-automacao]');
     if (!raiz) return;
-    const V = '3';
+    const V = '5';
     let api = null;
     const montar = () => { if (window.ACTechAutomacao && raiz.isConnected) api = window.ACTechAutomacao.montar(raiz); };
     const carregar = () => {
