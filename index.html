@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Criação de Sites e Redes Sociais em Brasília | ACTech</title>
-<meta name="description" content="Criação de sites, Instagram e Google Meu Negócio em uma mensalidade, para comércios e prestadores de serviço em Brasília. Sistemas sob medida. Primeiro mês grátis." />
+<meta name="description" content="Criação de sites, Instagram e Google Meu Negócio em uma mensalidade, para comércios e prestadores de serviço em Brasília. Atendente com IA no WhatsApp e sistemas sob medida. Primeiro mês grátis." />
 <meta name="theme-color" content="#E0E5EC" />
 <!-- Absoluto de proposito: o mesmo HTML e servido tambem em
      amontimo7.github.io (ambiente de teste). Com canonical relativo, os
@@ -106,6 +106,12 @@
         "@type": "Offer",
         "name": "Sistema sob medida",
         "description": "Painel de gestão, financeiro e caixa, agenda e ordens, ou integração entre sistemas. Orçado à parte, fora dos planos mensais.",
+        "priceCurrency": "BRL"
+      },
+      {
+        "@type": "Offer",
+        "name": "Automação com IA",
+        "description": "Atendente de WhatsApp com IA, agendamento automático, respostas no Instagram e relatório diário. Implantação mais mensalidade, orçadas à parte.",
         "priceCurrency": "BRL"
       }
     ]
@@ -1345,6 +1351,25 @@
     .sz.is-vivo .sz-noites li, .sz.is-vivo .sz-b, .sz-tr { transition: none; }
   }
 
+  /* ---------- Automacao com IA: cabecalho e "como contratar" ----------
+     A demonstracao em si mora em extras/automacao.css. */
+  .ia-cabeca { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 48px; align-items: end; }
+  .ia-nota { margin: 12px 4px 0; font-size: 12.5px; color: var(--muted); }
+  .ia-contrato { margin-top: 28px; padding: 34px 36px; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 28px 48px; align-items: start; }
+  .ia-contrato-cab h3 { margin: 0; font-weight: 800; font-size: clamp(24px, 2.6vw, 30px); letter-spacing: -.03em; color: var(--fg); }
+  .ia-contrato-cab p { margin: 10px 0 0; font-size: 15.5px; line-height: 1.65; color: var(--muted); }
+  .ia-contrato-cab .btn { margin-top: 22px; }
+  .ia-contrato-pe { display: block; margin-top: 12px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+  .ia-etapas { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: etapa; }
+  .ia-etapas li { counter-increment: etapa; position: relative; padding: 16px 18px 16px 62px; border-radius: 18px; box-shadow: var(--nm-in-sm); }
+  .ia-etapas li::before { content: counter(etapa); position: absolute; left: 16px; top: 15px; width: 32px; height: 32px; border-radius: 99px; display: grid; place-items: center; background: var(--bg); box-shadow: var(--nm-out-sm); font: 800 15px 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--accent); }
+  .ia-etapas b { display: block; font-weight: 800; font-size: 17px; color: var(--fg); }
+  .ia-etapas span { display: block; margin-top: 3px; font-size: 14.5px; line-height: 1.55; color: var(--muted); }
+  @media (max-width: 900px) {
+    .ia-cabeca, .ia-contrato { grid-template-columns: minmax(0, 1fr); }
+    .ia-contrato { padding: 26px 20px; }
+  }
+
   /* ---------- Ficha do Google: antes e depois ---------- */
   .gmn-grid {
     display: grid; align-items: center; gap: 26px;
@@ -1644,6 +1669,7 @@
       </div>
 
       <nav class="nav-desktop" style="display: flex; align-items: center; gap: 6px;">
+        <a class="nav-link" href="#automacao">Automação com IA</a>
         <a class="nav-link" href="#sistemas">Sistemas</a>
         <a class="nav-link" href="#quem">Quem faz</a>
         <a class="nav-link" href="#faq">Dúvidas</a>
@@ -1667,6 +1693,7 @@
     <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
       <div class="mobile-menu wrap" style="padding-bottom: 18px;">
         <div class="nm-card" style="padding: 14px; display: grid; gap: 4px;">
+          <a class="nav-link" href="#automacao" onClick="{{ closeMenu }}" style="display: block;">Automação com IA</a>
           <a class="nav-link" href="#sistemas" onClick="{{ closeMenu }}" style="display: block;">Sistemas</a>
           <a class="nav-link" href="#quem" onClick="{{ closeMenu }}" style="display: block;">Quem faz</a>
           <a class="nav-link" href="#faq" onClick="{{ closeMenu }}" style="display: block;">Dúvidas</a>
@@ -1711,6 +1738,7 @@
           <span>Antes de fechar, teste:</span>
           <a href="#modelos"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="12" rx="1.8"/><path d="M8.5 20h7M12 16.5V20"/></svg>veja o seu site pronto</a>
           <a href="#sistemas"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>use um sistema de verdade</a>
+          <a href="#automacao"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg>veja a IA atendendo</a>
         </div>
       </div>
 
@@ -2248,6 +2276,38 @@
       </div>
     </div>
     <p class="sz-pe">As 14 horas são uma estimativa do que costuma levar fazer isso sozinho: 20 posts com arte, as respostas no Google e as mexidas no site. O ponto não é acertar o número, é ver de onde esse tempo sai hoje.</p>
+  </section>
+
+  <!-- Automacao com IA: o servico novo (implantacao + mensalidade, orcado a
+       parte). Logo depois do "sozinho x com a ACTech" de proposito: la a
+       pessoa viu as noites que gasta; aqui ve quem atende as 23:47. A
+       demonstracao (extras/automacao.js) monta dentro do [data-automacao],
+       que sai VAZIO do React -- setupAutomacao() carrega quando chega perto. -->
+  <section data-anima id="automacao" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
+    <div class="ia-cabeca" data-reveal="1">
+      <div>
+        <div class="nm-pill" style="padding-left: 8px;"><span class="nm-chip">NOVO</span>Automação com IA</div>
+        <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 20px 0 0; max-width: 16ch; color: var(--fg);">Um atendente com IA que não dorme.</h2>
+      </div>
+      <p style="margin: 0; font-size: 16.5px; line-height: 1.7; color: var(--muted); max-width: 48ch;">Ele responde o WhatsApp e o Instagram, marca horário na sua agenda e te manda o resumo do dia, tudo sozinho e com os seus preços, horários e jeito de falar. Ótimo para clínicas, barbearias, imobiliárias e lojas de bairro.</p>
+    </div>
+
+    <div class="ia" data-automacao data-reveal="1" style="margin-top: 36px;"></div>
+    <p class="ia-nota">Conversas de exemplo. Os números do relatório são ilustrativos.</p>
+
+    <div class="ia-contrato nm-card" data-reveal="1">
+      <div class="ia-contrato-cab">
+        <h3 class="font-display">Implantação + mensalidade</h3>
+        <p>A implantação deixa a IA pronta com as informações do seu negócio. A mensalidade mantém ela funcionando e ajustada.</p>
+        <a class="btn btn-primary" href="{{ automacaoUrl }}" target="_blank" rel="noopener">Quero a IA no meu negócio</a>
+        <span class="ia-contrato-pe">Orçado conforme o tamanho do seu atendimento. Funciona sozinho ou junto com os planos.</span>
+      </div>
+      <ol class="ia-etapas">
+        <li><b class="font-display">Conversa</b><span>Eu entendo como você atende hoje e o que os clientes mais perguntam.</span></li>
+        <li><b class="font-display">Implantação</b><span>Configuro a IA com os seus preços, horários e regras, ligo no seu WhatsApp e no Instagram e testo com você antes de colocar no ar.</span></li>
+        <li><b class="font-display">Mensalidade</b><span>Acompanho as conversas, ajusto as respostas e cuido do relatório. Quando a IA não souber responder, a conversa passa para você.</span></li>
+      </ol>
+    </div>
   </section>
 
   <section id="google" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
@@ -2844,7 +2904,7 @@
   <section id="faq" class="pad-section" style="position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 40px 24px 96px;">
     <h2 data-reveal="1" class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 0 0 44px; color: #3D4852;">Dúvidas frequentes</h2>
     <div style="display: grid; gap: 18px;">
-      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="10">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="13">
         <div class="nm-card">
           <div class="faq-head" onClick="{{ f.toggle }}" role="button" tabindex="0">
             <span style="font-size: 16.5px; font-weight: 700; line-height: 1.45; color: #3D4852;">{{ f.q }}</span>
@@ -2929,8 +2989,8 @@
     <div class="nm-track" style="max-width: 1180px; margin: 0 auto 28px; height: 6px; border-radius: 999px;"></div>
     <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 14px; color: #59616E;">
       <div>
-        ACTech Informática — criação de sites, gestão de Instagram, Google Meu Negócio
-        e sistemas sob medida para pequenos e médios negócios.<br />
+        ACTech Informática — criação de sites, gestão de Instagram, Google Meu Negócio,
+        automação com IA e sistemas sob medida para pequenos e médios negócios.<br />
         Brasília, DF — atendemos todo o Brasil.
       </div>
       <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
@@ -3012,6 +3072,7 @@ class Component extends DCLogic {
     this.setupSistemas();
     this.setupSistema();
     this.setupMes();
+    this.setupAutomacao();
   }
 
   /* ---------------------------------------------------------------
@@ -3057,6 +3118,38 @@ class Component extends DCLogic {
     }, { threshold: 0.35 });
     io.observe(sz);
     this._teardown.push(() => { io.disconnect(); timers.forEach(clearTimeout); });
+  }
+
+  /* ---------------------------------------------------------------
+     Automacao com IA (extras/automacao.js + .css): desce quando a secao
+     chega a ~1 tela. Mexeu nos dois arquivos, suba o V.
+     --------------------------------------------------------------- */
+  setupAutomacao() {
+    const raiz = document.querySelector('[data-automacao]');
+    if (!raiz) return;
+    const V = '1';
+    let api = null;
+    const montar = () => { if (window.ACTechAutomacao && raiz.isConnected) api = window.ACTechAutomacao.montar(raiz); };
+    const carregar = () => {
+      if (window.ACTechAutomacao) return montar();
+      if (document.querySelector('script[data-automacao-js]')) return;
+      const css = document.createElement('link');
+      css.rel = 'stylesheet'; css.href = 'extras/automacao.css?v=' + V;
+      const js = document.createElement('script');
+      js.src = 'extras/automacao.js?v=' + V; js.async = true; js.dataset.automacaoJs = '';
+      let prontos = 0;
+      const um = () => { if (++prontos === 2) montar(); };
+      css.onload = um; css.onerror = um; js.onload = um;
+      document.head.appendChild(css); document.head.appendChild(js);
+    };
+    // link direto (#automacao) ou do menu: carrega ja
+    if (location.hash === '#automacao') carregar();
+    const io = new IntersectionObserver((en) => {
+      if (!en.some((x) => x.isIntersecting)) return;
+      io.disconnect(); carregar();
+    }, { rootMargin: '900px 0px' });
+    io.observe(raiz);
+    this._teardown.push(() => { io.disconnect(); if (api) api.destruir(); });
   }
 
   /* ---------------------------------------------------------------
@@ -3944,6 +4037,9 @@ class Component extends DCLogic {
       { q: 'O domínio e o site ficam no meu nome?', a: 'O site é seu. Se um dia você sair, a gente transfere o domínio para seu CPF ou CNPJ e entrega os arquivos do site. Nada fica preso com a ACTech.' },
       { q: 'Preciso tirar fotos profissionais?', a: 'Não. Foto de celular resolve, e o guia gratuito desta página mostra como tirar uma que vende. Se você não tiver nenhuma, a gente começa com imagens de banco e troca pelas suas quando chegarem.' },
       { q: 'Como eu pago?', a: 'É uma assinatura mensal pelo Mercado Pago, no cartão de crédito. A primeira cobrança só acontece no segundo mês, e o cancelamento é pelo próprio app do Mercado Pago, sem precisar falar com ninguém.' },
+      { q: 'Como funciona o atendente com IA?', a: 'É uma IA ligada ao seu WhatsApp e ao seu Instagram, configurada com os seus preços, horários, endereço e jeito de falar. Ela responde na hora, de dia ou de madrugada, marca horário na sua agenda, manda lembrete e te envia um resumo do dia.' },
+      { q: 'E se a IA não souber responder?', a: 'Ela não inventa. Quando a pergunta foge do que foi configurado, ou quando o cliente pede para falar com uma pessoa, a conversa passa para você na hora, com o histórico junto.' },
+      { q: 'Quanto custa a automação com IA?', a: 'É uma implantação, que deixa a IA pronta para o seu negócio, mais uma mensalidade, que mantém ela funcionando e ajustada. O valor depende do tamanho do atendimento: me chama no WhatsApp que eu te passo o orçamento. Funciona sozinha ou junto com os planos de site.' },
       { q: 'Vocês atendem fora de Brasília?', a: 'Site e sistema, sim: atendemos o Brasil inteiro, tudo pelo WhatsApp. Os planos com Instagram e ficha do Google são pensados para quem atende em Brasília e no entorno.' }
       // ADS OFF - pergunta da verba de anúncio, guardada para quando o tráfego pago voltar:
       // { q: 'O que significa "verba de anúncio separada"?', a: 'No plano Completo a ACTech cria, configura e otimiza as campanhas no Google e Meta. O valor que vai para o anúncio em si é pago diretamente às plataformas e você define quanto quer investir — ele não está incluído na mensalidade.' }
@@ -3952,6 +4048,7 @@ class Component extends DCLogic {
     return {
       whatsUrl: 'https://wa.me/' + phone + '?text=' + msg,
       sistemaUrl: 'https://wa.me/' + phone + '?text=' + msgSistema,
+      automacaoUrl: 'https://wa.me/' + phone + '?text=' + encodeURIComponent('Olá! Vi a automação com IA na página da ACTech e quero saber como ficaria no meu negócio.'),
       instaUrl: 'https://instagram.com/' + insta,
       instaUser: '@' + insta,
 

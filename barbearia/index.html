@@ -259,6 +259,15 @@
   .garantia { max-width: 920px; margin: 30px auto 0; text-align: center; font-size: 15px; line-height: 1.6; color: var(--muted); }
   .garantia b { color: var(--fg); }
 
+  /* ---------- chamada da automacao com IA ---------- */
+  .ia-chamada { display: flex; align-items: center; gap: 18px; max-width: 920px; margin: 0 auto; padding: 22px 26px; border-radius: 24px; text-decoration: none;
+    background: linear-gradient(158deg, #141F35, #0C1424); color: #C9D3E3; box-shadow: var(--nm-out); transition: transform .3s var(--ease); }
+  .ia-chamada:hover { transform: translateY(-2px); color: #C9D3E3; }
+  .ia-chamada b { display: block; font: 800 18px 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: -.02em; color: #fff; margin-bottom: 3px; }
+  .ia-chamada > span:nth-child(2) { flex: 1; font-size: 15px; line-height: 1.5; }
+  .ia-chamada-ic { flex: none; width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: var(--tom); color: #fff; }
+  .ia-chamada-seta { flex: none; font-size: 24px; color: #fff; }
+
   /* ---------- duvidas ---------- */
   .faq { max-width: 820px; margin: 40px auto 0; display: grid; gap: 14px; }
   .faq details { background: var(--bg); border-radius: 20px; box-shadow: var(--nm-out-sm); }
@@ -453,6 +462,15 @@
       </div>
     </div>
     <p class="garantia"><b>O combinado:</b> site no ar em até 5 dias úteis depois que o material chega. Se passar disso, o 2º mês é por nossa conta. E o site é seu: se um dia sair, a gente passa o domínio para você.</p>
+  </section>
+
+  <!-- chamada para a automacao com IA (a demonstracao mora na principal) -->
+  <section class="wrap sec" style="padding-top: 0;">
+    <a class="ia-chamada" href="../#automacao">
+      <span class="ia-chamada-ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></span>
+      <span><b>Novo: atendente com IA no seu WhatsApp</b>Responde de madrugada, marca horário e te manda o resumo do dia. Veja a IA atendendo um negócio como o seu.</span>
+      <span class="ia-chamada-seta" aria-hidden="true">→</span>
+    </a>
   </section>
 
   <section class="wrap sec" style="padding-top: 20px;">

@@ -13,7 +13,7 @@ import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ARQUIVOS = ['index.html', 'privacidade.html', '404.html', 'obrigado.html', 'offline.html', 'apresentar.html',
-            'ferramentas/ramo-modelo.html', 'ferramentas/gerar-ramos.py', 'extras/vitrine.js',
+            'ferramentas/ramo-modelo.html', 'ferramentas/gerar-ramos.py', 'extras/vitrine.js', 'extras/automacao.js',
             'estilos/estilos.js', 'sistema/sistema.js', 'extras/calculadora.js']
 
 TROCAS = {'pra': 'para', 'pro': 'para o', 'pros': 'para os', 'pras': 'para as', 'tá': 'está', 'tô': 'estou'}
