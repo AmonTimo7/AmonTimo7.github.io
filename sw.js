@@ -14,7 +14,7 @@
      São versionados pelo deploy e não mudam no meio do dia.
 */
 
-var VERSAO = 'actech-v11';
+var VERSAO = 'actech-v12';
 var C_CASCA = VERSAO + '-casca';
 var C_USO = VERSAO + '-uso';
 

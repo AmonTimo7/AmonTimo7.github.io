@@ -92,7 +92,7 @@
       {
         "@type": "Offer",
         "name": "Plano Completo",
-        "description": "Tudo do Essencial mais gestão de redes sociais, com posts e acompanhamento. Primeiro mês grátis.",
+        "description": "Tudo do Essencial mais gestão de redes sociais e atendente com IA no WhatsApp e no Instagram, com agendamento automático e relatório diário. Primeiro mês grátis.",
         "price": "597.99",
         "priceCurrency": "BRL",
         "priceSpecification": {
@@ -106,12 +106,6 @@
         "@type": "Offer",
         "name": "Sistema sob medida",
         "description": "Painel de gestão, financeiro e caixa, agenda e ordens, ou integração entre sistemas. Orçado à parte, fora dos planos mensais.",
-        "priceCurrency": "BRL"
-      },
-      {
-        "@type": "Offer",
-        "name": "Automação com IA",
-        "description": "Atendente de WhatsApp com IA, agendamento automático, respostas no Instagram e relatório diário. Implantação mais mensalidade, orçadas à parte.",
         "priceCurrency": "BRL"
       }
     ]
@@ -844,6 +838,20 @@
   .blob-fade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(100deg, rgba(10,18,32,.55) 0%, rgba(10,18,32,.18) 55%, transparent 80%); }
   .blob-head { position: relative; z-index: 2; padding: 30px 32px 0; color: #fff; }
   .blob-body { padding: 26px 32px 34px; }
+  /* o destaque da IA dentro do card do Completo: borda de luz girando */
+  .plano-ia {
+    position: relative; isolation: isolate; display: flex; gap: 14px; align-items: flex-start; margin: 0 0 22px; padding: 16px 16px 16px 14px;
+    border-radius: 18px; text-decoration: none; color: #C9D3E3; font-size: 13.5px; line-height: 1.5; overflow: hidden;
+    background: linear-gradient(158deg, #141F35, #0C1424);
+  }
+  .plano-ia::before { content: ''; position: absolute; inset: -60%; z-index: -2; background: conic-gradient(from 0deg, transparent 0 60%, #E8690A 75%, #F0A640 82%, transparent 90%); animation: glowspin 4s linear infinite; }
+  .plano-ia::after { content: ''; position: absolute; inset: 2px; z-index: -1; border-radius: 16px; background: linear-gradient(158deg, #141F35, #0C1424); }
+  .plano-ia:hover { color: #E6ECF4; }
+  .plano-ia b { display: block; font: 800 16px 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: -.02em; color: #fff; margin-bottom: 2px; }
+  .plano-ia u { color: #F0A640; text-underline-offset: 3px; }
+  .plano-ia-ic { flex: none; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(140deg, #E8690A, #C44F00); color: #fff; box-shadow: 0 8px 20px -8px #E8690A; }
+  .fora-de-vista .plano-ia::before { animation-play-state: paused; }
+  @media (prefers-reduced-motion: reduce) { .plano-ia::before { animation: none; } }
 
   /* O botão do card agora leva pro checkout. Quem ainda quer conversar antes
      de pagar precisa de uma saída visível, mas discreta: se os dois tiverem o
@@ -1359,7 +1367,9 @@
   .ia-contrato-cab h3 { margin: 0; font-weight: 800; font-size: clamp(24px, 2.6vw, 30px); letter-spacing: -.03em; color: var(--fg); }
   .ia-contrato-cab p { margin: 10px 0 0; font-size: 15.5px; line-height: 1.65; color: var(--muted); }
   .ia-contrato-cab .btn { margin-top: 22px; }
-  .ia-contrato-pe { display: block; margin-top: 12px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+  .ia-contrato-preco { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+  .ia-contrato-preco b { font-weight: 800; font-size: 34px; letter-spacing: -.04em; color: var(--fg); }
+  .ia-contrato-preco span { font-size: 14px; color: var(--muted); }
   .ia-etapas { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: etapa; }
   .ia-etapas li { counter-increment: etapa; position: relative; padding: 16px 18px 16px 62px; border-radius: 18px; box-shadow: var(--nm-in-sm); }
   .ia-etapas li::before { content: counter(etapa); position: absolute; left: 16px; top: 15px; width: 32px; height: 32px; border-radius: 99px; display: grid; place-items: center; background: var(--bg); box-shadow: var(--nm-out-sm); font: 800 15px 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--accent); }
@@ -1785,6 +1795,39 @@
     </div>
   </section>
 
+  <!-- Automacao com IA: vem no plano Completo. Fica logo depois do hero de
+       proposito: e o servico mais "uau" da pagina e quem chega precisa ve-lo
+       na segunda tela. A demonstracao (extras/automacao.js) monta dentro do
+       [data-automacao], que sai VAZIO do React -- setupAutomacao() carrega
+       quando chega perto. -->
+  <section data-anima id="automacao" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
+    <div class="ia-cabeca" data-reveal="1">
+      <div>
+        <div class="nm-pill" style="padding-left: 8px;"><span class="nm-chip">NOVO</span>Automação com IA · no plano Completo</div>
+        <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 20px 0 0; max-width: 16ch; color: var(--fg);">Um atendente com IA que não dorme.</h2>
+      </div>
+      <p style="margin: 0; font-size: 16.5px; line-height: 1.7; color: var(--muted); max-width: 48ch;">Ele responde o WhatsApp e o Instagram, marca horário na sua agenda e te manda o resumo do dia, tudo sozinho e com os seus preços, horários e jeito de falar. Ótimo para clínicas, barbearias, imobiliárias e lojas de bairro, e <strong style="color: var(--fg);">já vem no plano Completo.</strong></p>
+    </div>
+
+    <div class="ia" data-automacao data-reveal="1" style="margin-top: 36px;"></div>
+    <p class="ia-nota">Conversas de exemplo. Os números do relatório são ilustrativos.</p>
+
+    <div class="ia-contrato nm-card" data-reveal="1">
+      <div class="ia-contrato-cab">
+        <h3 class="font-display">Já vem no plano Completo</h3>
+        <p>O atendente com IA entra junto com o site, o Instagram e a ficha do Google, na mesma mensalidade. Sem taxa de implantação.</p>
+        <div class="ia-contrato-preco"><b class="font-display">R$ 597,99</b><span>por mês · 1º mês grátis · sem fidelidade</span></div>
+        <a class="btn btn-primary" href="{{ assinarCompleto }}" target="_blank" rel="noopener">Quero o Completo com IA</a>
+        <a class="plano-duvida" href="{{ automacaoUrl }}" target="_blank" rel="noopener" style="display: block; text-align: left; margin-top: 12px;">Quer ver como ficaria no seu negócio? <u>Fale no WhatsApp</u></a>
+      </div>
+      <ol class="ia-etapas">
+        <li><b class="font-display">Conversa</b><span>Eu entendo como você atende hoje e o que os clientes mais perguntam.</span></li>
+        <li><b class="font-display">Configuração</b><span>Coloco na IA os seus preços, horários e regras, ligo no seu WhatsApp e no Instagram e testo com você antes de colocar no ar.</span></li>
+        <li><b class="font-display">Acompanhamento</b><span>Todo mês eu reviso as conversas e ajusto as respostas. Quando a IA não souber responder, a conversa passa para você.</span></li>
+      </ol>
+    </div>
+  </section>
+
   <section id="redes" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 24px; padding-bottom: 96px;">
     <div class="two-col" style="align-items: center;">
 
@@ -2145,7 +2188,7 @@
 
       <div data-reveal="1" class="blob-card blob-card--quente tilt" data-tilt style="position: relative;">
         <div style="position: absolute; top: -16px; left: 50%; transform: translateX(-50%); z-index: 3;">
-          <span class="nm-chip" style="font-size: 12px; padding: 9px 20px; letter-spacing: .1em; box-shadow: 9px 9px 16px rgba(163,177,198,.6), -9px -9px 16px rgba(255,255,255,.5);">MAIS COMPLETO</span>
+          <span class="nm-chip" style="font-size: 12px; padding: 9px 20px; letter-spacing: .1em; box-shadow: 9px 9px 16px rgba(163,177,198,.6), -9px -9px 16px rgba(255,255,255,.5);">MAIS COMPLETO · COM IA</span>
         </div>
         <div class="blob-glow"><i></i></div>
         <div class="blob-inner" style="box-shadow: 12px 12px 20px rgba(163,177,198,.7), -12px -12px 20px rgba(255,255,255,.6);">
@@ -2169,12 +2212,17 @@
           </div>
 
           <div class="blob-body">
-            <p style="margin: 0; font-size: 15px; color: #59616E; line-height: 1.6;">Para quem quer crescer: conteúdo forte, Google ativo e relatório de resultado.</p>
+            <p style="margin: 0; font-size: 15px; color: #59616E; line-height: 1.6;">Para quem quer crescer: conteúdo forte, Google ativo e um atendente com IA respondendo o seu WhatsApp.</p>
             <a class="btn btn-primary btn-block" href="{{ assinarCompleto }}" target="_blank" style="margin: 24px 0 4px;">Quero o Completo</a>
             <a class="plano-duvida" href="{{ whatsUrl }}" target="_blank">Prefere tirar uma dúvida antes? <u>Fale no WhatsApp</u></a>
             <div class="nm-track" style="height: 6px; border-radius: 999px; margin: 28px 0 20px;"></div>
+            <!-- o destaque do Completo: a automacao com IA (a demonstracao fica em #automacao) -->
+            <a class="plano-ia" href="#automacao">
+              <span class="plano-ia-ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></span>
+              <span><b>Atendente com IA incluso</b>WhatsApp e Instagram respondidos 24h, agendamento e resumo do dia automáticos. <u>Ver funcionando</u></span>
+            </a>
             <div style="font-size: 14px; font-weight: 700; color: #3D6A99; letter-spacing: .04em; margin-bottom: 8px;">Tudo do Essencial, mais:</div>
-            <sc-for list="{{ completo }}" as="item" hint-placeholder-count="6">
+            <sc-for list="{{ completo }}" as="item" hint-placeholder-count="8">
               <div class="check-row">
                 <span class="check-mark">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
@@ -2270,44 +2318,17 @@
         <span class="sz-sim" role="cell"><svg class="sz-ic" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor"/><path d="M4.6 8.3l2.2 2.2 4.6-4.8" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg><b>20 posts/mês</b> com arte, no calendário</span>
       </div>
       <div class="sz-tr duelo-linha" role="row">
+        <span class="sz-tema" role="rowheader">O atendimento</span>
+        <span class="sz-nao" role="cell">Mensagem da noite respondida só no outro dia</span>
+        <span class="sz-sim" role="cell"><svg class="sz-ic" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor"/><path d="M4.6 8.3l2.2 2.2 4.6-4.8" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg><b>IA responde na hora</b>, 24 horas por dia</span>
+      </div>
+      <div class="sz-tr duelo-linha" role="row">
         <span class="sz-tema" role="rowheader">O Google</span>
         <span class="sz-nao" role="cell">Avaliação sem resposta, inclusive as ruins</span>
         <span class="sz-sim" role="cell"><svg class="sz-ic" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor"/><path d="M4.6 8.3l2.2 2.2 4.6-4.8" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg><b>Post toda semana</b> e cada avaliação respondida</span>
       </div>
     </div>
     <p class="sz-pe">As 14 horas são uma estimativa do que costuma levar fazer isso sozinho: 20 posts com arte, as respostas no Google e as mexidas no site. O ponto não é acertar o número, é ver de onde esse tempo sai hoje.</p>
-  </section>
-
-  <!-- Automacao com IA: o servico novo (implantacao + mensalidade, orcado a
-       parte). Logo depois do "sozinho x com a ACTech" de proposito: la a
-       pessoa viu as noites que gasta; aqui ve quem atende as 23:47. A
-       demonstracao (extras/automacao.js) monta dentro do [data-automacao],
-       que sai VAZIO do React -- setupAutomacao() carrega quando chega perto. -->
-  <section data-anima id="automacao" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
-    <div class="ia-cabeca" data-reveal="1">
-      <div>
-        <div class="nm-pill" style="padding-left: 8px;"><span class="nm-chip">NOVO</span>Automação com IA</div>
-        <h2 class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 20px 0 0; max-width: 16ch; color: var(--fg);">Um atendente com IA que não dorme.</h2>
-      </div>
-      <p style="margin: 0; font-size: 16.5px; line-height: 1.7; color: var(--muted); max-width: 48ch;">Ele responde o WhatsApp e o Instagram, marca horário na sua agenda e te manda o resumo do dia, tudo sozinho e com os seus preços, horários e jeito de falar. Ótimo para clínicas, barbearias, imobiliárias e lojas de bairro.</p>
-    </div>
-
-    <div class="ia" data-automacao data-reveal="1" style="margin-top: 36px;"></div>
-    <p class="ia-nota">Conversas de exemplo. Os números do relatório são ilustrativos.</p>
-
-    <div class="ia-contrato nm-card" data-reveal="1">
-      <div class="ia-contrato-cab">
-        <h3 class="font-display">Implantação + mensalidade</h3>
-        <p>A implantação deixa a IA pronta com as informações do seu negócio. A mensalidade mantém ela funcionando e ajustada.</p>
-        <a class="btn btn-primary" href="{{ automacaoUrl }}" target="_blank" rel="noopener">Quero a IA no meu negócio</a>
-        <span class="ia-contrato-pe">Orçado conforme o tamanho do seu atendimento. Funciona sozinho ou junto com os planos.</span>
-      </div>
-      <ol class="ia-etapas">
-        <li><b class="font-display">Conversa</b><span>Eu entendo como você atende hoje e o que os clientes mais perguntam.</span></li>
-        <li><b class="font-display">Implantação</b><span>Configuro a IA com os seus preços, horários e regras, ligo no seu WhatsApp e no Instagram e testo com você antes de colocar no ar.</span></li>
-        <li><b class="font-display">Mensalidade</b><span>Acompanho as conversas, ajusto as respostas e cuido do relatório. Quando a IA não souber responder, a conversa passa para você.</span></li>
-      </ol>
-    </div>
   </section>
 
   <section id="google" class="wrap pad-section" style="position: relative; z-index: 1; padding-top: 20px; padding-bottom: 100px;">
@@ -3127,7 +3148,7 @@ class Component extends DCLogic {
   setupAutomacao() {
     const raiz = document.querySelector('[data-automacao]');
     if (!raiz) return;
-    const V = '1';
+    const V = '3';
     let api = null;
     const montar = () => { if (window.ACTechAutomacao && raiz.isConnected) api = window.ACTechAutomacao.montar(raiz); };
     const carregar = () => {
@@ -3267,7 +3288,7 @@ class Component extends DCLogic {
       completo: {
         nome: 'Completo', preco: 'R$ 597,99',
         ev: { 5: ['ar'], 30: ['rel'] },
-        resumo: [['20', 'posts com arte elaborada'], ['4', 'posts na ficha do Google'], ['4', 'atualizações no site'], ['1', 'relatório do que deu resultado']]
+        resumo: [['24h', 'atendente com IA no WhatsApp'], ['20', 'posts com arte elaborada'], ['4', 'posts na ficha do Google'], ['4', 'atualizações no site'], ['1', 'relatório do que deu resultado']]
       }
     };
     // Completo: 20 posts nos dias uteis, 1 post semanal na ficha, 1 atualizacao por semana
@@ -4039,7 +4060,7 @@ class Component extends DCLogic {
       { q: 'Como eu pago?', a: 'É uma assinatura mensal pelo Mercado Pago, no cartão de crédito. A primeira cobrança só acontece no segundo mês, e o cancelamento é pelo próprio app do Mercado Pago, sem precisar falar com ninguém.' },
       { q: 'Como funciona o atendente com IA?', a: 'É uma IA ligada ao seu WhatsApp e ao seu Instagram, configurada com os seus preços, horários, endereço e jeito de falar. Ela responde na hora, de dia ou de madrugada, marca horário na sua agenda, manda lembrete e te envia um resumo do dia.' },
       { q: 'E se a IA não souber responder?', a: 'Ela não inventa. Quando a pergunta foge do que foi configurado, ou quando o cliente pede para falar com uma pessoa, a conversa passa para você na hora, com o histórico junto.' },
-      { q: 'Quanto custa a automação com IA?', a: 'É uma implantação, que deixa a IA pronta para o seu negócio, mais uma mensalidade, que mantém ela funcionando e ajustada. O valor depende do tamanho do atendimento: me chama no WhatsApp que eu te passo o orçamento. Funciona sozinha ou junto com os planos de site.' },
+      { q: 'Em qual plano vem a automação com IA?', a: 'No Completo, de R$ 597,99 por mês, junto com o site, os 20 posts e a ficha do Google. Não tem taxa de implantação, o primeiro mês é grátis e não tem fidelidade.' },
       { q: 'Vocês atendem fora de Brasília?', a: 'Site e sistema, sim: atendemos o Brasil inteiro, tudo pelo WhatsApp. Os planos com Instagram e ficha do Google são pensados para quem atende em Brasília e no entorno.' }
       // ADS OFF - pergunta da verba de anúncio, guardada para quando o tráfego pago voltar:
       // { q: 'O que significa "verba de anúncio separada"?', a: 'No plano Completo a ACTech cria, configura e otimiza as campanhas no Google e Meta. O valor que vai para o anúncio em si é pago diretamente às plataformas e você define quanto quer investir — ele não está incluído na mensalidade.' }
@@ -4074,6 +4095,8 @@ class Component extends DCLogic {
         'Sem fidelidade: cancele quando quiser'
       ],
       completo: [
+        'Atendente com IA no WhatsApp e no Instagram, 24 horas',
+        'Agendamento automático com lembrete e resumo diário',
         '20 posts/mês nas redes sociais com artes elaboradas',
         'Ficha do Google ativa: post toda semana e avaliação respondida',
         // ADS OFF - a linha abaixo volta no dia em que a ACTech cuidar de tráfego pago
