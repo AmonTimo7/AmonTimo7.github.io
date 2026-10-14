@@ -121,7 +121,6 @@
     raiz.innerHTML =
       '<div class="ia-palco">' +
         '<div class="ia-fundo" aria-hidden="true"><i></i><i></i><i></i><i></i></div>' +
-        '<div class="ia-bolhas" aria-hidden="true"><i></i><i></i><i></i></div>' +
         '<div class="ia-tipos" role="tablist" aria-label="Automações">' +
           TIPOS.map(function (t, i) {
             return '<button type="button" class="ia-tipo" role="tab" data-t="' + i + '" aria-selected="false">' +
