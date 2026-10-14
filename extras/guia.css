@@ -1,0 +1,110 @@
+/* ===================================================================
+   Tour guiado (extras/guia.js). Mesma familia visual da pagina: cartao
+   escuro (o navy dos palcos), botao laranja de acao, raio de 18-22px.
+   =================================================================== */
+.gt { position: fixed; inset: 0; z-index: 90; pointer-events: none; visibility: hidden; }
+.gt.is-on { visibility: visible; }
+.gt-veu { position: absolute; inset: 0; pointer-events: auto; }
+
+/* o holofote: um recorte com sombra enorme, que escurece o resto da tela */
+.gt-holo {
+  position: fixed; border-radius: 22px; pointer-events: none;
+  box-shadow: 0 0 0 9999px rgba(8,14,26,.68), 0 0 0 2px rgba(255,255,255,.65), 0 0 40px 6px rgba(94,140,186,.45);
+  opacity: 0;
+  transition: top .55s cubic-bezier(.16,1,.3,1), left .55s cubic-bezier(.16,1,.3,1), width .55s cubic-bezier(.16,1,.3,1), height .55s cubic-bezier(.16,1,.3,1), opacity .3s;
+}
+.gt.is-centro .gt-holo { box-shadow: 0 0 0 9999px rgba(8,14,26,.72); }
+.gt.is-centro .gt-holo::after { display: none; }
+.gt.is-on .gt-holo::after { content: ''; position: absolute; inset: -2px; border-radius: inherit; border: 2px solid rgba(255,255,255,.5); animation: gt-pulso 2.2s ease-out infinite; }
+@keyframes gt-pulso { 0% { opacity: .9; transform: scale(1); } 100% { opacity: 0; transform: scale(1.03); } }
+
+.gt-cartao {
+  position: fixed; width: min(400px, calc(100vw - 32px)); pointer-events: auto;
+  padding: 20px 22px 18px; border-radius: 22px; color: #E6ECF4;
+  background: linear-gradient(158deg, #1A2944 0%, #0E1729 100%);
+  border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 30px 70px -20px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.08);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  transition: top .55s cubic-bezier(.16,1,.3,1), left .55s cubic-bezier(.16,1,.3,1);
+}
+.gt-cartao:focus { outline: none; }
+.gt-cartao.is-troca .gt-tit, .gt-cartao.is-troca .gt-txt, .gt-cartao.is-troca .gt-dica, .gt-cartao.is-troca .gt-fim { animation: gt-entra .45s cubic-bezier(.16,1,.3,1) both; }
+.gt-cartao.is-troca .gt-txt { animation-delay: .05s; }
+.gt-cartao.is-troca .gt-dica, .gt-cartao.is-troca .gt-fim { animation-delay: .1s; }
+@keyframes gt-entra { from { opacity: 0; transform: translateY(8px); } }
+.gt.is-centro .gt-cartao { left: 50% !important; top: 50% !important; transform: translate(-50%, -50%); width: min(460px, calc(100vw - 32px)); padding: 26px 26px 22px; text-align: center; }
+
+.gt-topo { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.gt-n { font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #F0A640; }
+.gt-fecha { appearance: none; border: 0; cursor: pointer; width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: rgba(255,255,255,.08); color: #C9D3E3; transition: background .2s, color .2s; }
+.gt-fecha:hover { background: rgba(255,255,255,.16); color: #fff; }
+.gt-fecha svg { width: 16px; height: 16px; }
+.gt.is-centro .gt-topo { justify-content: center; position: relative; }
+.gt.is-centro .gt-fecha { position: absolute; right: -6px; top: -6px; }
+.gt-tit { margin: 10px 0 0; font: 800 22px/1.15 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: -.03em; color: #fff; }
+.gt.is-centro .gt-tit { font-size: 27px; }
+.gt-txt { margin: 8px 0 0; font-size: 15.5px; line-height: 1.6; color: #C9D3E3; }
+.gt-dica { display: flex; gap: 8px; margin: 12px 0 0; padding: 10px 12px; border-radius: 12px; background: rgba(240,166,64,.1); border: 1px solid rgba(240,166,64,.22); font-size: 14px; line-height: 1.45; color: #F7D9A8; }
+.gt-dica::before { content: ''; flex: none; width: 7px; height: 7px; margin-top: 6px; border-radius: 99px; background: #F0A640; }
+.gt-dica[hidden] { display: none; }
+.gt-fim:empty { display: none; }
+.gt-fim { display: grid; gap: 10px; margin-top: 18px; }
+.gt-cta { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 50px; padding: 13px 20px; border-radius: 14px; font: 800 16px 'Plus Jakarta Sans', system-ui, sans-serif; text-decoration: none; transition: transform .2s, filter .2s; }
+.gt-cta:hover { transform: translateY(-1px); filter: brightness(1.08); }
+.gt-cta svg { width: 18px; height: 18px; }
+.gt-cta--plano { background: #C44F00; color: #fff; }
+.gt-cta--zap { background: #0F7A43; color: #fff; }
+
+.gt-nav { display: flex; align-items: center; gap: 8px; margin-top: 18px; }
+.gt-pontos { display: flex; gap: 5px; margin-right: auto; }
+.gt-pontos i { width: 7px; height: 7px; border-radius: 99px; background: rgba(255,255,255,.18); transition: width .3s, background .3s; }
+.gt-pontos i.is-feito { background: rgba(240,166,64,.55); }
+.gt-pontos i.is-on { width: 20px; background: #F0A640; }
+.gt.is-centro .gt-pontos { display: none; }
+.gt.is-centro .gt-nav { justify-content: center; }
+.gt-b { appearance: none; border: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; padding: 10px 14px; border-radius: 12px; font: 700 14.5px 'Plus Jakarta Sans', system-ui, sans-serif; transition: background .2s, transform .2s, opacity .2s; }
+.gt-b svg { width: 16px; height: 16px; }
+.gt-b--volta { background: rgba(255,255,255,.08); color: #E6ECF4; }
+.gt-b--volta:hover { background: rgba(255,255,255,.14); }
+.gt-b--volta:disabled { opacity: .35; cursor: default; }
+.gt-b--vai { background: #C44F00; color: #fff; }
+.gt-b--vai:hover { background: #B84A00; transform: translateY(-1px); }
+.gt-b:focus-visible, .gt-fecha:focus-visible, .gt-cta:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* no celular o cartao vira uma folha presa embaixo */
+@media (max-width: 719px) {
+  .gt-cartao { left: 12px !important; right: 12px; bottom: 12px; top: auto !important; width: auto; padding: 16px 16px 14px; border-radius: 20px; transition: none; }
+  .gt.is-centro .gt-cartao { top: auto !important; left: 12px !important; transform: none; width: auto; bottom: 12px; }
+  .gt-tit { font-size: 19px; }
+  .gt.is-centro .gt-tit { font-size: 22px; }
+  .gt-txt { font-size: 14.5px; }
+  .gt-dica { font-size: 13.5px; }
+  .gt-b--volta span { display: none; }
+}
+
+/* ----------------------------------------------------------- convite */
+.gt-convite {
+  position: fixed; z-index: 85; left: 20px; bottom: 20px; width: min(380px, calc(100vw - 112px));
+  display: flex; gap: 12px; align-items: flex-start; padding: 16px 14px 16px 16px; border-radius: 20px; color: #E6ECF4;
+  background: linear-gradient(158deg, #1A2944, #0E1729); border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 26px 60px -18px rgba(0,0,0,.55); font-family: 'DM Sans', system-ui, sans-serif;
+  transform: translateY(24px); opacity: 0; transition: transform .5s cubic-bezier(.16,1,.3,1), opacity .35s;
+}
+.gt-convite.is-on { transform: none; opacity: 1; }
+.gt-convite-ic { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: rgba(240,166,64,.16); color: #F0A640; }
+.gt-convite-ic svg { width: 21px; height: 21px; }
+.gt-convite b { display: block; font: 800 16px 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: -.02em; color: #fff; }
+.gt-convite > div > span { display: block; margin-top: 3px; font-size: 14px; line-height: 1.5; color: #C9D3E3; }
+.gt-convite-bts { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.gt-convite-nao { appearance: none; border: 0; background: none; cursor: pointer; padding: 6px 2px; font: 600 14px 'DM Sans', sans-serif; color: #9FB0C6; text-decoration: underline; text-underline-offset: 3px; }
+.gt-convite-nao:hover { color: #fff; }
+.gt-convite .gt-fecha { flex: none; width: 28px; height: 28px; margin-left: auto; }
+@media (max-width: 560px) {
+  .gt-convite { left: 12px; bottom: 12px; width: calc(100vw - 96px); padding: 14px 12px; }
+  .gt-convite-ic { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gt-holo, .gt-cartao, .gt-convite { transition: none; }
+  .gt.is-on .gt-holo::after, .gt-cartao.is-troca * { animation: none !important; }
+}

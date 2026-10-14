@@ -358,6 +358,8 @@
     transition: all .3s var(--ease);
   }
   .nav-link:hover { color: var(--fg); box-shadow: var(--nm-out-sm); }
+  /* o tour guiado (extras/guia.js) abre por qualquer link para #tour */
+  .nav-tour { display: inline-flex !important; align-items: center; gap: 6px; color: #8A4A0B !important; font-weight: 700; }
 
   /* hamburger — 48px, alvo de toque confortável */
   .icon-btn {
@@ -1693,6 +1695,7 @@
       </div>
 
       <nav class="nav-desktop" style="display: flex; align-items: center; gap: 6px;">
+        <a class="nav-link nav-tour" href="#tour"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Tour guiado</a>
         <a class="nav-link" href="#automacao">Automação com IA</a>
         <a class="nav-link" href="#sistemas">Sistemas</a>
         <a class="nav-link" href="#quem">Quem faz</a>
@@ -1717,6 +1720,7 @@
     <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
       <div class="mobile-menu wrap" style="padding-bottom: 18px;">
         <div class="nm-card" style="padding: 14px; display: grid; gap: 4px;">
+          <a class="nav-link nav-tour" href="#tour" onClick="{{ closeMenu }}" style="display: block;">Tour guiado pelo site</a>
           <a class="nav-link" href="#automacao" onClick="{{ closeMenu }}" style="display: block;">Automação com IA</a>
           <a class="nav-link" href="#sistemas" onClick="{{ closeMenu }}" style="display: block;">Sistemas</a>
           <a class="nav-link" href="#quem" onClick="{{ closeMenu }}" style="display: block;">Quem faz</a>
@@ -3038,7 +3042,7 @@
           {{ instaUser }}
         </a>
       </div>
-      <div>© 2026 ACTech Informática · <a class="rodape-mini" href="privacidade.html">Privacidade</a></div>
+      <div>© 2026 ACTech Informática · <a class="rodape-mini" href="#tour">Tour guiado</a> · <a class="rodape-mini" href="privacidade.html">Privacidade</a></div>
     </div>
     <!-- Uma pagina por ramo (geradas por ferramentas/gerar-ramos.py). O link daqui e o que
          faz o Google achar as oito; o anuncio de cada ramo aponta direto pra ela. -->
@@ -4134,6 +4138,8 @@ class Component extends DCLogic {
 }
 </script>
 
+<!-- tour guiado para quem chega pela primeira vez (fora do React) -->
+<script src="extras/guia.js?v=1" defer></script>
 <script>
   /* Guarda o site no aparelho pra funcionar sem internet. Precisa de uma
      visita com sinal antes; depois disso abre offline, no celular e no PC.

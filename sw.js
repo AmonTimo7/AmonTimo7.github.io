@@ -14,7 +14,7 @@
      São versionados pelo deploy e não mudam no meio do dia.
 */
 
-var VERSAO = 'actech-v14';
+var VERSAO = 'actech-v15';
 var C_CASCA = VERSAO + '-casca';
 var C_USO = VERSAO + '-uso';
 
@@ -67,6 +67,8 @@ var CASCA = [
   'extras/vitrine.js',
   'extras/automacao.css',
   'extras/automacao.js',
+  'extras/guia.css',
+  'extras/guia.js',
   'imgs/plano-glow-essencial.webp',
   'imgs/plano-glow-completo.webp',
   'imgs/plano-essencial-1.webp',
