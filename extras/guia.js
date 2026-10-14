@@ -19,28 +19,28 @@
 
   // cada passo: alvo (seletores em ordem de preferencia), titulo, texto, dica
   var PASSOS = [
-    { alvo: ['.hero-grid'], tit: 'O que a ACTech faz',
+    { alvo: ['.hero-grid', '.hero-visual', '.hero-visual .vv-caixa', '.hero-grid h1'], tit: 'O que a ACTech faz',
       txt: 'Site, Instagram e ficha do Google do seu negócio, numa mensalidade só. O site fica pronto em até 5 dias úteis.',
       dica: 'Na vitrine ao lado, toque no seu ramo e veja como ficaria o seu negócio.' },
-    { alvo: ['#automacao .ia-palco', '#automacao'], tit: 'Atendente com IA',
+    { alvo: ['#automacao .ia-palco', '#automacao .ia-grade', '#automacao .ia-fone-wrap', '#automacao .ia-cabeca'], tit: 'Atendente com IA',
       txt: 'Uma IA que responde o seu WhatsApp e o Instagram 24 horas, marca horário na sua agenda e te manda o resumo do dia. Vem no plano Completo.',
       dica: 'Escolha a automação e o ramo e assista a conversa acontecer.' },
-    { alvo: ['#servicos .tour', '#servicos'], tit: 'Tudo o que entra no plano',
+    { alvo: ['#servicos .tour', '#servicos .tour-abas', '#servicos .tour-palco'], tit: 'Tudo o que entra no plano',
       txt: 'Site que vende, Instagram postando toda semana, ficha do Google em dia e manutenção sem chamado: é só pedir no WhatsApp.',
       dica: 'Toque em cada item para ver como funciona.' },
-    { alvo: ['#modelos .est', '#modelos'], tit: 'Veja o seu site antes de fechar',
+    { alvo: ['#modelos .est', '#modelos .est-lista', '#modelos h2'], tit: 'Veja o seu site antes de fechar',
       txt: 'Escolha um estilo, diga o nome do seu negócio e veja na hora como ele ficaria, no computador e no celular.',
       dica: 'São três perguntas e nenhum cadastro.' },
-    { alvo: ['#como .jornada', '#como'], tit: 'Como funciona',
+    { alvo: ['#como .jornada', '#como .jn'], tit: 'Como funciona',
       txt: 'Você manda o que tiver pelo WhatsApp, aprova a prévia e o site entra no ar em até 5 dias úteis. A cobrança só começa no 2º mês.',
       dica: '' },
-    { alvo: ['#planos .pricing-grid', '#planos'], tit: 'Os planos',
+    { alvo: ['#planos .pricing-grid', '#planos .blob-card--quente .blob-inner', '#planos .blob-card--quente .blob-header'], tit: 'Os planos',
       txt: 'Essencial, para começar com o básico bem feito, e Completo, com 20 posts por mês, Google ativo e o atendente com IA. Os dois com o 1º mês grátis e sem fidelidade.',
       dica: 'O botão de cada plano leva direto para a assinatura.' },
-    { alvo: ['#quem .quem', '#quem'], tit: 'Quem faz o seu site',
+    { alvo: ['#quem .quem', '#quem .quem-lado'], tit: 'Quem faz o seu site',
       txt: 'Você fala direto com o Amon Timo, que faz o seu site e responde o seu WhatsApp. Sem atendente e sem call center.',
       dica: '' },
-    { alvo: ['#faq'], tit: 'Ficou alguma dúvida?',
+    { alvo: ['#faq', '#faq h2'], tit: 'Ficou alguma dúvida?',
       txt: 'Prazo, domínio, cancelamento, pagamento, a IA: as respostas mais pedidas estão aqui.',
       dica: 'Toque numa pergunta para abrir a resposta.' },
     { fim: true, tit: 'Pronto! Esse é o site.',
@@ -59,20 +59,46 @@
   function lido() { try { return localStorage.getItem(CHAVE); } catch (e) { return '1'; } }
   function mede(nome) { try { if (window.fbq) window.fbq('trackCustom', nome); } catch (e) {} }
 
+  /* o CSS e carregado na hora; o tour so comeca depois que ele chega, senao
+     o cartao e medido sem estilo (largura da tela toda) e vai para o lugar errado */
+  var cssPronto = null;
   function css() {
-    if (document.querySelector('link[data-guia-css]')) return;
-    var l = document.createElement('link');
-    l.rel = 'stylesheet'; l.href = 'extras/guia.css?v=1'; l.setAttribute('data-guia-css', '');
-    document.head.appendChild(l);
+    if (cssPronto) return cssPronto;
+    cssPronto = new Promise(function (ok) {
+      var l = document.createElement('link');
+      l.rel = 'stylesheet'; l.href = 'extras/guia.css?v=4'; l.setAttribute('data-guia-css', '');
+      l.onload = l.onerror = function () { ok(); };
+      document.head.appendChild(l);
+      setTimeout(ok, 2500);
+    });
+    return cssPronto;
   }
 
   /* ------------------------------------------------------------ tour */
   var raiz = null, holo = null, cartao = null, atual = 0, raf = 0, alvoEl = null, ultimoFoco = null;
 
+  var TOPO = 92;   // altura da barra do topo + folga
+  var M = 10;      // folga do holofote em volta do alvo
+  var lado = null; // onde o cartao fica: 'baixo', 'cima', 'dir', 'esq' ou 'canto'
+
+  /* Escolhe o primeiro alvo que cabe na tela junto com o cartao. Se nenhum
+     cabe, fica com o ultimo e o holofote passa da borda da tela (sem cortar
+     o conteudo no meio com uma linha). */
   function achar(passo) {
     if (!passo.alvo) return null;
-    for (var i = 0; i < passo.alvo.length; i++) { var el = document.querySelector(passo.alvo[i]); if (el) return el; }
-    return null;
+    var vw = window.innerWidth, vh = window.innerHeight, celular = vw < 720;
+    var cw = celular ? vw : (cartao.offsetWidth || 400), ch = cartao.offsetHeight || 280;
+    var ult = null;
+    for (var i = 0; i < passo.alvo.length; i++) {
+      var el = document.querySelector(passo.alvo[i]);
+      if (!el || !el.offsetParent || el.getBoundingClientRect().height < 24) continue;
+      ult = el;
+      var r = el.getBoundingClientRect(), h = r.height + 2 * M, w = r.width + 2 * M;
+      var cabeEmbaixo = h + ch + 24 <= vh - TOPO;
+      var cabeDoLado = !celular && h <= vh - TOPO - 12 && w + cw + 48 <= vw;
+      if (cabeEmbaixo || cabeDoLado) return el;
+    }
+    return ult;
   }
 
   function montar() {
@@ -129,20 +155,20 @@
       return;
     }
     raiz.classList.remove('is-centro');
-    var r = alvoEl.getBoundingClientRect(), m = celular ? 8 : 14;
-    var topo = 76; // cabecalho fixo
-    var cartH = cartao.offsetHeight || 260;
-    // o holofote termina antes do cartao: os dois nunca se sobrepoem
-    var limiteBaixo = vh - cartH - (celular ? 24 : 36);
-    var t = Math.max(r.top - m, topo), b = Math.min(r.bottom + m, limiteBaixo);
-    var l = Math.max(r.left - m, 8), d = Math.min(r.right + m, vw - 8);
-    if (b - t < 60) b = t + 60;
-    holo.style.cssText = 'opacity:1;top:' + t + 'px;left:' + l + 'px;width:' + (d - l) + 'px;height:' + (b - t) + 'px;';
+    var r = alvoEl.getBoundingClientRect();
+    // o recorte acompanha o alvo inteiro e as quinas dele
+    var raio = parseFloat(getComputedStyle(alvoEl).borderTopLeftRadius) || 0;
+    var t = r.top - M, l = Math.max(r.left - M, 6), d = Math.min(r.right + M, vw - 6), b = r.bottom + M;
+    holo.style.cssText = 'opacity:1;top:' + t + 'px;left:' + l + 'px;width:' + (d - l) + 'px;height:' + (b - t) + 'px;border-radius:' + Math.max(14, raio + M) + 'px;';
     if (celular) { cartao.style.left = ''; cartao.style.top = ''; return; }
-    // no PC o cartao fica ao lado do holofote: embaixo se couber, senao em cima, senao no canto
-    var cw = cartao.offsetWidth, ch = cartao.offsetHeight;
-    var cx = Math.min(Math.max(l, 16), vw - cw - 16);
-    var cy = Math.min(b + 16, vh - ch - 16);
+
+    var cw = cartao.offsetWidth, ch = cartao.offsetHeight, cx, cy;
+    var vy = function (y) { return Math.min(Math.max(y, TOPO), vh - ch - 16); };
+    if (lado === 'baixo') { cx = Math.min(Math.max(l, 16), vw - cw - 16); cy = Math.min(b + 16, vh - ch - 16); }
+    else if (lado === 'cima') { cx = Math.min(Math.max(l, 16), vw - cw - 16); cy = Math.max(t - 16 - ch, TOPO); }
+    else if (lado === 'dir') { cx = Math.min(d + 20, vw - cw - 16); cy = vy(t); }
+    else if (lado === 'esq') { cx = Math.max(l - 20 - cw, 16); cy = vy(t); }
+    else { cx = vw - cw - 24; cy = vh - ch - 24; }
     cartao.style.left = cx + 'px'; cartao.style.top = cy + 'px';
   }
   function agenda() { if (!raf) raf = requestAnimationFrame(posiciona); }
@@ -168,18 +194,41 @@
     vai.querySelector('span').textContent = p.fim ? 'Fechar' : (n === PASSOS.length - 2 ? 'Terminar' : 'Próximo');
     vai.hidden = false;
 
-    alvoEl = achar(p);
     cartao.classList.remove('is-troca'); void cartao.offsetWidth; cartao.classList.add('is-troca');
+    alvoEl = achar(p);
     if (alvoEl) {
       var r = alvoEl.getBoundingClientRect();
-      var celular = window.innerWidth < 720;
-      var destino = r.top + window.pageYOffset - (celular ? 84 : 100);
-      // alvo baixinho: centraliza; alvo alto: encosta no topo
-      if (!celular && r.height < window.innerHeight * .5) destino = r.top + window.pageYOffset - (window.innerHeight - r.height) / 2 + 80;
+      var vw = window.innerWidth, vh = window.innerHeight, celular = vw < 720;
+      var cw = celular ? vw : cartao.offsetWidth, ch = cartao.offsetHeight;
+      var h = r.height + 2 * M, w = r.width + 2 * M, livre = vh - TOPO;
+      var y0 = r.top + window.pageYOffset;
+      var destino;
+      if (celular) {
+        // no celular o cartao e uma folha embaixo: o alvo fica logo abaixo da barra
+        lado = 'baixo';
+        destino = y0 - TOPO - M + 4;
+      } else if (h + ch + 24 <= livre) {
+        lado = 'baixo';
+        // alvo + cartao centralizados juntos na area livre
+        destino = y0 - M - TOPO - (livre - h - ch - 16) / 2;
+      } else if (h <= livre - 12 && w + cw + 48 <= vw) {
+        var dir = vw - (r.right + M), esq = r.left - M;
+        lado = dir >= esq ? 'dir' : 'esq';
+        destino = y0 - M - TOPO - (livre - h) / 2;
+      } else {
+        lado = 'canto';
+        destino = y0 - M - TOPO;
+      }
       window.scrollTo({ top: Math.max(0, destino), behavior: REDUZ ? 'auto' : 'smooth' });
     }
     agenda();
     setTimeout(agenda, 350); setTimeout(agenda, 800);
+    var meuPasso = n;
+    setTimeout(function () {
+      if (atual !== meuPasso || !raiz.classList.contains('is-on')) return;
+      var novo = achar(p);
+      if (novo && novo !== alvoEl) ir(meuPasso);
+    }, 1000);
     cartao.focus({ preventScroll: true });
     if (p.fim) mede('guia_concluido');
   }
@@ -187,6 +236,9 @@
   function abrir() {
     fechaConvite();
     guarda('1');
+    css().then(abrirJa);
+  }
+  function abrirJa() {
     if (!raiz) montar();
     ultimoFoco = document.activeElement;
     document.documentElement.classList.add('gt-aberto');

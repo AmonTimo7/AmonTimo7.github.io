@@ -14,7 +14,7 @@
      São versionados pelo deploy e não mudam no meio do dia.
 */
 
-var VERSAO = 'actech-v15';
+var VERSAO = 'actech-v16';
 var C_CASCA = VERSAO + '-casca';
 var C_USO = VERSAO + '-uso';
 
@@ -124,6 +124,8 @@ self.addEventListener('fetch', function (e) {
   var url = new URL(req.url);
   // só o que é deste site; checkout, WhatsApp e pixel passam direto
   if (url.origin !== self.location.origin) return;
+  // no computador de desenvolvimento (localhost) nada de cache: sempre o arquivo novo
+  if (/^(localhost|127\.0\.0\.1)$/.test(self.location.hostname)) return;
 
   if (req.mode === 'navigate') {
     e.respondWith(
@@ -145,6 +147,25 @@ self.addEventListener('fetch', function (e) {
   /* ignoreSearch: o site pede estilos.js?v=3 e extras.css?v=2 pra furar o
      cache do GitHub Pages. Guardamos sem a query; sem isto dava miss e a
      prévia de site não montava offline. */
+  /* Arquivo com ?v= (versionado): se a versao exata nao esta guardada, e
+     arquivo novo -- busca na rede primeiro e so cai na versao velha sem
+     internet. Antes o ignoreSearch servia o guia.js?v=1 para quem pedia ?v=2. */
+  if (url.search) {
+    e.respondWith(
+      caches.match(req).then(function (exato) {
+        if (exato) return exato;
+        return fetch(req).then(function (res) {
+          if (res && res.status === 200 && res.type === 'basic') {
+            var c = res.clone();
+            caches.open(C_USO).then(function (cache) { cache.put(req, c); });
+          }
+          return res;
+        })['catch'](function () { return caches.match(req, { ignoreSearch: true }); });
+      })
+    );
+    return;
+  }
+
   e.respondWith(
     caches.match(req, { ignoreSearch: true }).then(function (guardado) {
       var daRede = fetch(req).then(function (res) {
