@@ -349,30 +349,60 @@
   .btn-sm { min-height: 44px; padding: 12px 22px; font-size: 14.5px; }
   .btn-block { display: flex; width: 100%; }
 
-  .nav-link {
-    color: var(--muted);
-    font-size: 14.5px;
-    font-weight: 500;
-    padding: 10px 16px;
-    border-radius: var(--r-inner);
-    transition: all .3s var(--ease);
+  /* ---------- barra do topo ---------- */
+  .topo { position: sticky; top: 0; z-index: 40; padding: 12px 24px 0; pointer-events: none; }
+  .topo-barra {
+    pointer-events: auto; max-width: 1180px; margin: 0 auto; display: flex; align-items: center; gap: 18px;
+    padding: 8px 8px 8px 16px; border-radius: 20px;
+    background: rgba(240,243,247,.72);
+    -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255,255,255,.75);
+    box-shadow: 0 10px 30px -14px rgba(61,72,82,.35), inset 0 1px 0 rgba(255,255,255,.9);
+    transition: box-shadow .3s var(--ease), background .3s var(--ease);
   }
-  .nav-link:hover { color: var(--fg); box-shadow: var(--nm-out-sm); }
-  /* o tour guiado (extras/guia.js) abre por qualquer link para #tour */
-  .nav-tour { display: inline-flex !important; align-items: center; gap: 6px; color: #8A4A0B !important; font-weight: 700; }
+  .topo.is-rolou .topo-barra { background: rgba(240,243,247,.9); box-shadow: 0 16px 40px -16px rgba(61,72,82,.5), inset 0 1px 0 rgba(255,255,255,.9); }
+  .topo-marca { display: flex; align-items: center; gap: 10px; color: var(--fg); text-decoration: none; flex: none; }
+  .topo-marca:hover { color: var(--fg); }
+  .topo-marca img { display: block; width: 44px; height: auto; }
+  .topo-marca > span { font-weight: 800; font-size: 17.5px; white-space: nowrap; }
+  .topo-marca > span span { color: var(--muted); font-weight: 600; }
+
+  .nav-desktop { position: relative; display: flex; align-items: center; gap: 2px; margin: 0 auto; padding: 4px; border-radius: 14px; background: rgba(61,72,82,.05); }
+  .nav-link {
+    position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 7px;
+    color: var(--muted); font-size: 14.5px; font-weight: 600; white-space: nowrap; text-decoration: none;
+    padding: 9px 14px; border-radius: 11px; transition: color .25s var(--ease);
+  }
+  .nav-link:hover, .nav-link.is-on { color: var(--fg); }
+  /* a pilula branca que desliza ate o link da secao atual (ou do hover) */
+  .nav-luz { position: absolute; z-index: 0; top: 4px; left: 0; height: calc(100% - 8px); width: 0; border-radius: 11px; background: #fff; box-shadow: 0 4px 12px -4px rgba(61,72,82,.3); opacity: 0;
+    transition: transform .4s cubic-bezier(.16,1,.3,1), width .4s cubic-bezier(.16,1,.3,1), opacity .25s; }
+  .nav-novo { width: 7px; height: 7px; border-radius: 99px; background: #E8690A; box-shadow: 0 0 0 3px rgba(232,105,10,.18); }
+
+  .topo-acoes { display: flex; align-items: center; gap: 8px; flex: none; }
+  .topo-tour { display: inline-flex; align-items: center; gap: 7px; padding: 10px 13px; border-radius: 12px; color: var(--fg); font-size: 14.5px; font-weight: 700; text-decoration: none; transition: background .2s; }
+  .topo-tour:hover { background: rgba(61,72,82,.07); color: var(--fg); }
+  .topo-tour svg { color: #C44F00; }
+  .topo-cta { display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px; border-radius: 13px; background: #C44F00; color: #fff; font: 700 14.5px 'Plus Jakarta Sans', system-ui, sans-serif; white-space: nowrap; text-decoration: none;
+    box-shadow: 0 8px 18px -8px rgba(196,79,0,.7); transition: background .2s, transform .2s; }
+  .topo-cta:hover { background: #B84A00; color: #fff; transform: translateY(-1px); }
+  .topo a:focus-visible, .topo button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .menu-card { margin-top: 8px; padding: 10px; display: grid; gap: 2px; border-radius: 20px;
+    background: rgba(240,243,247,.96); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,.8); box-shadow: 0 24px 50px -20px rgba(61,72,82,.45); pointer-events: auto; }
+  .menu-card .nav-link { min-height: 48px; font-size: 16px; color: var(--fg); }
+  .menu-card .nav-link:active { background: rgba(61,72,82,.07); }
+  .menu-card .nav-link svg { color: #C44F00; }
+  .menu-card .nav-link--fraco { color: var(--muted); font-size: 14.5px; }
 
   /* hamburger — 48px, alvo de toque confortável */
   .icon-btn {
-    width: 48px; height: 48px;
-    display: none;
-    align-items: center; justify-content: center;
-    border: none; border-radius: var(--r-base);
-    background: var(--bg); color: var(--fg);
-    box-shadow: var(--nm-out-sm);
-    cursor: pointer;
-    transition: all .3s var(--ease);
+    width: 44px; height: 44px; display: none; align-items: center; justify-content: center;
+    border: none; border-radius: 12px; background: rgba(61,72,82,.07); color: var(--fg); cursor: pointer;
+    transition: background .2s var(--ease);
   }
-  .icon-btn:active { box-shadow: var(--nm-in-sm); }
+  .icon-btn:active { background: rgba(61,72,82,.14); }
 
   /* ---------- listas de checagem ---------- */
   .check-row { display: flex; gap: 14px; align-items: flex-start; padding: 9px 0; }
@@ -1590,11 +1620,22 @@
 
   /* Ponto em que o mouse deixa de existir. Tudo que dependia de hover
      precisa ter um caminho por toque daqui pra baixo. */
-  @media (max-width: 900px) {
+  @media (max-width: 1080px) {
     .nav-desktop { display: none !important; }
     .icon-btn { display: inline-flex; }
-    .mobile-menu { display: block; }
-    .mobile-menu .nav-link { min-height: 48px; display: flex !important; align-items: center; }
+    .mobile-menu { display: block; max-width: 1180px; margin: 0 auto; }
+    .topo-acoes { margin-left: auto; }
+  }
+  @media (max-width: 560px) {
+    .topo { padding: 8px 10px 0; }
+    .topo-barra { padding: 6px 6px 6px 10px; gap: 8px; border-radius: 17px; }
+    .topo-marca img { width: 38px; }
+    .topo-marca > span { font-size: 15.5px; }
+    .topo-marca > span span { display: none; }
+    .topo-tour span, .topo-cta span { display: none; }
+    .topo-tour, .topo-cta { width: 44px; height: 44px; padding: 0; justify-content: center; }
+  }
+  @media (max-width: 900px) {
 
     .tcols { height: 500px; }
 
@@ -1679,55 +1720,56 @@
 </style>
 </helmet>
 
-<div style="background: #E0E5EC; color: #3D4852; font-family: 'DM Sans', system-ui, sans-serif; overflow-x: hidden; position: relative;">
+<div style="background: #E0E5EC; color: #3D4852; font-family: 'DM Sans', system-ui, sans-serif; overflow-x: hidden; overflow-x: clip; position: relative;">
   <!-- As cores que passam no fundo. Fica atras de tudo (z-index 0 contra o 1 das
        secoes) e so aparece nos vaos entre os cards, que sao opacos. -->
   <div class="aurora" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 
-  <header style="position: sticky; top: 0; z-index: 40; background: rgba(224,229,236,.82); backdrop-filter: blur(18px);">
-    <div class="wrap" style="padding-top: 16px; padding-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
-      <div style="display: flex; align-items: center; gap: 13px;">
-        <!-- A marca do logo real (imgs2/logo.jpeg), recortada e com o fundo branco
-             tirado. So o simbolo: o logo cheio traz "Python" e "Java" escritos, que
-             nao dizem nada pra quem veio comprar site pra padaria. -->
-        <img src="imgs/marca.webp" alt="" width="56" height="45" style="display: block; width: 56px; height: auto; flex: none;" />
-        <span class="font-display" style="font-weight: 800; font-size: 19px;">ACTech <span style="color: #59616E; font-weight: 600;">Informática</span></span>
-      </div>
+  <!-- Barra do topo: uma barra de vidro flutuante, com o logo, cinco links
+       (o da secao em que a pessoa esta fica marcado -- setupNav) e duas acoes.
+       "Apresentacao" e ferramenta do Amon no balcao: fica so no menu do
+       celular e no rodape, nao disputa espaco com o que o cliente procura. -->
+  <header class="topo" data-topo>
+    <div class="topo-barra">
+      <a class="topo-marca" href="#" aria-label="ACTech Informática, voltar ao início">
+        <img src="imgs/marca.webp" alt="" width="56" height="45" />
+        <span class="font-display">ACTech <span>Informática</span></span>
+      </a>
 
-      <nav class="nav-desktop" style="display: flex; align-items: center; gap: 6px;">
-        <a class="nav-link nav-tour" href="#tour"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Tour guiado</a>
-        <a class="nav-link" href="#automacao">Automação com IA</a>
-        <a class="nav-link" href="#sistemas">Sistemas</a>
-        <a class="nav-link" href="#quem">Quem faz</a>
-        <a class="nav-link" href="#faq">Dúvidas</a>
-        <a class="nav-link" href="apresentar.html">Apresentação</a>
-        <!-- Dois caminhos no topo: quem quer ver preço antes de falar com alguém
-             vai no secundário; quem já quer conversar, no primário. -->
-        <a class="btn btn-secondary btn-sm" href="#planos" style="margin-left: 12px;">Ver planos</a>
-        <a class="btn btn-primary btn-sm" href="{{ whatsUrl }}" target="_blank">Fale com a gente</a>
+      <nav class="nav-desktop" aria-label="Seções do site">
+        <span class="nav-luz" aria-hidden="true"></span>
+        <a class="nav-link" href="#automacao" data-sec="automacao"><i class="nav-novo" aria-hidden="true"></i>Atendente com IA</a>
+        <a class="nav-link" href="#planos" data-sec="planos">Planos</a>
+        <a class="nav-link" href="#sistemas" data-sec="sistemas">Sistemas</a>
+        <a class="nav-link" href="#quem" data-sec="quem">Quem faz</a>
+        <a class="nav-link" href="#faq" data-sec="faq">Dúvidas</a>
       </nav>
 
-      <button class="icon-btn" onClick="{{ toggleMenu }}" aria-label="{{ menuLabel }}" aria-expanded="{{ menuExpanded }}">
-        <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3D4852" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18"></path><path d="M6 6l12 12"></path></svg>
-        </sc-if>
-        <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3D4852" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg>
-        </sc-if>
-      </button>
+      <div class="topo-acoes">
+        <a class="topo-tour" href="#tour"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg><span>Tour</span></a>
+        <a class="topo-cta" href="{{ whatsUrl }}" target="_blank"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path></svg><span>Fale com a gente</span></a>
+        <button class="icon-btn" onClick="{{ toggleMenu }}" aria-label="{{ menuLabel }}" aria-expanded="{{ menuExpanded }}">
+          <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18"></path><path d="M6 6l12 12"></path></svg>
+          </sc-if>
+          <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg>
+          </sc-if>
+        </button>
+      </div>
     </div>
 
     <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-      <div class="mobile-menu wrap" style="padding-bottom: 18px;">
-        <div class="nm-card" style="padding: 14px; display: grid; gap: 4px;">
-          <a class="nav-link nav-tour" href="#tour" onClick="{{ closeMenu }}" style="display: block;">Tour guiado pelo site</a>
-          <a class="nav-link" href="#automacao" onClick="{{ closeMenu }}" style="display: block;">Automação com IA</a>
-          <a class="nav-link" href="#sistemas" onClick="{{ closeMenu }}" style="display: block;">Sistemas</a>
-          <a class="nav-link" href="#quem" onClick="{{ closeMenu }}" style="display: block;">Quem faz</a>
-          <a class="nav-link" href="#faq" onClick="{{ closeMenu }}" style="display: block;">Dúvidas</a>
-          <a class="nav-link" href="apresentar.html" style="display: block;">Apresentação</a>
-          <a class="btn btn-secondary btn-block" href="#planos" onClick="{{ closeMenu }}" style="margin-top: 10px;">Ver planos</a>
-          <a class="btn btn-primary btn-block" href="{{ whatsUrl }}" target="_blank" style="margin-top: 8px;">Fale com a gente</a>
+      <div class="mobile-menu">
+        <div class="menu-card">
+          <a class="nav-link" href="#automacao" onClick="{{ closeMenu }}"><i class="nav-novo" aria-hidden="true"></i>Atendente com IA</a>
+          <a class="nav-link" href="#planos" onClick="{{ closeMenu }}">Planos</a>
+          <a class="nav-link" href="#sistemas" onClick="{{ closeMenu }}">Sistemas</a>
+          <a class="nav-link" href="#quem" onClick="{{ closeMenu }}">Quem faz</a>
+          <a class="nav-link" href="#faq" onClick="{{ closeMenu }}">Dúvidas</a>
+          <a class="nav-link" href="#tour" onClick="{{ closeMenu }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Tour guiado pelo site</a>
+          <a class="nav-link nav-link--fraco" href="apresentar.html">Apresentação</a>
+          <a class="btn btn-primary btn-block" href="{{ whatsUrl }}" target="_blank" style="margin-top: 10px;">Fale com a gente</a>
         </div>
       </div>
     </sc-if>
@@ -3042,7 +3084,7 @@
           {{ instaUser }}
         </a>
       </div>
-      <div>© 2026 ACTech Informática · <a class="rodape-mini" href="#tour">Tour guiado</a> · <a class="rodape-mini" href="privacidade.html">Privacidade</a></div>
+      <div>© 2026 ACTech Informática · <a class="rodape-mini" href="#tour">Tour guiado</a> · <a class="rodape-mini" href="apresentar.html">Apresentação</a> · <a class="rodape-mini" href="privacidade.html">Privacidade</a></div>
     </div>
     <!-- Uma pagina por ramo (geradas por ferramentas/gerar-ramos.py). O link daqui e o que
          faz o Google achar as oito; o anuncio de cada ramo aponta direto pra ela. -->
@@ -3101,6 +3143,7 @@ class Component extends DCLogic {
     this.setupPausar();
     this.setupClickFx();
     this.setupTour();
+    this.setupNav();
     this.setupComo();
     this.setupGooButton();
     this.setupTilt();
@@ -3189,6 +3232,51 @@ class Component extends DCLogic {
     }, { rootMargin: '900px 0px' });
     io.observe(raiz);
     this._teardown.push(() => { io.disconnect(); if (api) api.destruir(); });
+  }
+
+  /* ---------------------------------------------------------------
+     Barra do topo: a pilula desliza ate o link da secao que esta na tela
+     (ou do link sob o mouse) e a barra ganha sombra quando a pagina rola.
+     --------------------------------------------------------------- */
+  setupNav() {
+    const topo = document.querySelector('[data-topo]');
+    const nav = topo && topo.querySelector('.nav-desktop');
+    if (!nav) return;
+    const luz = nav.querySelector('.nav-luz');
+    const links = [...nav.querySelectorAll('a[data-sec]')];
+    let atual = null;
+    const poe = (a) => {
+      if (!a) { luz.style.opacity = '0'; return; }
+      luz.style.width = a.offsetWidth + 'px';
+      luz.style.transform = 'translateX(' + a.offsetLeft + 'px)';
+      luz.style.opacity = '1';
+    };
+    const marca = (id) => {
+      atual = links.find((a) => a.dataset.sec === id) || null;
+      links.forEach((a) => a.classList.toggle('is-on', a === atual));
+      poe(atual);
+    };
+    links.forEach((a) => {
+      const on = () => poe(a);
+      a.addEventListener('mouseenter', on);
+      this._teardown.push(() => a.removeEventListener('mouseenter', on));
+    });
+    const sai = () => poe(atual);
+    nav.addEventListener('mouseleave', sai);
+    this._teardown.push(() => nav.removeEventListener('mouseleave', sai));
+
+    const visiveis = new Map();
+    const io = new IntersectionObserver((en) => {
+      en.forEach((x) => visiveis.set(x.target.id, x.isIntersecting ? x.intersectionRatio : 0));
+      let melhor = null, r = 0;
+      visiveis.forEach((v, k) => { if (v > r) { r = v; melhor = k; } });
+      marca(melhor);
+    }, { threshold: [0, .15, .3, .5], rootMargin: '-80px 0px -35% 0px' });
+    links.forEach((a) => { const sec = document.getElementById(a.dataset.sec); if (sec) io.observe(sec); });
+    const rola = () => topo.classList.toggle('is-rolou', window.scrollY > 8);
+    window.addEventListener('scroll', rola, { passive: true });
+    rola();
+    this._teardown.push(() => { io.disconnect(); window.removeEventListener('scroll', rola); });
   }
 
   /* ---------------------------------------------------------------
