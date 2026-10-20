@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<!-- Endereço oficial: actechsystems.com.br. Quem chega pelo github.io ou
+     pelo pages.dev vai para a mesma página no domínio novo. -->
+<script>if(/^actechsystems\.(github\.io|pages\.dev)$/.test(location.hostname))location.replace('https://actechsystems.com.br'+location.pathname+location.search+location.hash);</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- GERADO por ferramentas/gerar-ramos.py a partir de ferramentas/servico-modelo.html. Nao edite aqui:
+     a proxima geracao apaga. Mude o modelo ou os dados e rode o script. -->
+<title>[[TITULO]]</title>
+<meta name="description" content="[[DESC]]" />
+<link rel="canonical" href="[[URL]]" />
+<meta name="theme-color" content="#E0E5EC" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:site_name" content="ACTech Informática" />
+<meta property="og:title" content="[[TITULO]]" />
+<meta property="og:description" content="[[DESC]]" />
+<meta property="og:url" content="[[URL]]" />
+<meta property="og:image" content="[[OG]]" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='8'%20fill='%23E0E5EC'/%3E%3Cpath%20d='M12%2011l-5%205%205%205M20%2011l5%205-5%205'%20fill='none'%20stroke='%233D6A99'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="../fontes/fontes.css" />
+<link rel="manifest" href="../manifest.webmanifest" />
+<script type="application/ld+json">[[LD]]</script>
+
+<style>
+[[CSS]]
+
+  /* ---------- so desta pagina ----------
+     A base (tokens, botoes, topo, aparelhos, passos, planos, duvidas, rodape)
+     vem do ramo-modelo.html, colada pelo gerador. Aqui so o que e novo. */
+  .hero .lead { max-width: 50ch; }
+  .oferta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--muted); }
+  .oferta li { display: flex; align-items: center; gap: 8px; }
+  .oferta li span { flex: none; width: 20px; height: 20px; border-radius: 999px; display: grid; place-items: center; box-shadow: var(--nm-in-sm); color: var(--t3); }
+
+  /* quanto custa: tabela de verdade, porque e comparacao de valores */
+  .custo-txt { max-width: 68ch; }
+  .custo-txt p { margin: 18px 0 0; font-size: 17px; line-height: 1.7; color: var(--muted); }
+  .custo-txt b { color: var(--fg); }
+  .comp { margin-top: 40px; border-radius: var(--r-card); box-shadow: var(--nm-out); padding: 10px; }
+  .comp table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 15.5px; line-height: 1.55; }
+  .comp th, .comp td { text-align: left; vertical-align: top; padding: 20px 22px; }
+  .comp thead th { font-size: 13px; font-weight: 700; color: var(--muted); padding-top: 18px; padding-bottom: 12px; }
+  .comp tbody th { font: 800 17px/1.3 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: -.015em; color: var(--fg); width: 22%; }
+  .comp tbody td { color: var(--muted); }
+  .comp tbody tr + tr > * { border-top: 1px solid rgba(163,177,198,.38); }
+  .comp .nossa > * { background: var(--bg); }
+  .comp .nossa > :first-child { border-radius: 22px 0 0 22px; }
+  .comp .nossa > :last-child { border-radius: 0 22px 22px 0; }
+  .comp .nossa { box-shadow: var(--nm-in); border-radius: 22px; }
+  .comp .nossa th { color: var(--accent); }
+  .comp .nossa td { color: var(--fg); }
+  .comp .nossa td b { font-variant-numeric: tabular-nums; }
+  .comp-nota { margin: 14px 4px 0; font-size: 13px; color: var(--muted); }
+  .preco-muda { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 40px; max-width: 900px; }
+  .preco-muda li { padding: 14px 0; border-top: 1px solid rgba(163,177,198,.38); font-size: 15.5px; line-height: 1.6; color: var(--muted); }
+  .preco-muda b { display: block; margin-bottom: 2px; font: 700 16.5px 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--fg); }
+
+  /* como o site aparece no Google */
+  .serp { background: var(--bg); border-radius: var(--r-card); box-shadow: var(--nm-out); padding: 26px; }
+  .serp-caixa { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 28px; padding: 14px 20px; font-size: 16px; color: #202124; box-shadow: 0 1px 6px rgba(32,33,36,.18); }
+  .serp-res { margin-top: 14px; background: #fff; border-radius: 18px; padding: 18px 20px; color: #202124; font-family: Arial, system-ui, sans-serif; }
+  .serp-site { display: flex; align-items: center; gap: 10px; }
+  .serp-ico { flex: none; width: 28px; height: 28px; border-radius: 999px; display: grid; place-items: center; background: var(--tom); color: #fff; font: 800 13px 'Plus Jakarta Sans', sans-serif; }
+  .serp-site b { display: block; font-size: 14px; font-weight: 400; }
+  .serp-site small { display: block; font-size: 12px; color: #4d5156; }
+  .serp-tit { display: block; margin-top: 8px; font-size: 19px; line-height: 1.3; color: #1a0dab; }
+  .serp-desc { margin: 4px 0 0; font-size: 14px; line-height: 1.58; color: #4d5156; }
+  .serp-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .serp-links span { font-size: 13px; color: #1a0dab; padding: 6px 12px; border-radius: 99px; border: 1px solid #dadce0; }
+  .serp-legenda { margin: 16px 4px 0; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+
+  /* ramos: foto de verdade, cada uma leva para a pagina do ramo */
+  .ramos { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; }
+  .ramos a { display: block; text-decoration: none; color: var(--fg); border-radius: 26px; padding: 10px 10px 16px; background: var(--bg); box-shadow: var(--nm-out-sm); transition: box-shadow .3s var(--ease), transform .3s var(--ease); }
+  .ramos a:hover { box-shadow: var(--nm-out); transform: translateY(-3px); }
+  .ramos img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 18px; }
+  .ramos b { display: block; margin: 14px 8px 0; font: 800 17px 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: -.015em; }
+  .ramos span { display: block; margin: 3px 8px 0; font-size: 14px; color: var(--accent); }
+
+  /* quem faz */
+  .autor { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; align-items: center; max-width: 980px; margin: 0 auto; }
+  .autor img { width: 220px; height: 220px; border-radius: 999px; object-fit: cover; border: 8px solid var(--bg); box-shadow: var(--nm-out); }
+  .autor p { margin: 18px 0 0; font-size: 17px; line-height: 1.7; color: var(--muted); max-width: 60ch; }
+  .autor p b { color: var(--fg); }
+
+  @media (max-width: 900px) {
+    .ramos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .autor { grid-template-columns: 1fr; gap: 28px; text-align: center; }
+    .autor img { margin: 0 auto; width: 170px; height: 170px; }
+    .autor p { margin-left: auto; margin-right: auto; }
+  }
+  @media (max-width: 760px) {
+    /* tabela vira lista: cada forma de fazer o site num bloco */
+    .comp { padding: 8px; }
+    .comp thead { display: none; }
+    .comp table, .comp tbody, .comp tr, .comp th, .comp td { display: block; width: auto; }
+    .comp tbody tr { padding: 18px 16px; }
+    .comp tbody tr + tr > * { border-top: 0; }
+    .comp tbody tr + tr { border-top: 1px solid rgba(163,177,198,.38); }
+    .comp tbody .nossa + tr { border-top: 0; }
+    .comp th, .comp td { padding: 0; }
+    .comp tbody th { width: auto; font-size: 18px; }
+    .comp tbody td { margin-top: 10px; font-size: 15px; }
+    .comp tbody td::before { content: attr(data-col); display: block; font-size: 12.5px; font-weight: 700; color: var(--muted); margin-bottom: 2px; }
+    .comp .nossa > *, .comp .nossa > :first-child, .comp .nossa > :last-child { border-radius: 0; background: none; }
+    .preco-muda { grid-template-columns: 1fr; }
+    .ramos b { font-size: 15.5px; margin-top: 10px; }
+    .ramos span { font-size: 13px; }
+    .serp { padding: 16px; }
+    .serp-res { padding: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ramos a, .ramos a:hover { transition: none; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="wrap">
+    <a class="marca" href="../">
+      <img src="../imgs/marca.webp" alt="" width="46" height="37">
+      <span>ACTech <i>Informática</i></span>
+    </a>
+    <nav aria-label="Principal">
+      <a class="link" href="#quanto-custa">Quanto custa</a>
+      <a class="link" href="#planos">Planos</a>
+      <a class="btn btn-1" href="[[ZAP]]" target="_blank" rel="noopener">[[ZAP_SVG]]<span>Falar no WhatsApp</span></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div>
+      <h1>[[H1]]</h1>
+      <p class="lead">Site profissional para comércio e prestador de serviço, com domínio, hospedagem e manutenção inclusos. Você paga uma mensalidade, sem taxa de criação, e o Instagram e a ficha do Google vêm junto.</p>
+      <div class="acoes">
+        <a class="btn btn-1" href="#planos">Começar com o 1º mês grátis</a>
+        <a class="btn btn-2" href="[[ZAP]]" target="_blank" rel="noopener">[[ZAP_SVG]] Pedir um orçamento</a>
+      </div>
+      <ul class="oferta">
+        <li><span>[[CHECK]]</span>1º mês grátis</li>
+        <li><span>[[CHECK]]</span>Sem taxa de criação</li>
+        <li><span>[[CHECK]]</span>Sem fidelidade</li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="combo" aria-label="Exemplo de site no computador e no celular" role="img">
+        <div class="w-lap" data-escala data-w="1000" data-h="624">
+          <div class="dev lap">
+            <div class="lap-tela"><div class="lap-vidro">
+              <div class="lap-barra"><i style="background:#ff5f56"></i><i style="background:#ffbd2e"></i><i style="background:#27c93f"></i><u>[[DOM]]</u></div>
+              <div class="lap-visor"><div class="rolo" data-rolo="70">[[SITE_PC]]</div></div>
+            </div></div>
+            <div class="lap-base"></div>
+          </div>
+        </div>
+        <div class="w-cel" data-escala data-w="300" data-h="620">
+          <div class="dev cel">
+            <div class="ilha"></div>
+            <div class="tela-cel"><div class="rolo" data-rolo="80">[[SITE_CEL]]</div></div>
+          </div>
+        </div>
+      </div>
+      <p class="nota">Exemplo de site para uma loja de roupa. O seu sai com o seu nome, as suas fotos e os seus preços.</p>
+    </div>
+  </section>
+
+  <section id="quanto-custa" class="wrap sec">
+    <div class="custo-txt">
+      <h2>Quanto custa fazer um site em [[CIDADE]]?</h2>
+      <p>Depende de quem faz e do que vem junto. O que costuma pesar não é só a criação: é o que vem depois. Hospedagem, domínio, cada alteração de preço ou de horário e o trabalho de fazer o site aparecer no Google.</p>
+      <p>Na ACTech o site sai por <b>R$ 359,99 por mês</b>, sem taxa de criação, com tudo isso incluído. Veja como fica ao lado das outras formas de ter um site:</p>
+    </div>
+
+    <div class="comp">
+      <table>
+        <thead>
+          <tr><th scope="col">Como fazer</th><th scope="col">Para começar</th><th scope="col">Todo mês</th><th scope="col">Fica por sua conta</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Agência ou freelancer</th>
+            <td data-col="Para começar">A criação é cobrada à parte, em geral de R$ 1.500 a R$ 5.000 por um site institucional.</td>
+            <td data-col="Todo mês">Hospedagem e domínio pagos separados. Alteração costuma ser cobrada a cada pedido.</td>
+            <td data-col="Fica por sua conta">Postar no Instagram, cuidar da ficha do Google e pedir cada mudança.</td>
+          </tr>
+          <tr>
+            <th scope="row">Fazer sozinho numa plataforma</th>
+            <td data-col="Para começar">Pouco ou nada em dinheiro, e muitas horas suas montando.</td>
+            <td data-col="Todo mês">A assinatura da plataforma, em geral de R$ 50 a R$ 150, mais o domínio.</td>
+            <td data-col="Fica por sua conta">Tudo: texto, foto, layout, versão para celular e aparecer no Google.</td>
+          </tr>
+          <tr class="nossa">
+            <th scope="row">ACTech</th>
+            <td data-col="Para começar"><b>R$ 0.</b> Sem taxa de criação, e o 1º mês é grátis.</td>
+            <td data-col="Todo mês"><b>R$ 359,99</b> com domínio, hospedagem, manutenção, 8 posts no Instagram e a ficha do Google.</td>
+            <td data-col="Fica por sua conta">Mandar as fotos pelo WhatsApp e aprovar.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="comp-nota">Valores de mercado aproximados, para comparação. Cada orçamento muda conforme o projeto.</p>
+
+    <h3 class="fd" style="margin: 56px 0 0; font-size: clamp(21px, 2.2vw, 26px); font-weight: 800;">O que muda o preço de um site</h3>
+    <ul class="preco-muda">
+      <li><b>Número de páginas</b>Um site de comércio local resolve com até 5: início, serviços, sobre, galeria e contato. É o que vem no plano.</li>
+      <li><b>Quem escreve e fotografa</b>Texto bom e foto de verdade vendem mais que layout bonito. Foto de celular resolve, e a gente ajuda no texto.</li>
+      <li><b>Sistema por trás</b>Agenda online, controle de caixa ou painel de gestão são sistemas sob medida, orçados à parte.</li>
+      <li><b>Manutenção</b>Site parado envelhece. Trocar preço, horário e foto precisa ser rápido, e no plano já está incluído.</li>
+    </ul>
+  </section>
+
+  <section class="wrap sec duas">
+    <div>
+      <h2>Um site profissional é o que te faz ser escolhido no Google.</h2>
+      <p class="lead">Quem pesquisa já quer comprar. O site certo responde em segundos o que a pessoa procura: o que você faz, quanto custa, onde fica e como falar com você.</p>
+      <ul class="lista">
+        <li><span>[[CHECK]]</span>Domínio próprio .com.br, hospedagem rápida e cadeado de segurança.</li>
+        <li><span>[[CHECK]]</span>Feito para o celular primeiro, que é de onde vem quase todo cliente.</li>
+        <li><span>[[CHECK]]</span>Botão de WhatsApp, mapa e horário sempre à vista.</li>
+        <li><span>[[CHECK]]</span>Título, descrição e dados de cada página preparados para o Google.</li>
+        <li><span>[[CHECK]]</span>Ficha do Google Meu Negócio otimizada, para aparecer no mapa.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="serp" aria-label="Exemplo de como o site aparece numa busca do Google" role="img">
+        <div class="serp-caixa">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+          [[BUSCA]]
+        </div>
+        <div class="serp-res">
+          <div class="serp-site"><span class="serp-ico">[[INI]]</span><div><b>[[EXEMPLO]]</b><small>https://[[DOM]]</small></div></div>
+          <span class="serp-tit">[[EXEMPLO]] | Moda feminina em [[CIDADE]]</span>
+          <p class="serp-desc">Coleção nova toda semana. Peça pelo WhatsApp, prove na loja e troque em até 7 dias. Seg a sáb, das 9h às 19h.</p>
+          <div class="serp-links"><span>Novidades</span><span>Vestidos</span><span>Como chegar</span></div>
+        </div>
+      </div>
+      <p class="serp-legenda">É assim que a página do seu negócio aparece na busca: nome, o que você vende e o motivo para clicar.</p>
+    </div>
+  </section>
+
+  <section class="wrap sec">
+    <h2 style="max-width: 22ch;">Site pronto para o seu tipo de negócio.</h2>
+    <p class="lead" style="max-width: 56ch;">Cada ramo tem o seu jeito de vender. Veja um exemplo de site, de Instagram e de busca feito para o seu.</p>
+    <ul class="ramos">[[RAMOS]]</ul>
+  </section>
+
+  <section class="wrap sec" style="padding-top: 0;">
+    <div class="custo-txt">
+      <h2>Atendimento em [[CIDADE]] e região.</h2>
+      <p>[[ATENDE]]</p>
+    </div>
+  </section>
+
+  <section id="como" class="wrap sec">
+    <h2 style="text-align: center; max-width: 20ch; margin: 0 auto;">Do primeiro oi ao site no ar: cinco dias.</h2>
+    <ol class="passos">
+      <li>
+        <span class="passo-n" aria-hidden="true">1</span>
+        <div class="passo-q" style="color: var(--t1);">Hoje</div>
+        <div class="passo-t">Você assina e manda o que tiver</div>
+        <p>Logo, fotos de celular, horário e preços, tudo pelo WhatsApp. Não tem nada pronto? A gente monta junto.</p>
+      </li>
+      <li>
+        <span class="passo-n" aria-hidden="true">2</span>
+        <div class="passo-q" style="color: var(--t3);">Até o 5º dia útil</div>
+        <div class="passo-t">O site entra no ar</div>
+        <p>Você aprova pelo WhatsApp, sem reunião. Os posts começam a sair e a ficha do Google fica em dia.</p>
+      </li>
+      <li>
+        <span class="passo-n" aria-hidden="true">3</span>
+        <div class="passo-q" style="color: var(--t2);">No 2º mês</div>
+        <div class="passo-t">Só aí começa a cobrança</div>
+        <p>Não gostou do que viu no primeiro mês? Cancela antes e não paga nada.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section id="planos" class="wrap sec">
+    <h2 style="text-align: center;">Dois planos. Os dois com o 1º mês grátis.</h2>
+    <div class="planos">
+      <div class="plano">
+        <div class="plano-nome">Essencial</div>
+        <div class="plano-de">R$ 449,99</div>
+        <div class="plano-preco"><b>R$ 359<small>,99</small></b><span>/mês</span></div>
+        <div class="plano-gratis">1º mês grátis · sem fidelidade</div>
+        <a class="btn btn-2" href="[[ESS]]" target="_blank" rel="noopener" data-plano="Essencial">Começar com o Essencial</a>
+        <ul>
+          <li><span>[[CHECK]]</span>Site com até 5 páginas, domínio e hospedagem</li>
+          <li><span>[[CHECK]]</span>8 posts por mês no Instagram</li>
+          <li><span>[[CHECK]]</span>Ficha do Google otimizada</li>
+          <li><span>[[CHECK]]</span>1 atualização no site por mês</li>
+        </ul>
+      </div>
+      <div class="plano plano--top">
+        <span class="plano-tag">MAIS COMPLETO · COM IA</span>
+        <div class="plano-nome">Completo</div>
+        <div class="plano-de">R$ 797,99</div>
+        <div class="plano-preco"><b>R$ 597<small>,99</small></b><span>/mês</span></div>
+        <div class="plano-gratis">1º mês grátis · sem fidelidade</div>
+        <a class="btn btn-1" href="[[COMP]]" target="_blank" rel="noopener" data-plano="Completo">Quero o Completo</a>
+        <ul>
+          <li><span>[[CHECK]]</span>Tudo do Essencial</li>
+          <li><span>[[CHECK]]</span><b>Atendente com IA no WhatsApp e no Instagram, 24 horas</b></li>
+          <li><span>[[CHECK]]</span>20 posts por mês com artes elaboradas</li>
+          <li><span>[[CHECK]]</span>Ficha do Google com post toda semana e avaliação respondida</li>
+          <li><span>[[CHECK]]</span>4 atualizações no site por mês e relatório mensal</li>
+        </ul>
+      </div>
+    </div>
+    <p class="garantia"><b>O combinado:</b> site no ar em até 5 dias úteis depois que o material chega. Se passar disso, o 2º mês é por nossa conta. E o site é seu: se um dia sair, a gente passa o domínio para você.</p>
+  </section>
+
+  <section class="wrap sec">
+    <div class="autor">
+      <img src="../imgs/amon.webp" alt="Amon Timo, desenvolvedor e fundador da ACTech" width="220" height="220" loading="lazy" decoding="async">
+      <div>
+        <h2>Você fala com quem faz o seu site.</h2>
+        <p>Eu sou o <b>Amon Timo</b>, desenvolvedor há 3 anos e fundador da ACTech, [[AUTOR_LOCAL]]. Nesse tempo desenvolvi inúmeros projetos: sites, sistemas de gestão, painel de metas para banco e controle de caixa para empresa.</p>
+        <p>Quem responde o seu WhatsApp é quem escreve o código do seu site. Sem atendente e sem call center.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap sec" style="padding-top: 20px;">
+    <h2 style="text-align: center;">Perguntas sobre criação de sites</h2>
+    <div class="faq">[[FAQ]]</div>
+  </section>
+
+  <section class="wrap sec">
+    <div class="fim">
+      <h2 style="max-width: 22ch; margin: 0 auto;">Vamos colocar o seu site no ar?</h2>
+      <div class="quem"><img src="../imgs/amon-mini.webp" alt="" width="120" height="120" loading="lazy" decoding="async"><p>Manda um oi no WhatsApp contando o que você vende. O <b>Amon</b> responde com uma proposta no mesmo dia.</p></div>
+      <div class="acoes">
+        <a class="btn btn-1" href="[[ZAP]]" target="_blank" rel="noopener">[[ZAP_SVG]] Falar no WhatsApp</a>
+        <a class="btn btn-2" href="#planos">Ver os planos</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="wrap">
+    <nav aria-label="Sites por ramo"><strong>Site para</strong> [[OUTROS]]</nav>
+    <nav aria-label="Outras cidades"><strong>Também fazemos</strong> [[OUTRAS]]</nav>
+    <div>ACTech Informática · CNPJ 64.497.294/0001-91 · Brasília, DF · <a href="../">Página completa</a> · <a href="../termos.html">Termos de Serviço</a> · <a href="../privacidade.html">Privacidade</a></div>
+  </div>
+</footer>
+
+<a class="fab" href="[[ZAP]]" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">[[ZAP_SVG]]<span>WhatsApp</span></a>
+
+[[JS]]
+</body>
+</html>

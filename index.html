@@ -7,8 +7,8 @@
 <script>if(/^actechsystems\.(github\.io|pages\.dev)$/.test(location.hostname))location.replace('https://actechsystems.com.br'+location.pathname+location.search+location.hash);</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Criação de Sites e Redes Sociais em Brasília | ACTech</title>
-<meta name="description" content="Criação de sites, Instagram e Google Meu Negócio em uma mensalidade, para comércios e prestadores de serviço em Brasília. Atendente com IA no WhatsApp e sistemas sob medida. Primeiro mês grátis." />
+<title>Criação de Sites em Brasília e Goiânia | Site + Instagram | ACTech</title>
+<meta name="description" content="Criação de site profissional em Brasília e Goiânia, pronto em 5 dias úteis, com Instagram e Google Meu Negócio na mesma mensalidade. A partir de R$ 359,99, 1º mês grátis." />
 <meta name="theme-color" content="#E0E5EC" />
 <!-- Absoluto de proposito: o mesmo HTML e servido tambem em
      amontimo7.github.io (ambiente de teste). Com canonical relativo, os
@@ -19,7 +19,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="pt_BR" />
 <meta property="og:site_name" content="ACTech Informática" />
-<meta property="og:title" content="Criação de Sites e Redes Sociais em Brasília | ACTech" />
+<meta property="og:title" content="Criação de Sites em Brasília e Goiânia | ACTech" />
 <meta property="og:description" content="Site, redes sociais e Google Meu Negócio em uma mensalidade única. Primeiro mês grátis." />
 <meta property="og:url" content="https://actechsystems.com.br/" />
 <!-- O card que aparece quando alguem cola o link no WhatsApp, que e o canal
@@ -61,13 +61,17 @@
   "areaServed": [
     { "@type": "City", "name": "Brasília" },
     { "@type": "AdministrativeArea", "name": "Distrito Federal" },
+    { "@type": "City", "name": "Goiânia" },
+    { "@type": "AdministrativeArea", "name": "Goiás" },
     { "@type": "Country", "name": "Brasil" }
   ],
   "sameAs": [
     "https://www.instagram.com/actech.systems"
   ],
   "knowsAbout": [
+    "Criação de sites",
     "Criação de sites para comércios locais",
+    "Site profissional para pequenas empresas",
     "Gestão de Instagram",
     "Google Meu Negócio",
     "Sistemas sob medida",
@@ -142,6 +146,13 @@
       Criação de sites, gestão de Instagram e Google Meu Negócio em uma mensalidade única —
       para comércios, mercados, lojas e prestadores de serviço em Brasília. Site no ar em até
       5 dias úteis e o primeiro mês grátis. Sistemas sob medida orçados à parte.
+    </p>
+    <p style="font-size: 15px; line-height: 1.6; color: #59616E; margin: 0 0 12px;">
+      <a href="criacao-de-sites-brasilia/">Criação de sites em Brasília</a> ·
+      <a href="criacao-de-sites-goiania/">Criação de sites em Goiânia</a> ·
+      <a href="barbearia/">Site para barbearia</a> · <a href="salao-de-beleza/">salão de beleza</a> ·
+      <a href="loja-de-roupa/">loja de roupa</a> · <a href="pet-shop/">pet shop</a> ·
+      <a href="restaurante/">restaurante</a> · <a href="clinica/">clínica</a>
     </p>
     <p style="font-size: 15px; line-height: 1.6; color: #59616E; margin: 0;">
       Esta página precisa de JavaScript para carregar. Ative o JavaScript no seu navegador e atualize.
@@ -2994,7 +3005,7 @@
   <section id="faq" class="pad-section" style="position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 40px 24px 96px;">
     <h2 data-reveal="1" class="font-display" style="font-weight: 800; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 0 0 44px; color: #3D4852;">Dúvidas frequentes</h2>
     <div style="display: grid; gap: 18px;">
-      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="13">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="14">
         <div class="nm-card">
           <div class="faq-head" onClick="{{ f.toggle }}" role="button" tabindex="0">
             <span style="font-size: 16.5px; font-weight: 700; line-height: 1.45; color: #3D4852;">{{ f.q }}</span>
@@ -3107,6 +3118,11 @@
       <a href="mercado/">mercado</a>
       <a href="restaurante/">restaurante</a>
       <a href="clinica/">clínica</a>
+    </nav>
+    <nav class="rodape-ramos" aria-label="Cidades atendidas">
+      <span>Criação de sites em</span>
+      <a href="criacao-de-sites-brasilia/">Brasília</a>
+      <a href="criacao-de-sites-goiania/">Goiânia</a>
     </nav>
   </footer>
 
@@ -4164,6 +4180,7 @@ class Component extends DCLogic {
     const assEssencial = (this.props.assinaturaEssencial ?? '').trim();
     const assCompleto = (this.props.assinaturaCompleto ?? '').trim();
     const faqData = this.memo('faq', () => [
+      { q: 'Quanto custa fazer um site?', a: 'Na ACTech, R$ 359,99 por mês no plano Essencial, sem taxa de criação. Já vem com domínio, hospedagem, manutenção, 8 posts por mês no Instagram e a ficha do Google otimizada. O primeiro mês é grátis.' },
       { q: 'Em quanto tempo meu site fica pronto?', a: 'Até 5 dias úteis depois que recebemos o material básico: logo, fotos, textos e informações de contato. Se preferir, a gente ajuda a organizar esse conteúdo antes de começar.' },
       { q: 'Como funciona o 1º mês grátis?', a: 'Você não paga a primeira mensalidade. Nesse período já fazemos o site, publicamos os posts e configuramos o Google Meu Negócio. A cobrança começa no segundo mês.' },
       { q: 'Tenho que ficar preso por algum tempo?', a: 'Não. Não há fidelidade nem multa: o plano é mês a mês e você cancela quando quiser, direto pelo app do Mercado Pago. Só um aviso honesto: presença digital rende com constância, e quem desiste no segundo mês costuma sair antes de o resultado aparecer. O site continua seu — a gente passa os arquivos e o domínio se você decidir sair.' },
@@ -4176,7 +4193,7 @@ class Component extends DCLogic {
       { q: 'Como funciona o atendente com IA?', a: 'É uma IA ligada ao seu WhatsApp e ao seu Instagram, configurada com os seus preços, horários, endereço e jeito de falar. Ela responde na hora, de dia ou de madrugada, marca horário na sua agenda, manda lembrete e te envia um resumo do dia.' },
       { q: 'E se a IA não souber responder?', a: 'Ela não inventa. Quando a pergunta foge do que foi configurado, ou quando o cliente pede para falar com uma pessoa, a conversa passa para você na hora, com o histórico junto.' },
       { q: 'Em qual plano vem a automação com IA?', a: 'No Completo, de R$ 597,99 por mês, junto com o site, os 20 posts e a ficha do Google. Não tem taxa de implantação, o primeiro mês é grátis e não tem fidelidade.' },
-      { q: 'Vocês atendem fora de Brasília?', a: 'Site e sistema, sim: atendemos o Brasil inteiro, tudo pelo WhatsApp. Os planos com Instagram e ficha do Google são pensados para quem atende em Brasília e no entorno.' }
+      { q: 'Vocês atendem fora de Brasília?', a: 'Sim. Atendemos Brasília, Goiânia e o Brasil inteiro, tudo pelo WhatsApp. Site, Instagram e ficha do Google são feitos a distância, com o mesmo prazo de 5 dias úteis.' }
       // ADS OFF - pergunta da verba de anúncio, guardada para quando o tráfego pago voltar:
       // { q: 'O que significa "verba de anúncio separada"?', a: 'No plano Completo a ACTech cria, configura e otimiza as campanhas no Google e Meta. O valor que vai para o anúncio em si é pago diretamente às plataformas e você define quanto quer investir — ele não está incluído na mensalidade.' }
     ]);

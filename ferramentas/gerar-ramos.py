@@ -317,9 +317,129 @@ def pagina(r, todos):
 
 MODELO = io.open(os.path.join(AQUI, 'ramo-modelo.html'), encoding='utf-8').read()
 
+
+# ---------------------------------------------------------------------------
+# Paginas de busca por cidade: "criacao de sites em Brasilia", "... em Goiania".
+# Mesmo visual dos ramos (o CSS e o JS sao recortados do ramo-modelo.html), mas
+# o assunto e o servico em si. Cada cidade tem texto proprio: pagina igual com
+# so o nome da cidade trocado o Google trata como copia e nao ranqueia.
+CIDADES = [
+    dict(
+        slug='criacao-de-sites-brasilia', cidade='Brasília', uf='DF',
+        titulo='Criação de Sites em Brasília | Pronto em 5 Dias | ACTech',
+        desc='Criação de site profissional em Brasília a partir de R$ 359,99/mês, com domínio, hospedagem, Instagram e ficha do Google. Pronto em 5 dias úteis, 1º mês grátis.',
+        h1='Criação de sites em Brasília, com o seu no ar em 5 dias úteis.',
+        busca='loja de roupa feminina brasília',
+        autor_local='aqui em Brasília',
+        atende=('Atendemos o Plano Piloto e todas as regiões administrativas: Taguatinga, Águas Claras, '
+                'Ceilândia, Guará, Sobradinho, Gama e o entorno. A conversa é pelo WhatsApp, e quando '
+                'precisa, a gente vai até o seu negócio para fotografar e conhecer o espaço.'),
+        faq_local=('Vocês fazem site em qualquer região de Brasília?',
+                   'Sim. Plano Piloto, Taguatinga, Águas Claras, Ceilândia, Guará, Sobradinho, Gama e o entorno do DF. '
+                   'Tudo é combinado pelo WhatsApp, e quando faz diferença a gente vai até o negócio.'),
+    ),
+    dict(
+        slug='criacao-de-sites-goiania', cidade='Goiânia', uf='GO',
+        titulo='Criação de Sites em Goiânia | Pronto em 5 Dias | ACTech',
+        desc='Criação de site profissional em Goiânia a partir de R$ 359,99/mês, com domínio, hospedagem, Instagram e ficha do Google. Pronto em 5 dias úteis, 1º mês grátis.',
+        h1='Criação de sites em Goiânia, com o seu pronto em 5 dias úteis.',
+        busca='loja de roupa feminina goiânia',
+        autor_local='em Brasília, atendendo Goiânia pelo WhatsApp',
+        atende=('Atendemos Goiânia inteira, do Setor Bueno e do Marista a Campinas, ao Jardim América e '
+                'ao Setor Oeste, e também Aparecida de Goiânia e Anápolis. O atendimento é todo pelo WhatsApp: '
+                'você manda as fotos e as informações, aprova o site pelo celular e não precisa de reunião.'),
+        faq_local=('Vocês atendem em Goiânia mesmo sendo de Brasília?',
+                   'Sim. Site, Instagram e ficha do Google são feitos a distância, com o mesmo prazo de 5 dias úteis. '
+                   'Você manda o material pelo WhatsApp e aprova tudo pelo celular, sem precisar de reunião presencial.'),
+    ),
+]
+
+FAQ_SERVICO = [
+    ('Quanto custa fazer um site em {cidade}?',
+     'Com a ACTech, R$ 359,99 por mês no plano Essencial, sem taxa de criação. Já vem com domínio, hospedagem, manutenção, '
+     '8 posts por mês no Instagram e a ficha do Google otimizada. O primeiro mês é grátis.'),
+    ('Quanto tempo leva para criar um site?',
+     'Até 5 dias úteis depois que chega o material básico: logo, fotos, horário e contato. Se passar disso, o 2º mês é por nossa conta.'),
+    ('O domínio .com.br e a hospedagem estão incluídos?',
+     'Estão. Registro do domínio, hospedagem e certificado de segurança fazem parte da mensalidade. '
+     'Se um dia você sair, a gente transfere o domínio para o seu CPF ou CNPJ e entrega os arquivos do site.'),
+    ('O site aparece no Google?',
+     'O site sai preparado para o Google: título e descrição em cada página, carregamento rápido, versão para celular e dados '
+     'que dizem ao Google o que o seu negócio faz e onde atende. A ficha do Google Meu Negócio, que é o que faz aparecer no mapa, é otimizada junto.'),
+    ('O site funciona no celular?',
+     'Funciona, e é pensado primeiro para ele, porque é de onde vem quase todo cliente. No computador ele se ajusta à tela grande.'),
+    ('Vocês fazem loja virtual ou sistema?',
+     'O plano cobre o site do seu negócio, com até 5 páginas. Sistemas sob medida, como agenda online, controle de caixa '
+     'e painel de gestão, são orçados à parte. É só contar no WhatsApp o que você precisa.'),
+    ('Tem fidelidade ou multa?',
+     'Não. É mês a mês, e você cancela quando quiser pelo app do Mercado Pago, sem precisar falar com ninguém.'),
+]
+
+
+def recorte(ini, fim):
+    return MODELO[MODELO.index(ini):MODELO.index(fim)]
+
+
+def pagina_cidade(c):
+    url = SITE + c['slug'] + '/'
+    loja = next(r for r in RAMOS if r['slug'] == 'loja-de-roupa')
+    msg = 'Olá! Vi a página de criação de sites em %s da ACTech e quero um orçamento.' % c['cidade']
+    perguntas = [(q.format(cidade=c['cidade']), a) for q, a in FAQ_SERVICO]
+    perguntas.insert(4, c['faq_local'])
+    faq = ''.join('<details><summary>%s</summary><p>%s</p></details>' % (e(q), e(a)) for q, a in perguntas)
+    ramos = ''.join(
+        '<li><a href="../%s/"><img src="%s" alt="" width="400" height="300" loading="lazy" decoding="async">'
+        '<b>%s</b><span>Ver o exemplo →</span></a></li>' % (r['slug'], foto(r['fotos'][0]), e(r['rotulo']))
+        for r in RAMOS)
+    outros = ' '.join('<a href="../%s/">%s</a>' % (r['slug'], e(r['nome_ramo'])) for r in RAMOS)
+    outras = ' '.join('<a href="../%s/">criação de sites em %s</a>' % (o['slug'], e(o['cidade']))
+                      for o in CIDADES if o['slug'] != c['slug'])
+    nome = 'Criação de sites em %s' % c['cidade']
+    # Sem FAQPage de proposito: o Google so mostra esse resultado para site de
+    # governo e de saude (ver 02-decisoes/seo-local-da-actech no cofre).
+    ld = [
+        {'@context': 'https://schema.org', '@type': 'Service', 'name': nome,
+         'serviceType': 'Criação de sites', 'provider': {'@id': SITE + '#empresa'}, 'url': url,
+         'areaServed': {'@type': 'City', 'name': c['cidade'],
+                        'containedInPlace': {'@type': 'State', 'name': 'Distrito Federal' if c['uf'] == 'DF' else 'Goiás'}},
+         'offers': [
+             {'@type': 'Offer', 'name': 'Plano Essencial', 'price': '359.99', 'priceCurrency': 'BRL'},
+             {'@type': 'Offer', 'name': 'Plano Completo', 'price': '597.99', 'priceCurrency': 'BRL'},
+         ]},
+        {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'ACTech Informática', 'item': SITE},
+            {'@type': 'ListItem', 'position': 2, 'name': nome, 'item': url}]},
+    ]
+    css = recorte('<style>\n', '</style>')[len('<style>\n'):]
+    js = recorte('<script>\n(function', '</body>').replace("pagina: 'ramo'", "pagina: 'cidade'")
+    v = dict(
+        TITULO=e(c['titulo']), DESC=e(c['desc']), URL=url, OG=SITE + 'imgs/og.png',
+        TOM=loja['tom'], TOM_TXT=loja['tom_txt'], SLUG=c['slug'], PIXEL=PIXEL,
+        H1=e(c['h1']), CIDADE=e(c['cidade']), BUSCA=e(c['busca']), ATENDE=e(c['atende']),
+        AUTOR_LOCAL=e(c['autor_local']),
+        ZAP=e(zap(msg)), ESS=ASSINAR_ESSENCIAL, COMP=ASSINAR_COMPLETO,
+        DOM=e(dominio(loja)), EXEMPLO=e(loja['exemplo']), INI=e(loja['exemplo'][0]),
+        SITE_PC=site_pc(loja), SITE_CEL=site_cel(loja),
+        RAMOS=ramos, FAQ=faq, OUTROS=outros, OUTRAS=outras, ZAP_SVG=ZAP_SVG, CHECK=CHECK_SVG,
+        LD=json.dumps(ld, ensure_ascii=False),
+    )
+    html = SERVICO.replace('[[CSS]]', css).replace('[[JS]]', js)
+    for k, val in v.items():
+        html = html.replace('[[' + k + ']]', val)
+    assert '[[' not in html, html[html.index('[['):html.index('[[') + 40]
+    return html
+
+
+SERVICO = io.open(os.path.join(AQUI, 'servico-modelo.html'), encoding='utf-8').read()
+
 if __name__ == '__main__':
     for r in RAMOS:
         pasta = os.path.join(RAIZ, r['slug'])
         os.makedirs(pasta, exist_ok=True)
         io.open(os.path.join(pasta, 'index.html'), 'w', encoding='utf-8', newline='\n').write(pagina(r, RAMOS))
         print('ok', r['slug'] + '/')
+    for c in CIDADES:
+        pasta = os.path.join(RAIZ, c['slug'])
+        os.makedirs(pasta, exist_ok=True)
+        io.open(os.path.join(pasta, 'index.html'), 'w', encoding='utf-8', newline='\n').write(pagina_cidade(c))
+        print('ok', c['slug'] + '/')
