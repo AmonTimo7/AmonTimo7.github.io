@@ -155,6 +155,8 @@
      Os tokens abaixo são a única fonte de verdade das sombras.
      =========================================================== */
   :root {
+    --largura: 1180px;
+    --margem: 24px;
     --bg: #E0E5EC;
     --fg: #3D4852;
     /* Escurecido de #59616E. Aquele dava 3,82:1 no proprio cinza da pagina -
@@ -215,6 +217,8 @@
     --ease: cubic-bezier(.2,.7,.2,1);
   }
 
+  @media (min-width: 1440px) { :root { --largura: 1320px; --margem: 40px; } }
+  @media (min-width: 1680px) { :root { --largura: 1480px; --margem: 48px; } }
   * { box-sizing: border-box; }
   html {
     scroll-behavior: smooth;
@@ -352,7 +356,7 @@
   /* ---------- barra do topo ---------- */
   .topo { position: sticky; top: 0; z-index: 40; padding: 12px 24px 0; pointer-events: none; }
   .topo-barra {
-    pointer-events: auto; max-width: 1180px; margin: 0 auto; display: flex; align-items: center; gap: 18px;
+    pointer-events: auto; max-width: var(--largura); margin: 0 auto; display: flex; align-items: center; gap: 18px;
     padding: 8px 8px 8px 16px; border-radius: 20px;
     background: rgba(240,243,247,.72);
     -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
@@ -1589,7 +1593,9 @@
   .ebook-tick { width: 22px; height: 22px; border-radius: 999px; box-shadow: var(--nm-in-sm); display: grid; place-items: center; flex: none; margin-top: 1px; }
 
   /* ---------- layout ---------- */
-  .wrap { max-width: 1180px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  /* A largura do conteudo cresce com a tela: em monitor largo sobravam
+     ~370px vazios de cada lado. O texto corrido continua com medida em ch. */
+  .wrap { max-width: var(--largura); margin: 0 auto; padding-left: var(--margem); padding-right: var(--margem); }
   .hero-grid { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: 52px; align-items: center; }
   .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 56px; align-items: center; }
   .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 24px; }
@@ -1623,7 +1629,7 @@
   @media (max-width: 1080px) {
     .nav-desktop { display: none !important; }
     .icon-btn { display: inline-flex; }
-    .mobile-menu { display: block; max-width: 1180px; margin: 0 auto; }
+    .mobile-menu { display: block; max-width: var(--largura); margin: 0 auto; }
     .topo-acoes { margin-left: auto; }
   }
   @media (max-width: 560px) {
@@ -3061,14 +3067,14 @@
          rampa calibrada pro branco deixaria o fundo inteiro em alpha 141,
          porque 236 nao e 255. Vale lembrar se entrar outra arte em fundo claro.
          O alt carrega o texto da imagem: quem usa leitor de tela nao le pixel. -->
-    <div data-reveal="1" style="text-align: center; margin: 0 auto 46px; max-width: 1180px;">
+    <div data-reveal="1" style="text-align: center; margin: 0 auto 46px; max-width: var(--largura);">
       <img src="imgs/assinatura.webp" width="460" height="94"
            alt="ACTech Informática — sites e sistemas sob medida"
            loading="lazy" decoding="async"
            style="width: min(460px, 82%); height: auto; display: inline-block;" />
     </div>
-    <div class="nm-track" style="max-width: 1180px; margin: 0 auto 28px; height: 6px; border-radius: 999px;"></div>
-    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 14px; color: #59616E;">
+    <div class="nm-track" style="max-width: var(--largura); margin: 0 auto 28px; height: 6px; border-radius: 999px;"></div>
+    <div style="max-width: var(--largura); margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 14px; color: #59616E;">
       <div>
         ACTech Informática — criação de sites, gestão de Instagram, Google Meu Negócio,
         automação com IA e sistemas sob medida para pequenos e médios negócios.<br />
