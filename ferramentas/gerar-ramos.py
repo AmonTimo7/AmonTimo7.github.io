@@ -22,7 +22,7 @@ from html import escape
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.dirname(AQUI)
-SITE = 'https://actechsystems.github.io/'
+SITE = 'https://actechsystems.com.br/'
 WHATS = '5561994299823'
 PIXEL = '2217077532566142'
 ASSINAR_ESSENCIAL = 'https://mpago.la/1JApXpJ'

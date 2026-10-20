@@ -3,67 +3,67 @@
   <!-- A pagina principal, as oito por ramo (geradas por ferramentas/gerar-ramos.py)
        e a de privacidade. As secoes (#planos, #sistemas) sao ancoras e nao entram. -->
   <url>
-    <loc>https://actechsystems.github.io/</loc>
+    <loc>https://actechsystems.com.br/</loc>
     <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://actechsystems.github.io/barbearia/</loc>
+    <loc>https://actechsystems.com.br/barbearia/</loc>
     <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://actechsystems.github.io/salao-de-beleza/</loc>
+    <loc>https://actechsystems.com.br/salao-de-beleza/</loc>
     <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://actechsystems.github.io/maquiagem/</loc>
+    <loc>https://actechsystems.com.br/maquiagem/</loc>
     <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://actechsystems.github.io/loja-de-roupa/</loc>
+    <loc>https://actechsystems.com.br/loja-de-roupa/</loc>
     <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://actechsystems.github.io/pet-shop/</loc>
+    <loc>https://actechsystems.com.br/pet-shop/</loc>
     <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://actechsystems.github.io/mercado/</loc>
+    <loc>https://actechsystems.com.br/mercado/</loc>
     <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://actechsystems.github.io/restaurante/</loc>
+    <loc>https://actechsystems.com.br/restaurante/</loc>
     <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://actechsystems.github.io/clinica/</loc>
+    <loc>https://actechsystems.com.br/clinica/</loc>
     <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://actechsystems.github.io/privacidade.html</loc>
+    <loc>https://actechsystems.com.br/privacidade.html</loc>
     <lastmod>2026-10-13</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://actechsystems.github.io/termos.html</loc>
+    <loc>https://actechsystems.com.br/termos.html</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

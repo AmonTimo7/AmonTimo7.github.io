@@ -1,6 +1,6 @@
 # Roteiro da visita ao comércio
 
-Como usar o modo apresentação (`actechsystems.github.io/apresentar`) numa
+Como usar o modo apresentação (`actechsystems.com.br/apresentar`) numa
 visita de porta. Feito pra durar **5 a 8 minutos** em pé, no balcão.
 
 ---
@@ -8,7 +8,7 @@ visita de porta. Feito pra durar **5 a 8 minutos** em pé, no balcão.
 ## Antes de sair de casa
 
 **Salve a apresentação na tela de início do celular.** Abra
-`actechsystems.github.io/apresentar` no navegador → menu → "Adicionar à tela
+`actechsystems.com.br/apresentar` no navegador → menu → "Adicionar à tela
 de início". Vira um ícone. Na loja você não quer estar digitando endereço na
 frente do dono.
 
@@ -168,7 +168,7 @@ Duas saídas, e **as duas são boas**:
 **No mesmo dia**, mande o WhatsApp — mesmo pra quem disse não:
 
 > "Oi [nome], foi bom te conhecer hoje. Deixo aqui o que te mostrei:
-> actechsystems.github.io/apresentar — é só escolher [ramo dele].
+> actechsystems.com.br/apresentar — é só escolher [ramo dele].
 > Qualquer coisa estou por aqui."
 
 **Anote numa planilha**: nome do comércio, nome do dono, telefone, ramo,
