@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Termos de Serviço — ACTech Informática</title>
+<meta name="description" content="As regras dos planos mensais da ACTech Informática: o que está incluído, cobrança, primeiro mês grátis, prazo de entrega, cancelamento, arrependimento e o atendente com IA." />
+<meta name="theme-color" content="#E0E5EC" />
+<link rel="canonical" href="https://actechsystems.github.io/termos.html" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='8'%20fill='%23E0E5EC'/%3E%3Cpath%20d='M12%2011l-5%205%205%205M20%2011l5%205-5%205'%20fill='none'%20stroke='%233D6A99'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="fontes/fontes.css" />
+<link rel="manifest" href="manifest.webmanifest" />
+
+<style>
+  /* HTML puro, como a 404: pagina de texto nao precisa de runtime nenhum.
+     Tokens copiados do index.html -- mudou a paleta la, muda aqui. */
+  :root {
+    --bg: #E0E5EC;
+    --fg: #3D4852;
+    --muted: #59616E;
+    --accent: #3D6A99;
+    --accent-light: #5E8CBA;
+    --sh-dark: rgba(163,177,198,.6);
+    --sh-light: rgba(255,255,255,.5);
+    --nm-out:    9px 9px 16px var(--sh-dark), -9px -9px 16px var(--sh-light);
+    --nm-out-sm: 5px 5px 10px var(--sh-dark), -5px -5px 10px var(--sh-light);
+    --nm-in-sm:  inset 3px 3px 6px var(--sh-dark), inset -3px -3px 6px var(--sh-light);
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; padding: 40px 24px 80px;
+    background: var(--bg); color: var(--fg);
+    font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: rgba(61,106,153,.22); }
+  /* link em texto corrido usa o azul escurecido (7,6:1); o --accent puro
+     fica em 4,46 sobre o cinza e o claro do hover caia pra 2,8 */
+  a { color: #24476B; text-underline-offset: 3px; }
+  a:hover { color: var(--accent); text-decoration-thickness: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+  .folha { max-width: 760px; margin: 0 auto; }
+  .marca {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 18px 10px 12px; border-radius: 14px; background: var(--bg); box-shadow: var(--nm-out-sm);
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-weight: 700; font-size: 15px; color: var(--fg); text-decoration: none;
+  }
+  .marca span { font-weight: 500; color: var(--muted); }
+
+  h1 {
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-weight: 800;
+    font-size: clamp(32px, 5.6vw, 50px); line-height: 1.05; letter-spacing: -.035em;
+    margin: 44px 0 0; text-wrap: balance;
+  }
+  .lead { margin: 18px 0 0; font-size: 18px; line-height: 1.65; color: var(--muted); max-width: 60ch; }
+  .data { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
+
+  /* O resumo e o que quase todo mundo vai ler: fica num poco, antes do resto. */
+  .resumo { margin: 36px 0 0; padding: 26px 28px; border-radius: 24px; background: var(--bg); box-shadow: var(--nm-in-sm); }
+  .resumo ul { margin: 0; padding-left: 20px; }
+  .resumo li { margin: 6px 0; font-size: 16px; line-height: 1.6; }
+
+  .texto { margin-top: 20px; }
+  .texto h2 {
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-weight: 800;
+    font-size: 23px; letter-spacing: -.02em; line-height: 1.2; margin: 44px 0 0;
+  }
+  .texto p, .texto li { font-size: 16.5px; line-height: 1.72; color: var(--muted); max-width: 68ch; }
+  .texto p { margin: 12px 0 0; }
+  .texto ul { margin: 12px 0 0; padding-left: 22px; }
+  .texto li { margin: 6px 0; }
+  .texto strong { color: var(--fg); }
+
+  .contato { margin: 52px 0 0; padding: 28px; border-radius: 24px; background: var(--bg); box-shadow: var(--nm-out); }
+  .contato b { display: block; font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-size: 19px; }
+  .contato p { margin: 8px 0 0; font-size: 15.5px; line-height: 1.6; color: var(--muted); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px; margin-top: 18px;
+    padding: 14px 24px; border-radius: 14px; background: #C44F00; color: #fff; box-shadow: var(--nm-out-sm);
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-weight: 700; font-size: 15px; text-decoration: none;
+    transition: transform .3s var(--ease);
+  }
+  .btn:hover { color: #fff; transform: translateY(-2px); }
+  .voltar { display: inline-block; margin-top: 36px; font-size: 15px; }
+
+  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:hover { transform: none; } }
+  .sumario { margin: 28px 0 0; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; }
+  .texto h2 { scroll-margin-top: 20px; }
+  .texto h2 span { color: var(--muted); font-weight: 700; margin-right: 6px; }
+  .empresa { margin: 14px 0 0; padding: 16px 18px; border-radius: 18px; box-shadow: var(--nm-in-sm); font-size: 15px; line-height: 1.7; color: var(--muted); }
+  .empresa b { color: var(--fg); }
+  @media print { body { background: #fff; } .resumo, .empresa, .contato { box-shadow: none; border: 1px solid #ccc; } .btn, .voltar, .marca { display: none; } }
+</style>
+</head>
+<body>
+
+<main class="folha">
+  <a class="marca" href="./">
+    <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" rx="8" fill="#E0E5EC"></rect>
+      <path d="M12 11l-5 5 5 5M20 11l5 5-5 5" fill="none" stroke="#3D6A99" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    ACTech <span>Informática</span>
+  </a>
+
+  <h1>Termos de Serviço dos planos mensais.</h1>
+  <p class="lead">As regras do que a ACTech faz por você, de quanto custa, de quando é cobrado e de como cancelar. Ao assinar um plano, você concorda com estes termos.</p>
+  <p class="data">Versão 1 · em vigor desde 20 de outubro de 2026.</p>
+
+  <div class="resumo">
+    <ul>
+      <li><strong>1º mês grátis:</strong> a primeira cobrança só acontece no segundo mês.</li>
+      <li><strong>Renova todo mês</strong> no cartão, pelo Mercado Pago, até você cancelar.</li>
+      <li><strong>Sem fidelidade e sem multa:</strong> cancela quando quiser.</li>
+      <li><strong>7 dias para desistir</strong> com o dinheiro de volta, se já tiver pago algo.</li>
+      <li><strong>Site no ar em até 5 dias úteis</strong> depois que o material chega. Se passar disso, o 2º mês não é cobrado.</li>
+      <li><strong>O site é seu:</strong> se sair, a gente entrega os arquivos e passa o domínio para você.</li>
+    </ul>
+  </div>
+
+  <nav class="sumario" aria-label="Partes dos termos">
+    <a href="#t1">Quem presta o serviço</a><a href="#t2">O que está incluído</a><a href="#t3">Preço e cobrança</a>
+    <a href="#t4">Prazo e garantia</a><a href="#t5">Como o trabalho acontece</a><a href="#t6">O que fica com você</a>
+    <a href="#t7">Atendente com IA</a><a href="#t8">Cancelamento</a><a href="#t9">Depois de cancelar</a>
+    <a href="#t10">Dados pessoais</a><a href="#t11">Limites</a><a href="#t12">Mudanças e foro</a>
+  </nav>
+
+  <div class="texto">
+    <h2 id="t1"><span>1.</span>Quem presta o serviço</h2>
+    <div class="empresa">
+      <b>ACTech Informática</b>, nome usado por <b>64.497.294 AMON CARDOSO TIMO</b><br>
+      CNPJ <b>64.497.294/0001-91</b> · Brasília, DF<br>
+      Atendimento: WhatsApp (61) 99429-9823 · Instagram @actech.systems
+    </div>
+    <p>Quem contrata (o seu negócio) é chamado aqui de <strong>cliente</strong>.</p>
+
+    <h2 id="t2"><span>2.</span>O que está incluído em cada plano</h2>
+    <p><strong>Essencial (R$ 359,99 por mês):</strong></p>
+    <ul>
+      <li>site institucional com até 5 páginas, com domínio e hospedagem incluídos enquanto o plano estiver ativo;</li>
+      <li>manutenção mensal do site e 1 atualização de conteúdo por mês;</li>
+      <li>8 posts por mês nas redes sociais, com arte e legenda;</li>
+      <li>ficha do Google (Google Meu Negócio) configurada e otimizada.</li>
+    </ul>
+    <p><strong>Completo (R$ 597,99 por mês):</strong> tudo do Essencial, mais:</p>
+    <ul>
+      <li>atendente com IA no WhatsApp e no Instagram, com agendamento automático, lembrete e resumo diário (veja o item 7);</li>
+      <li>20 posts por mês com artes elaboradas, no lugar dos 8;</li>
+      <li>ficha do Google ativa, com post toda semana e resposta às avaliações;</li>
+      <li>4 atualizações de conteúdo por mês no site, no lugar de 1;</li>
+      <li>relatório mensal de desempenho e suporte prioritário.</li>
+    </ul>
+    <p>Atualizações e posts que não forem usados num mês não acumulam para o mês seguinte. Serviços fora do plano, como sistemas sob medida, lojas virtuais com pagamento ou tráfego pago, são orçados à parte.</p>
+
+    <h2 id="t3"><span>3.</span>Preço, primeiro mês grátis e cobrança</h2>
+    <ul>
+      <li>O plano é uma <strong>assinatura mensal</strong>, cobrada no cartão de crédito pelo <strong>Mercado Pago</strong>. A ACTech não vê nem guarda os dados do seu cartão.</li>
+      <li>O <strong>primeiro mês é grátis</strong>: a primeira cobrança acontece um mês depois da data da assinatura, e as seguintes, todo mês na mesma data.</li>
+      <li>A assinatura <strong>renova sozinha</strong> todo mês até ser cancelada.</li>
+      <li>Não há taxa de adesão nem de implantação.</li>
+      <li>Se o preço mudar, você é avisado pelo WhatsApp com pelo menos 30 dias de antecedência e pode cancelar antes de o novo valor valer.</li>
+      <li>Se o pagamento não passar, a gente avisa. Depois de 15 dias sem pagamento, o serviço pode ser suspenso até a regularização.</li>
+    </ul>
+
+    <h2 id="t4"><span>4.</span>Prazo de entrega e garantia</h2>
+    <p>O site fica pronto em até <strong>5 dias úteis</strong>, contados a partir do dia em que chega o material básico: logo (se tiver), fotos, textos ou informações do negócio, horário e contatos. Se faltar alguma coisa, a gente avisa no mesmo dia.</p>
+    <p><strong>Garantia:</strong> se o site não ficar pronto nesse prazo por motivo da ACTech, a mensalidade do segundo mês não é cobrada. O tempo em que a ACTech está esperando material, resposta ou aprovação do cliente não entra na conta.</p>
+
+    <h2 id="t5"><span>5.</span>Como o trabalho acontece</h2>
+    <ul>
+      <li>Tudo é combinado pelo WhatsApp: material, prévias, aprovações e pedidos de mudança.</li>
+      <li>O site e os posts são mostrados antes de ir para o ar, e você pode pedir ajustes.</li>
+      <li>Para publicar no Instagram e cuidar da ficha do Google, você dá acesso às contas. As contas continuam sendo suas.</li>
+      <li>Você é responsável por ter o direito de usar o material que manda (fotos, logos, textos) e por manter as informações do negócio corretas, como preços, horários e endereço.</li>
+    </ul>
+
+    <h2 id="t6"><span>6.</span>O que fica com você</h2>
+    <p>O conteúdo do site, as fotos, os textos e as artes feitas para o seu negócio são seus. Os perfis no Instagram e a ficha do Google são seus desde o início. O domínio é registrado e pode ser transferido para o seu CPF ou CNPJ, como explica o item 9.</p>
+
+    <h2 id="t7"><span>7.</span>Atendente com IA (plano Completo)</h2>
+    <ul>
+      <li>A IA responde com base nas informações que você aprova: preços, horários, endereço, serviços e regras do negócio.</li>
+      <li>A IA pode errar ou não saber responder. Quando isso acontece, ou quando o cliente pede uma pessoa, a conversa passa para você. Revise as conversas sempre que puder.</li>
+      <li>Ela não dá diagnóstico, orientação médica, jurídica ou financeira, nem fecha valores fora do que foi configurado.</li>
+      <li>O funcionamento depende de serviços de terceiros, como WhatsApp, Instagram e Meta, e das regras deles. Mudanças ou quedas nesses serviços podem afetar o atendente.</li>
+      <li>O agendamento usa a agenda que você indicar. Confira os horários marcados.</li>
+    </ul>
+
+    <h2 id="t8"><span>8.</span>Cancelamento e direito de arrependimento</h2>
+    <ul>
+      <li><strong>Sem fidelidade e sem multa.</strong> Você cancela quando quiser, pelo app ou site do Mercado Pago (em Assinaturas) ou pedindo pelo WhatsApp.</li>
+      <li>O cancelamento vale para as próximas cobranças. O mês que já foi pago continua funcionando até o fim.</li>
+      <li>Cancelando durante o mês grátis, nada é cobrado.</li>
+      <li><strong>Direito de arrependimento:</strong> você pode desistir em até 7 dias da contratação (art. 49 do Código de Defesa do Consumidor). Se algum valor tiver sido cobrado nesse prazo, ele é devolvido integralmente.</li>
+    </ul>
+
+    <h2 id="t9"><span>9.</span>Depois de cancelar</h2>
+    <ul>
+      <li>Em até 15 dias, a ACTech entrega os arquivos do site e transfere o domínio para o seu CPF ou CNPJ, se você quiser.</li>
+      <li>A hospedagem e o atendente com IA param ao fim do último período pago.</li>
+      <li>Os posts publicados continuam no seu Instagram.</li>
+    </ul>
+
+    <h2 id="t10"><span>10.</span>Dados pessoais</h2>
+    <p>O tratamento de dados segue a Lei Geral de Proteção de Dados (Lei 13.709/2018) e a <a href="privacidade.html">Política de Privacidade</a>. No atendimento com IA e no agendamento, a ACTech trata dados dos <strong>seus</strong> clientes em seu nome: você é o controlador desses dados e a ACTech é a operadora. A ACTech usa esses dados só para prestar o serviço, mantém sigilo e apaga o que não precisar guardar quando o plano termina.</p>
+
+    <h2 id="t11"><span>11.</span>Limites do serviço</h2>
+    <ul>
+      <li>A ACTech se compromete a fazer o trabalho descrito aqui com cuidado. Ela não garante posição específica na busca do Google, número de seguidores, clientes ou vendas, porque isso depende de muitos fatores fora do controle dela.</li>
+      <li>Quedas ou mudanças de serviços de terceiros (hospedagem, Google, Meta, Mercado Pago) podem afetar o serviço por um tempo. A ACTech trabalha para resolver o mais rápido possível.</li>
+    </ul>
+
+    <h2 id="t12"><span>12.</span>Mudanças nestes termos e foro</h2>
+    <p>Se estes termos mudarem, você é avisado pelo WhatsApp com 30 dias de antecedência, e a data da versão no topo desta página é atualizada. Fica eleito o foro de Brasília, DF, sem prejuízo do seu direito de buscar a Justiça na cidade onde você está, se for o caso.</p>
+  </div>
+
+  <div class="contato">
+    <b>Ficou alguma dúvida sobre estes termos?</b>
+    <p>Manda uma mensagem que eu explico qualquer ponto antes de você assinar.</p>
+    <a class="btn" href="https://wa.me/5561994299823?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20os%20Termos%20de%20Servi%C3%A7o%20da%20ACTech." target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path></svg>
+      Falar no WhatsApp
+    </a>
+  </div>
+
+  <a class="voltar" href="./">← Voltar para o site</a>
+</main>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js')['catch'](function (e) { console.warn('[sw] nao registrou:', e); });
+    });
+  }
+</script>
+</body>
+</html>

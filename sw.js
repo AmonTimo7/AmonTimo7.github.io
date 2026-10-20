@@ -14,7 +14,7 @@
      São versionados pelo deploy e não mudam no meio do dia.
 */
 
-var VERSAO = 'actech-v16';
+var VERSAO = 'actech-v17';
 var C_CASCA = VERSAO + '-casca';
 var C_USO = VERSAO + '-uso';
 
@@ -27,6 +27,7 @@ var CASCA = [
   '404.html',
   'offline.html',
   'privacidade.html',
+  'termos.html',
   /* As paginas por ramo: o Amon abre a do ramo na frente do cliente. */
   'barbearia/',
   'salao-de-beleza/',
@@ -69,6 +70,7 @@ var CASCA = [
   'extras/automacao.js',
   'extras/guia.css',
   'extras/guia.js',
+  'extras/aceite.js',
   'imgs/plano-glow-essencial.webp',
   'imgs/plano-glow-completo.webp',
   'imgs/plano-essencial-1.webp',
