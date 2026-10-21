@@ -14,20 +14,22 @@
      São versionados pelo deploy e não mudam no meio do dia.
 */
 
-var VERSAO = 'actech-v19';
+var VERSAO = 'actech-v20';
 var C_CASCA = VERSAO + '-casca';
 var C_USO = VERSAO + '-uso';
 
 /* O kit de venda: o que precisa estar garantido offline mesmo que o Amon
    nunca tenha aberto a apresentação naquele aparelho. São ~700 KB. */
+/* Sem .html: o Cloudflare Pages responde /termos.html com 308 para /termos, e
+   resposta redirecionada guardada no cache nao serve para abrir pagina. */
 var CASCA = [
-  'apresentar.html',
-  'index.html',
-  'obrigado.html',
-  '404.html',
-  'offline.html',
-  'privacidade.html',
-  'termos.html',
+  'apresentar',
+  './',
+  'obrigado',
+  '404',
+  'offline',
+  'privacidade',
+  'termos',
   /* As paginas por ramo: o Amon abre a do ramo na frente do cliente. */
   'barbearia/',
   'salao-de-beleza/',
@@ -139,8 +141,8 @@ self.addEventListener('fetch', function (e) {
         return res;
       })['catch'](function () {
         return caches.match(req, { ignoreSearch: true }).then(function (r) {
-          return r || caches.match('apresentar.html').then(function (a) {
-            return a || caches.match('offline.html');
+          return r || caches.match('apresentar').then(function (a) {
+            return a || caches.match('offline');
           });
         });
       })
