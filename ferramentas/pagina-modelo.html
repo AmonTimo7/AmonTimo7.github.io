@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<!-- Endereço oficial: actechsystems.com.br. Quem chega pelo github.io ou
+     pelo pages.dev vai para a mesma página no domínio novo. -->
+<script>if(/^actechsystems\.(github\.io|pages\.dev)$/.test(location.hostname))location.replace('https://actechsystems.com.br'+location.pathname+location.search+location.hash);</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- GERADO por ferramentas/gerar-ramos.py a partir de ferramentas/pagina-modelo.html. Nao edite aqui:
+     a proxima geracao apaga. Mude o modelo ou os dados e rode o script. -->
+<title>[[TITULO]]</title>
+<meta name="description" content="[[DESC]]" />
+<link rel="canonical" href="[[URL]]" />
+<meta name="theme-color" content="#E0E5EC" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:site_name" content="ACTech Informática" />
+<meta property="og:title" content="[[TITULO]]" />
+<meta property="og:description" content="[[DESC]]" />
+<meta property="og:url" content="[[URL]]" />
+<meta property="og:image" content="[[OG]]" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/imgs/favicon-96.png" type="image/png" sizes="96x96" />
+<link rel="apple-touch-icon" href="/imgs/apple-touch-icon.png" />
+<link rel="stylesheet" href="../fontes/fontes.css" />
+<link rel="manifest" href="../manifest.webmanifest" />
+<script type="application/ld+json">[[LD]]</script>
+
+<style>
+[[CSS]]
+[[CSS2]]
+
+  /* ---------- so das paginas de assunto ----------
+     Base vem do ramo-modelo e do servico-modelo, colada pelo gerador. */
+  .hero-img { width: 100%; height: auto; border-radius: var(--r-card); box-shadow: var(--nm-out); }
+  .hero-cel { display: block; width: auto; max-width: 100%; height: min(560px, 70vh); margin: 0 auto; filter: drop-shadow(18px 26px 30px rgba(61,72,82,.28)); }
+  .texto { max-width: 68ch; }
+  .texto p { margin: 18px 0 0; font-size: 17px; line-height: 1.7; color: var(--muted); }
+  .texto b { color: var(--fg); }
+  .texto h3 { margin: 40px 0 0; font: 800 clamp(20px, 2.1vw, 24px)/1.25 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: -.02em; color: var(--fg); }
+  .sec .lista { max-width: 68ch; }
+
+  /* conversa de exemplo no WhatsApp, no tema escuro como no app */
+  .chat { max-width: 430px; margin: 0 auto; border-radius: 32px; overflow: hidden; background: #0b141a; box-shadow: var(--nm-out); font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  .chat-topo { display: flex; align-items: center; gap: 12px; padding: 16px 18px; background: #202c33; color: #e9edef; }
+  .chat-av { flex: none; width: 40px; height: 40px; border-radius: 999px; display: grid; place-items: center; background: #B07D2A; color: #fff; font: 800 16px 'Plus Jakarta Sans', sans-serif; }
+  .chat-topo b { display: block; font-size: 15.5px; }
+  .chat-topo small { display: block; font-size: 12.5px; color: #8696a0; }
+  .chat-corpo { padding: 14px 14px 18px; display: flex; flex-direction: column; gap: 8px; min-height: 380px;
+    background-image: radial-gradient(rgba(255,255,255,.035) 1px, transparent 1px); background-size: 18px 18px; }
+  .msg { max-width: 82%; padding: 8px 11px 6px; border-radius: 10px; font-size: 14.5px; line-height: 1.45; color: #e9edef; }
+  .msg small { display: block; margin-top: 2px; text-align: right; font-size: 11px; color: rgba(233,237,239,.6); }
+  .msg.cli { align-self: flex-start; background: #202c33; border-top-left-radius: 2px; }
+  .msg.ia { align-self: flex-end; background: #005c4b; border-top-right-radius: 2px; }
+  .chat-dia { align-self: center; font-size: 12px; color: #8696a0; background: #182229; padding: 5px 12px; border-radius: 8px; }
+  .chat-nota { margin: 12px 4px 0; text-align: center; font-size: 13px; color: var(--muted); }
+
+  @media (max-width: 760px) {
+    .hero-cel { height: min(440px, 62vh); }
+    .chat-corpo { min-height: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="wrap">
+    <a class="marca" href="../">
+      <img src="../imgs/marca.webp" alt="" width="46" height="37">
+      <span>ACTech <i>Informática</i></span>
+    </a>
+    <nav aria-label="Principal">
+      [[NAV]]
+      <a class="btn btn-1" href="[[ZAP]]" target="_blank" rel="noopener">[[ZAP_SVG]]<span>Falar no WhatsApp</span></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div>
+      <h1>[[H1]]</h1>
+      <p class="lead">[[LEAD]]</p>
+      <div class="acoes">
+        [[CTA1]]
+        <a class="btn btn-2" href="[[ZAP]]" target="_blank" rel="noopener">[[ZAP_SVG]] [[CTA2]]</a>
+      </div>
+      <ul class="oferta">[[OFERTA]]</ul>
+    </div>
+    <div>[[VISUAL]]</div>
+  </section>
+
+[[CORPO]]
+</main>
+
+<footer class="rodape">
+  <div class="wrap">
+    <nav aria-label="O que a ACTech faz"><strong>A ACTech faz</strong> [[SERVICOS]]</nav>
+    <nav aria-label="Sites por ramo"><strong>Site para</strong> [[OUTROS]]</nav>
+    <div>ACTech Informática · CNPJ 64.497.294/0001-91 · Brasília, DF · <a href="../">Página completa</a> · <a href="../termos.html">Termos de Serviço</a> · <a href="../privacidade.html">Privacidade</a></div>
+  </div>
+</footer>
+
+<a class="fab" href="[[ZAP]]" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">[[ZAP_SVG]]<span>WhatsApp</span></a>
+
+[[JS]]
+</body>
+</html>

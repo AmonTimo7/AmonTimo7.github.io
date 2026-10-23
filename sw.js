@@ -14,7 +14,7 @@
      São versionados pelo deploy e não mudam no meio do dia.
 */
 
-var VERSAO = 'actech-v21';
+var VERSAO = 'actech-v22';
 var C_CASCA = VERSAO + '-casca';
 var C_USO = VERSAO + '-uso';
 
@@ -41,6 +41,10 @@ var CASCA = [
   'clinica/',
   'criacao-de-sites-brasilia/',
   'criacao-de-sites-goiania/',
+  'quanto-custa-um-site/',
+  'atendente-ia-whatsapp/',
+  'gestao-de-instagram-brasilia/',
+  'sistema-sob-medida-brasilia/',
   'manifest.webmanifest',
   'favicon.ico',
   'imgs/favicon-96.png',
