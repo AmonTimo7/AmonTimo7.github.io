@@ -10,32 +10,31 @@
 <meta name="description" content="Apresentação da ACTech Informática para comércios de Brasília." />
 <!-- Ferramenta de venda, não página de visitante. -->
 <meta name="robots" content="noindex, nofollow" />
-<meta name="theme-color" content="#0C1424" />
+<meta name="theme-color" content="#FFFFFF" />
 <!-- Icone em arquivo de verdade, quadrado e multiplo de 48px: e o que o Google
      exige para mostrar o icone na busca (icone embutido em data: ele ignora). -->
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
 <link rel="icon" href="/imgs/favicon-96.png" type="image/png" sizes="96x96" />
 <link rel="apple-touch-icon" href="/imgs/apple-touch-icon.png" />
-<link rel="stylesheet" href="fontes/fontes.css" />
 <link rel="manifest" href="manifest.webmanifest" />
 <!-- GSAP local (vendor/): a página precisa abrir sem internet, no balcão. -->
 <script src="vendor/gsap-3.12.5.min.js"></script>
 
 <style>
-  /* Palco escuro: é o mesmo navy da vitrine de sistemas do site, a parte que
-     mais impressiona na página inteira. Num balcão iluminado, o contraste é o
-     que segura o olhar do dono. */
+  /* Mesma página clara do site: fonte, cores e pílulas do DESIGN.md. */
+  @font-face { font-family: "Red Hat Display"; src: url("fontes/red-hat-display.woff2") format("woff2"); font-weight: 300 900; font-display: swap; }
+  @font-face { font-family: "Red Hat Text"; src: url("fontes/red-hat-text.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
   :root {
-    --fundo-1: #141F35;
-    --fundo-2: #0C1424;
-    --fundo-3: #101A31;
-    --txt: #E6ECF4;
-    --txt-2: #9FB0C6;
-    --linha: rgba(255,255,255,.08);
-    --cta: #E8690A;
-    --cta-forte: #CC5200;
-    --tom: #5E8CBA;
-    --ease: cubic-bezier(.22,.61,.36,1);
+    --fundo-2: #FFFFFF;
+    --txt: #0F2742;
+    --txt-2: #4A5B6E;
+    --linha: #DDE3EA;
+    --azul: #0B5FE0;
+    --azul-forte: #094CB5;
+    --tom: #0B5FE0;
+    --sombra-1: 0 2px 6px rgba(15, 39, 66, .06), 0 14px 34px rgba(15, 39, 66, .09);
+    --sombra-2: 0 4px 10px rgba(15, 39, 66, .07), 0 30px 70px rgba(15, 39, 66, .17);
+    --ease: cubic-bezier(.16, 1, .3, 1);
   }
 
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -43,7 +42,7 @@
   html, body {
     margin: 0; height: 100%;
     background: var(--fundo-2); color: var(--txt);
-    font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+    font-family: "Red Hat Text", system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     overscroll-behavior: none;
     overflow: hidden;
@@ -51,30 +50,11 @@
 
   /* ------------------------------------------------------------- palco */
   .palco {
-    position: fixed; inset: 0;
-    background: linear-gradient(158deg, var(--fundo-1) 0%, var(--fundo-2) 55%, var(--fundo-3) 100%);
-    overflow: hidden;
-  }
-  .grade {
-    position: absolute; inset: 0; pointer-events: none;
-    background-image:
-      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
-    background-size: 44px 44px;
-    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 10%, transparent 72%);
-            mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 10%, transparent 72%);
-  }
-  /* o brilho é a cor do ramo escolhido -- a apresentação "vira" o negócio dele */
-  .brilho {
-    position: absolute; width: 130vmax; height: 130vmax; left: 50%; top: 40%;
-    transform: translate(-50%, -50%);
-    border-radius: 999px; pointer-events: none;
-    background: radial-gradient(circle, color-mix(in srgb, var(--tom) 34%, transparent) 0%, transparent 58%);
-  }
-  .brilho-2 {
-    position: absolute; width: 70vmax; height: 70vmax; right: -20vmax; bottom: -25vmax;
-    border-radius: 999px; pointer-events: none;
-    background: radial-gradient(circle, rgba(232,105,10,.13) 0%, transparent 62%);
+    position: fixed; inset: 0; overflow: hidden;
+    background:
+      radial-gradient(60% 70% at 8% 12%, #FCE9DD, transparent 70%),
+      radial-gradient(70% 80% at 92% 30%, #D6F1EA, transparent 70%),
+      linear-gradient(180deg, #fff 0, #DFE9FB 60%, #fff 100%);
   }
 
   /* ------------------------------------------------------- progresso */
@@ -84,11 +64,11 @@
     display: flex; align-items: center; gap: 14px;
   }
   .barras { flex: 1; display: flex; gap: 5px; }
-  .barras i { flex: 1; height: 3px; border-radius: 3px; background: rgba(255,255,255,.16); overflow: hidden; position: relative; }
+  .barras i { flex: 1; height: 3px; border-radius: 3px; background: #DDE3EA; overflow: hidden; position: relative; }
   .barras i b { position: absolute; inset: 0; background: var(--txt); transform-origin: left; transform: scaleX(0); transition: transform .45s var(--ease); }
   .barras i.feita b { transform: scaleX(1); }
-  .marca-mini { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 13px; letter-spacing: .02em; color: var(--txt-2); white-space: nowrap; }
-  .marca-mini span { color: var(--txt); }
+  .marca-mini { display: flex; align-items: center; gap: 8px; font: 700 18px "Red Hat Display", sans-serif; letter-spacing: -.03em; color: var(--txt); white-space: nowrap; }
+  .marca-mini img { width: 34px; height: auto; display: block; }
 
   /* ------------------------------------------------------------ telas */
   .tela {
@@ -110,53 +90,41 @@
     .tela { padding-left: 60px; padding-right: 60px; }
   }
 
-  .olho {
-    display: inline-flex; align-items: center; gap: 9px;
-    font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
-    color: var(--tom); margin-bottom: 18px;
-  }
-  .olho::before { content: ''; width: 22px; height: 2px; border-radius: 2px; background: currentColor; }
-
   h1, h2 {
-    font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-weight: 800;
-    letter-spacing: -.04em; line-height: 1.06; margin: 0; color: #fff;
+    font-family: "Red Hat Display", system-ui, sans-serif; font-weight: 400;
+    letter-spacing: -.035em; line-height: 1.06; margin: 0; color: var(--txt);
   }
-  h1 { font-size: clamp(38px, 9.5vw, 72px); }
-  h2 { font-size: clamp(30px, 7.6vw, 56px); }
-  .destaque { color: var(--tom); }
-  .sub { margin: 16px 0 0; font-size: clamp(15.5px, 4.1vw, 20px); line-height: 1.55; color: var(--txt-2); }
-  .sub strong { color: var(--txt); font-weight: 700; }
+  h1 { font-size: clamp(40px, 9.5vw, 78px); }
+  h2 { font-size: clamp(32px, 7.6vw, 60px); }
+  .destaque { color: var(--azul); white-space: nowrap; }
+  .sub { margin: 16px 0 0; font-size: clamp(17px, 4.1vw, 21px); line-height: 1.5; color: var(--txt-2); }
+  .sub strong { color: var(--txt); font-weight: 600; }
+  .nota-ex { margin: 12px 0 0; font-size: 14px; color: var(--txt-2); text-align: center; }
 
   /* palavra que sobe de dentro da linha, em vez de só aparecer */
   .palavra { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .06em; }
   .palavra > span { display: inline-block; }
 
   /* ---------------------------------------------------------- capa */
-  .logo-grande {
-    width: 74px; height: 74px; border-radius: 22px; margin: 0 auto 26px;
-    display: grid; place-items: center;
-    background: linear-gradient(145deg, rgba(255,255,255,.1), rgba(255,255,255,.02));
-    border: 1px solid var(--linha);
-    box-shadow: 0 20px 50px -18px rgba(94,140,186,.5);
-  }
+  .logo-grande { width: 96px; height: auto; margin: 0 auto 22px; display: block; }
   .capa { text-align: center; }
   .chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 30px; }
   .chip {
-    appearance: none; cursor: pointer;
-    font-family: "Plus Jakarta Sans", sans-serif; font-weight: 700; font-size: 15.5px;
-    color: var(--txt); background: rgba(255,255,255,.06);
-    border: 1px solid var(--linha); border-radius: 999px;
-    padding: 13px 20px;
-    transition: background .25s var(--ease), border-color .25s var(--ease);
+    appearance: none; cursor: pointer; min-height: 52px;
+    font: 500 17px "Red Hat Text", sans-serif;
+    color: var(--txt); background: #fff;
+    border: 1.5px solid #C4CED9; border-radius: 999px;
+    padding: 11px 22px;
+    transition: background .2s, color .2s, border-color .2s;
   }
-  .chip:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.22); }
+  .chip:hover { background: var(--txt); border-color: var(--txt); color: #fff; }
 
   /* ---------------------------------------------------------- busca */
   .busca-caixa {
     display: flex; align-items: center; gap: 12px;
     background: #fff; color: #202124; border-radius: 28px;
     padding: 15px 20px; font-size: 17px; min-height: 56px;
-    box-shadow: 0 18px 50px -12px rgba(0,0,0,.6);
+    box-shadow: var(--sombra-1);
   }
   .busca-caixa svg { flex: none; }
   .cursor-pisca { display: inline-block; width: 2px; height: 1.15em; background: #1a73e8; vertical-align: -3px; margin-left: 2px; animation: pisca 1s steps(1) infinite; }
@@ -164,17 +132,16 @@
   .resultados { display: grid; gap: 10px; margin-top: 14px; }
   .resultado {
     display: flex; align-items: center; gap: 13px;
-    background: rgba(255,255,255,.96); color: #202124;
+    background: #fff; color: #202124; box-shadow: var(--sombra-1);
     border-radius: 16px; padding: 13px 15px;
   }
   .resultado .num { flex: none; width: 30px; height: 30px; border-radius: 999px; background: #e8f0fe; color: #1a73e8; display: grid; place-items: center; font-weight: 800; font-size: 14px; }
   .resultado b { display: block; font-size: 15.5px; }
   .resultado small { color: #5f6368; font-size: 13px; }
-  .estrelas { color: #f4b400; letter-spacing: 1px; }
   .voce-nao {
-    border: 2px dashed var(--cta); background: rgba(232,105,10,.1); color: var(--cta);
+    border: 2px dashed var(--azul); background: #EAF1FE; color: var(--azul-forte);
     border-radius: 16px; padding: 16px; text-align: center;
-    font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 16px;
+    font-family: "Red Hat Display", sans-serif; font-weight: 700; font-size: 17px;
   }
 
   /* ------------------------------------------- aparelhos em escala
@@ -194,8 +161,7 @@
   .lap-tela {
     position: absolute; left: 50px; top: 0; width: 900px; height: 600px;
     border-radius: 26px 26px 6px 6px; background: #0d121b; padding: 16px;
-    box-shadow: 0 0 0 2px rgba(255,255,255,.1) inset, 0 70px 120px -40px rgba(0,0,0,.85),
-                0 0 120px -30px color-mix(in srgb, var(--tom) 55%, transparent);
+    box-shadow: var(--sombra-2);
   }
   .lap-vidro { position: relative; width: 868px; height: 568px; border-radius: 8px; overflow: hidden; background: #fff; }
   .lap-barra { height: 34px; background: #eef1f5; display: flex; align-items: center; gap: 7px; padding: 0 14px; }
@@ -209,32 +175,30 @@
   .cel {
     width: 300px; height: 620px; border-radius: 48px; padding: 12px;
     background: linear-gradient(150deg, #2a3342, #0d121b);
-    box-shadow: 0 0 0 2px rgba(255,255,255,.12) inset, 0 60px 100px -30px rgba(0,0,0,.85),
-                0 0 90px -20px color-mix(in srgb, var(--tom) 60%, transparent);
+    box-shadow: var(--sombra-2);
   }
   .ilha { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); width: 96px; height: 26px; border-radius: 99px; background: #05070b; z-index: 3; }
   .tela-cel { position: relative; width: 276px; height: 596px; border-radius: 37px; overflow: hidden; background: #fff; }
   .rolo { position: absolute; left: 0; right: 0; top: 0; will-change: transform; }
 
   /* -- site de computador (868 de largura) -- */
-  .d-site { width: 868px; color: #1d2228; font-family: "DM Sans", sans-serif; }
+  .d-site { width: 868px; color: #1d2228; font-family: "Red Hat Text", sans-serif; }
   .d-nav { display: flex; align-items: center; gap: 26px; padding: 20px 40px; border-bottom: 1px solid #eef1f4; }
-  .d-nav b { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 20px; margin-right: auto; }
+  .d-nav b { font-family: "Red Hat Display", sans-serif; font-weight: 800; font-size: 20px; margin-right: auto; }
   .d-nav span { font-size: 14px; color: #5b636d; }
   .d-nav em { font-style: normal; font-weight: 700; font-size: 13.5px; color: #fff; background: var(--tom); padding: 10px 18px; border-radius: 10px; }
   .d-hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 36px; align-items: center; padding: 40px 40px 30px; }
-  .d-olho { font-size: 11.5px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--tom); }
-  .d-tit { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 40px; line-height: 1.06; letter-spacing: -.03em; margin-top: 12px; }
+  .d-tit { font-family: "Red Hat Display", sans-serif; font-weight: 800; font-size: 40px; line-height: 1.06; letter-spacing: -.03em; margin-top: 12px; }
   .d-sub { margin-top: 14px; font-size: 16px; line-height: 1.55; color: #5b636d; }
   .d-btns { margin-top: 22px; display: flex; gap: 10px; }
   .d-btn { font-weight: 700; font-size: 14.5px; color: #fff; background: var(--tom); padding: 13px 22px; border-radius: 12px; }
   .d-btn2 { font-weight: 700; font-size: 14.5px; color: #1d2228; background: #f1f3f6; padding: 13px 22px; border-radius: 12px; }
   .d-hero img { width: 100%; height: 300px; object-fit: cover; border-radius: 18px; display: block; }
   .d-sec { padding: 20px 40px 30px; }
-  .d-rot { font-size: 11.5px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--tom); margin-bottom: 14px; }
+  .d-rot { font-size: 14px; font-weight: 600; color: var(--tom); margin-bottom: 14px; }
   .d-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
   .d-card { border: 1px solid #eef1f4; border-radius: 14px; padding: 18px; }
-  .d-card b { display: block; font-family: "Plus Jakarta Sans", sans-serif; font-size: 17px; }
+  .d-card b { display: block; font-family: "Red Hat Display", sans-serif; font-size: 17px; }
   .d-card span { display: block; margin-top: 6px; font-size: 14px; color: #5b636d; }
   .d-band { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 14px; padding: 0 40px 30px; }
   .d-band img { width: 100%; height: 180px; object-fit: cover; border-radius: 14px; display: block; }
@@ -245,15 +209,15 @@
 
   /* -- site de celular (276 de largura) -- */
   .s-nav { display: flex; align-items: center; justify-content: space-between; padding: 46px 16px 12px; }
-  .s-nav b { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 15px; color: #1d2228; }
+  .s-nav b { font-family: "Red Hat Display", sans-serif; font-weight: 800; font-size: 15px; color: #1d2228; }
   .s-nav i { width: 20px; height: 2px; background: #1d2228; box-shadow: 0 6px 0 #1d2228, 0 -6px 0 #1d2228; }
   .s-foto { width: 100%; height: 180px; object-fit: cover; display: block; }
   .s-hero { padding: 18px 16px 6px; }
-  .s-tit { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 21px; line-height: 1.12; letter-spacing: -.02em; color: #1d2228; }
+  .s-tit { font-family: "Red Hat Display", sans-serif; font-weight: 800; font-size: 21px; line-height: 1.12; letter-spacing: -.02em; color: #1d2228; }
   .s-sub { margin-top: 9px; font-size: 13px; line-height: 1.5; color: #5b636d; }
   .s-btn { display: inline-block; margin-top: 14px; color: #fff; font-weight: 700; font-size: 13px; padding: 11px 18px; border-radius: 11px; background: var(--tom); }
   .s-sec { padding: 22px 16px 10px; }
-  .s-rot { font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; color: var(--tom); margin-bottom: 10px; }
+  .s-rot { font-size: 12px; font-weight: 600; color: var(--tom); margin-bottom: 10px; }
   .s-item { display: flex; justify-content: space-between; gap: 10px; padding: 11px 0; border-top: 1px solid #eef1f4; font-size: 13.5px; color: #3a414a; }
   .s-item b { color: #1d2228; }
   .s-galeria { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 8px 16px 0; }
@@ -264,8 +228,8 @@
   .s-rod { padding: 20px 16px 30px; text-align: center; font-size: 11px; color: #8a929c; }
 
   /* -- Instagram (276 de largura) -- */
-  .ig { width: 276px; color: #111; font-family: system-ui, -apple-system, "DM Sans", sans-serif; background: #fff; }
-  .ig-cab { position: absolute; z-index: 2; left: 0; right: 0; top: 0; height: 88px; background: #fff; color: #111; font-family: system-ui, -apple-system, "DM Sans", sans-serif; }
+  .ig { width: 276px; color: #111; font-family: system-ui, -apple-system, "Red Hat Text", sans-serif; background: #fff; }
+  .ig-cab { position: absolute; z-index: 2; left: 0; right: 0; top: 0; height: 88px; background: #fff; color: #111; font-family: system-ui, -apple-system, "Red Hat Text", sans-serif; }
   .ig-status { height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 6px 24px 0 30px; }
   .ig-status b { font-size: 13px; font-weight: 700; }
   .ig-status span { display: flex; gap: 3px; align-items: flex-end; }
@@ -277,7 +241,7 @@
   .ig-top span { display: flex; gap: 14px; color: #111; }
   .ig-perfil { display: flex; align-items: center; gap: 10px; padding: 6px 14px 10px; }
   .ig-av { flex: none; width: 76px; height: 76px; border-radius: 999px; padding: 3px; background: conic-gradient(#feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5, #feda75); }
-  .ig-av i { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 999px; border: 3px solid #fff; background: var(--tom); color: #fff; font-style: normal; font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 26px; }
+  .ig-av i { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 999px; border: 3px solid #fff; background: var(--tom); color: #fff; font-style: normal; font-family: "Red Hat Display", sans-serif; font-weight: 800; font-size: 26px; }
   .ig-nums { flex: 1; display: flex; justify-content: space-around; text-align: center; }
   .ig-nums b { display: block; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
   .ig-nums span { font-size: 11.5px; color: #333; }
@@ -300,7 +264,7 @@
   .ig-t { position: relative; aspect-ratio: 1; overflow: hidden; background: #eee; }
   .ig-t img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .ig-t.arte { display: grid; place-items: center; padding: 8px; text-align: center; }
-  .ig-t.arte span { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 12.5px; line-height: 1.15; letter-spacing: -.01em; }
+  .ig-t.arte span { font-family: "Red Hat Display", sans-serif; font-weight: 800; font-size: 12.5px; line-height: 1.15; letter-spacing: -.01em; }
   .ig-t.e0 { background: var(--tom); color: #fff; }
   .ig-t.e1 { background: #1d2228; color: var(--tom); }
   .ig-t.e2 { background: #f4efe8; color: #1d2228; }
@@ -308,81 +272,66 @@
   .ig-curtir { position: absolute; left: 46px; top: 46px; width: 38px; height: 38px; margin: -19px 0 0 -19px; opacity: 0; pointer-events: none; filter: drop-shadow(0 4px 10px rgba(0,0,0,.35)); }
 
   /* ---------------------------------------------------------- pacote */
-  .cartoes { display: grid; gap: 12px; margin-top: 26px; }
-  .cartao {
-    display: flex; gap: 16px; align-items: flex-start;
-    background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-    border: 1px solid var(--linha); border-radius: 20px; padding: 18px;
-  }
-  .cartao .ic {
-    flex: none; width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center;
-    background: color-mix(in srgb, var(--tom) 24%, transparent); color: #fff;
-  }
-  .cartao b { display: block; font-family: "Plus Jakarta Sans", sans-serif; font-size: 17px; color: #fff; margin-bottom: 4px; }
-  .cartao span { font-size: 14.5px; line-height: 1.5; color: var(--txt-2); }
+  .cartoes { display: grid; gap: 14px; margin-top: 26px; }
+  .cartao { display: flex; gap: 16px; align-items: flex-start; background: #fff; border-radius: 16px; padding: 20px; box-shadow: var(--sombra-1); }
+  .cartao .ic { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: #EAF1FE; color: var(--azul); }
+  .cartao b { display: block; font: 500 21px/1.25 "Red Hat Display", sans-serif; letter-spacing: -.015em; color: var(--txt); margin-bottom: 4px; }
+  .cartao span { font-size: 16px; line-height: 1.5; color: var(--txt-2); }
 
   /* ----------------------------------------------------------- preço */
   .preco-bloco { text-align: center; }
-  .de { position: relative; display: inline-block; font-size: 22px; color: var(--txt-2); }
-  .de .risco { position: absolute; left: -4px; right: -4px; top: 52%; height: 2.5px; background: var(--cta); transform-origin: left; transform: scaleX(0); }
-  .valor { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; letter-spacing: -.05em; line-height: .95; color: #fff; font-size: clamp(64px, 18vw, 132px); margin-top: 6px; font-variant-numeric: tabular-nums; }
+  .de-linha { font-size: 24px; color: var(--txt-2); }
+  .de { position: relative; display: inline-block; }
+  .de .risco { position: absolute; left: -4px; right: -4px; top: 52%; height: 2.5px; background: var(--txt); transform-origin: left; transform: scaleX(0); }
+  .valor { font-family: "Red Hat Display", sans-serif; font-weight: 400; letter-spacing: -.04em; line-height: 1; color: var(--txt); font-size: clamp(68px, 18vw, 140px); margin-top: 6px; font-variant-numeric: tabular-nums; }
   .valor small { font-size: .38em; letter-spacing: -.02em; }
-  .mes { font-size: 19px; color: var(--txt-2); margin-top: 4px; }
-  .selos { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 28px; }
-  .selo { font-weight: 700; font-size: 15px; padding: 11px 18px; border-radius: 999px; background: rgba(255,255,255,.07); border: 1px solid var(--linha); color: var(--txt); }
-  .selo.forte { background: var(--cta); border-color: var(--cta); color: #fff; }
+  .mes { font-size: 21px; color: var(--txt-2); margin-top: 4px; }
+  .selos { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 26px; }
+  .selo { font-weight: 500; font-size: 16px; padding: 10px 18px; border-radius: 999px; background: #fff; border: 1.5px solid #C4CED9; color: var(--txt); }
+  .selo.forte { background: var(--txt); border-color: var(--txt); color: #fff; }
 
   /* -------------------------------------------------------- fechar */
   .passos { display: grid; gap: 12px; margin-top: 24px; }
-  .passo { display: flex; gap: 14px; align-items: center; font-size: 16px; color: var(--txt); }
-  .passo i { flex: none; width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center; font-style: normal; font-weight: 800; font-family: "Plus Jakarta Sans", sans-serif; background: color-mix(in srgb, var(--tom) 28%, transparent); color: #fff; }
+  .passo { display: flex; gap: 14px; align-items: center; font-size: 18px; color: var(--txt); }
+  .passo i { flex: none; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font: 500 16px "Red Hat Display", sans-serif; background: #EAF1FE; color: var(--azul); }
   .acoes { display: grid; gap: 11px; margin-top: 30px; }
-  .btn {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    min-height: 60px; padding: 16px 24px; border-radius: 18px;
-    font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 18px;
-    text-decoration: none; border: 0; cursor: pointer;
-  }
-  .btn-cta { position: relative; background: linear-gradient(135deg, var(--cta), var(--cta-forte)); color: #fff; box-shadow: 0 16px 40px -12px rgba(232,105,10,.7); }
-  .btn-cta::after { content: ''; position: absolute; inset: -3px; border-radius: 21px; border: 2px solid var(--cta); opacity: 0; animation: onda 2.2s var(--ease) infinite; }
-  @keyframes onda { 0% { opacity: .7; transform: scale(1); } 100% { opacity: 0; transform: scale(1.08); } }
-  .btn-sec { background: rgba(255,255,255,.07); border: 1px solid var(--linha); color: var(--txt); }
-  .mini-link { display: block; margin-top: 18px; text-align: center; color: var(--txt-2); font-size: 14px; background: none; border: 0; cursor: pointer; font-family: inherit; width: 100%; }
+  .btn { display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center; min-height: 58px; padding: 14px 30px; border-radius: 999px; font: 600 18px/1.2 "Red Hat Text", sans-serif; text-decoration: none; border: 0; cursor: pointer; transition: background .2s; }
+  .btn-cta { background: var(--azul); color: #fff; }
+  .btn-cta:hover { background: var(--azul-forte); }
+  .btn-sec { background: #fff; border: 1.5px solid #C4CED9; color: var(--txt); }
+  .mini-link { display: block; margin-top: 18px; text-align: center; color: var(--txt-2); font-size: 15px; background: none; border: 0; cursor: pointer; font-family: inherit; width: 100%; text-decoration: underline; text-underline-offset: 4px; }
 
   /* -------------------------------------------------- navegação base */
   .nav {
     position: fixed; z-index: 20; left: 0; right: 0; bottom: 0;
     padding: 14px 20px max(18px, env(safe-area-inset-bottom));
     display: flex; align-items: center; justify-content: space-between; gap: 14px;
-    background: linear-gradient(to top, rgba(12,20,36,.95) 45%, transparent);
+    background: linear-gradient(to top, #fff 45%, transparent);
   }
   .nav button {
     appearance: none; cursor: pointer; flex: none;
-    width: 54px; height: 54px; border-radius: 999px; border: 1px solid var(--linha);
-    background: rgba(255,255,255,.07); color: var(--txt);
+    width: 54px; height: 54px; border-radius: 50%; border: 1.5px solid #C4CED9;
+    background: #fff; color: var(--txt);
     display: grid; place-items: center;
-    transition: background .2s var(--ease), opacity .2s var(--ease);
+    transition: background .2s, opacity .2s;
   }
-  .nav button:disabled { opacity: .25; cursor: default; }
-  .nav button.prox:not(:disabled) { background: #fff; color: var(--fundo-2); border-color: #fff; }
-  .dica { font-size: 13px; color: var(--txt-2); text-align: center; }
+  .nav button:disabled { opacity: .3; cursor: default; }
+  .nav button.prox:not(:disabled) { background: var(--txt); color: #fff; border-color: var(--txt); }
+  .dica { font-size: 15px; color: var(--txt-2); text-align: center; }
 
   @media (prefers-reduced-motion: reduce) {
-    .btn-cta::after, .cursor-pisca { animation: none; }
+    .cursor-pisca { animation: none; }
   }
 </style>
 </head>
 <body>
 
 <div class="palco">
-  <div class="grade"></div>
-  <div class="brilho" id="brilho"></div>
-  <div class="brilho-2"></div>
 </div>
 
 <div class="topo">
   <div class="barras" id="barras"></div>
-  <div class="marca-mini"><span>ACTech</span> Informática</div>
+  <div class="marca-mini"><img src="imgs/marca.webp" alt="" width="240" height="193">ACTech</div>
 </div>
 
 <div id="telas"></div>
@@ -391,7 +340,7 @@
   <button id="voltar" aria-label="Voltar">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
   </button>
-  <div class="dica" id="dica">Toque no seu ramo</div>
+  <div class="dica" id="dica">Escolha o seu ramo</div>
   <button id="avancar" class="prox" aria-label="Avançar">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
   </button>
@@ -404,13 +353,13 @@
   var WHATS = '5561994299823';
   var ASSINAR = 'https://wa.me/5561994299823?text=' + encodeURIComponent('Olá! Quero assinar o plano de R$ 59,90 da ACTech.');   // troque pelo link do Mercado Pago
   var PRECO = 59.90;
+  var PRECO_DE = 'R$ 359,99';
   var REDUZ = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var G = window.gsap;
   var MOVE = !!G && !REDUZ;
 
-  /* Recorte dos ramos só com o que a apresentação usa. A fonte completa do
-     site vive em estilos/estilos.js (RAMOS); aqui é duplicado de propósito,
-     pra esta página não depender daquele arquivo numa loja sem sinal.
+  /* Recorte dos ramos só com o que a apresentação usa. Duplicado do
+     ferramentas/gerar-ramos.py de propósito: esta página abre sem sinal, na loja.
      Concorrentes, @ e números de seguidores são inventados -- nunca use
      loja ou perfil real. */
   var RAMOS = {
@@ -492,7 +441,7 @@
       rodape: 'Todo dia, 7h às 21h · Entrega no bairro',
       ig: 'mercadodobairro', seguidores: 1530, bio: ['Ofertas toda terça', 'Entrega no bairro no mesmo dia'],
       destaques: ['Ofertas', 'Hortifrúti', 'Entrega', 'Horário'],
-      posts: ['Oferta de terça', 'Cesta da semana R$ 189', 'Hortifrúti fresquinho', 'Entrega hoje até 19h', 'Pão quente às 17h', 'Açougue: corte na hora', 'Promo do fim de semana']
+      posts: ['Oferta de terça', 'Cesta da semana R$ 189', 'Hortifrúti fresco', 'Entrega hoje até 19h', 'Pão quente às 17h', 'Açougue: corte na hora', 'Promo do fim de semana']
     },
     petshop: {
       rotulo: 'Pet shop', exemplo: 'Pata & Companhia', tom: '#5FA3D6',
@@ -550,8 +499,8 @@
       concorrentes: [['Concorrente A', '4,7', 290], ['Concorrente B', '4,5', 146]],
       titulo: 'Seu trabalho, achado por quem procura.',
       sub: 'Site, WhatsApp e Instagram trabalhando juntos.',
-      cta: 'Falar com a gente',
-      itens: [['Serviços', 'com preço claro'], ['Contato', 'num toque'], ['Instagram', 'post toda semana']],
+      cta: 'Falar conosco',
+      itens: [['Serviços', 'com preço claro'], ['Contato', 'em um toque'], ['Instagram', 'post toda semana']],
       dep: ['Achei pelo Google e já chamei no WhatsApp na hora.', 'Cliente'],
       rodape: 'Atendimento em Brasília e entorno',
       ig: 'seunegocio', seguidores: 1210, bio: ['Atendimento em Brasília', 'Fale pelo WhatsApp'],
@@ -566,7 +515,6 @@
   var elDica = document.getElementById('dica');
   var bVoltar = document.getElementById('voltar');
   var bAvancar = document.getElementById('avancar');
-  var brilho = document.getElementById('brilho');
 
   var ramo = null;
   var atual = 0;
@@ -658,7 +606,6 @@
         '<div class="d-nav"><b>' + esc(r.exemplo) + '</b><span>Início</span><span>Serviços</span><span>Sobre</span><span>Contato</span><em>' + esc(r.cta) + '</em></div>' +
         '<div class="d-hero">' +
           '<div>' +
-            '<div class="d-olho">' + esc(r.rotulo) + ' · Brasília</div>' +
             '<div class="d-tit">' + esc(r.titulo) + '</div>' +
             '<div class="d-sub">' + esc(r.sub) + '</div>' +
             '<div class="d-btns"><span class="d-btn">' + esc(r.cta) + '</span><span class="d-btn2">Falar no WhatsApp</span></div>' +
@@ -740,11 +687,9 @@
     return {
       html:
         '<div class="conteudo capa">' +
-          '<div class="logo-grande" data-a="logo">' +
-            '<svg width="36" height="36" viewBox="0 0 32 32" aria-hidden="true"><path d="M12 10l-6 6 6 6M20 10l6 6-6 6" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
-          '</div>' +
+          '<img class="logo-grande" data-a="logo" src="imgs/marca.webp" alt="ACTech" width="240" height="193">' +
           '<h1 data-a="titulo">' + palavras('Qual é o seu negócio?') + '</h1>' +
-          '<p class="sub" data-a="sub">Em dois toques eu te mostro como ficaria o seu site e o seu Instagram.</p>' +
+          '<p class="sub" data-a="sub">Em dois toques, você vê como ficaria o seu site e o seu Instagram.</p>' +
           '<div class="chips">' +
             ORDEM.map(function (k) {
               return '<button class="chip" data-ramo="' + k + '">' + esc(RAMOS[k].rotulo) + '</button>';
@@ -767,9 +712,8 @@
       html:
         '<div class="duas">' +
           '<div>' +
-            '<div class="olho">O que acontece hoje</div>' +
             '<h2 data-a="titulo">' + palavras('Seu cliente procura no Google.') + '</h2>' +
-            '<p class="sub" data-a="sub">Ele vê os primeiros nomes e liga para um deles. <strong>Quem não aparece nem fica sabendo que perdeu o cliente.</strong></p>' +
+            '<p class="sub" data-a="sub">Ele quer ver foto, preço e horário antes de escolher. <strong>Quem não tem site deixa essa resposta para o concorrente.</strong></p>' +
           '</div>' +
           '<div>' +
             '<div class="busca-caixa" data-a="caixa">' +
@@ -780,11 +724,12 @@
               r.concorrentes.map(function (c, n) {
                 return '<div class="resultado" data-a="res">' +
                   '<span class="num">' + (n + 1) + '</span>' +
-                  '<div><b>' + esc(c[0]) + '</b><small><span class="estrelas">★★★★★</span> ' + c[1] + ' · ' + c[2] + ' avaliações</small></div>' +
+                  '<div><b>' + esc(c[0]) + '</b><small>Exemplo</small></div>' +
                 '</div>';
               }).join('') +
-              '<div class="voce-nao" data-a="nao">E você? Não está aqui.</div>' +
+              '<div class="voce-nao" data-a="nao">E o seu negócio, onde o cliente encontra?</div>' +
             '</div>' +
+            '<p class="nota-ex">Busca de exemplo, com negócios fictícios. O site não garante posição no Google.</p>' +
           '</div>' +
         '</div>',
       entrar: function (el) {
@@ -817,9 +762,8 @@
       html:
         '<div class="duas larga">' +
           '<div>' +
-            '<div class="olho">Como ficaria o seu site</div>' +
             '<h2 data-a="titulo">' + palavras(r.exemplo + ',') + ' <span class="destaque">' + palavras('no ar.') + '</span></h2>' +
-            '<p class="sub" data-a="sub">No computador e no celular. <strong>Com o seu nome, as suas fotos e os seus preços.</strong></p>' +
+            '<p class="sub" data-a="sub">No computador e no celular. <strong>Com o seu nome, as suas fotos e os seus preços.</strong> Este é um exemplo.</p>' +
           '</div>' +
           '<div class="combo">' +
             '<div class="w-lap" data-escala data-w="1000" data-h="624" data-a="lap">' +
@@ -863,9 +807,8 @@
       html:
         '<div class="duas">' +
           '<div>' +
-            '<div class="olho">E o seu Instagram</div>' +
             '<h2 data-a="titulo">' + palavras('Sempre ativo,') + ' <span class="destaque">' + palavras('sem você postar.') + '</span></h2>' +
-            '<p class="sub" data-a="sub">A gente cria a arte, escreve a legenda e publica: <strong>4 posts por mês com a cara do seu negócio.</strong> Você não precisa lembrar.</p>' +
+            '<p class="sub" data-a="sub">Nós criamos a arte, escrevemos a legenda e publicamos: <strong>4 posts por mês com a cara do seu negócio.</strong> Você não precisa lembrar. Este perfil é um exemplo.</p>' +
           '</div>' +
           '<div class="w-ig" data-escala data-w="300" data-h="620" data-maxvh="54" data-a="cel">' +
             '<div class="dev cel">' +
@@ -917,11 +860,10 @@
     return {
       html:
         '<div class="conteudo">' +
-          '<div class="olho">O que entra</div>' +
-          '<h2 data-a="titulo">' + palavras('Tudo numa mensalidade só.') + '</h2>' +
+          '<h2 data-a="titulo">' + palavras('Tudo em uma mensalidade só.') + '</h2>' +
           '<div class="cartoes">' +
-            '<div class="cartao" data-a="c"><div class="ic">' + ic.site + '</div><div><b>O site no ar</b><span>Endereço próprio, no celular e no computador. Pronto em até 5 dias.</span></div></div>' +
-            '<div class="cartao" data-a="c"><div class="ic">' + ic.redes + '</div><div><b>Seu Instagram publicando</b><span>4 posts por mês. A gente cria a arte e publica, e você não precisa lembrar.</span></div></div>' +
+            '<div class="cartao" data-a="c"><div class="ic">' + ic.site + '</div><div><b>O site no ar</b><span>Endereço próprio, no celular e no computador. Pronto em até 5 dias úteis.</span></div></div>' +
+            '<div class="cartao" data-a="c"><div class="ic">' + ic.redes + '</div><div><b>Seu Instagram publicando</b><span>4 posts por mês. Nós criamos a arte e publicamos, e você não precisa lembrar.</span></div></div>' +
           '</div>' +
         '</div>',
       entrar: function (el) {
@@ -938,25 +880,28 @@
     return {
       html:
         '<div class="conteudo preco-bloco">' +
-          '<div class="olho">Quanto custa</div>' +
+          '<div class="de-linha" data-a="de">De <span class="de">' + PRECO_DE + '<span class="risco" data-a="risco"></span></span> por</div>' +
           '<div class="valor">R$ <span data-a="num">59</span><small>,<span data-a="cent">90</span></small></div>' +
           '<div class="mes" data-a="mes">por mês</div>' +
           '<div class="selos">' +
             '<span class="selo forte" data-a="selo">Sem taxa de criação</span>' +
             '<span class="selo" data-a="selo">Sem fidelidade</span>' +
           '</div>' +
-          '<p class="sub" data-a="sub">Menos de R$ 2 por dia. <strong>Se não gostar, cancela quando quiser.</strong></p>' +
+          '<p class="sub" data-a="sub">Menos de R$ 2 por dia. <strong>Se não gostar, você cancela quando quiser.</strong></p>' +
         '</div>',
       entrar: function (el) {
         var num = el.querySelector('[data-a=num]');
         var cent = el.querySelector('[data-a=cent]');
-        if (!MOVE) return;
+        var risco = el.querySelector('[data-a=risco]');
+        if (!MOVE) { risco.style.transform = 'scaleX(1)'; return; }
         var tl = anim(G.timeline());
         var obj = { v: 0 };
         num.textContent = '0'; cent.textContent = '00';
 
         // o preço conta de zero até o valor -- número que aparece pronto não pesa
-        tl.to(obj, {
+        tl.from(el.querySelector('[data-a=de]'), { y: 16, opacity: 0, duration: .45 })
+          .to(risco, { scaleX: 1, duration: .45, ease: 'power2.inOut' })
+          .to(obj, {
             v: PRECO, duration: 1.5, ease: 'power3.out',
             onUpdate: function () {
               var inteiro = Math.floor(obj.v);
@@ -964,7 +909,7 @@
               cent.textContent = String(Math.min(99, Math.round((obj.v - inteiro) * 100))).padStart(2, '0');
             },
             onComplete: function () { num.textContent = '59'; cent.textContent = '90'; }
-          })
+          }, '-=.1')
           .from(el.querySelector('[data-a=mes]'), { opacity: 0, duration: .35 }, '-=.6')
           .from(el.querySelectorAll('[data-a=selo]'), { scale: 0, opacity: 0, duration: .5, stagger: .14, ease: 'back.out(2.4)' }, '-=.2')
           .from(el.querySelector('[data-a=sub]'), { y: 14, opacity: 0, duration: .45 }, '-=.1');
@@ -977,16 +922,15 @@
     return {
       html:
         '<div class="conteudo">' +
-          '<div class="olho">Como começa</div>' +
-          '<h2 data-a="titulo">' + palavras('Hoje você só me manda') + ' <span class="destaque">' + palavras('o material.') + '</span></h2>' +
+          '<h2 data-a="titulo">' + palavras('Hoje você só envia') + ' <span class="destaque">' + palavras('o material.') + '</span></h2>' +
           '<div class="passos">' +
             '<div class="passo" data-a="p"><i>1</i>Logo e fotos pelo WhatsApp, do jeito que tiver</div>' +
-            '<div class="passo" data-a="p"><i>2</i>Em até 5 dias o site está pronto</div>' +
+            '<div class="passo" data-a="p"><i>2</i>Em até 5 dias úteis o site está pronto. Se passar disso por motivo nosso, o 2º mês é por nossa conta</div>' +
             '<div class="passo" data-a="p"><i>3</i>Todo mês, 4 posts prontos para você aprovar</div>' +
           '</div>' +
           '<div class="acoes">' +
             '<a class="btn btn-cta" data-a="b" href="' + ASSINAR + '" target="_blank" rel="noopener">Começar agora</a>' +
-            '<a class="btn btn-sec" data-a="b" href="' + zap(msg) + '" target="_blank" rel="noopener">Mandar material no WhatsApp</a>' +
+            '<a class="btn btn-sec" data-a="b" href="' + zap(msg) + '" target="_blank" rel="noopener">Enviar material pelo WhatsApp</a>' +
           '</div>' +
           '<button class="mini-link" id="recomecar">Apresentar para outro negócio</button>' +
         '</div>',
@@ -1007,7 +951,7 @@
     telas = r
       ? [telaBusca(r), telaSite(r), telaInsta(r), telaPacote(), telaPreco(), telaFechar(r)]
       : [telaCapa()];
-    document.documentElement.style.setProperty('--tom', r ? r.tom : '#5E8CBA');
+    document.documentElement.style.setProperty('--tom', r ? r.tom : '#0B5FE0');
     elBarras.innerHTML = telas.map(function () { return '<i><b></b></i>'; }).join('');
     mostrar(0, 1);
   }
@@ -1041,7 +985,7 @@
     [].forEach.call(elBarras.children, function (b, i) { b.classList.toggle('feita', i <= n); });
     bVoltar.disabled = (!ramo && n === 0);
     bAvancar.disabled = !ramo || n >= telas.length - 1;
-    elDica.textContent = !ramo ? 'Toque no seu ramo' : (n >= telas.length - 1 ? '' : 'Toque para continuar');
+    elDica.textContent = !ramo ? 'Escolha o seu ramo' : (n >= telas.length - 1 ? '' : 'Toque para continuar');
   }
 
   function vai(d) {
@@ -1089,11 +1033,6 @@
   // girou o celular ou mudou o tamanho da janela: reencaixa os aparelhos
   window.addEventListener('resize', function () { encaixa(elTelas.querySelector('.tela.on')); });
 
-  // o brilho do fundo deriva devagar o tempo todo -- o palco nunca está parado
-  if (MOVE) {
-    G.to(brilho, { xPercent: 8, yPercent: -6, duration: 7, ease: 'sine.inOut', repeat: -1, yoyo: true });
-  }
-
   montar();
 })();
 </script>
@@ -1105,6 +1044,6 @@
     });
   }
 </script>
-<script src="extras/aceite.js?v=2" defer></script>
+<script src="extras/aceite.js?v=4" defer></script>
 </body>
 </html>
