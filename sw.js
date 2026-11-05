@@ -14,7 +14,7 @@
      São versionados pelo deploy e não mudam no meio do dia.
 */
 
-var VERSAO = 'actech-v22';
+var VERSAO = 'actech-v23';
 var C_CASCA = VERSAO + '-casca';
 var C_USO = VERSAO + '-uso';
 
@@ -30,7 +30,6 @@ var CASCA = [
   'offline',
   'privacidade',
   'termos',
-  /* As paginas por ramo: o Amon abre a do ramo na frente do cliente. */
   'barbearia/',
   'salao-de-beleza/',
   'maquiagem/',
@@ -42,12 +41,16 @@ var CASCA = [
   'criacao-de-sites-brasilia/',
   'criacao-de-sites-goiania/',
   'quanto-custa-um-site/',
-  'atendente-ia-whatsapp/',
   'gestao-de-instagram-brasilia/',
   'sistema-sob-medida-brasilia/',
   'manifest.webmanifest',
   'favicon.ico',
   'imgs/favicon-96.png',
+  'site.css?v=1',
+  'site.js?v=1',
+  'extras/aceite.js?v=3',
+  'fontes/red-hat-display.woff2',
+  'fontes/red-hat-text.woff2',
   'fontes/fontes.css',
   'fontes/dm-sans-400.woff2',
   'fontes/dm-sans-500.woff2',
@@ -58,51 +61,36 @@ var CASCA = [
   'fontes/plus-jakarta-sans-800.woff2',
   'imgs/marca.webp',
   'imgs/amon.webp',
-  'imgs/amon-mini.webp',
-
-  /* O que faz o site principal FUNCIONAR, não só aparecer. Sem estes, o
-     index abria offline com o esqueleto do HTML e nada respondia: sem abas,
-     sem carrossel, sem prévia de site, sem calculadora. */
-  'support.js',
-  'vendor/react-18.3.1.min.js',
-  'vendor/react-dom-18.3.1.min.js',
+  'imgs/painel-caixa.webp',
   'vendor/gsap-3.12.5.min.js',
-  'vendor/qrcode-1.4.4.min.js',
-  'estilos/estilos.css',
-  'estilos/estilos.js',
-  'sistema/sistema.css',
-  'sistema/sistema.js',
-  'extras/extras.css',
-  'extras/calculadora.js',
-  'extras/vitrine.css',
-  'extras/vitrine.js',
-  'extras/automacao.css',
-  'extras/automacao.js',
-  'extras/guia.css',
-  'extras/guia.js',
-  'extras/aceite.js',
-  'imgs/plano-glow-essencial.webp',
-  'imgs/plano-glow-completo.webp',
-  'imgs/plano-essencial-1.webp',
-  'imgs/plano-essencial-2.webp',
-  'imgs/plano-completo-1.webp',
-  'imgs/plano-completo-2.webp',
-  /* As duas fotos de cada ramo: a previa agora rola e mostra as duas. */
-  'imgs/ramos/roupa-1.webp',      'imgs/ramos/roupa-2.webp',
-  'imgs/ramos/barbearia-1.webp',  'imgs/ramos/barbearia-3.webp',
-  'imgs/ramos/salao-1.webp',      'imgs/ramos/salao-2.webp',
-  'imgs/ramos/maquiagem-1.webp',  'imgs/ramos/salao-3.webp',
-  'imgs/ramos/mercado-1.webp',    'imgs/ramos/mercado-2.webp',
-  'imgs/ramos/petshop-1.webp',    'imgs/ramos/petshop-2.webp',
-  'imgs/ramos/restaurante-1.webp','imgs/ramos/restaurante-2.webp',
-  'imgs/ramos/clinica-1.webp',    'imgs/ramos/clinica-2.webp',
-  'imgs/ramos/outro-1.webp',      'imgs/ramos/outro-2.webp',
-  /* Terceira foto: entra no site de computador e na grade do Instagram. */
-  'imgs/ramos/roupa-3.webp',      'imgs/ramos/roupa-4.webp',
-  'imgs/ramos/maquiagem-2.webp',  'imgs/ramos/maquiagem-3.webp',
-  'imgs/ramos/barbearia-2.webp',  'imgs/ramos/mercado-3.webp',
-  'imgs/ramos/petshop-3.webp',    'imgs/ramos/restaurante-3.webp',
-  'imgs/ramos/clinica-3.webp',    'imgs/ramos/outro-3.webp'
+  'imgs/ramos/barbearia-1.webp',
+  'imgs/ramos/barbearia-2.webp',
+  'imgs/ramos/barbearia-3.webp',
+  'imgs/ramos/clinica-1.webp',
+  'imgs/ramos/clinica-2.webp',
+  'imgs/ramos/clinica-3.webp',
+  'imgs/ramos/maquiagem-1.webp',
+  'imgs/ramos/maquiagem-2.webp',
+  'imgs/ramos/maquiagem-3.webp',
+  'imgs/ramos/mercado-1.webp',
+  'imgs/ramos/mercado-2.webp',
+  'imgs/ramos/mercado-3.webp',
+  'imgs/ramos/outro-1.webp',
+  'imgs/ramos/outro-2.webp',
+  'imgs/ramos/outro-3.webp',
+  'imgs/ramos/petshop-1.webp',
+  'imgs/ramos/petshop-2.webp',
+  'imgs/ramos/petshop-3.webp',
+  'imgs/ramos/restaurante-1.webp',
+  'imgs/ramos/restaurante-2.webp',
+  'imgs/ramos/restaurante-3.webp',
+  'imgs/ramos/roupa-1.webp',
+  'imgs/ramos/roupa-2.webp',
+  'imgs/ramos/roupa-3.webp',
+  'imgs/ramos/roupa-4.webp',
+  'imgs/ramos/salao-1.webp',
+  'imgs/ramos/salao-2.webp',
+  'imgs/ramos/salao-3.webp'
 ];
 
 self.addEventListener('install', function (e) {

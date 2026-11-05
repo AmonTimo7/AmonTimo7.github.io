@@ -2,7 +2,7 @@
 # Uso:  .\preview.ps1
 # Depois abra http://127.0.0.1:8777
 #
-# Precisa ser servidor: aberto direto por file:// o support.js não carrega
+# Precisa ser servidor: aberto direto por file:// o service worker não registra
 # e a página aparece crua, com {{ ... }} no lugar do conteúdo.
 
 Set-Location $PSScriptRoot

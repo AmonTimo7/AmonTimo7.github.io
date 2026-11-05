@@ -12,165 +12,25 @@
 <!-- Página de retorno de pagamento não entra no índice: a URL carrega
      parâmetros da assinatura e não serve pra ninguém chegar pela busca. -->
 <meta name="robots" content="noindex, nofollow" />
-<meta name="theme-color" content="#E0E5EC" />
+<meta name="theme-color" content="#FFFFFF" />
 <!-- Icone em arquivo de verdade, quadrado e multiplo de 48px: e o que o Google
      exige para mostrar o icone na busca (icone embutido em data: ele ignora). -->
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
 <link rel="icon" href="/imgs/favicon-96.png" type="image/png" sizes="96x96" />
 <link rel="apple-touch-icon" href="/imgs/apple-touch-icon.png" />
-<link rel="stylesheet" href="fontes/fontes.css" />
+<link rel="stylesheet" href="/site.css?v=1">
 <link rel="manifest" href="manifest.webmanifest" />
 
-<style>
-  /* Mesmo princípio da 404: HTML puro, sem x-dc, sem GSAP. Esta é a página
-     que a pessoa vê logo depois de pagar — é o pior momento possível pra
-     depender de runtime que pode falhar. Tokens copiados do index.html. */
-  :root {
-    --bg: #E0E5EC;
-    --fg: #3D4852;
-    --muted: #59616E;
-    --placeholder: #7F8898;
-    --accent: #3D6A99;
-    --accent-light: #5E8CBA;
-    --accent-2: #38B2AC;
-    --cta: #C44F00;
-
-    --sh-dark: rgba(163,177,198,.6);
-    --sh-dark-strong: rgba(163,177,198,.7);
-    --sh-light: rgba(255,255,255,.5);
-    --sh-light-strong: rgba(255,255,255,.6);
-
-    --nm-out:       9px 9px 16px var(--sh-dark), -9px -9px 16px var(--sh-light);
-    --nm-out-hover: 12px 12px 20px var(--sh-dark-strong), -12px -12px 20px var(--sh-light-strong);
-    --nm-out-sm:    5px 5px 10px var(--sh-dark), -5px -5px 10px var(--sh-light);
-    --nm-in-deep:   inset 10px 10px 20px var(--sh-dark-strong), inset -10px -10px 20px var(--sh-light-strong);
-    --ease: cubic-bezier(.22,.61,.36,1);
-  }
-
-  * { box-sizing: border-box; }
-
-  body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 56px 24px;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: "DM Sans", system-ui, -apple-system, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  body::before {
-    content: "";
-    position: fixed;
-    inset: -20%;
-    z-index: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(38% 42% at 18% 22%, rgba(61,106,153,.20), transparent 70%),
-      radial-gradient(34% 38% at 84% 76%, rgba(56,178,172,.18), transparent 70%),
-      radial-gradient(30% 34% at 72% 14%, rgba(198,42,122,.10), transparent 70%);
-    filter: blur(20px);
-  }
-
-  .folha { position: relative; z-index: 1; width: 100%; max-width: 660px; text-align: center; }
-
-  .marca {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 10px 18px 10px 12px; margin: 0 0 40px;
-    border-radius: 999px; background: var(--bg);
-    box-shadow: var(--nm-out-sm);
-    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-    font-weight: 700; font-size: 15px; color: var(--fg);
-    text-decoration: none;
-  }
-  .marca span { font-weight: 500; color: var(--muted); }
-
-  /* O selo é saliente, não cavado: aqui a notícia é boa, e a superfície que
-     sobe é a que o site usa pra coisa que deu certo. O 404 é o contrário. */
-  .selo {
-    display: grid; place-items: center;
-    width: 96px; height: 96px; margin: 0 auto;
-    border-radius: 999px; background: var(--bg);
-    box-shadow: var(--nm-out);
-    color: #0E9C8A;
-  }
-
-  h1 {
-    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-    font-weight: 800; font-size: clamp(27px, 4.6vw, 40px);
-    line-height: 1.1; letter-spacing: -.03em;
-    margin: 32px 0 0; text-wrap: balance;
-  }
-
-  .conta { margin: 16px auto 0; max-width: 48ch; font-size: 16.5px; line-height: 1.65; color: var(--muted); }
-  .conta b { color: var(--fg); font-weight: 700; }
-
-  /* Os próximos passos existem pra matar a pergunta "e agora?" antes que ela
-     vire mensagem no WhatsApp às 23h. Numerados porque é uma ordem real. */
-  .passos {
-    display: grid; gap: 12px; margin: 40px 0 0;
-    text-align: left;
-  }
-  .passo {
-    display: flex; gap: 16px; align-items: flex-start;
-    padding: 18px 20px; border-radius: 18px;
-    background: var(--bg); box-shadow: var(--nm-out-sm);
-  }
-  .passo i {
-    flex: none; display: grid; place-items: center;
-    width: 28px; height: 28px; border-radius: 999px;
-    background: var(--bg); box-shadow: var(--nm-in-deep);
-    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-    font-style: normal; font-weight: 800; font-size: 13px; color: var(--accent);
-  }
-  .passo b {
-    display: block; font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-    font-weight: 700; font-size: 15.5px; color: var(--fg); margin-bottom: 3px;
-  }
-  .passo span { font-size: 14px; line-height: 1.6; color: var(--muted); }
-
-  .botoes { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 36px; }
-
-  .btn {
-    display: inline-flex; align-items: center; gap: 9px;
-    padding: 15px 28px; border-radius: 16px;
-    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-    font-weight: 700; font-size: 15px; text-decoration: none;
-    box-shadow: var(--nm-out);
-    transition: box-shadow .3s var(--ease), transform .3s var(--ease);
-  }
-  .btn:hover { transform: translateY(-2px); box-shadow: var(--nm-out-hover); }
-  .btn-1 { background: var(--cta); color: #fff; }
-  .btn-2 { background: var(--bg); color: var(--fg); }
-
-  .rodape { margin: 44px 0 0; font-size: 13px; line-height: 1.6; color: var(--placeholder); }
-  .rodape a { color: var(--muted); text-decoration: none; border-bottom: 1px solid rgba(89,97,110,.28); }
-
-  @media (prefers-reduced-motion: reduce) {
-    .btn { transition: none; }
-    .btn:hover { transform: none; }
-  }
-
-  @media (max-width: 520px) {
-    .passo { padding: 16px; }
-    .btn { width: 100%; justify-content: center; }
-  }
-</style>
 </head>
 <body>
 
-<main class="folha">
-
-  <a class="marca" href="/">
-    <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
-      <rect width="32" height="32" rx="8" fill="#E0E5EC"></rect>
-      <path d="M12 11l-5 5 5 5M20 11l5 5-5 5" fill="none" stroke="#3D6A99" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-    </svg>
-    ACTech <span>Informática</span>
-  </a>
+<header class="topo">
+  <div class="miolo topo-in">
+    <a class="marca" href="/"><img src="/imgs/marca.webp" alt="" width="240" height="193">ACTech</a>
+    <a class="botao botao--azul botao--peq botao--topo" href="https://wa.me/5561994299823" target="_blank" rel="noopener">Falar no WhatsApp</a>
+  </div>
+</header>
+<main class="doc doc--centro">
 
   <div class="selo" id="selo">
     <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
@@ -179,12 +39,10 @@
   <h1 id="titulo">Assinatura confirmada.</h1>
 
   <p class="conta" id="texto">
-    Deu tudo certo com o pagamento. O <b>primeiro mês é por nossa conta</b> — a
-    primeira cobrança só acontece daqui a 30 dias, e você pode acompanhar tudo
-    pelo app do Mercado Pago.
+    Deu tudo certo com o pagamento. Você acompanha a assinatura pelo app do Mercado Pago, e o próximo passo é falar comigo no WhatsApp.
   </p>
 
-  <div class="passos">
+  <div class="lista-passos">
     <div class="passo">
       <i>1</i>
       <div>
@@ -202,21 +60,21 @@
     <div class="passo">
       <i>3</i>
       <div>
-        <b>Seu site fica pronto em até 5 dias</b>
+        <b>Seu site fica pronto em até 5 dias úteis</b>
         <span>A gente mostra antes de publicar, você pede os ajustes que quiser e só então vai para o ar.</span>
       </div>
     </div>
   </div>
 
   <div class="botoes">
-    <a class="btn btn-1" id="zap" href="https://wa.me/5561994299823?text=Ol%C3%A1%21%20Acabei%20de%20assinar%20um%20plano%20da%20ACTech.%20Li%20e%20aceito%20os%20Termos%20de%20Servi%C3%A7o%20%28v1%20de%2020/10/2026%29%20e%20quero%20come%C3%A7ar." target="_blank" rel="noopener">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path><path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"></path></svg>
+    <a class="botao botao--azul" id="zap" href="https://wa.me/5561994299823?text=Ol%C3%A1%21%20Acabei%20de%20assinar%20um%20plano%20da%20ACTech.%20Li%20e%20aceito%20os%20Termos%20de%20Servi%C3%A7o%20%28v2%20de%2005/11/2026%29%20e%20quero%20come%C3%A7ar." target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"></path><path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"></path></svg>
       Começar agora no WhatsApp
     </a>
-    <a class="btn btn-2" href="/">Voltar ao site</a>
+    <a class="botao botao--tinta" href="/">Voltar ao site</a>
   </div>
 
-  <p class="rodape">
+  <p class="pe">
     ACTech Informática · CNPJ 64.497.294/0001-91 · Brasília, DF<br /><a href="termos.html">Termos de Serviço</a> · <a href="privacidade.html">Privacidade</a> · 
     <a href="https://www.instagram.com/actech.systems" target="_blank" rel="noopener">@actech.systems</a>
   </p>
@@ -260,17 +118,6 @@
 </script>
 
 
-<script>
-  /* Guarda o site no aparelho pra funcionar sem internet. Precisa de uma
-     visita com sinal antes; depois disso abre offline, no celular e no PC.
-     Falha em silencio: se o navegador nao suportar, o site segue normal. */
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () {
-      navigator.serviceWorker.register('sw.js')['catch'](function (e) {
-        console.warn('[sw] nao registrou:', e);
-      });
-    });
-  }
-</script>
+<script src="/site.js?v=1"></script>
 </body>
 </html>

@@ -96,15 +96,14 @@ Tela do pacote. Leia com ele os três itens, e **ancore no trabalho que ele
 não vai ter**:
 
 > "O site fica pronto em até cinco dias. Os posts eu faço e publico — você
-> não precisa lembrar. E a ficha do Google eu deixo completa e respondo as
-> avaliações."
+> não precisa lembrar. É um post por semana."
 
 ### 7. O preço (30 segundos)
 
 Tela do preço. **Fale o número e cale a boca.**
 
-> "São trezentos e cinquenta e nove e noventa e nove por mês. O primeiro mês
-> é grátis e não tem fidelidade."
+> "São cinquenta e nove e noventa por mês. Menos de dois reais por dia, sem
+> taxa de criação e sem fidelidade."
 
 O erro clássico é preencher o silêncio justificando o preço. Quem fala
 primeiro depois do número, perde. Espere.
@@ -118,8 +117,7 @@ Tela de como começa.
 
 Duas saídas, e **as duas são boas**:
 
-- **Fechou agora** → botão "Começar agora", ele assina na hora. Primeiro mês
-  grátis, então não sai dinheiro hoje.
+- **Fechou agora** → botão "Começar agora", ele assina na hora.
 - **Quer pensar** → "Claro. Deixa eu te mandar isso no WhatsApp pra você ver
   com calma?" **Peça o número dele, não dê o seu.** Quem tem o número,
   controla o próximo passo.
@@ -135,11 +133,8 @@ Duas saídas, e **as duas são boas**:
 
 **"É caro."**
 > "Entendo. Deixa eu te perguntar: quanto um cliente seu gasta, em média?
-> [espere a resposta] Então com [X] clientes novos no mês já pagou. O
-> primeiro mês é grátis, você testa sem pagar nada."
->
-> (A conta está no site, na seção "Quando é que o plano se paga". Se der,
-> abra e faça com ele.)
+> [espere a resposta] Então com um cliente novo no mês já pagou. E é menos
+> de dois reais por dia, sem fidelidade."
 
 **"Meu sobrinho faz pra mim."**
 > "Pode ser que faça melhor que eu. A diferença é que eu continuo todo mês:

@@ -1,106 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- A pagina principal, as oito por ramo (geradas por ferramentas/gerar-ramos.py)
-       e a de privacidade. As secoes (#planos, #sistemas) sao ancoras e nao entram. -->
+  <!-- A pagina principal, as geradas por ferramentas/gerar-ramos.py, termos e privacidade. -->
   <url>
     <loc>https://actechsystems.com.br/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://actechsystems.com.br/criacao-de-sites-brasilia/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://actechsystems.com.br/criacao-de-sites-goiania/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://actechsystems.com.br/quanto-custa-um-site/</loc>
-    <lastmod>2026-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://actechsystems.com.br/atendente-ia-whatsapp/</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://actechsystems.com.br/gestao-de-instagram-brasilia/</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://actechsystems.com.br/sistema-sob-medida-brasilia/</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://actechsystems.com.br/barbearia/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://actechsystems.com.br/salao-de-beleza/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://actechsystems.com.br/maquiagem/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://actechsystems.com.br/loja-de-roupa/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://actechsystems.com.br/pet-shop/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://actechsystems.com.br/mercado/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://actechsystems.com.br/restaurante/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://actechsystems.com.br/clinica/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://actechsystems.com.br/privacidade</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://actechsystems.com.br/termos</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

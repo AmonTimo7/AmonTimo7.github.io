@@ -402,9 +402,8 @@
   'use strict';
 
   var WHATS = '5561994299823';
-  var ASSINAR = 'https://mpago.la/1JApXpJ';   // plano Essencial no Mercado Pago
-  var PRECO = 359.99;
-  var PRECO_DE = 'R$ 449,99';
+  var ASSINAR = 'https://wa.me/5561994299823?text=' + encodeURIComponent('Olá! Quero assinar o plano de R$ 59,90 da ACTech.');   // troque pelo link do Mercado Pago
+  var PRECO = 59.90;
   var REDUZ = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var G = window.gsap;
   var MOVE = !!G && !REDUZ;
@@ -550,9 +549,9 @@
       busca: 'o seu serviço perto de mim',
       concorrentes: [['Concorrente A', '4,7', 290], ['Concorrente B', '4,5', 146]],
       titulo: 'Seu trabalho, achado por quem procura.',
-      sub: 'Site, WhatsApp e ficha do Google trabalhando juntos.',
+      sub: 'Site, WhatsApp e Instagram trabalhando juntos.',
       cta: 'Falar com a gente',
-      itens: [['Serviços', 'com preço claro'], ['Contato', 'num toque'], ['Google', 'ficha completa']],
+      itens: [['Serviços', 'com preço claro'], ['Contato', 'num toque'], ['Instagram', 'post toda semana']],
       dep: ['Achei pelo Google e já chamei no WhatsApp na hora.', 'Cliente'],
       rodape: 'Atendimento em Brasília e entorno',
       ig: 'seunegocio', seguidores: 1210, bio: ['Atendimento em Brasília', 'Fale pelo WhatsApp'],
@@ -647,7 +646,7 @@
         r.itens.map(function (it) { return '<div class="s-item"><b>' + esc(it[0]) + '</b><span>' + esc(it[1]) + '</span></div>'; }).join('') +
       '</div>' +
       '<div class="s-galeria"><img src="' + esc(r.fotos[1]) + '" alt=""><img src="' + esc(r.fotos[0]) + '" alt=""></div>' +
-      '<div class="s-dep">“' + esc(r.dep[0]) + '”<b>' + esc(r.dep[1]) + '</b></div>' +
+      '<div class="s-dep">“' + esc(r.dep[0]) + '”<b>' + esc(r.dep[1]) + ' · exemplo</b></div>' +
       '<div class="s-zap"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"/></svg> Falar no WhatsApp</div>' +
       '<div class="s-rod">' + esc(r.rodape) + '</div>';
   }
@@ -672,7 +671,7 @@
         '</div>' +
         '<div class="d-band">' +
           '<img src="' + esc(r.fotos[1]) + '" alt="">' +
-          '<div class="d-dep">“' + esc(r.dep[0]) + '”<b>' + esc(r.dep[1]) + '</b></div>' +
+          '<div class="d-dep">“' + esc(r.dep[0]) + '”<b>' + esc(r.dep[1]) + ' · exemplo</b></div>' +
           '<img src="' + esc(terceira) + '" alt="">' +
         '</div>' +
         '<div class="d-zap"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"/></svg> Falar no WhatsApp</div>' +
@@ -866,7 +865,7 @@
           '<div>' +
             '<div class="olho">E o seu Instagram</div>' +
             '<h2 data-a="titulo">' + palavras('Sempre ativo,') + ' <span class="destaque">' + palavras('sem você postar.') + '</span></h2>' +
-            '<p class="sub" data-a="sub">A gente cria a arte, escreve a legenda e publica: <strong>8 posts por mês com a cara do seu negócio.</strong> Você não precisa lembrar.</p>' +
+            '<p class="sub" data-a="sub">A gente cria a arte, escreve a legenda e publica: <strong>4 posts por mês com a cara do seu negócio.</strong> Você não precisa lembrar.</p>' +
           '</div>' +
           '<div class="w-ig" data-escala data-w="300" data-h="620" data-maxvh="54" data-a="cel">' +
             '<div class="dev cel">' +
@@ -922,8 +921,7 @@
           '<h2 data-a="titulo">' + palavras('Tudo numa mensalidade só.') + '</h2>' +
           '<div class="cartoes">' +
             '<div class="cartao" data-a="c"><div class="ic">' + ic.site + '</div><div><b>O site no ar</b><span>Endereço próprio, no celular e no computador. Pronto em até 5 dias.</span></div></div>' +
-            '<div class="cartao" data-a="c"><div class="ic">' + ic.redes + '</div><div><b>Seu Instagram publicando</b><span>8 posts por mês. A gente cria a arte e publica — você não precisa lembrar.</span></div></div>' +
-            '<div class="cartao" data-a="c"><div class="ic">' + ic.google + '</div><div><b>Sua ficha do Google</b><span>Foto, horário, telefone e avaliação respondida. É o que aparece na busca.</span></div></div>' +
+            '<div class="cartao" data-a="c"><div class="ic">' + ic.redes + '</div><div><b>Seu Instagram publicando</b><span>4 posts por mês. A gente cria a arte e publica, e você não precisa lembrar.</span></div></div>' +
           '</div>' +
         '</div>',
       entrar: function (el) {
@@ -941,37 +939,32 @@
       html:
         '<div class="conteudo preco-bloco">' +
           '<div class="olho">Quanto custa</div>' +
-          '<div><span class="de" data-a="de">' + PRECO_DE + '<span class="risco" data-a="risco"></span></span></div>' +
-          '<div class="valor">R$ <span data-a="num">359</span><small>,<span data-a="cent">99</span></small></div>' +
+          '<div class="valor">R$ <span data-a="num">59</span><small>,<span data-a="cent">90</span></small></div>' +
           '<div class="mes" data-a="mes">por mês</div>' +
           '<div class="selos">' +
-            '<span class="selo forte" data-a="selo">1º mês grátis</span>' +
+            '<span class="selo forte" data-a="selo">Sem taxa de criação</span>' +
             '<span class="selo" data-a="selo">Sem fidelidade</span>' +
-            '<span class="selo" data-a="selo">Sem taxa de setup</span>' +
           '</div>' +
-          '<p class="sub" data-a="sub">Você só paga no segundo mês. <strong>Se não gostar, cancela e não deve nada.</strong></p>' +
+          '<p class="sub" data-a="sub">Menos de R$ 2 por dia. <strong>Se não gostar, cancela quando quiser.</strong></p>' +
         '</div>',
       entrar: function (el) {
         var num = el.querySelector('[data-a=num]');
         var cent = el.querySelector('[data-a=cent]');
-        var risco = el.querySelector('[data-a=risco]');
-        if (!MOVE) { risco.style.transform = 'scaleX(1)'; return; }
+        if (!MOVE) return;
         var tl = anim(G.timeline());
         var obj = { v: 0 };
         num.textContent = '0'; cent.textContent = '00';
 
-        tl.from(el.querySelector('[data-a=de]'), { y: 16, opacity: 0, duration: .45 })
-          .to(risco, { scaleX: 1, duration: .45, ease: 'power2.inOut' })
-          // o preço conta de zero até o valor -- número que aparece pronto não pesa
-          .to(obj, {
+        // o preço conta de zero até o valor -- número que aparece pronto não pesa
+        tl.to(obj, {
             v: PRECO, duration: 1.5, ease: 'power3.out',
             onUpdate: function () {
               var inteiro = Math.floor(obj.v);
               num.textContent = inteiro;
               cent.textContent = String(Math.min(99, Math.round((obj.v - inteiro) * 100))).padStart(2, '0');
             },
-            onComplete: function () { num.textContent = '359'; cent.textContent = '99'; }
-          }, '-=.1')
+            onComplete: function () { num.textContent = '59'; cent.textContent = '90'; }
+          })
           .from(el.querySelector('[data-a=mes]'), { opacity: 0, duration: .35 }, '-=.6')
           .from(el.querySelectorAll('[data-a=selo]'), { scale: 0, opacity: 0, duration: .5, stagger: .14, ease: 'back.out(2.4)' }, '-=.2')
           .from(el.querySelector('[data-a=sub]'), { y: 14, opacity: 0, duration: .45 }, '-=.1');
@@ -989,7 +982,7 @@
           '<div class="passos">' +
             '<div class="passo" data-a="p"><i>1</i>Logo e fotos pelo WhatsApp, do jeito que tiver</div>' +
             '<div class="passo" data-a="p"><i>2</i>Em até 5 dias o site está pronto</div>' +
-            '<div class="passo" data-a="p"><i>3</i>O primeiro mês é por nossa conta</div>' +
+            '<div class="passo" data-a="p"><i>3</i>Todo mês, 4 posts prontos para você aprovar</div>' +
           '</div>' +
           '<div class="acoes">' +
             '<a class="btn btn-cta" data-a="b" href="' + ASSINAR + '" target="_blank" rel="noopener">Começar agora</a>' +

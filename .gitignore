@@ -9,3 +9,8 @@ ehthumbs.db
 # Artes originais do Instagram (34 MB em PNG). O site usa as versões
 # convertidas em imgs/insta-*.webp — estas ficam só na máquina.
 imgs2/
+
+# Estrategia e contrato de design: o repositorio inteiro vai para o ar, isto nao pode ir.
+PRODUCT.md
+DESIGN.md
+.impeccable/
