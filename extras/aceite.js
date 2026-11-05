@@ -166,7 +166,7 @@
       leu();
     })['catch'](function () {
       // sem conseguir carregar o texto (sem internet e sem copia): mostra o link e libera
-      caixa.innerHTML = '<p>Não foi possível carregar o texto aqui. Leia os <a href="' + RAIZ + 'termos.html" target="_blank" rel="noopener">Termos de Serviço completos</a> numa nova aba antes de aceitar.</p>';
+      caixa.innerHTML = '<p>Não foi possível carregar o texto aqui. Leia os <a href="' + RAIZ + 'termos.html" target="_blank" rel="noopener">Termos de Serviço completos</a> em uma nova aba antes de aceitar.</p>';
       destrava();
     });
 
