@@ -9,20 +9,16 @@
    termos na frente da pessoa antes de ela contratar.
 
    Arquivo unico e sem dependencia (o CSS vem junto) porque roda no index,
-   nas oito paginas por ramo e na apresentacao. Sem servidor, o aceite nao
+   em todas as paginas e na apresentacao. Sem servidor, o aceite nao
    fica registrado aqui: a prova vem da mensagem de confirmacao no WhatsApp
    (pagina obrigado.html).
    =================================================================== */
 (function () {
   'use strict';
 
-  var VERSAO = 'v1 de 20/10/2026';
+  var VERSAO = 'v2 de 05/11/2026';
   // caminho da raiz, para funcionar tambem nas paginas por ramo (barbearia/...)
   var RAIZ = (document.currentScript && document.currentScript.src || '').replace(/extras\/aceite\.js.*$/, '') || '';
-  var PLANOS = {
-    '1JApXpJ': { nome: 'Essencial', preco: 'R$ 359,99' },
-    '2pHpdGa': { nome: 'Completo', preco: 'R$ 597,99', extra: 'Inclui o atendente com IA no WhatsApp e no Instagram.' }
-  };
 
   function e(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
@@ -33,14 +29,14 @@
     '.ac-fundo{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:16px;background:rgba(8,14,26,.7);opacity:0;transition:opacity .25s}' +
     '.ac-fundo.is-on{opacity:1}' +
     '.ac{display:flex;flex-direction:column;width:min(820px,100%);height:min(92vh,880px);border-radius:24px;overflow:hidden;background:#EEF1F5;color:#3D4852;' +
-      'box-shadow:0 40px 100px -24px rgba(0,0,0,.65);font-family:"DM Sans",system-ui,sans-serif;transform:translateY(16px) scale(.98);transition:transform .4s cubic-bezier(.16,1,.3,1)}' +
+      'box-shadow:0 40px 100px -24px rgba(0,0,0,.65);font-family:"Red Hat Text",system-ui,sans-serif;transform:translateY(16px) scale(.98);transition:transform .4s cubic-bezier(.16,1,.3,1)}' +
     '.ac-fundo.is-on .ac{transform:none}' +
-    '.ac-cab{flex:none;padding:22px 26px 18px;background:linear-gradient(158deg,#1A2944,#0E1729);color:#E6ECF4}' +
+    '.ac-cab{flex:none;padding:22px 26px 18px;background:#0F2742;color:#E6ECF4}' +
     '.ac-topo{display:flex;justify-content:space-between;align-items:center;gap:12px}' +
-    '.ac-rot{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#F0A640}' +
+    '.ac-rot{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#F7B27C}' +
     '.ac-x{appearance:none;border:0;width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.1);color:#fff;cursor:pointer;font-size:20px;line-height:1}' +
     '.ac-x:hover{background:rgba(255,255,255,.18)}' +
-    '.ac h2{margin:8px 0 0;font:800 clamp(22px,3vw,30px)/1.1 "Plus Jakarta Sans",system-ui,sans-serif;letter-spacing:-.03em;color:#fff}' +
+    '.ac h2{margin:8px 0 0;font:800 clamp(22px,3vw,30px)/1.1 "Red Hat Display",system-ui,sans-serif;letter-spacing:-.03em;color:#fff}' +
     '.ac-plano{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14.5px;color:#C9D3E3}' +
     '.ac-plano b{color:#fff}' +
     '.ac-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}' +
@@ -49,7 +45,7 @@
     '.ac-barra{flex:1;height:6px;border-radius:6px;background:#CFD7E2;overflow:hidden}' +
     '.ac-barra i{display:block;height:100%;width:0;border-radius:6px;background:#3D6A99;transition:width .15s}' +
     '.ac-texto{flex:1;min-height:0;overflow:auto;padding:22px 30px 30px;background:#fff;font-size:15px;line-height:1.7;color:#3D4852;scroll-behavior:smooth}' +
-    '.ac-texto h3{margin:26px 0 6px;font:800 18px/1.25 "Plus Jakarta Sans",system-ui,sans-serif;letter-spacing:-.02em;color:#2B333C}' +
+    '.ac-texto h3{margin:26px 0 6px;font:800 18px/1.25 "Red Hat Display",system-ui,sans-serif;letter-spacing:-.02em;color:#2B333C}' +
     '.ac-texto h3:first-child{margin-top:0}' +
     '.ac-texto h3 span{color:#8A929C;margin-right:6px}' +
     '.ac-texto p{margin:8px 0 0}.ac-texto ul{margin:8px 0 0;padding-left:22px}.ac-texto li{margin:5px 0}' +
@@ -58,7 +54,7 @@
     '.ac-fim{margin-top:28px;padding:14px 16px;border-radius:14px;background:#EAF2EC;color:#1E5C3A;font-weight:700;text-align:center}' +
     '.ac-pe{flex:none;padding:16px 26px 20px;background:#EEF1F5;border-top:1px solid #D5DCE5}' +
     '.ac-ok{display:flex;gap:14px;align-items:center;padding:16px 18px;border-radius:16px;background:#fff;border:2px solid #D5DCE5;cursor:pointer;' +
-      'font:700 clamp(15px,1.8vw,17.5px)/1.4 "Plus Jakarta Sans",system-ui,sans-serif;color:#2B333C;transition:border-color .2s,opacity .2s,background .2s}' +
+      'font:700 clamp(15px,1.8vw,17.5px)/1.4 "Red Hat Display",system-ui,sans-serif;color:#2B333C;transition:border-color .2s,opacity .2s,background .2s}' +
     '.ac-ok.is-travado{opacity:.55;cursor:not-allowed}' +
     '.ac-ok:has(input:checked){border-color:#3D6A99;background:#F0F5FB}' +
     '.ac-ok input{flex:none;width:28px;height:28px;margin:0;accent-color:#3D6A99;cursor:inherit}' +
@@ -66,11 +62,11 @@
     '.ac-dica{margin:8px 2px 0;font-size:13px;color:#8A4A0B;font-weight:700}' +
     '.ac-dica[hidden]{display:none}' +
     '.ac-bts{display:flex;gap:10px;margin-top:14px}' +
-    '.ac-volta{appearance:none;border:0;cursor:pointer;flex:none;padding:0 20px;min-height:56px;border-radius:14px;background:#DDE3EA;color:#3D4852;font:700 15px "Plus Jakarta Sans",system-ui,sans-serif}' +
+    '.ac-volta{appearance:none;border:0;cursor:pointer;flex:none;padding:0 20px;min-height:56px;border-radius:14px;background:#DDE3EA;color:#3D4852;font:700 15px "Red Hat Display",system-ui,sans-serif}' +
     '.ac-volta:hover{background:#D2D9E2}' +
-    '.ac-vai{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;border-radius:14px;background:#C44F00;color:#fff;' +
-      'font:800 17px "Plus Jakarta Sans",system-ui,sans-serif;text-decoration:none;transition:background .2s,opacity .2s}' +
-    '.ac-vai:hover{background:#B84A00;color:#fff}' +
+    '.ac-vai{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;border-radius:14px;background:#0B5FE0;color:#fff;' +
+      'font:800 17px "Red Hat Display",system-ui,sans-serif;text-decoration:none;transition:background .2s,opacity .2s}' +
+    '.ac-vai:hover{background:#094CB5;color:#fff}' +
     '.ac-vai[aria-disabled="true"]{opacity:.4;pointer-events:none}' +
     '.ac-seg{margin:10px 0 0;font-size:12.5px;line-height:1.5;color:#59616E;text-align:center}' +
     '.ac a:focus-visible,.ac button:focus-visible,.ac input:focus-visible,.ac-texto:focus-visible{outline:2px solid #3D6A99;outline-offset:2px}' +
@@ -125,8 +121,7 @@
       var st = document.createElement('style'); st.id = 'ac-css'; st.textContent = CSS; document.head.appendChild(st);
     }
     var href = link.getAttribute('href');
-    var cod = (href.match(/mpago\.la\/([\w-]+)/) || [])[1];
-    var pl = PLANOS[cod] || { nome: 'ACTech', preco: '' };
+    var pl = { nome: 'Site + Instagram', preco: 'R$ 59,90' };
     voltaFoco = link;
     fundo = document.createElement('div');
     fundo.className = 'ac-fundo';
@@ -136,7 +131,7 @@
           '<div class="ac-topo"><span class="ac-rot">Termos de Serviço · ' + VERSAO + '</span><button type="button" class="ac-x" data-ac-x aria-label="Fechar">×</button></div>' +
           '<h2 id="ac-tit">Leia e aceite os termos para assinar</h2>' +
           '<div class="ac-plano"><span>Plano <b>' + e(pl.nome) + '</b></span>' + (pl.preco ? '<span><b>' + e(pl.preco) + '</b> por mês</span>' : '') + (pl.extra ? '<span>' + e(pl.extra) + '</span>' : '') + '</div>' +
-          '<div class="ac-chips"><span>1º mês grátis</span><span>Renova todo mês</span><span>Sem fidelidade e sem multa</span><span>7 dias para desistir</span><span>Site em até 5 dias úteis</span></div>' +
+          '<div class="ac-chips"><span>Renova todo mês</span><span>Sem fidelidade e sem multa</span><span>7 dias para desistir</span><span>Site em até 5 dias úteis</span></div>' +
         '</div>' +
         '<div class="ac-ler" aria-hidden="true"><span data-ac-pct>Lido 0%</span><span class="ac-barra"><i data-ac-barra></i></span></div>' +
         '<div class="ac-texto" data-ac-texto tabindex="0" aria-label="Texto completo dos Termos de Serviço">Carregando os termos…</div>' +
