@@ -43,9 +43,9 @@
     },
     mercado: {
       nome: 'Mercado do Bairro', hora: 'Todo dia, 7h às 21h. Entrega no bairro.', cor: '#2E7A1F', fundo: '#E2F2CF', tinta: '#183A0F',
-      frase: 'Fresquinho, do lado da sua casa.', botao: 'Ver as ofertas',
+      frase: 'Produtos frescos, perto da sua casa.', botao: 'Ver as ofertas',
       f1: 'mercado-1', f2: 'mercado-2', itens: [['Hortifrúti', 'toda manhã'], ['Açougue', 'na hora'], ['Cesta da semana', 'R$ 189']],
-      posts: [['mercado-1', 'Oferta de terça'], ['mercado-2', 'Cesta da semana R$ 189'], ['mercado-3', 'Hortifrúti fresquinho'], ['mercado-2', 'Entrega hoje até 19h']]
+      posts: [['mercado-1', 'Oferta de terça'], ['mercado-2', 'Cesta da semana R$ 189'], ['mercado-3', 'Hortifrúti fresco'], ['mercado-2', 'Entrega hoje até 19h']]
     }
   };
 

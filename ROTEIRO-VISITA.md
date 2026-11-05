@@ -1,6 +1,6 @@
 # Roteiro da visita ao comércio
 
-Como usar o modo apresentação (`actechsystems.com.br/apresentar`) numa
+Como usar o modo apresentação (`actechsystems.com.br/apresentar`) em uma
 visita de porta. Feito pra durar **5 a 8 minutos** em pé, no balcão.
 
 ---
@@ -128,7 +128,7 @@ Duas saídas, e **as duas são boas**:
 
 **"Já tenho Instagram."**
 > "Tem e é ótimo. Mas quando alguém procura no Google, o Instagram não
-> aparece. E ninguém acha seu horário e endereço num post de seis meses
+> aparece. E ninguém acha seu horário e endereço em um post de seis meses
 > atrás."
 
 **"É caro."**
@@ -166,7 +166,7 @@ Duas saídas, e **as duas são boas**:
 > actechsystems.com.br/apresentar — é só escolher [ramo dele].
 > Qualquer coisa estou por aqui."
 
-**Anote numa planilha**: nome do comércio, nome do dono, telefone, ramo,
+**Anote em uma planilha**: nome do comércio, nome do dono, telefone, ramo,
 data, o que ele disse, e quando voltar. Visita não anotada é visita perdida.
 
 **Quem disse "vou pensar" merece uma volta em uma semana** — não antes, não

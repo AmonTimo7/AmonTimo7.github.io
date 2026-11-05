@@ -127,7 +127,7 @@ RAMOS = [
         rodape='Todo dia, 7h às 21h · Entrega no bairro',
         ig='mercadodobairro', seguidores=1530, bio=['Ofertas toda terça', 'Entrega no bairro no mesmo dia'],
         destaques=['Ofertas', 'Hortifrúti', 'Entrega', 'Horário'],
-        posts=['Oferta de terça', 'Cesta da semana R$ 189', 'Hortifrúti fresquinho', 'Entrega hoje até 19h', 'Pão quente às 17h'],
+        posts=['Oferta de terça', 'Cesta da semana R$ 189', 'Hortifrúti fresco', 'Entrega hoje até 19h', 'Pão quente às 17h'],
     ),
     dict(
         slug='restaurante', rotulo='Restaurante', nome_ramo='restaurante', artigo='o seu restaurante',
@@ -271,9 +271,9 @@ def bloco_passos():
       </div>
       <ol class="passos">
         <li><i>01</i><div><b>Você assina.</b> R$ 59,90 por mês, sem taxa de criação e sem fidelidade.</div></li>
-        <li><i>02</i><div><b>Manda o que tiver pelo WhatsApp.</b> Logo, fotos de celular, horário e preços. Não tem nada pronto? A gente monta junto.</div></li>
+        <li><i>02</i><div><b>Envie o que tiver pelo WhatsApp.</b> Logo, fotos de celular, horário e preços. Não tem nada pronto? Nós montamos juntos.</div></li>
         <li><i>03</i><div><b>O site entra no ar.</b> Em até 5 dias úteis depois que o material chega, com a sua aprovação.</div></li>
-        <li><i>04</i><div><b>Todo mês, 4 posts prontos.</b> Chegam no seu WhatsApp, você dá o ok e a gente publica.</div></li>
+        <li><i>04</i><div><b>Todo mês, 4 posts prontos.</b> Chegam no seu WhatsApp, você aprova e nós publicamos.</div></li>
       </ol>
     </div>
   </section>'''
@@ -286,6 +286,7 @@ def bloco_precos():
       <div class="precos">
         <article class="preco">
           <h3>Site + Instagram</h3>
+          <p class="preco-de">De <s>R$ 359,99</s> por</p>
           <p class="preco-valor"><small>R$ </small><em>59,90</em><small>/mês</small></p>
           <p class="preco-sub">Menos de R$ 2 por dia.</p>
           %s
@@ -294,12 +295,12 @@ def bloco_precos():
         <article class="preco preco--escuro">
           <h3>Sistema sob medida</h3>
           <p class="preco-valor">A negociar</p>
-          <p class="preco-sub">O valor depende do que a sua empresa precisa.</p>
+          <p class="preco-sub">O valor depende da necessidade da sua empresa.</p>
           %s
           <a class="botao botao--branco" href="%s" target="_blank" rel="noopener">Conversar sobre o meu sistema</a>
         </article>
       </div>
-      <p class="combinado">Se você sair um dia, o domínio e os arquivos do site vão com você. Nada fica preso com a ACTech.</p>
+      <p class="combinado"><b>O combinado:</b> site no ar em até 5 dias úteis depois que o material chega. Se passar disso por motivo nosso, o 2º mês é por nossa conta. E se você sair um dia, o domínio e os arquivos do site vão com você.</p>
     </div>
   </section>''' % (vistos(['Site com até 5 páginas', 'Domínio .com.br e hospedagem', '4 posts por mês no Instagram', 'Manutenção e 1 atualização por mês', 'Sem taxa de criação e sem fidelidade']),
                    e(zap('Olá! Quero assinar o plano de R$ 59,90 da ACTech.')),
@@ -309,8 +310,8 @@ def bloco_precos():
 
 def bloco_modelos(fora=None, titulo='Um site com a cara do seu negócio.'):
     cartoes = ''.join(
-        '<a class="modelo" href="../%s/"><span class="modelo-img"><u><i></i><i></i><i></i><em>%s</em></u><img src="%s" alt="" width="800" height="600" loading="lazy"></span><b>%s</b><span>Ver o exemplo</span></a>'
-        % (r['slug'], e(r['exemplo']), foto(r['fotos'][0]), e(r['rotulo'])) for r in RAMOS if r['slug'] != fora)
+        '<a class="modelo" href="../%s/"><span class="modelo-img"><u><i></i><i></i><i></i><em>%s</em></u><img src="%s" alt="" width="800" height="600" loading="lazy"><q>%s</q></span><b>%s</b><span>Ver o exemplo</span></a>'
+        % (r['slug'], e(r['exemplo']), foto(r['fotos'][0]), e(r['site_tit']), e(r['rotulo'])) for r in RAMOS if r['slug'] != fora)
     return '''  <section class="secao secao--cinza" id="modelos">
     <div class="miolo">
       <div class="cabeca"><h2>%s</h2><p class="apoio">Veja um exemplo feito para cada ramo. O seu sai com o seu nome, as suas fotos e os seus preços.</p></div>
@@ -322,7 +323,7 @@ def bloco_modelos(fora=None, titulo='Um site com a cara do seu negócio.'):
 def bloco_tabela():
     linhas = [
         ('Agência ou freelancer', 'A criação é cobrada à parte, em geral de R$ 1.500 a R$ 5.000 por um site institucional.', 'Hospedagem e domínio pagos separados. Alteração costuma ser cobrada a cada pedido.', 'Postar no Instagram e pedir cada mudança.', ''),
-        ('Fazer sozinho numa plataforma', 'Pouco ou nada em dinheiro, e muitas horas suas montando.', 'A assinatura da plataforma, em geral de R$ 50 a R$ 150, mais o domínio.', 'Tudo: texto, foto, layout, versão para celular e posts.', ''),
+        ('Fazer sozinho em uma plataforma', 'Pouco ou nada em dinheiro, e muitas horas suas montando.', 'A assinatura da plataforma, em geral de R$ 50 a R$ 150, mais o domínio.', 'Tudo: texto, foto, layout, versão para celular e posts.', ''),
         ('ACTech', '<b>R$ 0.</b> Sem taxa de criação.', '<b>R$ 59,90</b> com domínio, hospedagem, manutenção e 4 posts no Instagram.', 'Mandar as fotos pelo WhatsApp e aprovar.', ' class="nossa"'),
     ]
     corpo = ''.join('<tr%s><th scope="row">%s</th><td data-col="Para começar">%s</td><td data-col="Todo mês">%s</td><td data-col="Fica por sua conta">%s</td></tr>' % (l[4], l[0], l[1], l[2], l[3]) for l in linhas)
@@ -341,7 +342,7 @@ def bloco_quem(local='em Brasília'):
       <img src="../imgs/amon.webp" alt="Amon Timo, fundador da ACTech" width="560" height="560" loading="lazy">
       <div>
         <h2>Você fala com quem faz.</h2>
-        <p>Eu sou o Amon Timo, desenvolvedor há 3 anos e fundador da ACTech, %s. Quem responde o seu WhatsApp é quem faz o seu site. Sem atendente e sem call center.</p>
+        <p>Eu sou o Amon Timo, desenvolvedor há 3 anos e fundador da ACTech, %s. Quem responde o seu WhatsApp é quem faz o seu site. Sem intermediários.</p>
       </div>
     </div>
   </section>''' % local
@@ -371,9 +372,9 @@ def faixa(titulo='Vamos colocar o seu negócio no ar?'):
 
 
 D_PRECO = ('Quanto custa?', 'R$ 59,90 por mês, sem taxa de criação. Já vem com domínio, hospedagem, manutenção e 4 posts por mês para o seu Instagram.')
-D_PRAZO = ('Em quanto tempo o site fica pronto?', 'Em até 5 dias úteis depois que chega o material básico: logo, fotos, horário e contato.')
-D_FIDEL = ('Tem fidelidade ou multa?', 'Não. É mês a mês, e você cancela quando quiser. Se sair, a gente passa o domínio para o seu nome e entrega os arquivos do site.')
-D_FOTOS = ('Preciso de fotos profissionais?', 'Não. Foto de celular resolve. Se não tiver nenhuma, a gente começa com imagens de banco e troca pelas suas quando chegarem.')
+D_PRAZO = ('Em quanto tempo o site fica pronto?', 'Em até 5 dias úteis depois que chega o material básico: logo, fotos, horário e contato. Se passar disso por motivo nosso, o 2º mês é por nossa conta.')
+D_FIDEL = ('Tem fidelidade ou multa?', 'Não. É mês a mês, e você cancela quando quiser. Se sair, nós transferimos o domínio para o seu nome e entregamos os arquivos do site.')
+D_FOTOS = ('Preciso de fotos profissionais?', 'Não. Foto de celular resolve. Se não tiver nenhuma, começamos com imagens de banco e trocamos pelas suas quando chegarem.')
 D_INSTA = ('Eu já tenho Instagram. Serve?', 'Serve. A conta continua sendo sua, só que publicando toda semana, com a arte e a legenda prontas.')
 
 
@@ -387,7 +388,7 @@ def pagina_ramo(r):
         titulo='%s por R$ 59,90 | ACTech' % r['titulo_seo'],
         desc='%s por R$ 59,90 por mês: site com até 5 páginas, domínio, hospedagem e 4 posts por mês. Sem taxa de criação e sem fidelidade.' % r['titulo_seo'],
         h1='Site para %s por R$&nbsp;59,90 por mês' % e(r['nome_ramo']),
-        lead='Um site de verdade e 4 posts por mês para o Instagram %s%s. Você manda as fotos pelo WhatsApp e a gente faz o resto.' % ('da' if r['artigo'][0] == 'a' else 'do', e(r['artigo'][1:])),
+        lead='Um site de verdade e 4 posts por mês para o Instagram %s%s. Você envia as fotos pelo WhatsApp e nós fazemos o resto.' % ('da' if r['artigo'][0] == 'a' else 'do', e(r['artigo'][1:])),
         visual=exemplo(r, campo=True) + '<p class="aviso-ex">Exemplo fictício. O seu sai com o seu nome, as suas fotos e os seus preços.</p>',
         msg='Olá! Vi a página de site para %s da ACTech e quero saber mais.' % r['nome_ramo'], corpo=corpo, oferta=True)
 
@@ -411,7 +412,7 @@ CIDADES = [
         titulo='Criação de Sites em Brasília por R$ 59,90/mês | ACTech',
         desc='Criação de site profissional em Brasília por R$ 59,90 por mês, com domínio, hospedagem e 4 posts por mês no Instagram. Pronto em até 5 dias úteis, sem taxa de criação.',
         h1='Criação de sites em Brasília por R$&nbsp;59,90 por mês', autor_local='aqui em Brasília',
-        atende='Atendemos o Plano Piloto e todas as regiões administrativas: Taguatinga, Águas Claras, Ceilândia, Guará, Sobradinho, Gama e o entorno. A conversa é toda pelo WhatsApp: você manda as fotos e as informações e aprova o site pelo celular.',
+        atende='Atendemos o Plano Piloto e todas as regiões administrativas: Taguatinga, Águas Claras, Ceilândia, Guará, Sobradinho, Gama e o entorno. A conversa é toda pelo WhatsApp: você envia as fotos e as informações e aprova o site pelo celular.',
         faq_local=('Vocês fazem site em qualquer região de Brasília?', 'Sim. Plano Piloto, Taguatinga, Águas Claras, Ceilândia, Guará, Sobradinho, Gama e o entorno do DF. Tudo é combinado pelo WhatsApp, sem precisar de reunião.'),
     ),
     dict(
@@ -419,8 +420,8 @@ CIDADES = [
         titulo='Criação de Sites em Goiânia por R$ 59,90/mês | ACTech',
         desc='Criação de site profissional em Goiânia por R$ 59,90 por mês, com domínio, hospedagem e 4 posts por mês no Instagram. Pronto em até 5 dias úteis, sem taxa de criação.',
         h1='Criação de sites em Goiânia por R$&nbsp;59,90 por mês', autor_local='em Brasília, atendendo Goiânia pelo WhatsApp',
-        atende='Atendemos Goiânia inteira, do Setor Bueno e do Marista a Campinas, ao Jardim América e ao Setor Oeste, e também Aparecida de Goiânia e Anápolis. O atendimento é todo pelo WhatsApp: você manda as fotos e as informações, aprova o site pelo celular e não precisa de reunião.',
-        faq_local=('Vocês atendem em Goiânia mesmo sendo de Brasília?', 'Sim. O site e os posts são feitos a distância, com o mesmo prazo de 5 dias úteis. Você manda o material pelo WhatsApp e aprova tudo pelo celular, sem precisar de reunião presencial.'),
+        atende='Atendemos Goiânia inteira, do Setor Bueno e do Marista a Campinas, ao Jardim América e ao Setor Oeste, e também Aparecida de Goiânia e Anápolis. O atendimento é todo pelo WhatsApp: você envia as fotos e as informações, aprova o site pelo celular e não precisa de reunião.',
+        faq_local=('Vocês atendem em Goiânia mesmo sendo de Brasília?', 'Sim. O site e os posts são feitos a distância, com o mesmo prazo de 5 dias úteis. Você envia o material pelo WhatsApp e aprova tudo pelo celular, sem precisar de reunião presencial.'),
     ),
 ]
 
@@ -432,7 +433,7 @@ def pagina_custo():
         titulo='Quanto Custa um Site em 2026? Preços e o Que Muda | ACTech',
         desc='Quanto custa fazer um site em 2026: preço de agência, freelancer, plataforma e mensalidade. O que muda o valor e quanto custa manter um site no ar.',
         h1='Quanto custa um site em 2026?',
-        lead='Um site institucional costuma custar de R$ 1.500 a R$ 5.000 numa agência, fora hospedagem e manutenção. Na ACTech ele sai por R$ 59,90 por mês, sem taxa de criação e já com 4 posts para o Instagram.',
+        lead='Um site institucional costuma custar de R$ 1.500 a R$ 5.000 em uma agência, fora hospedagem e manutenção. Na ACTech ele sai por R$ 59,90 por mês, sem taxa de criação e já com 4 posts para o Instagram.',
         visual=exemplo(r) + '<p class="aviso-ex">Exemplo fictício de site para um restaurante.</p>',
         msg='Olá! Vi a página "quanto custa um site" da ACTech e quero um orçamento.', oferta=True,
         corpo=[
@@ -445,7 +446,7 @@ def pagina_custo():
                 'Na ACTech, domínio, hospedagem e manutenção já estão na mensalidade. Você não recebe boleto de mais ninguém.'], cinza=True),
             prosa('O que muda o preço de um site.', [
                 '<b>Número de páginas.</b> Um site de comércio local resolve com até 5: início, serviços, sobre, galeria e contato. É o que vem no plano.',
-                '<b>Quem escreve e fotografa.</b> Texto bom e foto de verdade vendem mais que layout bonito. Foto de celular resolve, e a gente ajuda no texto.',
+                '<b>Quem escreve e fotografa.</b> Texto bom e foto de verdade vendem mais que layout bonito. Foto de celular resolve, e nós ajudamos no texto.',
                 '<b>Sistema por trás.</b> Agenda online, controle de caixa ou painel de gestão são sistemas sob medida, com valor a negociar.']),
             prosa('Pagar de uma vez ou por mês?', [
                 '<b>De uma vez</b> faz sentido para quem tem verba guardada e alguém da equipe para cuidar do site depois.',
@@ -453,7 +454,7 @@ def pagina_custo():
                 'É por isso que a ACTech trabalha por mensalidade: o site fica pronto em até 5 dias úteis e não tem fidelidade.'], cinza=True),
             bloco_precos(),
             bloco_duvidas('Perguntas sobre o preço de um site', [
-                ('Quanto custa um site simples?', 'Um site institucional simples, de 1 a 5 páginas, costuma custar de R$ 1.500 a R$ 5.000 numa agência ou com freelancer, fora hospedagem e domínio. Na ACTech ele sai por R$ 59,90 por mês, já com domínio, hospedagem, manutenção e 4 posts para o Instagram.'),
+                ('Quanto custa um site simples?', 'Um site institucional simples, de 1 a 5 páginas, costuma custar de R$ 1.500 a R$ 5.000 em uma agência ou com freelancer, fora hospedagem e domínio. Na ACTech ele sai por R$ 59,90 por mês, já com domínio, hospedagem, manutenção e 4 posts para o Instagram.'),
                 ('Quanto custa um site para pequena empresa?', 'Para comércio e prestador de serviço, o que resolve é um site de até 5 páginas: início, serviços, sobre, galeria e contato, com botão de WhatsApp e mapa. É o que vem no plano de R$ 59,90 da ACTech.'),
                 ('Quanto custa manter um site por mês?', 'No mínimo, o domínio (cerca de R$ 40 por ano) e a hospedagem. Se ninguém da equipe cuida do site, entra também a manutenção. Na ACTech tudo isso está incluso na mensalidade.'),
                 ('Quanto custa um domínio .com.br?', 'Cerca de R$ 40 por ano no registro.br, que é onde todo domínio .com.br é registrado. No plano da ACTech o domínio já está incluso.'),
@@ -469,15 +470,15 @@ def pagina_posts():
         titulo='Posts para Instagram em Brasília | 4 por Mês + Site | ACTech',
         desc='4 posts por mês para o Instagram do seu negócio, com arte e legenda prontas, aprovados pelo WhatsApp. Junto com um site profissional, por R$ 59,90 por mês.',
         h1='Posts prontos para o seu Instagram, toda semana',
-        lead='A gente cria a arte e escreve a legenda. Chega tudo pronto no seu WhatsApp, você dá o ok e a gente publica. E o seu site vem na mesma mensalidade: R$ 59,90 por mês.',
-        visual='<div class="palco-posts">%s</div><p class="aviso-ex">Posts de exemplo, num pet shop fictício.</p>' % posts(r),
+        lead='Nós criamos a arte e escrevemos a legenda. Chega tudo pronto no seu WhatsApp, você aprova e nós publicamos. E o seu site vem na mesma mensalidade: R$ 59,90 por mês.',
+        visual='<div class="palco-posts">%s</div><p class="aviso-ex">Posts de exemplo, em um pet shop fictício.</p>' % posts(r),
         msg='Olá! Vi a página de posts para Instagram da ACTech e quero saber mais.', oferta=True,
         corpo=[
-            bloco_incluso(r, 'Seu Instagram ativo e o seu site no ar.', 'Perfil parado há meses passa a impressão de que o negócio fechou. Quem te descobre no Instagram vai procurar você na internet antes de comprar.'),
+            bloco_incluso(r, 'Seu Instagram ativo e o seu site no ar.', 'Perfil parado há meses passa a impressão de que o negócio fechou. Quem descobre o seu negócio no Instagram vai procurar você na internet antes de comprar.'),
             bloco_passos(), bloco_precos(),
             bloco_duvidas('Perguntas sobre os posts', [
                 ('Quantos posts por mês?', 'São 4 posts por mês, um por semana, com a arte e a legenda prontas.'),
-                ('Eu preciso aprovar cada post?', 'Sim, e é rápido: chega tudo pronto no seu WhatsApp, você responde com um ok ou pede o ajuste. Nada é publicado sem você ver.'),
+                ('Eu preciso aprovar cada post?', 'Sim, e é rápido: chega tudo pronto no seu WhatsApp, você aprova ou pede o ajuste. Nada é publicado sem você ver.'),
                 D_FOTOS,
                 ('A conta do Instagram continua minha?', 'Continua. A ACTech só publica no perfil que já é seu. Se um dia você sair, nada muda na conta.'),
                 D_FIDEL]),
@@ -495,24 +496,24 @@ def pagina_sistema():
         msg='Olá! Vi a página de sistema sob medida da ACTech e quero conversar sobre um sistema para a minha empresa.', oferta=False,
         corpo=[
             prosa('Sistemas que a ACTech já construiu.', [
-                'Cada um nasceu de um problema de verdade, numa operação que já existia. Os clientes não são identificados.',
-                '<b>Painel de metas para um banco.</b> Cada gestor tinha a sua versão dos números e o quanto faltava só aparecia no fechamento. Agora são 12 indicadores numa tela só, com a meta dia a dia.',
+                'Cada um nasceu de um problema de verdade, em uma operação que já existia. Os clientes não são identificados.',
+                '<b>Painel de metas para um banco.</b> Cada gestor tinha a sua versão dos números e o quanto faltava só aparecia no fechamento. Agora são 12 indicadores em uma tela só, com a meta dia a dia.',
                 '<b>Controle financeiro e caixa.</b> Entrada, saída, contrato e venda eram anotados em lugares diferentes. Viraram duas telas: o painel que o dono abre de manhã e o livro caixa onde a equipe lança o dia.',
                 '<b>Calculadora de taxas de maquininha.</b> A loja só descobria a margem no fim do mês. O sistema mostra a taxa de 1x a 12x e o que sobra de verdade.',
                 '<b>Auditoria de patrimônio.</b> Mais de mil bens conferidos com leitura de plaqueta, divergência por setor e histórico de transferência.',
                 '<b>Identificação nutricional.</b> Um app que fotografa a embalagem ou o prato e diz na hora se é natural, processado ou ultraprocessado.'], id_='casos'),
             prosa('Quando um sistema sob medida vale a pena.', [
-                'Quando a empresa já sabe como trabalha e o problema é a ferramenta: planilha que trava, informação espalhada, número que só aparece no fim do mês. Em vez de mudar a operação para caber num sistema pronto, o sistema é feito para caber na operação.'],
+                'Quando a empresa já sabe como trabalha e o problema é a ferramenta: planilha que trava, informação espalhada, número que só aparece no fim do mês. Em vez de mudar a operação para caber em um sistema pronto, o sistema é feito para caber na operação.'],
                 vistos(['Painel de gestão com os números que você acompanha, visíveis todo dia', 'Controle financeiro, caixa, contratos e vendas no mesmo lugar', 'Agenda, ordens de serviço e acompanhamento de equipe', 'Integração entre sistemas que hoje não conversam']), cinza=True),
             prosa('Como funciona a negociação.', [
-                'Você conta pelo WhatsApp como a operação funciona hoje e onde dói. A partir disso a gente devolve o que seria construído, o prazo e o valor. Quem conversa com você é quem escreve o código, sem intermediário.'], id_='negociar'),
+                'Você conta pelo WhatsApp como a operação funciona hoje e onde dói. A partir disso, enviamos o que seria construído, o prazo e o valor. Quem conversa com você é quem escreve o código, sem intermediário.'], id_='negociar'),
             bloco_quem(),
             bloco_duvidas('Perguntas sobre sistema sob medida', [
                 ('Quanto custa um sistema sob medida?', 'Depende do tamanho: quantas telas, quantas pessoas usam e com o que ele precisa conversar. Por isso o valor é negociado caso a caso, pelo WhatsApp, depois de entender a sua operação.'),
                 ('O sistema roda na internet ou no computador da empresa?', 'Os dois são possíveis. Já fizemos sistema que roda na rede da própria empresa e sistema acessado pelo navegador.'),
                 ('Dá para começar pequeno?', 'Dá, e costuma ser o melhor caminho: começar pela parte que mais dói e crescer o sistema depois, com a equipe já usando.'),
                 ('Dá para incluir site e posts do Instagram?', 'Dá. É só falar na conversa, e tudo entra na mesma negociação.')]),
-            '  <section class="faixa">\n    <div class="miolo">\n      <h2>Vamos tirar a sua operação da planilha?</h2>\n      <p class="apoio">Conte no WhatsApp como funciona hoje. O valor a gente negocia depois de entender.</p>\n      <a class="botao botao--branco faixa-botao" href="[[ZAP]]" target="_blank" rel="noopener">Conversar sobre o meu sistema</a>\n    </div>\n  </section>',
+            '  <section class="faixa">\n    <div class="miolo">\n      <h2>Vamos tirar a sua operação da planilha?</h2>\n      <p class="apoio">Conte no WhatsApp como funciona hoje. O valor é negociado depois de entender o que você precisa.</p>\n      <a class="botao botao--branco faixa-botao" href="[[ZAP]]" target="_blank" rel="noopener">Conversar sobre o meu sistema</a>\n    </div>\n  </section>',
         ])
 
 
