@@ -316,11 +316,11 @@ def bloco_precos():
 
 def bloco_modelos(fora=None, titulo='Um site com a cara do seu negócio.'):
     cartoes = ''.join(
-        '<a class="modelo" href="../%s/"><span class="modelo-img"><u><i></i><i></i><i></i><em>%s</em></u><img src="../imgs/modelos/%s.webp" alt="" width="720" height="432" loading="lazy"></span><b>%s</b><span>Ver o exemplo</span></a>'
-        % (r['slug'], e(dominio(r['exemplo'])), EX[r['slug']]['estilo'], e(r['rotulo'])) for r in RAMOS if r['slug'] != fora)
+        '<a class="modelo" href="../%s/" data-modelo="%s"><span class="modelo-img"><u><i></i><i></i><i></i><em>%s</em></u><img src="../imgs/modelos/%s.webp" alt="" width="720" height="432" loading="lazy"></span><b>%s</b><span class="modelo-cta"><span>Personalizar<em> este site</em></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>'
+        % (r['slug'], EX[r['slug']]['estilo'], e(dominio(r['exemplo'])), EX[r['slug']]['estilo'], e(r['rotulo'])) for r in RAMOS if r['slug'] != fora)
     return '''  <section class="secao secao--cinza" id="modelos">
     <div class="miolo">
-      <div class="cabeca"><h2>%s</h2><p class="apoio">Veja um exemplo feito para cada ramo. O seu sai com o seu nome, as suas fotos e os seus preços.</p></div>
+      <div class="cabeca"><h2>%s</h2><p class="apoio">Escolha um modelo e personalize agora, com o seu nome, a sua cor e a sua foto.</p></div>
       <div class="modelos">%s</div>
     </div>
   </section>''' % (titulo, cartoes)

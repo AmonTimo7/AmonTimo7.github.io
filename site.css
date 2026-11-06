@@ -149,7 +149,18 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
 .modelo-img u i { width: 7px; height: 7px; border-radius: 50%; background: #C9D2DD; }
 .modelo-img u em { margin-left: 6px; font-style: normal; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .modelo b { display: block; margin-top: 14px; font: 500 20px/1.2 var(--titulo); letter-spacing: -.015em; }
-.modelo span { display: block; font-size: 15px; color: var(--tinta-2); }
+.modelo .modelo-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 10px; padding: 8px 18px; border-radius: var(--r-pilula); background: var(--azul); color: #fff; font: 600 16px/1.2 var(--corpo); transition: background-color .2s, transform .35s var(--suave); }
+.modelo .modelo-cta em { font-style: normal; }
+.modelo .modelo-cta svg { flex: none; transition: transform .35s var(--suave); }
+.modelo:hover .modelo-cta { background: var(--azul-forte); transform: translateY(-2px); }
+.modelo:hover .modelo-cta svg { transform: translateX(4px); }
+.modelo-img { transition: box-shadow .35s var(--suave), transform .35s var(--suave); }
+.modelo:hover .modelo-img { box-shadow: var(--sombra-2); transform: translateY(-3px); }
+.modelo:focus-visible { outline-offset: 6px; border-radius: var(--r-medio); }
+@media (max-width: 620px) {
+  .modelo .modelo-cta { width: 100%; justify-content: center; padding-inline: 8px; font-size: 15px; }
+  .modelo .modelo-cta em { display: none; }
+}
 .nota-modelos { margin-top: 32px; }
 
 /* ---------- como funciona ---------- */
@@ -372,7 +383,7 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
 /* Sites de exemplo: mesma marcação, um layout próprio para cada ramo.
    Tudo em cqw, para escalar com a moldura. Até 560px de largura da moldura
    (celular, iPhone do hero) todos viram coluna; acima disso cada ramo tem o seu. */
-.s { --s-fundo: #fff; --s-tinta: #0F2742; --s-cor: #0B5FE0; --s-sobre-cor: #fff; --s-peso: 800; --s-caixa: none; --s-esp: -.04em; --s-raio: 99px;
+.s { --s-fundo: #fff; --s-tinta: #0F2742; --s-cor: #0B5FE0; --s-sobre-cor: #fff; --s-extra: var(--s-cor); --s-peso: 800; --s-caixa: none; --s-esp: -.04em; --s-raio: 99px;
   position: relative; overflow: hidden; aspect-ratio: 16 / 9.6; background: var(--s-fundo); color: var(--s-tinta); font-family: var(--corpo); text-align: left; line-height: 1.3; }
 .s img { display: block; max-width: none; object-fit: cover; }
 .s-aviso { display: none; }
@@ -388,10 +399,10 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
 /* cores e voz de cada ramo */
 .s[data-estilo="barbearia"] { --s-fundo: #14110D; --s-tinta: #F4EDE1; --s-cor: #C9A15A; --s-sobre-cor: #14110D; --s-caixa: uppercase; --s-esp: .01em; --s-raio: .5cqw; }
 .s[data-estilo="salao"] { --s-fundo: #FBEFF2; --s-tinta: #4A1730; --s-cor: #A03A64; --s-peso: 300; }
-.s[data-estilo="petshop"] { --s-fundo: #DDF4EC; --s-tinta: #07352E; --s-cor: #0C7B6B; }
+.s[data-estilo="petshop"] { --s-fundo: #DDF4EC; --s-tinta: #07352E; --s-cor: #0C7B6B; --s-extra: #F6C945; }
 .s[data-estilo="roupa"] { --s-fundo: #FAF8F5; --s-tinta: #1C1A1A; --s-cor: #1C1A1A; --s-peso: 300; --s-esp: -.045em; --s-raio: 0; }
 .s[data-estilo="restaurante"] { --s-fundo: #FBF3E8; --s-tinta: #3A1508; --s-cor: #B3431C; }
-.s[data-estilo="mercado"] { --s-fundo: #fff; --s-tinta: #183A0F; --s-cor: #2E7A1F; }
+.s[data-estilo="mercado"] { --s-fundo: #fff; --s-tinta: #183A0F; --s-cor: #2E7A1F; --s-extra: #F6C945; }
 .s[data-estilo="clinica"] { --s-fundo: #fff; --s-tinta: #0E3A4A; --s-cor: #12807A; --s-peso: 600; --s-esp: -.035em; }
 .s[data-estilo="maquiagem"] { --s-fundo: #EFE2D6; --s-tinta: #2B1A14; --s-cor: #2B1A14; --s-peso: 300; --s-caixa: uppercase; --s-esp: .02em; --s-raio: 0; }
 
@@ -413,24 +424,24 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
   .s[data-estilo="barbearia"] .s-barra { position: absolute; z-index: 2; left: 0; right: 0; top: 0; letter-spacing: .12em; text-transform: uppercase; }
   .s[data-estilo="barbearia"] .s-capa { position: relative; }
   .s[data-estilo="barbearia"] .s-f1 { height: 92cqw; }
-  .s[data-estilo="barbearia"] .s-capa::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20, 17, 13, .55), rgba(20, 17, 13, .1) 30%, rgba(20, 17, 13, .96) 88%); }
+  .s[data-estilo="barbearia"] .s-capa::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--s-fundo) 55%, transparent), color-mix(in srgb, var(--s-fundo) 10%, transparent) 30%, color-mix(in srgb, var(--s-fundo) 96%, transparent) 88%); }
   .s[data-estilo="barbearia"] .s-texto { position: absolute; z-index: 1; left: 0; right: 0; bottom: 3cqw; }
   .s[data-estilo="barbearia"] .s-nome { font-size: calc(14cqw * var(--escala)); white-space: nowrap; }
-  .s[data-estilo="barbearia"] .s-item b { color: #C9A15A; }
+  .s[data-estilo="barbearia"] .s-item b { color: var(--s-cor); }
   .s[data-estilo="salao"] .s-f1 { width: 74cqw; height: 66cqw; margin-inline: auto; border-radius: 37cqw 37cqw 0 0; }
   .s[data-estilo="salao"] .s-capa { display: flex; flex-direction: column; }
   .s[data-estilo="salao"] .s-texto { order: -1; padding-bottom: 4cqw; }
-  .s[data-estilo="petshop"] .s-f1 { width: 66cqw; height: 66cqw; margin: 1cqw auto 0; border-radius: 50%; outline: 3cqw solid #F6C945; }
+  .s[data-estilo="petshop"] .s-f1 { width: 66cqw; height: 66cqw; margin: 1cqw auto 0; border-radius: 50%; outline: 3cqw solid var(--s-extra); }
   .s[data-estilo="roupa"] .s-marca { letter-spacing: .18em; text-transform: uppercase; }
-  .s[data-estilo="restaurante"] .s-nome { color: #B3431C; }
+  .s[data-estilo="restaurante"] .s-nome { color: var(--s-cor); }
   .s[data-estilo="restaurante"] .s-item i { display: block; flex: 1; border-bottom: 1.5px dotted color-mix(in srgb, var(--s-tinta) 40%, transparent); margin-bottom: 1cqw; }
   .s[data-estilo="restaurante"] .s-item { border: 0; align-items: flex-end; }
-  .s[data-estilo="mercado"] .s-marca { color: #2E7A1F; }
-  .s[data-estilo="mercado"] .s-capa { margin: 0 4cqw; border-radius: 4cqw; overflow: hidden; background: #2E7A1F; color: #fff; }
+  .s[data-estilo="mercado"] .s-marca { color: var(--s-cor); }
+  .s[data-estilo="mercado"] .s-capa { margin: 0 4cqw; border-radius: 4cqw; overflow: hidden; background: var(--s-cor); color: var(--s-sobre-cor); }
   .s[data-estilo="mercado"] .s-f1 { height: 40cqw; }
   .s[data-estilo="mercado"] .s-texto { padding-bottom: 4cqw; }
-  .s[data-estilo="mercado"] .s-botao { background: #F6C945; color: #183A0F; }
-  .s[data-estilo="mercado"] .s-item b { color: #2E7A1F; }
+  .s[data-estilo="mercado"] .s-botao { background: var(--s-extra); color: var(--s-tinta); }
+  .s[data-estilo="mercado"] .s-item b { color: var(--s-cor); }
   .s[data-estilo="clinica"] .s-f1 { width: 90cqw; margin-inline: auto; border-radius: 4cqw; }
   .s[data-estilo="maquiagem"] .s-f1 { height: 74cqw; }
 }
@@ -456,37 +467,37 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
   /* barbearia: escura, foto de ponta a ponta, nome em caixa alta */
   [data-estilo="barbearia"] .s-barra { position: absolute; left: 0; right: 0; top: 0; letter-spacing: .1em; text-transform: uppercase; font-size: 1.1cqw; }
   [data-estilo="barbearia"] .s-marca { letter-spacing: .16em; font-weight: 700; font-size: 1.5cqw; }
-  [data-estilo="barbearia"] .s-acao { background: none; border: 1px solid #C9A15A; color: #C9A15A; }
+  [data-estilo="barbearia"] .s-acao { background: none; border: 1px solid var(--s-cor); color: var(--s-cor); }
   [data-estilo="barbearia"] .s-capa { position: relative; height: 47cqw; }
   [data-estilo="barbearia"] .s-f1 { position: absolute; inset: 0; width: 100%; height: 100%; }
-  [data-estilo="barbearia"] .s-capa::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20, 17, 13, .94), rgba(20, 17, 13, .62) 46%, rgba(20, 17, 13, .08) 82%), linear-gradient(0deg, #14110D, transparent 26%); }
+  [data-estilo="barbearia"] .s-capa::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, color-mix(in srgb, var(--s-fundo) 94%, transparent), color-mix(in srgb, var(--s-fundo) 62%, transparent) 46%, color-mix(in srgb, var(--s-fundo) 8%, transparent) 82%), linear-gradient(0deg, var(--s-fundo), transparent 26%); }
   [data-estilo="barbearia"] .s-texto { position: absolute; z-index: 1; left: 3.4cqw; bottom: 3.6cqw; }
   [data-estilo="barbearia"] .s-nome { font-size: calc(10cqw * var(--escala)); line-height: 1; white-space: nowrap; }
-  [data-estilo="barbearia"] .s-frase { margin-top: .8cqw; max-width: 40cqw; font-weight: 500; color: #E8DECD; }
+  [data-estilo="barbearia"] .s-frase { margin-top: .8cqw; max-width: 40cqw; font-weight: 500; color: color-mix(in srgb, var(--s-tinta) 88%, transparent); }
   [data-estilo="barbearia"] .s-botao { margin-top: 1.8cqw; text-transform: uppercase; letter-spacing: .06em; font-size: 1.2cqw; padding: 1.2cqw 2.4cqw; }
-  [data-estilo="barbearia"] .s-itens { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 3.4cqw; border-top: 1px solid rgba(201, 161, 90, .4); }
-  [data-estilo="barbearia"] .s-item { display: flex; justify-content: space-between; align-items: baseline; padding: 1.5cqw 2.4cqw 1.5cqw 0; margin-right: 2.4cqw; border-right: 1px solid rgba(201, 161, 90, .25); letter-spacing: .08em; text-transform: uppercase; font-size: 1.15cqw; }
+  [data-estilo="barbearia"] .s-itens { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 3.4cqw; border-top: 1px solid color-mix(in srgb, var(--s-cor) 40%, transparent); }
+  [data-estilo="barbearia"] .s-item { display: flex; justify-content: space-between; align-items: baseline; padding: 1.5cqw 2.4cqw 1.5cqw 0; margin-right: 2.4cqw; border-right: 1px solid color-mix(in srgb, var(--s-cor) 25%, transparent); letter-spacing: .08em; text-transform: uppercase; font-size: 1.15cqw; }
   [data-estilo="barbearia"] .s-item:last-child { margin-right: 0; border-right: 0; padding-right: 0; }
-  [data-estilo="barbearia"] .s-item b { color: #C9A15A; font: 500 2.2cqw var(--titulo); letter-spacing: -.01em; }
+  [data-estilo="barbearia"] .s-item b { color: var(--s-cor); font: 500 2.2cqw var(--titulo); letter-spacing: -.01em; }
   [data-estilo="barbearia"] .s-rodape { display: none; }
 
   /* salão: claro e delicado, letra fina e foto em arco */
   [data-estilo="salao"] .s-marca { font-weight: 500; letter-spacing: -.01em; }
   [data-estilo="salao"] .s-f1 { position: absolute; right: 6.4cqw; top: 6.4cqw; width: 33cqw; height: 58cqw; border-radius: 16.5cqw 16.5cqw 0 0; }
-  [data-estilo="salao"] .s-f2 { display: block; position: absolute; z-index: 2; right: 33cqw; top: 33cqw; width: 13cqw; height: 13cqw; border-radius: 50%; border: .6cqw solid #FBEFF2; }
+  [data-estilo="salao"] .s-f2 { display: block; position: absolute; z-index: 2; right: 33cqw; top: 33cqw; width: 13cqw; height: 13cqw; border-radius: 50%; border: .6cqw solid var(--s-fundo); }
   [data-estilo="salao"] .s-texto { padding: 3.4cqw 3.4cqw 0; width: 54cqw; }
   [data-estilo="salao"] .s-nome { font-size: calc(9.2cqw * var(--escala-q)); line-height: .98; }
   [data-estilo="salao"] .s-frase { margin-top: 1.4cqw; max-width: 26cqw; font-weight: 400; }
   [data-estilo="salao"] .s-botao { margin-top: 1.8cqw; }
   [data-estilo="salao"] .s-lista { position: absolute; left: 3.4cqw; bottom: 2.6cqw; width: 42cqw; }
-  [data-estilo="salao"] .s-item { display: flex; justify-content: space-between; padding-block: .8cqw; border-top: 1px solid rgba(74, 23, 48, .2); }
+  [data-estilo="salao"] .s-item { display: flex; justify-content: space-between; padding-block: .8cqw; border-top: 1px solid color-mix(in srgb, var(--s-tinta) 20%, transparent); }
   [data-estilo="salao"] .s-item b { font-weight: 600; }
   [data-estilo="salao"] .s-rodape { display: none; }
-  [data-estilo="salao"] .s-acao { background: none; border: 1px solid #A03A64; color: #A03A64; }
+  [data-estilo="salao"] .s-acao { background: none; border: 1px solid var(--s-cor); color: var(--s-cor); }
 
   /* pet shop: redondo e alegre */
   [data-estilo="petshop"] .s-barra { margin: 1.6cqw 3.4cqw 0; padding: 1cqw 1.2cqw 1cqw 2.4cqw; background: #fff; border-radius: 99px; }
-  [data-estilo="petshop"] .s-deco { display: block; position: absolute; right: -4cqw; top: 8cqw; width: 50cqw; height: 50cqw; border-radius: 50%; background: #F6C945; }
+  [data-estilo="petshop"] .s-deco { display: block; position: absolute; right: -4cqw; top: 8cqw; width: 50cqw; height: 50cqw; border-radius: 50%; background: var(--s-extra); }
   [data-estilo="petshop"] .s-f1 { position: absolute; z-index: 1; right: 2cqw; top: 10cqw; width: 42cqw; height: 42cqw; border-radius: 50%; }
   [data-estilo="petshop"] .s-f2 { display: block; position: absolute; z-index: 2; right: 39cqw; top: 36cqw; width: 14cqw; height: 14cqw; border-radius: 50%; border: .7cqw solid #fff; }
   [data-estilo="petshop"] .s-texto { padding: 3.6cqw 3.4cqw 0; width: 54cqw; }
@@ -496,7 +507,7 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
   [data-estilo="petshop"] .s-lista { position: absolute; z-index: 3; left: 3.4cqw; bottom: 2.6cqw; }
   [data-estilo="petshop"] .s-itens { display: flex; gap: 1cqw; }
   [data-estilo="petshop"] .s-item { display: grid; gap: .2cqw; padding: 1cqw 1.8cqw; background: #fff; border-radius: 1.6cqw; min-width: 12cqw; }
-  [data-estilo="petshop"] .s-item b { color: #0C7B6B; }
+  [data-estilo="petshop"] .s-item b { color: var(--s-cor); }
   [data-estilo="petshop"] .s-rodape { display: none; }
 
   /* loja: vitrine, nome enorme e fino, peças com preço */
@@ -521,47 +532,47 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
   [data-estilo="restaurante"] .s-barra { width: 54cqw; }
   [data-estilo="restaurante"] .s-links { display: none; }
   [data-estilo="restaurante"] .s-marca { max-width: 30cqw; }
-  [data-estilo="restaurante"] .s-acao { background: none; color: #B3431C; padding: 0; text-decoration: underline; text-underline-offset: .4cqw; }
+  [data-estilo="restaurante"] .s-acao { background: none; color: var(--s-cor); padding: 0; text-decoration: underline; text-underline-offset: .4cqw; }
   [data-estilo="restaurante"] .s-f1 { position: absolute; right: 0; top: 0; width: 46cqw; height: 100%; border-radius: 0 0 0 7cqw; }
   [data-estilo="restaurante"] .s-texto { padding: 1.8cqw 4cqw 0 3.4cqw; width: 54cqw; }
-  [data-estilo="restaurante"] .s-nome { color: #B3431C; font-size: calc(8cqw * var(--escala-q)); line-height: .98; }
+  [data-estilo="restaurante"] .s-nome { color: var(--s-cor); font-size: calc(8cqw * var(--escala-q)); line-height: .98; }
   [data-estilo="restaurante"] .s-frase { margin-top: 1.4cqw; font-weight: 500; font-size: 1.9cqw; }
   [data-estilo="restaurante"] .s-botao { position: absolute; left: 3.4cqw; bottom: 3.4cqw; }
   [data-estilo="restaurante"] .s-lista { position: absolute; left: 3.4cqw; width: 46cqw; bottom: 8.6cqw; }
   [data-estilo="restaurante"] .s-rot { display: block; margin-bottom: .6cqw; font: 700 1.5cqw var(--titulo); }
   [data-estilo="restaurante"] .s-item { display: flex; align-items: flex-end; gap: .7cqw; padding-block: .55cqw; font-size: 1.55cqw; }
-  [data-estilo="restaurante"] .s-item i { display: block; flex: 1; margin-bottom: .35cqw; border-bottom: 1.5px dotted rgba(58, 21, 8, .4); }
+  [data-estilo="restaurante"] .s-item i { display: block; flex: 1; margin-bottom: .35cqw; border-bottom: 1.5px dotted color-mix(in srgb, var(--s-tinta) 40%, transparent); }
   [data-estilo="restaurante"] .s-rodape { display: none; }
 
   /* mercado: faixa, banner verde e ofertas com preço */
-  [data-estilo="mercado"] .s-aviso { display: block; padding: .55cqw; background: #183A0F; color: #fff; font-size: 1.1cqw; text-align: center; }
-  [data-estilo="mercado"] .s-marca { color: #2E7A1F; }
+  [data-estilo="mercado"] .s-aviso { display: block; padding: .55cqw; background: var(--s-tinta); color: #fff; font-size: 1.1cqw; text-align: center; }
+  [data-estilo="mercado"] .s-marca { color: var(--s-cor); }
   [data-estilo="mercado"] .s-barra { padding-block: 1.2cqw; }
-  [data-estilo="mercado"] .s-capa { position: relative; height: 26.5cqw; margin: 0 3.4cqw; border-radius: 1.6cqw; overflow: hidden; background: #2E7A1F; color: #fff; }
+  [data-estilo="mercado"] .s-capa { position: relative; height: 26.5cqw; margin: 0 3.4cqw; border-radius: 1.6cqw; overflow: hidden; background: var(--s-cor); color: var(--s-sobre-cor); }
   [data-estilo="mercado"] .s-f1 { position: absolute; right: 0; top: 0; width: 52%; height: 100%; }
   [data-estilo="mercado"] .s-texto { position: relative; padding: 2.6cqw 3cqw; width: 48%; }
   [data-estilo="mercado"] .s-nome { font-size: calc(5.2cqw * var(--escala-q)); line-height: 1; }
   [data-estilo="mercado"] .s-frase { margin-top: 1cqw; font-size: 1.7cqw; font-weight: 500; }
-  [data-estilo="mercado"] .s-botao { margin-top: 1.4cqw; background: #F6C945; color: #183A0F; }
+  [data-estilo="mercado"] .s-botao { margin-top: 1.4cqw; background: var(--s-extra); color: var(--s-tinta); }
   [data-estilo="mercado"] .s-lista { padding: 1.5cqw 3.4cqw 0; }
   [data-estilo="mercado"] .s-rot { display: block; margin-bottom: .8cqw; font: 700 1.7cqw var(--titulo); }
   [data-estilo="mercado"] .s-itens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2cqw; }
-  [data-estilo="mercado"] .s-item { display: grid; grid-template-columns: 11cqw 1fr; align-items: center; column-gap: 1.2cqw; padding: .7cqw; border: 1px solid #E1E9DA; border-radius: 1.2cqw; font-size: 1.35cqw; font-weight: 500; }
+  [data-estilo="mercado"] .s-item { display: grid; grid-template-columns: 11cqw 1fr; align-items: center; column-gap: 1.2cqw; padding: .7cqw; border: 1px solid color-mix(in srgb, var(--s-tinta) 14%, transparent); border-radius: 1.2cqw; font-size: 1.35cqw; font-weight: 500; }
   [data-estilo="mercado"] .s-item img { display: block; grid-row: 1 / 3; width: 11cqw; height: 9.4cqw; border-radius: .7cqw; }
   [data-estilo="mercado"] .s-item span { align-self: end; }
-  [data-estilo="mercado"] .s-item b { align-self: start; color: #2E7A1F; font-size: 1.7cqw; }
+  [data-estilo="mercado"] .s-item b { align-self: start; color: var(--s-cor); font-size: 1.7cqw; }
   [data-estilo="mercado"] .s-rodape { display: none; }
 
   /* clínica: limpa e confiável, com o horário em destaque */
   [data-estilo="clinica"] .s-f1 { position: absolute; right: 3.4cqw; top: 6.4cqw; width: 42cqw; height: 37cqw; border-radius: 2cqw; object-position: 50% 18%; }
   [data-estilo="clinica"] .s-texto { padding: 3.4cqw 3.4cqw 0; width: 52cqw; }
-  [data-estilo="clinica"] .s-nome { font-size: calc(7.8cqw * var(--escala-q)); line-height: 1; color: #12807A; }
+  [data-estilo="clinica"] .s-nome { font-size: calc(7.8cqw * var(--escala-q)); line-height: 1; color: var(--s-cor); }
   [data-estilo="clinica"] .s-frase { margin-top: 1.6cqw; max-width: 38cqw; font-size: 2.5cqw; font-weight: 500; }
   [data-estilo="clinica"] .s-botao { margin-top: 2cqw; padding: 1.2cqw 2.6cqw; }
   [data-estilo="clinica"] .s-rodape { position: absolute; z-index: 2; right: 5cqw; top: 36cqw; max-width: 25cqw; padding: 1cqw 1.6cqw; background: #fff; border-radius: 1.2cqw; box-shadow: 0 1cqw 3cqw rgba(14, 58, 74, .18); font-size: 1.25cqw; font-weight: 600; }
   [data-estilo="clinica"] .s-lista { position: absolute; left: 3.4cqw; right: 3.4cqw; bottom: 2.6cqw; }
   [data-estilo="clinica"] .s-itens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2cqw; }
-  [data-estilo="clinica"] .s-item { display: grid; gap: .1cqw; padding: 1.2cqw 1.8cqw; background: #E6F4F3; border-radius: 1.4cqw; font-size: 1.3cqw; }
+  [data-estilo="clinica"] .s-item { display: grid; gap: .1cqw; padding: 1.2cqw 1.8cqw; background: color-mix(in srgb, var(--s-cor) 12%, #fff); border-radius: 1.4cqw; font-size: 1.3cqw; }
   [data-estilo="clinica"] .s-item span { font: 600 1.7cqw var(--titulo); }
   [data-estilo="clinica"] .s-item b { font-weight: 500; }
 
@@ -576,7 +587,7 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
   [data-estilo="maquiagem"] .s-frase { margin-top: 2cqw; font-size: 2.1cqw; font-weight: 400; }
   [data-estilo="maquiagem"] .s-botao { margin-top: 2cqw; font-weight: 600; font-size: 1.2cqw; text-transform: uppercase; letter-spacing: .08em; padding: 1.2cqw 2.4cqw; }
   [data-estilo="maquiagem"] .s-lista { position: absolute; left: 47cqw; right: 3.4cqw; bottom: 3cqw; }
-  [data-estilo="maquiagem"] .s-item { display: flex; justify-content: space-between; padding-block: .85cqw; border-top: 1px solid rgba(43, 26, 20, .25); }
+  [data-estilo="maquiagem"] .s-item { display: flex; justify-content: space-between; padding-block: .85cqw; border-top: 1px solid color-mix(in srgb, var(--s-tinta) 25%, transparent); }
   [data-estilo="maquiagem"] .s-item b { font-weight: 600; }
   [data-estilo="maquiagem"] .s-rodape { display: none; }
 }

@@ -21,7 +21,8 @@
     maquiagem: {"nome": "Bia Make", "hora": "Atendimento com hora marcada", "fundo": "#F3E3D8", "tinta": "#2B1A14", "frase": "Make de noiva, festa e formatura.", "botao": "Reservar data", "rot": "Pacotes", "f1": "maquiagem-2", "f2": "maquiagem-1", "itens": [["Social", "R$ 150"], ["Madrinha", "R$ 220"], ["Noiva", "R$ 650"]], "posts": [["maquiagem-1", "Datas abertas para dezembro"], ["", "Make social R$ 150"]]}
   };
 
-  function foto(n) { return 'imgs/ramos/' + n + '.webp'; }
+  var RAIZ = ((document.currentScript && document.currentScript.src) || '').replace(/site\.js.*$/, '');
+  function foto(n) { return /^(blob:|data:|https?:)/.test(n) ? n : RAIZ + 'imgs/ramos/' + n + '.webp'; }
   function q(s) { return document.querySelector(s); }
   function todos(s) { return [].slice.call(document.querySelectorAll(s)); }
   function esc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
@@ -33,13 +34,13 @@
     return '--escala:' + (nome.length > 22 ? .42 : nome.length > 13 ? .6 : 1) + ';--escala-q:' + (nome.length > 20 ? .66 : nome.length > 12 ? .84 : 1);
   }
   /* a mesma marcação serve para os oito ramos: o layout vem do data-estilo no site.css */
-  function sitio(k, nome) {
-    var r = RAMOS[k];
+  function sitio(k, nome, troca) {
+    var r = RAMOS[k], m = troca || {}, f1 = m.f1 || r.f1, frase = m.frase === undefined ? r.frase : m.frase, botao = m.botao === undefined ? r.botao : m.botao, lista = m.itens || r.itens;
     return '<div class="s" data-estilo="' + k + '" style="' + escalas(nome) + '"><div class="s-aviso">' + esc(r.hora) + '</div>' +
-      '<div class="s-barra"><span class="s-marca" data-marca>' + esc(nome) + '</span><span class="s-links"><span>Início</span><span>Serviços</span><span>Contato</span></span><span class="s-acao">' + esc(r.botao) + '</span></div>' +
-      '<div class="s-capa"><i class="s-deco"></i><img class="s-f1" src="' + foto(r.f1) + '" alt="" width="800" height="600"><img class="s-f2" src="' + foto(r.f2) + '" alt="" width="800" height="600">' +
-      '<div class="s-texto"><div class="s-nome" data-marca>' + esc(nome) + '</div><p class="s-frase">' + esc(r.frase) + '</p><span class="s-botao">' + esc(r.botao) + '</span></div></div>' +
-      '<div class="s-lista"><p class="s-rot">' + esc(r.rot) + '</p><div class="s-itens">' + r.itens.map(function (i) {
+      '<div class="s-barra"><span class="s-marca" data-marca>' + esc(nome) + '</span><span class="s-links"><span>Início</span><span>Serviços</span><span>Contato</span></span><span class="s-acao">' + esc(botao) + '</span></div>' +
+      '<div class="s-capa"><i class="s-deco"></i><img class="s-f1" src="' + foto(f1) + '" alt="" width="800" height="600"><img class="s-f2" src="' + foto(r.f2) + '" alt="" width="800" height="600">' +
+      '<div class="s-texto"><div class="s-nome" data-marca>' + esc(nome) + '</div><p class="s-frase">' + esc(frase) + '</p><span class="s-botao">' + esc(botao) + '</span></div></div>' +
+      '<div class="s-lista"><p class="s-rot">' + esc(r.rot) + '</p><div class="s-itens">' + lista.map(function (i) {
         return '<div class="s-item">' + (i[2] ? '<img src="' + foto(i[2]) + '" alt="" width="800" height="600">' : '') + '<span>' + esc(i[0]) + '</span><i></i><b>' + esc(i[1]) + '</b></div>';
       }).join('') + '</div></div><p class="s-rodape">' + esc(r.hora) + '</p></div>';
   }
@@ -55,9 +56,9 @@
   }
   function pintaNome() {
     var nome = nomeAtual();
-    todos('[data-marca]').forEach(function (el) { el.textContent = nome; });
+    todos('[data-sitio] [data-marca], .s[data-nome-padrao] [data-marca]').forEach(function (el) { el.textContent = nome; });
     todos('[data-url]').forEach(function (el) { el.textContent = endereco(nome); });
-    todos('.s').forEach(function (s) { s.setAttribute('style', escalas(nome)); });
+    todos('[data-sitio] .s, .s[data-nome-padrao]').forEach(function (s) { s.setAttribute('style', escalas(nome)); });
     var espelho = q('[data-espelho]');
     if (espelho) {
       espelho.textContent = campo.value || campo.getAttribute('placeholder');
@@ -108,6 +109,47 @@
       cena.style.setProperty('--p', Math.max(0, 1 - window.scrollY / 420).toFixed(3));
     });
   }, { passive: true });
+
+  /* Modelos: o clique abre o estúdio de personalização. O link continua sendo da
+     página do ramo, para o Google, para abrir em nova aba e para quem está sem JS. */
+  window.ACTECH = {
+    RAMOS: RAMOS, WHATS: WHATS, ASSINAR: ASSINAR, raiz: RAIZ, foto: foto, sitio: sitio, escalas: escalas, endereco: endereco,
+    nomeDigitado: function () { return campo ? campo.value.trim() : ''; },
+    definirNome: function (n) { if (campo && n !== undefined) { campo.value = n; pintaNome(); } }
+  };
+  var carregaEstudio = (function () {
+    var promessa;
+    return function () {
+      if (promessa) return promessa;
+      // só abre com o CSS já aplicado: é nele que está a animação de abrir
+      promessa = Promise.all([new Promise(function (ok, erro) {
+        var css = document.createElement('link');
+        css.rel = 'stylesheet'; css.href = RAIZ + 'extras/estudio.css?v=1'; css.onload = ok; css.onerror = erro;
+        document.head.appendChild(css);
+      }), new Promise(function (ok, erro) {
+        var s = document.createElement('script');
+        s.src = RAIZ + 'extras/estudio.js?v=1'; s.onload = ok; s.onerror = erro;
+        document.head.appendChild(s);
+      })]);
+      return promessa;
+    };
+  })();
+  var secaoModelos = q('.modelos');
+  if (secaoModelos) {
+    if ('IntersectionObserver' in window) {
+      var olhaModelos = new IntersectionObserver(function (e) {
+        if (e[0].isIntersecting) { olhaModelos.disconnect(); carregaEstudio().catch(function () {}); }
+      }, { rootMargin: '700px' });
+      olhaModelos.observe(secaoModelos);
+    }
+    document.addEventListener('click', function (ev) {
+      var a = ev.target.closest && ev.target.closest('a.modelo[data-modelo]');
+      if (!a || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.button) return;
+      ev.preventDefault();
+      carregaEstudio().then(function () { window.ACTECH.abrirEstudio(a.getAttribute('data-modelo'), a); })
+        .catch(function () { location.href = a.href; });
+    });
+  }
 
   // o botão fixo do WhatsApp só aparece depois da abertura, para não cobrir os painéis
   var zap = q('.zap-fixo'), abertura = q('.abertura, .capa-nome');
