@@ -14,7 +14,7 @@
      São versionados pelo deploy e não mudam no meio do dia.
 */
 
-var VERSAO = 'actech-v26';
+var VERSAO = 'actech-v27';
 var C_CASCA = VERSAO + '-casca';
 var C_USO = VERSAO + '-uso';
 
@@ -52,7 +52,7 @@ var CASCA = [
   'fontes/red-hat-display.woff2',
   'fontes/red-hat-text.woff2',
   'imgs/marca.webp',
-  'imgs/amon-rosto.webp',
+  'imgs/amon-foto.webp',
   'imgs/painel-caixa.webp',
   'vendor/gsap-3.12.5.min.js',
   'imgs/ramos/barbearia-1.webp',

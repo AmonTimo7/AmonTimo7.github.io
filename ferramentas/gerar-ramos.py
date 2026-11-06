@@ -345,7 +345,7 @@ def prosa(h2, paragrafos, extra='', id_='', cinza=False):
 def bloco_quem(local='em Brasília'):
     return '''  <section class="secao secao--curta" id="quem">
     <div class="miolo quem">
-      <img src="../imgs/amon-rosto.webp" alt="Amon Timo, fundador da ACTech" width="560" height="560" loading="lazy">
+      <img src="../imgs/amon-foto.webp" alt="Amon Timo, fundador da ACTech" width="560" height="560" loading="lazy">
       <div>
         <h2>Você fala com quem faz.</h2>
         <p>Eu sou o Amon Timo, desenvolvedor há 3 anos e fundador da ACTech, %s. Quem responde o seu WhatsApp é quem faz o seu site. Sem intermediários.</p>
