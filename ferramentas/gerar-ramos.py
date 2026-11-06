@@ -348,7 +348,7 @@ def bloco_quem(local='em Brasília'):
       <img src="../imgs/amon-foto.webp" alt="Amon Timo, fundador da ACTech" width="560" height="560" loading="lazy">
       <div>
         <h2>Você fala com quem faz.</h2>
-        <p>Eu sou o Amon Timo, desenvolvedor há 3 anos e fundador da ACTech, %s. Quem responde o seu WhatsApp é quem faz o seu site. Sem intermediários.</p>
+        <p>Eu sou o Amon Timo, desenvolvedor há 3 anos e fundador da ACTech, %s. Cuido de cada projeto do começo ao fim, sem intermediários.</p>
       </div>
     </div>
   </section>''' % local
@@ -370,7 +370,7 @@ def faixa(titulo='O seu site no ar em até 5 dias úteis.'):
       <h2>%s</h2>
       <p class="apoio">Depois que o material chega. R$&nbsp;59,90 por mês, sem taxa de criação e sem fidelidade.</p>
       <a class="botao botao--branco faixa-botao" data-assinar href="[[ZAP]]" target="_blank" rel="noopener">Quero o meu site</a>
-      <p class="faixa-quem"><img src="../imgs/amon-foto-mini.webp" alt="" width="112" height="112" loading="lazy">Quem responde é o Amon Timo, que faz o seu site.</p>
+      <p class="faixa-quem"><img src="../imgs/amon-foto-mini.webp" alt="" width="112" height="112" loading="lazy">Fale direto com o Amon Timo, sem intermediários.</p>
     </div>
   </section>''' % titulo
 
@@ -496,7 +496,7 @@ def pagina_sistema():
         desc='Sistema sob medida em Brasília: painel de gestão, controle financeiro e de caixa, agenda, auditoria de bens e integrações, feitos do zero. Valor a negociar.',
         h1='Sistema sob medida, do jeito que a sua empresa já funciona',
         lead='Quando a planilha não dá mais conta e nenhum sistema pronto serve, a ACTech constrói o que falta, do zero. O valor é a negociar, e o site e os posts podem entrar junto.',
-        visual='<figure class="palco-img"><img src="../imgs/demo-indicadores/dashboard.webp" alt="Dashboard de um sistema de metas feito pela ACTech" width="1400" height="875" fetchpriority="high"><figcaption class="aviso-ex">Sistema feito pela ACTech, com dados de demonstração. A marca e a agência do cliente foram trocadas para não identificá-lo.</figcaption></figure>',
+        visual='<figure class="palco-img"><img src="../imgs/demo-indicadores/dashboard.webp?v=2" alt="Dashboard de um sistema de metas feito pela ACTech" width="1400" height="875" fetchpriority="high"><figcaption class="aviso-ex">Sistema feito pela ACTech, com dados de demonstração. A marca e a agência do cliente foram trocadas para não identificá-lo.</figcaption></figure>',
         msg='Olá! Vi a página de sistema sob medida da ACTech e quero conversar sobre um sistema para a minha empresa.', oferta=False,
         corpo=[
             prosa('Sistemas que a ACTech já construiu.', [

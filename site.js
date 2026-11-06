@@ -151,6 +151,41 @@
     });
   }
 
+  /* barra do topo: sombra maior ao rolar, a seção atual em destaque e o menu do celular que se fecha */
+  var topo = q('.topo');
+  if (topo) {
+    var marcaRolagem = function () {
+      if (window.scrollY > 12) topo.setAttribute('data-rolou', ''); else topo.removeAttribute('data-rolou');
+    };
+    window.addEventListener('scroll', marcaRolagem, { passive: true });
+    marcaRolagem();
+  }
+  var linksMenu = todos('.menu a[href^="#"]');
+  if (linksMenu.length && 'IntersectionObserver' in window) {
+    var olhaSecao = new IntersectionObserver(function (itens) {
+      itens.forEach(function (i) {
+        if (!i.isIntersecting) return;
+        linksMenu.forEach(function (a) {
+          if (a.getAttribute('href') === '#' + i.target.id) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+        });
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    linksMenu.forEach(function (a) {
+      var alvo = q(a.getAttribute('href'));
+      if (alvo) olhaSecao.observe(alvo);
+    });
+    // na abertura, nenhum link fica marcado
+    var abertura0 = q('.capa-nome, .abertura');
+    if (abertura0) new IntersectionObserver(function (e) {
+      if (e[0].isIntersecting) linksMenu.forEach(function (a) { a.removeAttribute('aria-current'); });
+    }, { rootMargin: '-40% 0px -55% 0px' }).observe(abertura0);
+  }
+  var menuCel = q('.menu-cel');
+  if (menuCel) document.addEventListener('click', function (ev) {
+    if (!menuCel.open) return;
+    if (!menuCel.contains(ev.target) || (ev.target.closest && ev.target.closest('.menu-cel nav a'))) menuCel.open = false;
+  });
+
   // o botão fixo do WhatsApp só aparece depois da abertura, para não cobrir os painéis
   var zap = q('.zap-fixo'), abertura = q('.abertura, .capa-nome');
   if (zap && abertura && 'IntersectionObserver' in window) {
