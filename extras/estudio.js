@@ -43,6 +43,9 @@
 
   var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var podeVT = !!document.startViewTransition && !reduz;
+  var podeVoar = !!Element.prototype.animate && !reduz;
+  var voando = false;
+  var DUR = 720, CURVA = 'cubic-bezier(.45, 0, .12, 1)';
   var dlg, palco, celEl, navEl, estado, origem, urlEnviada;
 
   function $(s, r) { return (r || dlg).querySelector(s); }
@@ -71,6 +74,7 @@
     dlg.className = 'estudio';
     dlg.setAttribute('aria-labelledby', 'estudio-titulo');
     dlg.innerHTML =
+      '<div class="estudio-fundo" data-fundo></div>' +
       '<div class="estudio-grade">' +
         '<div class="estudio-palco" data-palco>' +
           '<div class="estudio-topo"><div class="estudio-telas" role="group" aria-label="Ver no computador ou no celular">' +
@@ -315,60 +319,103 @@
     if (sim) { var barra = window.innerWidth - h.clientWidth; h.style.overflow = 'hidden'; if (barra) document.body.style.paddingRight = barra + 'px'; }
     else { h.style.overflow = ''; document.body.style.paddingRight = ''; }
   }
+  function telaAtual() { return estado.tela === 'pc' ? navEl : celEl; }
   function mostra() {
     dlg.showModal(); travaPagina(true); ajusta();
     var campo = $('[data-e-nome]');
     if (window.innerWidth > 960) campo.focus({ preventScroll: true }); else dlg.focus();
   }
+  function fotosProntas() {
+    var fotos = $$('[data-nav] img').filter(function (i) { return i.decode; }).map(function (i) { return i.decode().catch(function () {}); });
+    return Promise.race([Promise.all(fotos), new Promise(function (ok) { setTimeout(ok, 350); })]);
+  }
+  /* o caminho entre o cartão e a posição final do site, em transform: anda liso em qualquer máquina */
+  function caminho(fonte, alvo) {
+    var f = fonte.getBoundingClientRect(), a = alvo.getBoundingClientRect();
+    var esc0 = parseFloat(alvo.style.getPropertyValue('--esc')) || 1;
+    var dx = (f.left + f.width / 2) - (a.left + a.width / 2), dy = (f.top + f.height / 2) - (a.top + a.height / 2);
+    return {
+      cartao: 'translate(calc(-50% + ' + dx.toFixed(1) + 'px), calc(-50% + ' + dy.toFixed(1) + 'px)) scale(' + (esc0 * f.width / a.width).toFixed(4) + ')',
+      final: 'translate(-50%, -50%) scale(' + esc0 + ')'
+    };
+  }
+  function pecasAnimadas(abrindo) {
+    var f = abrindo ? 'backwards' : 'forwards';
+    function fade(el, dur, delay) {
+      return el.animate(abrindo ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 1 }, { opacity: 0 }], { duration: dur, delay: delay || 0, easing: 'ease-in-out', fill: f });
+    }
+    var lista = [
+      fade($('[data-fundo]'), 480, abrindo ? 0 : 200),
+      $('[data-painel]').animate(abrindo ? [{ opacity: 0, transform: 'translateX(46px)' }, { opacity: 1, transform: 'none' }] : [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateX(46px)' }], { duration: abrindo ? 600 : 460, delay: abrindo ? 120 : 0, easing: CURVA, fill: f })
+    ];
+    $$('.estudio-topo, .estudio-aviso, .estudio-fechar').forEach(function (el) { lista.push(fade(el, abrindo ? 360 : 200, abrindo ? 300 : 0)); });
+    try {
+      lista.push(dlg.animate(abrindo ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 1 }, { opacity: 0 }], { duration: 520, delay: abrindo ? 0 : 200, easing: 'ease-in-out', fill: f, pseudoElement: '::backdrop' }));
+    } catch (e) { /* navegador sem animação no fundo: ele só aparece */ }
+    return lista;
+  }
+  function terminou(anims) {
+    return Promise.all(anims.map(function (a) { return a.finished.catch(function () {}); }));
+  }
   function abrir(k, de) {
+    if (voando || (dlg && dlg.open)) return;
     if (!dlg) montar();
     var nomeGuardado = estado ? estado.nome : null;
     estado = novoEstado(k);
     if (!estado.nome && nomeGuardado) estado.nome = nomeGuardado;
     origem = de;
     navEl.hidden = false; celEl.hidden = true;
+    navEl.style.viewTransitionName = ''; celEl.style.viewTransitionName = '';
     $$('[data-tela]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-tela') === 'pc' ? 'true' : 'false'); });
     trocaAba('modelo');
     $('[data-e-erro]').hidden = true;
     pintaSite(); pintaPainel();
     var fonte = de && de.querySelector('.modelo-img');
-    if (!podeVT || !fonte) { dlg.classList.add('sem-vt'); nomeTela(); mostra(); return; }
-    dlg.classList.remove('sem-vt');
-    // espera a foto estar pronta, para o site já crescer inteiro desde o cartão
+    voando = true;
+    // espera a foto estar pronta, para o site já sair inteiro do cartão
     fotosProntas().then(function () {
-      var h = document.documentElement;
-      h.classList.add('estudio-anim', 'estudio-abre');
-      fonte.style.viewTransitionName = 'estudio-tela';
-      var vt = document.startViewTransition(function () {
-        fonte.style.viewTransitionName = '';
-        nomeTela();
-        $('[data-painel]').style.viewTransitionName = 'estudio-painel';
-        mostra();
+      mostra();
+      if (!podeVoar || !fonte) { nomeTela(); voando = false; return; }
+      dlg.classList.add('voando');
+      var c = caminho(fonte, navEl);
+      fonte.style.visibility = 'hidden';
+      var anims = pecasAnimadas(true);
+      anims.push(navEl.animate([{ transform: c.cartao }, { transform: c.final }], { duration: DUR, easing: CURVA }));
+      terminou(anims).then(function () {
+        dlg.classList.remove('voando');
+        fonte.style.visibility = '';
+        anims.forEach(function (a) { a.cancel(); });
+        nomeTela(); voando = false;
       });
-      var limpa = function () { h.classList.remove('estudio-anim', 'estudio-abre'); $('[data-painel]').style.viewTransitionName = ''; };
-      vt.finished.then(limpa, limpa);
     });
-  }
-  function fotosProntas() {
-    var fotos = $$('[data-nav] img').filter(function (i) { return i.decode; }).map(function (i) { return i.decode().catch(function () {}); });
-    return Promise.race([Promise.all(fotos), new Promise(function (ok) { setTimeout(ok, 350); })]);
   }
   function fechar() {
+    if (voando) return;
     A.definirNome(estado.nome);
     var fonte = origem && origem.querySelector('.modelo-img');
-    var fim = function () { dlg.close(); travaPagina(false); };
-    if (!podeVT || !fonte) { fim(); if (origem) origem.focus(); return; }
-    var h = document.documentElement;
-    h.classList.add('estudio-anim', 'estudio-fecha');
-    $('[data-painel]').style.viewTransitionName = 'estudio-painel';
-    var vt = document.startViewTransition(function () {
-      navEl.style.viewTransitionName = ''; celEl.style.viewTransitionName = '';
-      $('[data-painel]').style.viewTransitionName = '';
+    var fim = function () {
+      dlg.close(); travaPagina(false);
+      if (origem) origem.focus({ preventScroll: true });
+    };
+    if (!podeVoar || !fonte) { fim(); return; }
+    voando = true;
+    var alvo = telaAtual();
+    alvo.style.viewTransitionName = '';
+    dlg.classList.add('voando');
+    var c = caminho(fonte, alvo);
+    fonte.style.visibility = 'hidden';
+    var anims = pecasAnimadas(false);
+    var quadros = [{ transform: c.final, opacity: 1 }, { transform: c.cartao, opacity: 1 }];
+    // o iPhone não tem o formato do cartão: some no fim do caminho
+    if (alvo === celEl) quadros = [{ transform: c.final, opacity: 1 }, { transform: c.cartao, opacity: 0 }];
+    anims.push(alvo.animate(quadros, { duration: DUR, easing: CURVA, fill: 'forwards' }));
+    terminou(anims).then(function () {
       fim();
-      fonte.style.viewTransitionName = 'estudio-tela';
+      fonte.style.visibility = '';
+      dlg.classList.remove('voando');
+      anims.forEach(function (a) { a.cancel(); });
+      voando = false;
     });
-    var limpa = function () { fonte.style.viewTransitionName = ''; h.classList.remove('estudio-anim', 'estudio-fecha'); if (origem) origem.focus({ preventScroll: true }); };
-    vt.finished.then(limpa, limpa);
   }
   A.abrirEstudio = abrir;
 })();
