@@ -68,7 +68,7 @@
   .barras i b { position: absolute; inset: 0; background: var(--txt); transform-origin: left; transform: scaleX(0); transition: transform .45s var(--ease); }
   .barras i.feita b { transform: scaleX(1); }
   .marca-mini { display: flex; align-items: center; gap: 8px; font: 700 18px "Red Hat Display", sans-serif; letter-spacing: -.03em; color: var(--txt); white-space: nowrap; }
-  .marca-mini img { width: 34px; height: auto; display: block; }
+  .marca-mini img { width: auto; height: 46px; display: block; }
 
   /* ------------------------------------------------------------ telas */
   .tela {
@@ -106,7 +106,7 @@
   .palavra > span { display: inline-block; }
 
   /* ---------------------------------------------------------- capa */
-  .logo-grande { width: 96px; height: auto; margin: 0 auto 22px; display: block; }
+  .logo-grande { width: 120px; height: auto; margin: 0 auto 22px; display: block; }
   .capa { text-align: center; }
   .chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 30px; }
   .chip {
@@ -331,7 +331,7 @@
 
 <div class="topo">
   <div class="barras" id="barras"></div>
-  <div class="marca-mini"><img src="imgs/marca.webp" alt="" width="240" height="193">ACTech</div>
+  <div class="marca-mini"><img src="imgs/logo.webp" alt="ACTech Informática" width="199" height="200"></div>
 </div>
 
 <div id="telas"></div>
@@ -687,7 +687,7 @@
     return {
       html:
         '<div class="conteudo capa">' +
-          '<img class="logo-grande" data-a="logo" src="imgs/marca.webp" alt="ACTech" width="240" height="193">' +
+          '<img class="logo-grande" data-a="logo" src="imgs/logo.webp" alt="ACTech Informática" width="199" height="200">' +
           '<h1 data-a="titulo">' + palavras('Qual é o seu negócio?') + '</h1>' +
           '<p class="sub" data-a="sub">Em dois toques, você vê como ficaria o seu site e o seu Instagram.</p>' +
           '<div class="chips">' +
