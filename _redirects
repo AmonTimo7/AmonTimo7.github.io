@@ -2,3 +2,5 @@
 /atendente-ia-whatsapp/ / 301
 /atendente-ia-whatsapp / 301
 /catalogo.html / 301
+# Configuração local que ficou presa no cache do Pages
+/.claude/* / 302
