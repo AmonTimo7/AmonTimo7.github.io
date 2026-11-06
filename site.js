@@ -8,7 +8,7 @@
   // Link da assinatura de R$ 59,90 no Mercado Pago. Vazio: o botão vai para o
   // WhatsApp. Ao colar o link aqui, todos os botões do site passam a usá-lo,
   // com o aceite dos termos na frente (extras/aceite.js).
-  var ASSINAR = '';
+  var ASSINAR = 'https://mpago.la/2oowyFJ';
   var PIXEL = '2217077532566142';
   var RAMOS = {
     barbearia: {"nome": "Dom Corte", "hora": "Ter a sáb, 9h às 20h", "fundo": "#F3E4C4", "tinta": "#35240A", "frase": "Corte marcado. Sem fila, sem esperar.", "botao": "Agendar horário", "rot": "Serviços", "f1": "barbearia-2", "f2": "barbearia-3", "itens": [["Corte", "R$ 45"], ["Barba", "R$ 35"], ["Corte e barba", "R$ 70"]], "posts": [["barbearia-3", "Agenda aberta para sábado"], ["", "Corte + barba R$ 70"]]},
