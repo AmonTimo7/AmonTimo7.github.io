@@ -311,7 +311,8 @@
     var zap = 'https://wa.me/' + A.WHATS + '?text=' + encodeURIComponent(msg);
     var cta = $('[data-e-cta]'), sub = $('[data-e-sub]');
     if (A.ASSINAR) {
-      cta.href = A.ASSINAR; cta.textContent = 'Assinar por R$ 59,90';
+      cta.href = A.ASSINAR; cta.textContent = 'Assinar por R$ 59,90'; cta.removeAttribute('target'); cta.removeAttribute('rel');
+      cta.setAttribute('data-pedido-nome', nome()); cta.setAttribute('data-pedido-ramo', estado.ramo);
       if (sub.tagName !== 'A') { var a = document.createElement('a'); a.className = 'estudio-sub'; a.setAttribute('data-e-sub', ''); a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Enviar estas escolhas pelo WhatsApp'; sub.parentNode.replaceChild(a, sub); sub = a; }
       sub.href = zap;
     } else {

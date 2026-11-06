@@ -5,10 +5,6 @@
   'use strict';
 
   var WHATS = '5561994299823';
-  // Link da assinatura de R$ 59,90 no Mercado Pago. Vazio: o botão vai para o
-  // WhatsApp. Ao colar o link aqui, todos os botões do site passam a usá-lo,
-  // com o aceite dos termos na frente (extras/aceite.js).
-  var ASSINAR = 'https://mpago.la/2oowyFJ';
   var PIXEL = '2217077532566142';
   var RAMOS = {
     barbearia: {"nome": "Dom Corte", "hora": "Ter a sáb, 9h às 20h", "fundo": "#F3E4C4", "tinta": "#35240A", "frase": "Corte marcado. Sem fila, sem esperar.", "botao": "Agendar horário", "rot": "Serviços", "f1": "barbearia-2", "f2": "barbearia-3", "itens": [["Corte", "R$ 45"], ["Barba", "R$ 35"], ["Corte e barba", "R$ 70"]], "posts": [["barbearia-3", "Agenda aberta para sábado"], ["", "Corte + barba R$ 70"]]},
@@ -22,6 +18,9 @@
   };
 
   var RAIZ = ((document.currentScript && document.currentScript.src) || '').replace(/site\.js.*$/, '');
+  // Os botões de assinar levam à tela /assinar (assinar.html). É ela que abre o
+  // checkout do Mercado Pago, com o aceite dos termos na frente.
+  var ASSINAR = RAIZ + (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'assinar.html' : 'assinar');
   function foto(n) { return /^(blob:|data:|https?:)/.test(n) ? n : RAIZ + 'imgs/ramos/' + n + '.webp'; }
   function q(s) { return document.querySelector(s); }
   function todos(s) { return [].slice.call(document.querySelectorAll(s)); }
@@ -190,7 +189,7 @@
         document.head.appendChild(css);
       }), new Promise(function (ok, erro) {
         var s = document.createElement('script');
-        s.src = RAIZ + 'extras/estudio.js?v=3'; s.onload = ok; s.onerror = erro;
+        s.src = RAIZ + 'extras/estudio.js?v=4'; s.onload = ok; s.onerror = erro;
         document.head.appendChild(s);
       })]);
       return promessa;
@@ -258,7 +257,20 @@
   }
 
   if (ASSINAR) {
-    [].forEach.call(document.querySelectorAll('[data-assinar]'), function (a) { a.href = ASSINAR; });
+    [].forEach.call(document.querySelectorAll('[data-assinar]'), function (a) { a.href = ASSINAR; a.removeAttribute('target'); a.removeAttribute('rel'); });
+    // leva o nome e o ramo escolhidos para a tela de assinar
+    document.addEventListener('click', function (ev) {
+      var a = ev.target.closest && ev.target.closest('[data-assinar], [data-e-cta]');
+      if (!a) return;
+      var modelo = q('.s[data-nome-padrao]');
+      try {
+        localStorage.setItem('actech-pedido', JSON.stringify({
+          nome: a.getAttribute('data-pedido-nome') || (campo ? campo.value.trim() : ''),
+          ramo: a.getAttribute('data-pedido-ramo') || (modelo && modelo.getAttribute('data-estilo')) || ramoAtual,
+          origem: location.pathname
+        }));
+      } catch (e) {}
+    }, true);
   }
 
   /* Medição: só a assinatura conta como conversão. ?medir=debug imprime no console. */

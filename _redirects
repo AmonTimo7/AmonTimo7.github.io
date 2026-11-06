@@ -4,3 +4,5 @@
 /catalogo.html / 301
 # Configuração local que ficou presa no cache do Pages
 /.claude/* / 302
+# Código da função de contatos
+/functions/* / 302
