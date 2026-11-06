@@ -172,7 +172,7 @@
     ['tv', 'Modo TV', 'O painel na TV da equipe, sempre à vista.']
   ];
   var telaFeita = 0, raiz = (window.ACTECH && window.ACTECH.raiz) || '';
-  function arqFeito(k) { return raiz + 'imgs/demo-indicadores/' + k + '.webp'; }
+  function arqFeito(k) { return raiz + 'imgs/demo-indicadores/' + k + '.webp?v=2'; }
   function pintaFeita() {
     var t = TELAS_FEITAS[telaFeita];
     q('[data-feito-abas]').innerHTML = TELAS_FEITAS.map(function (x, i) { return '<button class="chip" type="button" data-feita="' + i + '" aria-pressed="' + (i === telaFeita) + '">' + x[1] + '</button>'; }).join('');
