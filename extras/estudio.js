@@ -169,6 +169,7 @@
   function pintaSite() {
     var html = A.sitio(estado.ramo, nome(), trocados());
     $$('[data-e-sitio]').forEach(function (el) { el.innerHTML = html; });
+    $$('.s').forEach(A.vivifica);
     pintaEstilo(); pintaTextos(); ajusta();
   }
   function pintaTextos() {
@@ -182,6 +183,11 @@
         el.querySelector('span').textContent = t.itens[i][0];
         el.querySelector('b').textContent = t.itens[i][1];
       });
+      $$('.s-card', s).forEach(function (el, i) {
+        el.querySelector('b').textContent = t.itens[i][0];
+        el.querySelector('span').textContent = t.itens[i][1];
+      });
+      $$('[data-grupo="item"] button', s).forEach(function (el, i) { el.textContent = t.itens[i][0]; });
     });
     $$('[data-e-url]').forEach(function (el) { el.textContent = A.endereco(n); });
     atualizaZap();

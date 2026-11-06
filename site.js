@@ -45,6 +45,75 @@
       }).join('') + '</div></div><p class="s-rodape">' + esc(r.hora) + '</p></div>';
   }
 
+  /* O site de exemplo funciona: Início, Serviços, Contato e o pedido, sem sair da página. */
+  var HORAS = ['09:00', '10:30', '14:00', '16:30'];
+  var ABA = { barbearia: 'Serviços', salao: 'Serviços', petshop: 'Serviços', roupa: 'Novidades', restaurante: 'Cardápio', mercado: 'Ofertas', clinica: 'Atendimento', maquiagem: 'Pacotes' };
+  var PEDIDO = { barbearia: 'Agendar horário', salao: 'Marcar horário', petshop: 'Agendar banho', roupa: 'Reservar uma peça', restaurante: 'Fazer um pedido', mercado: 'Fazer um pedido', clinica: 'Agendar consulta', maquiagem: 'Reservar data' };
+  function vivifica(s) {
+    if (s.hasAttribute('data-pag')) return;
+    var k = s.getAttribute('data-estilo'), r = RAMOS[k];
+    if (!r) return;
+    s.setAttribute('data-pag', 'inicio');
+    s.querySelector('.s-links').innerHTML = [['inicio', 'Início'], ['servicos', ABA[k]], ['contato', 'Contato']].map(function (l) {
+      return '<button type="button" data-s-ir="' + l[0] + '"' + (l[0] === 'inicio' ? ' aria-current="page"' : '') + '>' + l[1] + '</button>';
+    }).join('');
+    s.querySelector('.s-marca').setAttribute('data-s-ir', 'inicio');
+    [].forEach.call(s.querySelectorAll('.s-botao, .s-acao'), function (b) {
+      b.setAttribute('data-s-ir', 'contato'); b.setAttribute('role', 'button'); b.setAttribute('tabindex', '0');
+    });
+    var base = r.f1.split('-')[0];
+    var terceira = [1, 2, 3, 4].map(function (n) { return base + '-' + n; }).filter(function (f) { return f !== r.f1 && f !== r.f2 && (base === 'roupa' || +f.split('-')[1] < 4); })[0];
+    var fotos = [r.f1, r.f2, terceira];
+    var ser = document.createElement('div');
+    ser.className = 's-pag s-pag--servicos';
+    ser.innerHTML = '<h3>' + esc(r.rot) + '</h3><div class="s-cards">' + r.itens.map(function (i, n) {
+      return '<article class="s-card"><img src="' + foto(i[2] || fotos[n]) + '" alt="" width="800" height="600" loading="lazy"><div><b>' + esc(i[0]) + '</b><span>' + esc(i[1]) + '</span><button type="button" data-s-esc="' + n + '">' + esc(r.botao.split(' ')[0]) + '</button></div></article>';
+    }).join('') + '</div>';
+    var con = document.createElement('div');
+    con.className = 's-pag s-pag--contato';
+    con.innerHTML = '<h3>' + esc(PEDIDO[k]) + '</h3><div class="s-duas"><div>' +
+      '<span class="s-rot2">O que você procura?</span><div class="s-esc" data-grupo="item">' + r.itens.map(function (i, n) { return '<button type="button" aria-pressed="' + (n === 0) + '" data-s-opc="' + n + '">' + esc(i[0]) + '</button>'; }).join('') + '</div>' +
+      '<span class="s-rot2">Qual horário?</span><div class="s-esc" data-grupo="hora">' + HORAS.map(function (h, n) { return '<button type="button" aria-pressed="' + (n === 1) + '" data-s-opc="' + h + '">' + h + '</button>'; }).join('') + '</div>' +
+      '<button type="button" class="s-confirma" data-s-confirma>Confirmar</button><p class="s-ok" role="status" hidden></p></div>' +
+      '<div class="s-info"><b>Horário</b><p>' + esc(r.hora) + '</p><b>Endereço</b><p>Rua do Exemplo, 100, Brasília</p><b>WhatsApp</b><p>(61) 90000-0000</p></div></div>';
+    s.appendChild(ser);
+    s.appendChild(con);
+  }
+  function irPagina(s, p) {
+    s.setAttribute('data-pag', p);
+    [].forEach.call(s.querySelectorAll('.s-links button'), function (b) {
+      if (b.getAttribute('data-s-ir') === p) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+    });
+    var caixa = s.closest('.navegador, .cel-tela'), url = caixa && caixa.querySelector('.ex-endereco span, .cel-safari span');
+    if (url) url.textContent = url.textContent.split('/')[0] + (p === 'inicio' ? '' : '/' + p);
+    var pag = s.querySelector('.s-pag--' + p);
+    if (pag) pag.scrollTop = 0;
+  }
+  document.addEventListener('click', function (ev) {
+    var t = ev.target;
+    if (!t.closest) return;
+    var s = t.closest('.s');
+    if (!s) return;
+    var b;
+    if ((b = t.closest('[data-s-esc]'))) {
+      irPagina(s, 'contato');
+      var n = b.getAttribute('data-s-esc');
+      [].forEach.call(s.querySelectorAll('[data-grupo="item"] button'), function (o) { o.setAttribute('aria-pressed', o.getAttribute('data-s-opc') === n ? 'true' : 'false'); });
+    } else if ((b = t.closest('[data-s-opc]'))) {
+      [].forEach.call(b.parentNode.querySelectorAll('button'), function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      s.querySelector('.s-ok').hidden = true;
+    } else if ((b = t.closest('[data-s-confirma]'))) {
+      var ok = s.querySelector('.s-ok');
+      ok.textContent = 'Pronto: ' + s.querySelector('[data-grupo="item"] [aria-pressed="true"]').textContent + ', às ' + s.querySelector('[data-grupo="hora"] [aria-pressed="true"]').textContent + '. No site de verdade, este pedido chega no seu WhatsApp.';
+      ok.hidden = false;
+    } else if ((b = t.closest('[data-s-ir]'))) {
+      irPagina(s, b.getAttribute('data-s-ir'));
+    }
+  });
+  document.addEventListener('keydown', function (ev) {
+    if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.matches && ev.target.matches('.s [role="button"]')) { ev.preventDefault(); ev.target.click(); }
+  });
+
   var campo = q('[data-nome]');
   var fixo = q('.s[data-nome-padrao]');
   var ramoAtual = 'barbearia';
@@ -57,7 +126,10 @@
   function pintaNome() {
     var nome = nomeAtual();
     todos('[data-sitio] [data-marca], .s[data-nome-padrao] [data-marca]').forEach(function (el) { el.textContent = nome; });
-    todos('[data-url]').forEach(function (el) { el.textContent = endereco(nome); });
+    todos('[data-url]').forEach(function (el) {
+      var caixa = el.closest('.navegador, .cel-tela'), s = caixa && caixa.querySelector('.s'), pag = s && s.getAttribute('data-pag');
+      el.textContent = endereco(nome) + (pag && pag !== 'inicio' ? '/' + pag : '');
+    });
     todos('[data-sitio] .s, .s[data-nome-padrao]').forEach(function (s) { s.setAttribute('style', escalas(nome)); });
     var espelho = q('[data-espelho]');
     if (espelho) {
@@ -70,6 +142,7 @@
     ramoAtual = chave;
     var nome = nomeAtual();
     todos('[data-sitio]').forEach(function (el) { el.innerHTML = sitio(chave, nome); });
+    todos('[data-sitio] .s').forEach(vivifica);
     var tela = q('.cel-tela');
     if (tela) { if (chave === 'barbearia') tela.setAttribute('data-escuro', ''); else tela.removeAttribute('data-escuro'); }
     var posts = q('.capa-posts');
@@ -89,9 +162,8 @@
   if (campo) campo.addEventListener('input', pintaNome);
   todos('[data-ramo]').forEach(function (b) {
     b.addEventListener('click', function () {
-      var chave = b.getAttribute('data-ramo');
-      if (document.startViewTransition && !reduz) document.startViewTransition(function () { pintaRamo(chave); });
-      else pintaRamo(chave);
+      pintaRamo(b.getAttribute('data-ramo'));
+      if (window.ACTECH.montar) window.ACTECH.montar();
     });
   });
   if (q('[data-ramo]')) window.addEventListener('load', function () {
@@ -99,24 +171,14 @@
     Object.keys(RAMOS).forEach(function (k) { new Image().src = foto(RAMOS[k].f1); });
   });
 
-  /* o site de exemplo começa inclinado e se endireita conforme a pessoa desce */
-  var cena = q('.capa-cena'), pedido_quadro = false;
-  if (cena) window.addEventListener('scroll', function () {
-    if (pedido_quadro) return;
-    pedido_quadro = true;
-    requestAnimationFrame(function () {
-      pedido_quadro = false;
-      cena.style.setProperty('--p', Math.max(0, 1 - window.scrollY / 420).toFixed(3));
-    });
-  }, { passive: true });
-
   /* Modelos: o clique abre o estúdio de personalização. O link continua sendo da
      página do ramo, para o Google, para abrir em nova aba e para quem está sem JS. */
   window.ACTECH = {
-    RAMOS: RAMOS, WHATS: WHATS, ASSINAR: ASSINAR, raiz: RAIZ, foto: foto, sitio: sitio, escalas: escalas, endereco: endereco,
+    RAMOS: RAMOS, WHATS: WHATS, ASSINAR: ASSINAR, raiz: RAIZ, foto: foto, sitio: sitio, escalas: escalas, endereco: endereco, vivifica: vivifica,
     nomeDigitado: function () { return campo ? campo.value.trim() : ''; },
     definirNome: function (n) { if (campo && n !== undefined) { campo.value = n; pintaNome(); } }
   };
+  todos('.s').forEach(vivifica);
   var carregaEstudio = (function () {
     var promessa;
     return function () {
@@ -128,7 +190,7 @@
         document.head.appendChild(css);
       }), new Promise(function (ok, erro) {
         var s = document.createElement('script');
-        s.src = RAIZ + 'extras/estudio.js?v=2'; s.onload = ok; s.onerror = erro;
+        s.src = RAIZ + 'extras/estudio.js?v=3'; s.onload = ok; s.onerror = erro;
         document.head.appendChild(s);
       })]);
       return promessa;
