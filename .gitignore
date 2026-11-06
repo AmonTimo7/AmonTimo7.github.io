@@ -14,3 +14,6 @@ imgs2/
 PRODUCT.md
 DESIGN.md
 .impeccable/
+
+# Configuração local do Claude: não vai para o ar
+.claude/
