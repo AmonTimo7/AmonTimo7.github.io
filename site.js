@@ -124,11 +124,11 @@
       // só abre com o CSS já aplicado: é nele que está a animação de abrir
       promessa = Promise.all([new Promise(function (ok, erro) {
         var css = document.createElement('link');
-        css.rel = 'stylesheet'; css.href = RAIZ + 'extras/estudio.css?v=1'; css.onload = ok; css.onerror = erro;
+        css.rel = 'stylesheet'; css.href = RAIZ + 'extras/estudio.css?v=2'; css.onload = ok; css.onerror = erro;
         document.head.appendChild(css);
       }), new Promise(function (ok, erro) {
         var s = document.createElement('script');
-        s.src = RAIZ + 'extras/estudio.js?v=1'; s.onload = ok; s.onerror = erro;
+        s.src = RAIZ + 'extras/estudio.js?v=2'; s.onload = ok; s.onerror = erro;
         document.head.appendChild(s);
       })]);
       return promessa;
@@ -162,16 +162,6 @@
 
   if (ASSINAR) {
     [].forEach.call(document.querySelectorAll('[data-assinar]'), function (a) { a.href = ASSINAR; });
-  }
-
-  var pedido = q('[data-pedido]');
-  if (pedido) {
-    pedido.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      var nome = pedido.querySelector('input').value.trim();
-      var msg = nome ? 'Olá! Quero um site para o meu negócio: ' + nome + '.' : 'Olá! Quero um site para o meu negócio.';
-      window.open('https://wa.me/' + WHATS + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
-    });
   }
 
   /* Medição: só a assinatura conta como conversão. ?medir=debug imprime no console. */

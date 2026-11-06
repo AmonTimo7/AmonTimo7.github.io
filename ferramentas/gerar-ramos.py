@@ -364,15 +364,13 @@ def bloco_duvidas(titulo, perguntas):
   </section>''' % (titulo, itens)
 
 
-def faixa(titulo='Vamos colocar o seu negócio no ar?'):
+def faixa(titulo='O seu site no ar em até 5 dias úteis.'):
     return '''  <section class="faixa">
     <div class="miolo">
       <h2>%s</h2>
-      <p class="apoio">Digite o nome e continue a conversa no WhatsApp.</p>
-      <form class="pedir" data-pedido>
-        <input type="text" maxlength="40" placeholder="Nome do seu negócio" aria-label="Nome do seu negócio" autocomplete="organization">
-        <button class="botao" type="submit">Pedir o meu site</button>
-      </form>
+      <p class="apoio">Depois que o material chega. R$&nbsp;59,90 por mês, sem taxa de criação e sem fidelidade.</p>
+      <a class="botao botao--branco faixa-botao" data-assinar href="[[ZAP]]" target="_blank" rel="noopener">Quero o meu site</a>
+      <p class="faixa-quem"><img src="../imgs/amon-foto-mini.webp" alt="" width="112" height="112" loading="lazy">Quem responde é o Amon Timo, que faz o seu site.</p>
     </div>
   </section>''' % titulo
 
@@ -388,7 +386,7 @@ def pagina_ramo(r):
     corpo = [bloco_incluso(r, 'O site e o Instagram %s%s, resolvidos.' % ('da' if r['artigo'][0] == 'a' else 'do', r['artigo'][1:])),
              bloco_passos(), bloco_quem(), bloco_precos(),
              bloco_duvidas('Dúvidas frequentes', [D_PRECO, D_PRAZO, D_FIDEL, D_FOTOS, D_INSTA]),
-             faixa('Vamos colocar %s no ar?' % e(r['artigo']))]
+             faixa('%s no ar em até 5 dias úteis.' % e(r['artigo']).capitalize())]
     return dict(
         slug=r['slug'], area='Brasília', nome=r['titulo_seo'], servico='Criação de site e posts para Instagram',
         titulo='%s por R$ 59,90 | ACTech' % r['titulo_seo'],
@@ -488,7 +486,7 @@ def pagina_posts():
                 D_FOTOS,
                 ('A conta do Instagram continua minha?', 'Continua. A ACTech só publica no perfil que já é seu. Se um dia você sair, nada muda na conta.'),
                 D_FIDEL]),
-            faixa('Vamos colocar o seu Instagram para rodar?')])
+            faixa('O seu Instagram ativo, sem você precisar postar.')])
 
 
 def pagina_sistema():
