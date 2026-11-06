@@ -162,6 +162,43 @@
   });
   q('[data-mon-empresa]').addEventListener('input', function (e) { pedido.empresa = e.target.value; pintaPedido(); });
 
+  /* ------------------------------------------- sistema feito: telas de demonstração */
+  var TELAS_FEITAS = [
+    ['dashboard', 'Dashboard', 'A meta do mês, os indicadores e o ritmo em uma tela só.'],
+    ['lancamento', 'Lançamento do dia', 'A equipe lança o dia, e o número aparece para todos.'],
+    ['visitas', 'Agenda de visitas', 'Onde a equipe vai estar, por dia e por pessoa, com o que ficou combinado.'],
+    ['semana', 'Destaques da semana', 'O que andou na semana e a pauta pronta para a reunião.'],
+    ['ficha', 'Ficha de desempenho', 'Uma página por pessoa, com meta, realizado e evolução.'],
+    ['tv', 'Modo TV', 'O painel na TV da equipe, sempre à vista.']
+  ];
+  var telaFeita = 0, raiz = (window.ACTECH && window.ACTECH.raiz) || '';
+  function arqFeito(k) { return raiz + 'imgs/demo-indicadores/' + k + '.webp'; }
+  function pintaFeita() {
+    var t = TELAS_FEITAS[telaFeita];
+    q('[data-feito-abas]').innerHTML = TELAS_FEITAS.map(function (x, i) { return '<button class="chip" type="button" data-feita="' + i + '" aria-pressed="' + (i === telaFeita) + '">' + x[1] + '</button>'; }).join('');
+    var img = q('[data-feito-img]');
+    img.src = arqFeito(t[0]); img.alt = t[1] + ' do sistema de indicadores: ' + t[2];
+    q('[data-feito-link]').href = arqFeito(t[0]);
+    q('[data-feito-titulo]').textContent = t[1];
+    q('[data-feito-nota]').textContent = t[2];
+  }
+  q('[data-feito-abas]').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-feita]');
+    if (!b) return;
+    telaFeita = +b.getAttribute('data-feita'); pintaFeita();
+    q('[data-feita="' + telaFeita + '"]').focus({ preventScroll: true });
+  });
+  // adianta as outras telas quando a pessoa chega perto, para a troca ser na hora
+  if ('IntersectionObserver' in window) {
+    var olhaFeito = new IntersectionObserver(function (e) {
+      if (!e[0].isIntersecting) return;
+      olhaFeito.disconnect();
+      TELAS_FEITAS.forEach(function (t) { new Image().src = arqFeito(t[0]); });
+    }, { rootMargin: '500px' });
+    olhaFeito.observe(q('[data-feito-img]'));
+  }
+
   pintaCaso();
   pintaPedido();
+  pintaFeita();
 })();

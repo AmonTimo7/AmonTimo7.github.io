@@ -496,7 +496,7 @@ def pagina_sistema():
         desc='Sistema sob medida em Brasília: painel de gestão, controle financeiro e de caixa, agenda, auditoria de bens e integrações, feitos do zero. Valor a negociar.',
         h1='Sistema sob medida, do jeito que a sua empresa já funciona',
         lead='Quando a planilha não dá mais conta e nenhum sistema pronto serve, a ACTech constrói o que falta, do zero. O valor é a negociar, e o site e os posts podem entrar junto.',
-        visual='<figure class="palco-img"><img src="../imgs/painel-caixa.webp" alt="Painel de controle de um sistema de caixa feito pela ACTech" width="1100" height="666" fetchpriority="high"><figcaption class="aviso-ex">Sistema real feito pela ACTech. Os valores estão borrados de propósito.</figcaption></figure>',
+        visual='<figure class="palco-img"><img src="../imgs/demo-indicadores/dashboard.webp" alt="Dashboard de um sistema de metas feito pela ACTech" width="1400" height="875" fetchpriority="high"><figcaption class="aviso-ex">Sistema feito pela ACTech, com dados de demonstração. A marca e a agência do cliente foram trocadas para não identificá-lo.</figcaption></figure>',
         msg='Olá! Vi a página de sistema sob medida da ACTech e quero conversar sobre um sistema para a minha empresa.', oferta=False,
         corpo=[
             prosa('Sistemas que a ACTech já construiu.', [
