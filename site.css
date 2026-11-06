@@ -72,7 +72,7 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
 .topo { position: sticky; top: 0; z-index: 30; background: rgba(255, 255, 255, .94); border-bottom: 1px solid var(--linha); }
 .topo-in { display: flex; align-items: center; gap: 28px; min-height: 72px; }
 .marca { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font: 700 22px/1 var(--titulo); letter-spacing: -.03em; margin-right: 18px; }
-.marca img { width: 42px; height: auto; }
+.marca img { width: auto; height: 62px; }
 .menu { display: flex; align-items: center; gap: 28px; margin-right: auto; }
 .menu a { text-decoration: none; font-size: 17px; color: var(--tinta); }
 .menu a:hover { color: var(--azul); }
@@ -857,3 +857,4 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
   .rodape-meio > p:first-child { flex: none; }
   .rodape-lista span { width: 100%; }
 }
+@media (max-width: 900px) { .marca img { height: 54px; } }
