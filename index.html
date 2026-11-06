@@ -105,7 +105,7 @@
 <link rel="apple-touch-icon" href="/imgs/apple-touch-icon.png">
 <link rel="preload" href="fontes/red-hat-display.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="imgs/ramos/barbearia-2.webp" as="image" fetchpriority="high">
-<link rel="stylesheet" href="site.css?v=4">
+<link rel="stylesheet" href="site.css?v=5">
 </head>
 <body>
 
@@ -313,22 +313,45 @@
     </div>
   </section>
 
-  <section class="secao" id="sistemas">
-    <div class="miolo sistemas">
-      <div>
-        <h2>Quando a planilha não dá mais conta.</h2>
-        <p class="apoio">A ACTech também constrói sistemas do zero, do jeito que a sua empresa já funciona. Alguns que já fizemos:</p>
-        <ul>
-          <li><b>Painel de metas para um banco:</b> 12 indicadores em uma tela só.</li>
-          <li><b>Controle de caixa:</b> entradas, saídas, contratos e vendas juntos.</li>
-          <li><b>Auditoria de patrimônio:</b> mais de mil bens com leitura de plaqueta.</li>
-        </ul>
-        <a class="link-seta" href="sistema-sob-medida-brasilia/">Ver mais sobre sistemas</a>
+  <section class="secao sis" id="sistemas">
+    <div class="miolo">
+      <div class="sis-cabeca">
+        <h2>A sua planilha chegou no limite.</h2>
+        <p class="apoio">A ACTech constrói sistemas do zero, do jeito que a sua empresa já trabalha. Arraste e veja a diferença.</p>
+        <div class="chips" role="group" aria-label="Escolha a área" data-sis-casos></div>
       </div>
-      <figure>
-        <img class="sistemas-img" src="imgs/painel-caixa.webp" alt="Painel de controle de um sistema de caixa feito pela ACTech" width="1100" height="666" loading="lazy">
-        <figcaption>Sistema real feito pela ACTech. Os valores estão borrados de propósito.</figcaption>
-      </figure>
+      <div class="jan sis-jan">
+        <div class="jan-barra"><i></i><i></i><i></i><span data-sis-titulo>caixa_FINAL_v3_agora_vai.xlsx</span></div>
+        <div class="sis-palco" data-sis-palco>
+          <div class="sis-app ap" data-sis-app></div>
+          <div class="pl" data-sis-plan></div>
+          <div class="sis-linha"><span class="sis-etq sis-etq--a">Planilha</span><span class="sis-etq sis-etq--b">Sistema</span><span class="sis-puxa"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span></div>
+          <input class="sis-range" data-sis-range type="range" min="0" max="100" value="50" aria-label="Comparar a planilha com o sistema">
+        </div>
+      </div>
+      <p class="aviso-ex">Telas ilustrativas, com dados fictícios. O seu sistema é desenhado com você.</p>
+      <div class="sis-trocas" data-sis-trocas></div>
+
+      <div class="sis-monte">
+        <div class="sis-form">
+          <h3>Agora monte o seu.</h3>
+          <p>Marque o que mais dói hoje e veja as telas aparecendo. Depois, é só enviar para conversar.</p>
+          <div class="sis-grupo"><label class="sis-rot" for="mon-empresa">Nome da empresa</label><input class="sis-campo" id="mon-empresa" data-mon-empresa type="text" maxlength="28" placeholder="Sua empresa" autocomplete="organization"></div>
+          <div class="sis-grupo"><span class="sis-rot">O que mais dói hoje?</span><div class="chips" role="group" aria-label="O que mais dói hoje" data-mon-dores></div></div>
+          <div class="sis-grupo"><span class="sis-rot">Quantas pessoas vão usar?</span><div class="chips" role="group" aria-label="Quantas pessoas vão usar" data-mon-gente></div></div>
+          <div class="sis-grupo"><span class="sis-rot">Onde vai rodar?</span><div class="chips" role="group" aria-label="Onde vai rodar" data-mon-onde></div></div>
+          <a class="botao botao--azul" data-mon-cta href="https://wa.me/5561994299823?text=Ol%C3%A1!%20Quero%20conversar%20sobre%20um%20sistema%20para%20a%20minha%20empresa." target="_blank" rel="noopener">Conversar sobre o meu sistema</a>
+          <p class="nota">Abre o WhatsApp com tudo que você marcou. Valor a negociar: você recebe o escopo, o prazo e o valor, sem compromisso.</p>
+        </div>
+        <div class="sis-tela">
+          <div class="jan">
+            <div class="jan-barra"><i></i><i></i><i></i><span data-mon-url>suaempresa.com.br/sistema</span></div>
+            <div class="ap ap--monte"><div class="ap-lado" data-mon-lado></div><div class="ap-meio" data-mon-meio></div></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="sis-feitos"><b>Já feitos pela ACTech:</b> painel de metas para um banco, controle de caixa, auditoria de patrimônio e calculadora de taxas de maquininha. <a class="link-seta" href="sistema-sob-medida-brasilia/">Ver mais sobre sistemas</a></p>
     </div>
   </section>
 
@@ -406,6 +429,7 @@
 <a class="zap-fixo" href="https://wa.me/5561994299823?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20site%20da%20ACTech." target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"/><path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"/></svg></a>
 
 <script src="site.js?v=4"></script>
+<script src="extras/sistemas.js?v=1" defer></script>
 <script src="extras/aceite.js?v=4" defer></script>
 </body>
 </html>
