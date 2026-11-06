@@ -25,7 +25,7 @@ RAMOS = [
         slug='barbearia', rotulo='Barbearia', nome_ramo='barbearia', artigo='a sua barbearia',
         titulo_seo='Site e Instagram para barbearia em Brasília',
         h1='Sua barbearia aparecendo para quem procura corte perto de casa.',
-        exemplo='Navalha', tom='#B07D2A', tom_txt='#7A5410',
+        exemplo='Dom Corte', tom='#B07D2A', tom_txt='#7A5410',
         fotos=['barbearia-1', 'barbearia-3'], galeria=['barbearia-2'],
         busca='barbearia perto de mim',
         concorrentes=[['Barbearia do Centro', '4,9', 428], ['Corte & Cia', '4,7', 256]],
@@ -35,7 +35,7 @@ RAMOS = [
         itens=[['Corte', 'R$ 45'], ['Barba', 'R$ 35'], ['Corte e barba', 'R$ 70']],
         dep=['Marco pelo celular e chego na hora. Nunca mais fiquei esperando.', 'Rafael, cliente'],
         rodape='Ter a sáb, 9h às 20h · Agenda online',
-        ig='navalha.barbearia', seguidores=1960, bio=['Corte e barba com hora marcada', 'Ter a sáb · Agende pelo link'],
+        ig='domcorte.barbearia', seguidores=1960, bio=['Corte e barba com hora marcada', 'Ter a sáb · Agende pelo link'],
         destaques=['Cortes', 'Barba', 'Equipe', 'Endereço'],
         posts=['Agenda aberta para sábado', 'Corte + barba R$ 70', 'Antes e depois', 'Terça tem promoção', 'Degradê na navalha'],
     ),
@@ -206,21 +206,27 @@ def escuro(cor, quanto=.45):
     return '#%02X%02X%02X' % tuple(round(c * (1 - quanto)) for c in (r, g, b))
 
 
+EX = {'barbearia': {'estilo': 'barbearia', 'hora': 'Ter a sáb, 9h às 20h', 'frase': 'Corte marcado. Sem fila, sem esperar.', 'botao': 'Agendar horário', 'rot': 'Serviços', 'f1': 'barbearia-2', 'f2': 'barbearia-3', 'itens': [['Corte', 'R$ 45'], ['Barba', 'R$ 35'], ['Corte e barba', 'R$ 70']]}, 'salao-de-beleza': {'estilo': 'salao', 'hora': 'Ter a sáb, 9h às 19h', 'frase': 'Seu horário de cuidar de você.', 'botao': 'Marcar horário', 'rot': 'Serviços', 'f1': 'salao-1', 'f2': 'salao-2', 'itens': [['Corte', 'R$ 80'], ['Escova', 'R$ 60'], ['Coloração', 'R$ 180']]}, 'pet-shop': {'estilo': 'petshop', 'hora': 'Seg a sáb, 8h às 18h', 'frase': 'Banho e tosa com hora marcada.', 'botao': 'Agendar banho', 'rot': 'Serviços', 'f1': 'petshop-1', 'f2': 'petshop-2', 'itens': [['Banho', 'R$ 60'], ['Tosa higiênica', 'R$ 45'], ['Leva e traz', 'no bairro']]}, 'loja-de-roupa': {'estilo': 'roupa', 'hora': 'Seg a sáb, 9h às 19h', 'frase': 'A coleção nova, antes de todo mundo.', 'botao': 'Ver novidades', 'rot': 'Novidades', 'f1': 'roupa-3', 'f2': 'roupa-1', 'itens': [['Vestidos', 'R$ 149', 'roupa-2'], ['Jeans', 'R$ 189', 'roupa-1'], ['Blusas', 'R$ 89', 'roupa-4']]}, 'restaurante': {'estilo': 'restaurante', 'hora': 'Todo dia, 11h às 15h', 'frase': 'Comida de casa, todo dia.', 'botao': 'Ver o cardápio', 'rot': 'Hoje na cozinha', 'f1': 'restaurante-1', 'f2': 'restaurante-3', 'itens': [['Prato do dia', 'R$ 32'], ['Marmita', 'R$ 25'], ['Sobremesa', 'R$ 12']]}, 'mercado': {'estilo': 'mercado', 'hora': 'Todo dia, 7h às 21h. Entrega no bairro.', 'frase': 'Produtos frescos, perto da sua casa.', 'botao': 'Ver as ofertas', 'rot': 'Ofertas da semana', 'f1': 'mercado-2', 'f2': 'mercado-1', 'itens': [['Frutas da estação', 'R$ 7,90/kg', 'mercado-1'], ['Feira completa', 'R$ 49', 'mercado-3'], ['Cesta da semana', 'R$ 189', 'mercado-2']]}, 'clinica': {'estilo': 'clinica', 'hora': 'Atendimento de seg a sex, 8h às 18h', 'frase': 'Consulta marcada sem ligar para ninguém.', 'botao': 'Agendar consulta', 'rot': 'Atendimento', 'f1': 'clinica-3', 'f2': 'clinica-2', 'itens': [['Consulta', 'particular e convênio'], ['Retorno', 'em 30 dias'], ['Exames', 'no local']]}, 'maquiagem': {'estilo': 'maquiagem', 'hora': 'Atendimento com hora marcada', 'frase': 'Make de noiva, festa e formatura.', 'botao': 'Reservar data', 'rot': 'Pacotes', 'f1': 'maquiagem-2', 'f2': 'maquiagem-1', 'itens': [['Social', 'R$ 150'], ['Madrinha', 'R$ 220'], ['Noiva', 'R$ 650']]}}
+
+
 def exemplo(r, campo=False):
-    itens = ''.join('<div class="ex-item"><span>%s</span><b>%s</b></div>' % (e(a), e(b)) for a, b in r['itens'])
+    """Site de exemplo do ramo: a marcação é uma só, o layout vem do data-estilo no site.css."""
+    x = EX[r['slug']]
+    nome = r['exemplo']
+    itens = ''.join('<div class="s-item">%s<span>%s</span><i></i><b>%s</b></div>' % (
+        '<img src="%s" alt="" width="800" height="600" loading="lazy">' % foto(i[2]) if len(i) > 2 else '', e(i[0]), e(i[1])) for i in x['itens'])
     painel = ('<div class="paineis"><div class="painel painel--teste painel--solto"><label class="painel-t" for="nome-negocio">Veja com o nome do seu negócio</label>'
               '<input class="campo" id="nome-negocio" data-nome type="text" maxlength="30" placeholder="Digite o nome aqui" autocomplete="organization"></div></div>') if campo else ''
+    escala = '--escala:%s;--escala-q:%s' % ('.42' if len(nome) > 22 else '.6' if len(nome) > 13 else '1', '.66' if len(nome) > 20 else '.84' if len(nome) > 12 else '1')
     return painel + (
-        '<div class="navegador"><div class="ex-endereco"><i></i><i></i><i></i><span data-ex-url>%(dom)s</span></div>'
-        '<div class="ex" data-ex data-nome-padrao="%(nome)s" style="--cor:%(cor)s;--cor-fundo:%(fundo)s;--cor-tinta:%(tinta)s">'
-        '<div class="ex-barra"><b data-ex-marca>%(nome)s</b><span>início</span><span>serviços</span><span>sobre</span><span>contato</span></div>'
-        '<div class="ex-corpo"><div class="ex-esq"><p class="ex-frase">%(frase)s</p><span class="ex-botao">%(cta)s</span></div>'
-        '<img class="ex-foto" src="%(f1)s" alt="" width="800" height="600" fetchpriority="high">'
-        '<div class="ex-lado"><p class="ex-rot">O que oferecemos</p><div>%(itens)s</div></div>'
-        '<div class="ex-nome" data-ex-nome>%(nome)s</div><p class="ex-rodape">%(rodape)s</p></div></div></div>'
-    ) % dict(dom=e(dominio(r['exemplo'])), cor=r['tom_txt'], fundo=claro(r['tom']), tinta=escuro(r['tom_txt']),
-             nome=e(r['exemplo']), frase=e(r['site_tit']), f1=foto(r['fotos'][0]), rodape=e(r['rodape'].replace(' · ', '. ') + '.'),
-             itens=itens, cta=e(r['cta']))
+        '<div class="navegador"><div class="ex-endereco"><i></i><i></i><i></i><span data-url>%(dom)s</span></div>'
+        '<div class="s" data-estilo="%(estilo)s" data-nome-padrao="%(nome)s" style="%(escala)s"><div class="s-aviso">%(hora)s</div>'
+        '<div class="s-barra"><span class="s-marca" data-marca>%(nome)s</span><span class="s-links"><span>Início</span><span>Serviços</span><span>Contato</span></span><span class="s-acao">%(botao)s</span></div>'
+        '<div class="s-capa"><i class="s-deco"></i><img class="s-f1" src="%(f1)s" alt="" width="800" height="600" fetchpriority="high"><img class="s-f2" src="%(f2)s" alt="" width="800" height="600" loading="lazy">'
+        '<div class="s-texto"><div class="s-nome" data-marca>%(nome)s</div><p class="s-frase">%(frase)s</p><span class="s-botao">%(botao)s</span></div></div>'
+        '<div class="s-lista"><p class="s-rot">%(rot)s</p><div class="s-itens">%(itens)s</div></div><p class="s-rodape">%(hora)s</p></div></div>'
+    ) % dict(dom=e(dominio(nome)), estilo=x['estilo'], nome=e(nome), escala=escala, hora=e(x['hora']), botao=e(x['botao']),
+             f1=foto(x['f1']), f2=foto(x['f2']), frase=e(x['frase']), rot=e(x['rot']), itens=itens)
 
 
 def posts(r):
@@ -310,8 +316,8 @@ def bloco_precos():
 
 def bloco_modelos(fora=None, titulo='Um site com a cara do seu negócio.'):
     cartoes = ''.join(
-        '<a class="modelo" href="../%s/"><span class="modelo-img"><u><i></i><i></i><i></i><em>%s</em></u><img src="%s" alt="" width="800" height="600" loading="lazy"><q>%s</q></span><b>%s</b><span>Ver o exemplo</span></a>'
-        % (r['slug'], e(r['exemplo']), foto(r['fotos'][0]), e(r['site_tit']), e(r['rotulo'])) for r in RAMOS if r['slug'] != fora)
+        '<a class="modelo" href="../%s/"><span class="modelo-img"><u><i></i><i></i><i></i><em>%s</em></u><img src="../imgs/modelos/%s.webp" alt="" width="720" height="432" loading="lazy"></span><b>%s</b><span>Ver o exemplo</span></a>'
+        % (r['slug'], e(dominio(r['exemplo'])), EX[r['slug']]['estilo'], e(r['rotulo'])) for r in RAMOS if r['slug'] != fora)
     return '''  <section class="secao secao--cinza" id="modelos">
     <div class="miolo">
       <div class="cabeca"><h2>%s</h2><p class="apoio">Veja um exemplo feito para cada ramo. O seu sai com o seu nome, as suas fotos e os seus preços.</p></div>
@@ -339,7 +345,7 @@ def prosa(h2, paragrafos, extra='', id_='', cinza=False):
 def bloco_quem(local='em Brasília'):
     return '''  <section class="secao secao--curta" id="quem">
     <div class="miolo quem">
-      <img src="../imgs/amon.webp" alt="Amon Timo, fundador da ACTech" width="560" height="560" loading="lazy">
+      <img src="../imgs/amon-rosto.webp" alt="Amon Timo, fundador da ACTech" width="560" height="560" loading="lazy">
       <div>
         <h2>Você fala com quem faz.</h2>
         <p>Eu sou o Amon Timo, desenvolvedor há 3 anos e fundador da ACTech, %s. Quem responde o seu WhatsApp é quem faz o seu site. Sem intermediários.</p>
@@ -380,7 +386,7 @@ D_INSTA = ('Eu já tenho Instagram. Serve?', 'Serve. A conta continua sendo sua,
 
 def pagina_ramo(r):
     corpo = [bloco_incluso(r, 'O site e o Instagram %s%s, resolvidos.' % ('da' if r['artigo'][0] == 'a' else 'do', r['artigo'][1:])),
-             bloco_passos(), bloco_precos(), bloco_quem(),
+             bloco_passos(), bloco_quem(), bloco_precos(),
              bloco_duvidas('Dúvidas frequentes', [D_PRECO, D_PRAZO, D_FIDEL, D_FOTOS, D_INSTA]),
              faixa('Vamos colocar %s no ar?' % e(r['artigo']))]
     return dict(
@@ -398,7 +404,7 @@ def pagina_cidade(c):
     custo = '  <section class="secao" id="quanto-custa">\n    <div class="miolo"><div class="prosa"><h2>Quanto custa fazer um site em %s?</h2><p>Depende de quem faz e do que vem junto. O que costuma pesar não é só a criação: é o que vem depois, como hospedagem, domínio e cada alteração de preço ou de horário. Veja como fica ao lado das outras formas de ter um site:</p></div>%s</div>\n  </section>' % (c['cidade'], bloco_tabela())
     perguntas = [('Quanto custa fazer um site em %s?' % c['cidade'], D_PRECO[1]), D_PRAZO, c['faq_local'], D_FIDEL, D_FOTOS, D_INSTA]
     corpo = [custo, bloco_incluso(loja), bloco_modelos(), prosa('Atendimento em %s e região.' % c['cidade'], [c['atende']]),
-             bloco_passos(), bloco_precos(), bloco_quem(c['autor_local']), bloco_duvidas('Perguntas sobre criação de sites', perguntas), faixa()]
+             bloco_passos(), bloco_quem(c['autor_local']), bloco_precos(), bloco_duvidas('Perguntas sobre criação de sites', perguntas), faixa()]
     return dict(
         slug=c['slug'], area=c['cidade'], nome='Criação de sites em %s' % c['cidade'], servico='Criação de sites',
         titulo=c['titulo'], desc=c['desc'], h1=c['h1'], lead='Site profissional com domínio, hospedagem e manutenção inclusos, e 4 posts por mês para o seu Instagram. Sem taxa de criação e sem fidelidade.',

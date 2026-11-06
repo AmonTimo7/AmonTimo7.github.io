@@ -1,5 +1,5 @@
 /* Site de exemplo da abertura: a pessoa escolhe o ramo e digita o nome do
-   negócio, e o exemplo vira o dela na hora. E o pedido no fim da página, que
+   negócio, e o exemplo vira o dela na hora, no navegador e no iPhone. E o pedido no fim da página, que
    já abre o WhatsApp com o nome digitado. */
 (function () {
   'use strict';
@@ -11,109 +11,106 @@
   var ASSINAR = '';
   var PIXEL = '2217077532566142';
   var RAMOS = {
-    barbearia: {
-      nome: 'Navalha', hora: 'Ter a sáb, 9h às 20h. Agenda online.', cor: '#8C5A14', fundo: '#F3E4C4', tinta: '#35240A',
-      frase: 'Corte marcado. Sem fila, sem esperar.', botao: 'Agendar horário',
-      f1: 'barbearia-1', f2: 'barbearia-2', itens: [['Corte', 'R$ 45'], ['Barba', 'R$ 35'], ['Corte e barba', 'R$ 70']],
-      posts: [['barbearia-2', 'Agenda aberta para sábado'], ['barbearia-3', 'Corte + barba R$ 70'], ['barbearia-1', 'Antes e depois'], ['barbearia-2', 'Terça tem promoção']]
-    },
-    salao: {
-      nome: 'Studio Alice', hora: 'Ter a sáb, 9h às 19h. Agenda online.', cor: '#A03A64', fundo: '#F9DFE8', tinta: '#4A1730',
-      frase: 'Seu horário de cuidar de você.', botao: 'Marcar horário',
-      f1: 'salao-1', f2: 'salao-2', itens: [['Corte', 'R$ 80'], ['Escova', 'R$ 60'], ['Coloração', 'R$ 180']],
-      posts: [['salao-2', 'Horários para esta semana'], ['salao-3', 'Escova R$ 60'], ['salao-1', 'Antes e depois da cor'], ['salao-3', 'Dia da noiva']]
-    },
-    petshop: {
-      nome: 'Pata & Companhia', hora: 'Seg a sáb, 8h às 18h. Leva e traz.', cor: '#0C7B6B', fundo: '#D4F1E8', tinta: '#07352E',
-      frase: 'Banho e tosa com hora marcada.', botao: 'Agendar banho',
-      f1: 'petshop-1', f2: 'petshop-2', itens: [['Banho', 'R$ 60'], ['Tosa higiênica', 'R$ 45'], ['Leva e traz', 'no bairro']],
-      posts: [['petshop-1', 'Agenda de sábado aberta'], ['petshop-2', 'Banho R$ 60'], ['petshop-3', 'Antes e depois da tosa'], ['petshop-2', 'Leva e traz no bairro']]
-    },
-    roupa: {
-      nome: 'Ateliê 22', hora: 'Seg a sáb, 9h às 19h. Troca em 7 dias.', cor: '#7A3A5E', fundo: '#EEE3F2', tinta: '#34162A',
-      frase: 'A coleção nova, antes de todo mundo.', botao: 'Ver novidades',
-      f1: 'roupa-1', f2: 'roupa-2', itens: [['Vestidos', 'R$ 149'], ['Jeans', 'R$ 189'], ['Blusas', 'R$ 89']],
-      posts: [['roupa-3', 'Coleção nova chegou'], ['roupa-4', 'Vestido do mês R$ 149'], ['roupa-1', 'Look do dia'], ['roupa-2', 'Troca em 7 dias']]
-    },
-    restaurante: {
-      nome: 'Cantina da Esquina', hora: 'Todo dia, 11h às 15h. Delivery no bairro.', cor: '#B3431C', fundo: '#FBE2D2', tinta: '#4A1A08',
-      frase: 'Comida de casa, todo dia.', botao: 'Ver o cardápio',
-      f1: 'restaurante-1', f2: 'restaurante-2', itens: [['Prato do dia', 'R$ 32'], ['Marmita', 'R$ 25'], ['Reserva', 'sem taxa']],
-      posts: [['restaurante-1', 'Prato do dia R$ 32'], ['restaurante-2', 'Marmita da semana'], ['restaurante-3', 'Feijoada de sábado'], ['restaurante-2', 'Reserve sua mesa']]
-    },
-    mercado: {
-      nome: 'Mercado do Bairro', hora: 'Todo dia, 7h às 21h. Entrega no bairro.', cor: '#2E7A1F', fundo: '#E2F2CF', tinta: '#183A0F',
-      frase: 'Produtos frescos, perto da sua casa.', botao: 'Ver as ofertas',
-      f1: 'mercado-1', f2: 'mercado-2', itens: [['Hortifrúti', 'toda manhã'], ['Açougue', 'na hora'], ['Cesta da semana', 'R$ 189']],
-      posts: [['mercado-1', 'Oferta de terça'], ['mercado-2', 'Cesta da semana R$ 189'], ['mercado-3', 'Hortifrúti fresco'], ['mercado-2', 'Entrega hoje até 19h']]
-    }
+    barbearia: {"nome": "Dom Corte", "hora": "Ter a sáb, 9h às 20h", "fundo": "#F3E4C4", "tinta": "#35240A", "frase": "Corte marcado. Sem fila, sem esperar.", "botao": "Agendar horário", "rot": "Serviços", "f1": "barbearia-2", "f2": "barbearia-3", "itens": [["Corte", "R$ 45"], ["Barba", "R$ 35"], ["Corte e barba", "R$ 70"]], "posts": [["barbearia-3", "Agenda aberta para sábado"], ["", "Corte + barba R$ 70"]]},
+    salao: {"nome": "Studio Alice", "hora": "Ter a sáb, 9h às 19h", "fundo": "#F9DFE8", "tinta": "#4A1730", "frase": "Seu horário de cuidar de você.", "botao": "Marcar horário", "rot": "Serviços", "f1": "salao-1", "f2": "salao-2", "itens": [["Corte", "R$ 80"], ["Escova", "R$ 60"], ["Coloração", "R$ 180"]], "posts": [["salao-3", "Horários para esta semana"], ["", "Escova R$ 60"]]},
+    petshop: {"nome": "Pata & Companhia", "hora": "Seg a sáb, 8h às 18h", "fundo": "#D4F1E8", "tinta": "#07352E", "frase": "Banho e tosa com hora marcada.", "botao": "Agendar banho", "rot": "Serviços", "f1": "petshop-1", "f2": "petshop-2", "itens": [["Banho", "R$ 60"], ["Tosa higiênica", "R$ 45"], ["Leva e traz", "no bairro"]], "posts": [["petshop-3", "Agenda de sábado aberta"], ["", "Banho R$ 60"]]},
+    roupa: {"nome": "Ateliê 22", "hora": "Seg a sáb, 9h às 19h", "fundo": "#EEE3F2", "tinta": "#34162A", "frase": "A coleção nova, antes de todo mundo.", "botao": "Ver novidades", "rot": "Novidades", "f1": "roupa-3", "f2": "roupa-1", "itens": [["Vestidos", "R$ 149", "roupa-2"], ["Jeans", "R$ 189", "roupa-1"], ["Blusas", "R$ 89", "roupa-4"]], "posts": [["roupa-3", "Coleção nova chegou"], ["", "Vestido do mês R$ 149"]]},
+    restaurante: {"nome": "Cantina da Esquina", "hora": "Todo dia, 11h às 15h", "fundo": "#FBE2D2", "tinta": "#4A1A08", "frase": "Comida de casa, todo dia.", "botao": "Ver o cardápio", "rot": "Hoje na cozinha", "f1": "restaurante-1", "f2": "restaurante-3", "itens": [["Prato do dia", "R$ 32"], ["Marmita", "R$ 25"], ["Sobremesa", "R$ 12"]], "posts": [["restaurante-3", "Prato do dia R$ 32"], ["", "Marmita da semana"]]},
+    mercado: {"nome": "Mercado do Bairro", "hora": "Todo dia, 7h às 21h. Entrega no bairro.", "fundo": "#E2F2CF", "tinta": "#183A0F", "frase": "Produtos frescos, perto da sua casa.", "botao": "Ver as ofertas", "rot": "Ofertas da semana", "f1": "mercado-2", "f2": "mercado-1", "itens": [["Frutas da estação", "R$ 7,90/kg", "mercado-1"], ["Feira completa", "R$ 49", "mercado-3"], ["Cesta da semana", "R$ 189", "mercado-2"]], "posts": [["mercado-1", "Oferta de terça"], ["", "Cesta da semana R$ 189"]]},
+    clinica: {"nome": "Clínica Vida", "hora": "Atendimento de seg a sex, 8h às 18h", "fundo": "#D6F1EA", "tinta": "#0E3A4A", "frase": "Consulta marcada sem ligar para ninguém.", "botao": "Agendar consulta", "rot": "Atendimento", "f1": "clinica-3", "f2": "clinica-2", "itens": [["Consulta", "particular e convênio"], ["Retorno", "em 30 dias"], ["Exames", "no local"]], "posts": [["clinica-1", "Agenda aberta nesta semana"], ["", "Retorno em 30 dias"]]},
+    maquiagem: {"nome": "Bia Make", "hora": "Atendimento com hora marcada", "fundo": "#F3E3D8", "tinta": "#2B1A14", "frase": "Make de noiva, festa e formatura.", "botao": "Reservar data", "rot": "Pacotes", "f1": "maquiagem-2", "f2": "maquiagem-1", "itens": [["Social", "R$ 150"], ["Madrinha", "R$ 220"], ["Noiva", "R$ 650"]], "posts": [["maquiagem-1", "Datas abertas para dezembro"], ["", "Make social R$ 150"]]}
   };
 
   function foto(n) { return 'imgs/ramos/' + n + '.webp'; }
   function q(s) { return document.querySelector(s); }
+  function todos(s) { return [].slice.call(document.querySelectorAll(s)); }
+  function esc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
   function endereco(nome) {
     var s = (nome.normalize ? nome.normalize('NFD') : nome).toLowerCase().replace(/[^a-z0-9]/g, '');
     return (s || 'seunegocio') + '.com.br';
   }
-
-  var ex = q('[data-ex]');
-  var campo = q('[data-nome]');
-  var ramoAtual = 'barbearia';
-  // nas páginas de cada ramo o exemplo já vem pronto: só o nome muda
-  var nomeFixo = ex && ex.getAttribute('data-nome-padrao');
-
-  function pintaNome() {
-    var padrao = nomeFixo || RAMOS[ramoAtual].nome;
-    var nome = campo && campo.value.trim() ? campo.value.trim() : padrao;
-    q('[data-ex-nome]').textContent = nome;
-    q('[data-ex-marca]').textContent = nome;
-    q('[data-ex-url]').textContent = endereco(nome);
-    var tam = nome.length > 22 ? .42 : nome.length > 13 ? .6 : 1;
-    q('[data-ex-nome]').style.setProperty('--escala', tam);
+  function escalas(nome) {
+    return '--escala:' + (nome.length > 22 ? .42 : nome.length > 13 ? .6 : 1) + ';--escala-q:' + (nome.length > 20 ? .66 : nome.length > 12 ? .84 : 1);
+  }
+  /* a mesma marcação serve para os oito ramos: o layout vem do data-estilo no site.css */
+  function sitio(k, nome) {
+    var r = RAMOS[k];
+    return '<div class="s" data-estilo="' + k + '" style="' + escalas(nome) + '"><div class="s-aviso">' + esc(r.hora) + '</div>' +
+      '<div class="s-barra"><span class="s-marca" data-marca>' + esc(nome) + '</span><span class="s-links"><span>Início</span><span>Serviços</span><span>Contato</span></span><span class="s-acao">' + esc(r.botao) + '</span></div>' +
+      '<div class="s-capa"><i class="s-deco"></i><img class="s-f1" src="' + foto(r.f1) + '" alt="" width="800" height="600"><img class="s-f2" src="' + foto(r.f2) + '" alt="" width="800" height="600">' +
+      '<div class="s-texto"><div class="s-nome" data-marca>' + esc(nome) + '</div><p class="s-frase">' + esc(r.frase) + '</p><span class="s-botao">' + esc(r.botao) + '</span></div></div>' +
+      '<div class="s-lista"><p class="s-rot">' + esc(r.rot) + '</p><div class="s-itens">' + r.itens.map(function (i) {
+        return '<div class="s-item">' + (i[2] ? '<img src="' + foto(i[2]) + '" alt="" width="800" height="600">' : '') + '<span>' + esc(i[0]) + '</span><i></i><b>' + esc(i[1]) + '</b></div>';
+      }).join('') + '</div></div><p class="s-rodape">' + esc(r.hora) + '</p></div>';
   }
 
+  var campo = q('[data-nome]');
+  var fixo = q('.s[data-nome-padrao]');
+  var ramoAtual = 'barbearia';
+  var reduz = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function nomeAtual() {
+    var digitado = campo ? campo.value.trim() : '';
+    return digitado || (fixo ? fixo.getAttribute('data-nome-padrao') : RAMOS[ramoAtual].nome);
+  }
+  function pintaNome() {
+    var nome = nomeAtual();
+    todos('[data-marca]').forEach(function (el) { el.textContent = nome; });
+    todos('[data-url]').forEach(function (el) { el.textContent = endereco(nome); });
+    todos('.s').forEach(function (s) { s.setAttribute('style', escalas(nome)); });
+    var espelho = q('[data-espelho]');
+    if (espelho) {
+      espelho.textContent = campo.value || campo.getAttribute('placeholder');
+      if (campo.value.length > 13) espelho.parentNode.setAttribute('data-longo', ''); else espelho.parentNode.removeAttribute('data-longo');
+    }
+  }
   function pintaRamo(chave) {
     var r = RAMOS[chave];
     ramoAtual = chave;
-    ex.style.setProperty('--cor', r.cor);
-    ex.style.setProperty('--cor-fundo', r.fundo);
-    ex.style.setProperty('--cor-tinta', r.tinta);
-    var gp = q('.grade-posts');
-    if (gp) { gp.style.setProperty('--cor-fundo', r.fundo); gp.style.setProperty('--cor-tinta', r.tinta); }
-    q('[data-ex-frase]').textContent = r.frase;
-    q('[data-ex-botao]').textContent = r.botao;
-    q('[data-ex-f1]').src = foto(r.f1);
-    q('[data-ex-rodape]').textContent = r.hora;
-    q('[data-ex-itens]').innerHTML = r.itens.map(function (i) {
-      return '<div class="ex-item"><span>' + i[0] + '</span><b>' + i[1] + '</b></div>';
-    }).join('');
-    [].forEach.call(document.querySelectorAll('[data-post]'), function (el, n) {
+    var nome = nomeAtual();
+    todos('[data-sitio]').forEach(function (el) { el.innerHTML = sitio(chave, nome); });
+    var tela = q('.cel-tela');
+    if (tela) { if (chave === 'barbearia') tela.setAttribute('data-escuro', ''); else tela.removeAttribute('data-escuro'); }
+    var posts = q('.capa-posts');
+    if (posts) { posts.style.setProperty('--cor-fundo', r.fundo); posts.style.setProperty('--cor-tinta', r.tinta); }
+    todos('[data-post]').forEach(function (el, n) {
       var p = r.posts[n];
       var img = el.querySelector('img');
       if (img) img.src = foto(p[0]);
       el.querySelector('span').textContent = p[1];
     });
-    [].forEach.call(document.querySelectorAll('[data-ramo]'), function (b) {
+    todos('[data-ramo]').forEach(function (b) {
       b.setAttribute('aria-pressed', b.getAttribute('data-ramo') === chave ? 'true' : 'false');
     });
     pintaNome();
   }
 
-  if (ex && campo) {
-    campo.addEventListener('input', pintaNome);
-    [].forEach.call(document.querySelectorAll('[data-ramo]'), function (b) {
-      b.addEventListener('click', function () { pintaRamo(b.getAttribute('data-ramo')); });
+  if (campo) campo.addEventListener('input', pintaNome);
+  todos('[data-ramo]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var chave = b.getAttribute('data-ramo');
+      if (document.startViewTransition && !reduz) document.startViewTransition(function () { pintaRamo(chave); });
+      else pintaRamo(chave);
     });
+  });
+  if (q('[data-ramo]')) window.addEventListener('load', function () {
     // adianta as fotos dos outros ramos para a troca ser instantânea
-    if (q('[data-ramo]')) window.addEventListener('load', function () {
-      Object.keys(RAMOS).forEach(function (k) {
-        new Image().src = foto(RAMOS[k].f1);
-      });
+    Object.keys(RAMOS).forEach(function (k) { new Image().src = foto(RAMOS[k].f1); });
+  });
+
+  /* o site de exemplo começa inclinado e se endireita conforme a pessoa desce */
+  var cena = q('.capa-cena'), pedido_quadro = false;
+  if (cena) window.addEventListener('scroll', function () {
+    if (pedido_quadro) return;
+    pedido_quadro = true;
+    requestAnimationFrame(function () {
+      pedido_quadro = false;
+      cena.style.setProperty('--p', Math.max(0, 1 - window.scrollY / 420).toFixed(3));
     });
-  }
+  }, { passive: true });
 
   // o botão fixo do WhatsApp só aparece depois da abertura, para não cobrir os painéis
-  var zap = q('.zap-fixo'), abertura = q('.abertura');
+  var zap = q('.zap-fixo'), abertura = q('.abertura, .capa-nome');
   if (zap && abertura && 'IntersectionObserver' in window) {
     zap.setAttribute('data-oculto', '');
     new IntersectionObserver(function (e) {
