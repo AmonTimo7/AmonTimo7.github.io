@@ -15,7 +15,15 @@ function texto(v, max) {
   return String(v == null ? '' : v).replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, max);
 }
 
-export async function onRequestPost({ request, env }) {
+/* Prazo prometido na Política de Privacidade: 2 meses desde o último contato.
+   O Pages não tem tarefa agendada, então a limpeza roda a cada contato novo. */
+const PRAZO_DIAS = 60;
+function limpaVencidos(env) {
+  const limite = new Date(Date.now() - PRAZO_DIAS * 864e5).toISOString();
+  return env.DB.prepare('DELETE FROM contatos WHERE atualizado_em < ?1').bind(limite).run().catch(() => {});
+}
+
+export async function onRequestPost({ request, env, waitUntil }) {
   if (!ORIGENS.has(request.headers.get('origin'))) return resposta(403);
   if (!env.DB) return resposta(503);
   if (Number(request.headers.get('content-length') || 0) > 2048) return resposta(413);
@@ -53,5 +61,6 @@ export async function onRequestPost({ request, env }) {
        id = excluded.id, nome = excluded.nome, ramo = excluded.ramo, origem = excluded.origem,
        etapa = excluded.etapa, termos = excluded.termos, vezes = vezes + 1, atualizado_em = excluded.atualizado_em`
   ).bind(id, whatsapp, nome, ramo, origem, etapa, termos, agora).run();
+  waitUntil(limpaVencidos(env));
   return resposta(204);
 }
