@@ -23,6 +23,13 @@ function limpaVencidos(env) {
   return env.DB.prepare('DELETE FROM contatos WHERE atualizado_em < ?1').bind(limite).run().catch(() => {});
 }
 
+/* Aviso por e-mail para actechinfomatica@gmail.com, pelo Worker actech-aviso
+   (ligado ao projeto como AVISO). Se falhar, o contato já está salvo no banco. */
+function avisa(env, dados) {
+  if (!env.AVISO) return Promise.resolve();
+  return env.AVISO.fetch('https://aviso/', { method: 'POST', body: JSON.stringify(dados) }).catch(() => {});
+}
+
 export async function onRequestPost({ request, env, waitUntil }) {
   if (!ORIGENS.has(request.headers.get('origin'))) return resposta(403);
   if (!env.DB) return resposta(503);
@@ -43,6 +50,8 @@ export async function onRequestPost({ request, env, waitUntil }) {
   // "Já paguei": só atualiza a etapa de um contato que já existe
   if (etapa === 'disse_que_pagou') {
     await env.DB.prepare('UPDATE contatos SET etapa = ?1, atualizado_em = ?2 WHERE id = ?3').bind(etapa, agora, id).run();
+    const c = await env.DB.prepare('SELECT nome, ramo, whatsapp, origem FROM contatos WHERE id = ?1').bind(id).first();
+    if (c) waitUntil(avisa(env, { ...c, etapa: 'DISSE QUE PAGOU (confira no Mercado Pago)' }));
     return resposta(204);
   }
 
@@ -62,5 +71,6 @@ export async function onRequestPost({ request, env, waitUntil }) {
        etapa = excluded.etapa, termos = excluded.termos, vezes = vezes + 1, atualizado_em = excluded.atualizado_em`
   ).bind(id, whatsapp, nome, ramo, origem, etapa, termos, agora).run();
   waitUntil(limpaVencidos(env));
+  waitUntil(avisa(env, { nome, ramo, whatsapp, origem, etapa: 'clicou em Ir para o pagamento' }));
   return resposta(204);
 }
