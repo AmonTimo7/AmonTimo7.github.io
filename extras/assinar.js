@@ -152,11 +152,11 @@
 
     // abre no próprio clique, para o navegador não bloquear a nova aba
     window.open(LINK, '_blank', 'noopener');
-    envia({ etapa: 'pagamento', nome: campoNome.value, ramo: q('[data-ramo][aria-pressed="true"]').getAttribute('data-ramo'), whatsapp: campoZap.value, origem: pedido.origem || '', termos: 'v2 de 05/11/2026', empresa_url: q('[data-mel]').value });
+    envia({ etapa: 'pagamento', nome: campoNome.value, ramo: q('[data-ramo][aria-pressed="true"]').getAttribute('data-ramo'), whatsapp: campoZap.value, origem: pedido.origem || '', termos: 'v3 de 07/11/2026', empresa_url: q('[data-mel]').value });
     if (window.fbq) window.fbq('track', 'InitiateCheckout');
 
     var nome = campoNome.value.trim();
-    var msg = 'Olá! Assinei o plano da ACTech para ' + nome + '. Li e aceito os Termos de Serviço (v2 de 05/11/2026) e quero começar.';
+    var msg = 'Olá! Assinei o plano da ACTech para ' + nome + '. Li e aceito os Termos de Serviço (v3 de 07/11/2026) e quero começar.';
     q('[data-ok-zap]').href = 'https://wa.me/5561994299823?text=' + encodeURIComponent(msg);
     todos('[data-vista="form"]').forEach(function (el) { el.hidden = true; });
     var ok = q('[data-vista="ok"]');

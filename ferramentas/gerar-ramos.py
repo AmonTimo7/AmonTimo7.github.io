@@ -262,7 +262,7 @@ def bloco_incluso(r, titulo='O site e o Instagram, resolvidos.', apoio='Duas coi
       </div>
       <p class="aviso-ex">Negócio e posts de exemplo.</p>
     </div>
-  </section>''' % (titulo, apoio, vistos(['Até 5 páginas, no ar em até 5 dias úteis', 'Domínio .com.br e hospedagem inclusos', 'Botão de WhatsApp, mapa e horário à vista', 'Manutenção e 1 atualização por mês']),
+  </section>''' % (titulo, apoio, vistos(['Landing page, no ar em até 5 dias úteis', 'Domínio .com.br e hospedagem inclusos', 'Botão de WhatsApp, mapa e horário à vista', 'Manutenção e 1 atualização por mês']),
                    foto((r['galeria'] or r['fotos'])[0]), e(r['exemplo']),
                    vistos(['4 posts por mês, com data marcada', 'Arte e legenda prontas, com a cara do seu negócio', 'Você aprova pelo WhatsApp, sem reunião', 'A conta do Instagram continua sendo sua']), posts(r))
 
@@ -306,9 +306,9 @@ def bloco_precos():
           <a class="botao botao--branco" href="%s" target="_blank" rel="noopener">Conversar sobre o meu sistema</a>
         </article>
       </div>
-      <p class="combinado"><b>O combinado:</b> site no ar em até 5 dias úteis depois que o material chega. Se passar disso por motivo nosso, o 2º mês é por nossa conta. E se você sair um dia, o domínio e os arquivos do site vão com você.</p>
+      <p class="combinado"><b>O combinado:</b> site no ar em até 5 dias úteis depois que o material chega. Se passar disso por motivo nosso, o 2º mês é por nossa conta.</p>
     </div>
-  </section>''' % (vistos(['Site com até 5 páginas', 'Domínio .com.br e hospedagem', '4 posts por mês no Instagram', 'Manutenção e 1 atualização por mês', 'Sem taxa de criação e sem fidelidade']),
+  </section>''' % (vistos(['Landing page (site de uma página)', 'Domínio .com.br e hospedagem', '4 posts por mês no Instagram', 'Manutenção e 1 atualização por mês', 'Sem taxa de criação e sem fidelidade']),
                    e(zap('Olá! Quero assinar o plano de R$ 59,90 da ACTech.')),
                    vistos(['Sistema feito do zero para a sua operação', 'Painel de gestão, caixa, agenda ou integração', 'Site e posts do Instagram junto, se quiser', 'Conversa direta com quem desenvolve']),
                    e(zap('Olá! Quero conversar sobre um sistema sob medida para a minha empresa.')))
@@ -377,7 +377,7 @@ def faixa(titulo='O seu site no ar em até 5 dias úteis.'):
 
 D_PRECO = ('Quanto custa?', 'R$ 59,90 por mês, sem taxa de criação. Já vem com domínio, hospedagem, manutenção e 4 posts por mês para o seu Instagram.')
 D_PRAZO = ('Em quanto tempo o site fica pronto?', 'Em até 5 dias úteis depois que chega o material básico: logo, fotos, horário e contato. Se passar disso por motivo nosso, o 2º mês é por nossa conta.')
-D_FIDEL = ('Tem fidelidade ou multa?', 'Não. É mês a mês, e você cancela quando quiser. Se sair, nós transferimos o domínio para o seu nome e entregamos os arquivos do site.')
+D_FIDEL = ('Tem fidelidade ou multa?', 'Não. É mês a mês, e você cancela quando quiser, sem multa. Ao cancelar, o site sai do ar ao fim do período pago.')
 D_FOTOS = ('Preciso de fotos profissionais?', 'Não. Foto de celular resolve. Se não tiver nenhuma, começamos com imagens de banco e trocamos pelas suas quando chegarem.')
 D_INSTA = ('Eu já tenho Instagram. Serve?', 'Serve. A conta continua sendo sua, só que publicando toda semana, com a arte e a legenda prontas.')
 
@@ -390,7 +390,7 @@ def pagina_ramo(r):
     return dict(
         slug=r['slug'], area='Brasília', nome=r['titulo_seo'], servico='Criação de site e posts para Instagram',
         titulo='%s por R$ 59,90 | ACTech' % r['titulo_seo'],
-        desc='%s por R$ 59,90 por mês: site com até 5 páginas, domínio, hospedagem e 4 posts por mês. Sem taxa de criação e sem fidelidade.' % r['titulo_seo'],
+        desc='%s por R$ 59,90 por mês: landing page, domínio, hospedagem e 4 posts por mês. Sem taxa de criação e sem fidelidade.' % r['titulo_seo'],
         h1='Site para %s por R$&nbsp;59,90 por mês' % e(r['nome_ramo']),
         lead='Um site de verdade e 4 posts por mês para o Instagram %s%s. Você envia as fotos pelo WhatsApp e nós fazemos o resto.' % ('da' if r['artigo'][0] == 'a' else 'do', e(r['artigo'][1:])),
         visual=exemplo(r, campo=True) + '<p class="aviso-ex">Exemplo fictício. O seu sai com o seu nome, as suas fotos e os seus preços.</p>',
@@ -458,8 +458,8 @@ def pagina_custo():
                 'É por isso que a ACTech trabalha por mensalidade: o site fica pronto em até 5 dias úteis e não tem fidelidade.'], cinza=True),
             bloco_precos(),
             bloco_duvidas('Perguntas sobre o preço de um site', [
-                ('Quanto custa um site simples?', 'Um site institucional simples, de 1 a 5 páginas, costuma custar de R$ 1.500 a R$ 5.000 em uma agência ou com freelancer, fora hospedagem e domínio. Na ACTech ele sai por R$ 59,90 por mês, já com domínio, hospedagem, manutenção e 4 posts para o Instagram.'),
-                ('Quanto custa um site para pequena empresa?', 'Para comércio e prestador de serviço, o que resolve é um site de até 5 páginas: início, serviços, sobre, galeria e contato, com botão de WhatsApp e mapa. É o que vem no plano de R$ 59,90 da ACTech.'),
+                ('Quanto custa um site simples?', 'Um site institucional simples costuma custar de R$ 1.500 a R$ 5.000 em uma agência ou com freelancer, fora hospedagem e domínio. Na ACTech ele sai por R$ 59,90 por mês, já com domínio, hospedagem, manutenção e 4 posts para o Instagram.'),
+                ('Quanto custa um site para pequena empresa?', 'Para comércio e prestador de serviço, o que resolve é uma landing page: uma página só, com início, serviços, sobre, galeria e contato, botão de WhatsApp e mapa. É o que vem no plano de R$ 59,90 da ACTech.'),
                 ('Quanto custa manter um site por mês?', 'No mínimo, o domínio (cerca de R$ 40 por ano) e a hospedagem. Se ninguém da equipe cuida do site, entra também a manutenção. Na ACTech tudo isso está incluso na mensalidade.'),
                 ('Quanto custa um domínio .com.br?', 'Cerca de R$ 40 por ano no registro.br, que é onde todo domínio .com.br é registrado. No plano da ACTech o domínio já está incluso.'),
                 ('Dá para fazer um site de graça?', 'Dá, em plataformas com plano gratuito, mas o endereço fica com o nome da plataforma, aparecem anúncios dela e todo o trabalho de montar e escrever fica com você.'),
@@ -484,7 +484,7 @@ def pagina_posts():
                 ('Quantos posts por mês?', 'São 4 posts por mês, um por semana, com a arte e a legenda prontas.'),
                 ('Eu preciso aprovar cada post?', 'Sim, e é rápido: chega tudo pronto no seu WhatsApp, você aprova ou pede o ajuste. Nada é publicado sem você ver.'),
                 D_FOTOS,
-                ('A conta do Instagram continua minha?', 'Continua. A ACTech só publica no perfil que já é seu. Se um dia você sair, nada muda na conta.'),
+                ('A conta do Instagram continua minha?', 'Continua. A ACTech faz os posts, mas não administra o seu perfil: a conta é sua, e se você sair, nada muda nela.'),
                 D_FIDEL]),
             faixa('O seu Instagram ativo, sem você precisar postar.')])
 

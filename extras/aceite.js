@@ -16,7 +16,7 @@
 (function () {
   'use strict';
 
-  var VERSAO = 'v2 de 05/11/2026';
+  var VERSAO = 'v3 de 07/11/2026';
   // caminho da raiz, para funcionar tambem nas paginas por ramo (barbearia/...)
   var RAIZ = (document.currentScript && document.currentScript.src || '').replace(/extras\/aceite\.js.*$/, '') || '';
 
