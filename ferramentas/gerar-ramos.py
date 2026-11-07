@@ -256,7 +256,7 @@ def bloco_incluso(r, titulo='O site e o Instagram, resolvidos.', apoio='Duas coi
           <div class="bloco-vista"><div class="mini-site"><img src="%s" alt="" width="800" height="600" loading="lazy"><div class="mini-site-b">%s<span>Falar no WhatsApp</span></div></div></div>
         </article>
         <article class="bloco">
-          <div class="bloco-texto"><h3>Um post por semana no Instagram</h3><p>Seu perfil ativo, sem você precisar lembrar de postar.</p>%s</div>
+          <div class="bloco-texto"><h3>Um post por semana no Instagram</h3><p>Arte e legenda prontas, é só publicar.</p>%s</div>
           <div class="bloco-vista">%s</div>
         </article>
       </div>
@@ -279,7 +279,7 @@ def bloco_passos():
         <li><i>01</i><div><b>Você assina.</b> R$ 59,90 por mês, sem taxa de criação e sem fidelidade.</div></li>
         <li><i>02</i><div><b>Envie o que tiver pelo WhatsApp.</b> Logo, fotos de celular, horário e preços. Não tem nada pronto? Nós montamos juntos.</div></li>
         <li><i>03</i><div><b>O site entra no ar.</b> Em até 5 dias úteis depois que o material chega, com a sua aprovação.</div></li>
-        <li><i>04</i><div><b>Todo mês, 4 posts prontos.</b> Chegam no seu WhatsApp, você aprova e nós publicamos.</div></li>
+        <li><i>04</i><div><b>Todo mês, 4 posts prontos.</b> Chegam no seu WhatsApp, você aprova e publica no seu perfil.</div></li>
       </ol>
     </div>
   </section>'''
@@ -474,19 +474,19 @@ def pagina_posts():
         titulo='Posts para Instagram em Brasília | 4 por Mês + Site | ACTech',
         desc='4 posts por mês para o Instagram do seu negócio, com arte e legenda prontas, aprovados pelo WhatsApp. Junto com um site profissional, por R$ 59,90 por mês.',
         h1='Posts prontos para o seu Instagram, toda semana',
-        lead='Nós criamos a arte e escrevemos a legenda. Chega tudo pronto no seu WhatsApp, você aprova e nós publicamos. E o seu site vem na mesma mensalidade: R$ 59,90 por mês.',
+        lead='Nós criamos a arte e escrevemos a legenda. Chega tudo pronto no seu WhatsApp, você aprova e publica no seu perfil. E o seu site vem na mesma mensalidade: R$ 59,90 por mês.',
         visual='<div class="palco-posts">%s</div><p class="aviso-ex">Posts de exemplo, em um pet shop fictício.</p>' % posts(r),
         msg='Olá! Vi a página de posts para Instagram da ACTech e quero saber mais.', oferta=True,
         corpo=[
-            bloco_incluso(r, 'Seu Instagram ativo e o seu site no ar.', 'Perfil parado há meses passa a impressão de que o negócio fechou. Quem descobre o seu negócio no Instagram vai procurar você na internet antes de comprar.'),
+            bloco_incluso(r, 'Posts prontos todo mês e o seu site no ar.', 'Perfil parado há meses passa a impressão de que o negócio fechou. Quem descobre o seu negócio no Instagram vai procurar você na internet antes de comprar.'),
             bloco_passos(), bloco_precos(),
             bloco_duvidas('Perguntas sobre os posts', [
                 ('Quantos posts por mês?', 'São 4 posts por mês, um por semana, com a arte e a legenda prontas.'),
-                ('Eu preciso aprovar cada post?', 'Sim, e é rápido: chega tudo pronto no seu WhatsApp, você aprova ou pede o ajuste. Nada é publicado sem você ver.'),
+                ('Eu preciso aprovar cada post?', 'Sim, e é rápido: chega tudo pronto no seu WhatsApp, você aprova ou pede o ajuste. Você só publica o que aprovou.'),
                 D_FOTOS,
                 ('A conta do Instagram continua minha?', 'Continua. A ACTech faz os posts, mas não administra o seu perfil: a conta é sua, e se você sair, nada muda nela.'),
                 D_FIDEL]),
-            faixa('O seu Instagram ativo, sem você precisar postar.')])
+            faixa('Os seus posts do mês, prontos para publicar.')])
 
 
 def pagina_sistema():
