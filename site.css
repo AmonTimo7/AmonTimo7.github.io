@@ -391,6 +391,25 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
 .s[data-estilo="mercado"] { --s-fundo: #fff; --s-tinta: #183A0F; --s-cor: #2E7A1F; --s-extra: #F6C945; }
 .s[data-estilo="clinica"] { --s-fundo: #fff; --s-tinta: #0E3A4A; --s-cor: #12807A; --s-peso: 600; --s-esp: -.035em; }
 .s[data-estilo="maquiagem"] { --s-fundo: #EFE2D6; --s-tinta: #2B1A14; --s-cor: #2B1A14; --s-peso: 300; --s-caixa: uppercase; --s-esp: .02em; --s-raio: 0; }
+/* ramos que emprestam o layout de um dos oito, com cor própria */
+.s[data-estilo="academia"] { --s-fundo: #0F1317; --s-tinta: #EEF2F5; --s-cor: #D7F24A; --s-sobre-cor: #0F1317; --s-caixa: uppercase; --s-esp: .01em; --s-raio: .5cqw; }
+.s[data-estilo="hamburgueria"] { --s-fundo: #1A0F0A; --s-tinta: #FFF1E0; --s-cor: #F2A531; --s-sobre-cor: #1A0F0A; --s-caixa: uppercase; --s-esp: .01em; --s-raio: .5cqw; }
+.s[data-estilo="oficina"] { --s-fundo: #121820; --s-tinta: #E9EEF3; --s-cor: #F26B2E; --s-sobre-cor: #121820; --s-caixa: uppercase; --s-esp: .01em; --s-raio: .5cqw; }
+.s[data-estilo="lavajato"] { --s-fundo: #DCEFFC; --s-tinta: #0A2A45; --s-cor: #1673C9; --s-extra: #FFD23F; }
+.s[data-estilo="idiomas"] { --s-fundo: #FFF4D6; --s-tinta: #1D2B4F; --s-cor: #2F54D1; --s-extra: #FF8A3D; }
+.s[data-estilo="padaria"] { --s-fundo: #F8F0E3; --s-tinta: #3B2412; --s-cor: #A8641F; }
+.s[data-estilo="pizzaria"] { --s-fundo: #FFF5EE; --s-tinta: #3A0F0A; --s-cor: #C8321F; }
+.s[data-estilo="cafeteria"] { --s-fundo: #F5EEE6; --s-tinta: #2A1C14; --s-cor: #6F4E37; }
+.s[data-estilo="confeitaria"] { --s-fundo: #FDF0F3; --s-tinta: #4A1F2C; --s-cor: #C2577A; --s-peso: 300; }
+.s[data-estilo="estetica"] { --s-fundo: #F6F0EA; --s-tinta: #3A2A22; --s-cor: #9C7253; --s-peso: 300; }
+.s[data-estilo="manicure"] { --s-fundo: #F4E2E5; --s-tinta: #3D1A24; --s-cor: #3D1A24; --s-peso: 300; --s-caixa: uppercase; --s-esp: .02em; --s-raio: 0; }
+.s[data-estilo="fotografia"] { --s-fundo: #E7E5E0; --s-tinta: #1B1B1B; --s-cor: #1B1B1B; --s-peso: 300; --s-caixa: uppercase; --s-esp: .02em; --s-raio: 0; }
+.s[data-estilo="floricultura"] { --s-fundo: #F5F7F1; --s-tinta: #1F2A1C; --s-cor: #2F5A2B; --s-peso: 300; --s-esp: -.045em; --s-raio: 0; }
+.s[data-estilo="imobiliaria"] { --s-fundo: #F6F6F3; --s-tinta: #1E2B2A; --s-cor: #1E2B2A; --s-peso: 300; --s-esp: -.045em; --s-raio: 0; }
+.s[data-estilo="acaiteria"] { --s-fundo: #fff; --s-tinta: #2B0F3A; --s-cor: #5B2A86; --s-extra: #F6C945; }
+.s[data-estilo="advocacia"] { --s-fundo: #fff; --s-tinta: #1C2433; --s-cor: #8A6A2F; --s-peso: 600; --s-esp: -.035em; }
+.s[data-estilo="contabilidade"] { --s-fundo: #fff; --s-tinta: #10283F; --s-cor: #1F6FB2; --s-peso: 600; --s-esp: -.035em; }
+.s[data-estilo="dentista"] { --s-fundo: #fff; --s-tinta: #0F3346; --s-cor: #1890B8; --s-peso: 600; --s-esp: -.035em; }
 
 /* ---------- moldura estreita: coluna, com a cor e a voz do ramo ---------- */
 @container (max-width: 560px) {
@@ -407,38 +426,38 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
   .s-item { display: flex; justify-content: space-between; gap: 3cqw; padding-block: 2.2cqw; border-bottom: 1px solid color-mix(in srgb, var(--s-tinta) 16%, transparent); font-size: 4.2cqw; font-weight: 500; }
 
   /* a barbearia guarda o clima escuro: texto sobre a foto */
-  .s[data-estilo="barbearia"] .s-barra { position: absolute; z-index: 2; left: 0; right: 0; top: 0; letter-spacing: .12em; text-transform: uppercase; }
-  .s[data-estilo="barbearia"] .s-capa { position: relative; }
-  .s[data-estilo="barbearia"] .s-f1 { height: 92cqw; }
-  .s[data-estilo="barbearia"] .s-capa::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--s-fundo) 55%, transparent), color-mix(in srgb, var(--s-fundo) 10%, transparent) 30%, color-mix(in srgb, var(--s-fundo) 96%, transparent) 88%); }
-  .s[data-estilo="barbearia"] .s-texto { position: absolute; z-index: 1; left: 0; right: 0; bottom: 3cqw; }
-  .s[data-estilo="barbearia"] .s-nome { font-size: calc(14cqw * var(--escala)); white-space: nowrap; }
-  .s[data-estilo="barbearia"] .s-item b { color: var(--s-cor); }
-  .s[data-estilo="salao"] .s-f1 { width: 74cqw; height: 66cqw; margin-inline: auto; border-radius: 37cqw 37cqw 0 0; }
-  .s[data-estilo="salao"] .s-capa { display: flex; flex-direction: column; }
-  .s[data-estilo="salao"] .s-texto { order: -1; padding-bottom: 4cqw; }
-  .s[data-estilo="petshop"] .s-f1 { width: 66cqw; height: 66cqw; margin: 1cqw auto 0; border-radius: 50%; outline: 3cqw solid var(--s-extra); }
-  .s[data-estilo="roupa"] .s-marca { letter-spacing: .18em; text-transform: uppercase; }
-  .s[data-estilo="restaurante"] .s-nome { color: var(--s-cor); }
-  .s[data-estilo="restaurante"] .s-item i { display: block; flex: 1; border-bottom: 1.5px dotted color-mix(in srgb, var(--s-tinta) 40%, transparent); margin-bottom: 1cqw; }
-  .s[data-estilo="restaurante"] .s-item { border: 0; align-items: flex-end; }
-  .s[data-estilo="mercado"] .s-marca { color: var(--s-cor); }
-  .s[data-estilo="mercado"] .s-capa { margin: 0 4cqw; border-radius: 4cqw; overflow: hidden; background: var(--s-cor); color: var(--s-sobre-cor); }
-  .s[data-estilo="mercado"] .s-f1 { height: 40cqw; }
-  .s[data-estilo="mercado"] .s-texto { padding-bottom: 4cqw; }
-  .s[data-estilo="mercado"] .s-botao { background: var(--s-extra); color: var(--s-tinta); }
-  .s[data-estilo="mercado"] .s-item b { color: var(--s-cor); }
-  .s[data-estilo="clinica"] .s-f1 { width: 90cqw; margin-inline: auto; border-radius: 4cqw; }
-  .s[data-estilo="maquiagem"] .s-f1 { height: 74cqw; }
+  .s[data-estilo="barbearia"] .s-barra, .s[data-estilo="academia"] .s-barra, .s[data-estilo="hamburgueria"] .s-barra, .s[data-estilo="oficina"] .s-barra { position: absolute; z-index: 2; left: 0; right: 0; top: 0; letter-spacing: .12em; text-transform: uppercase; }
+  .s[data-estilo="barbearia"] .s-capa, .s[data-estilo="academia"] .s-capa, .s[data-estilo="hamburgueria"] .s-capa, .s[data-estilo="oficina"] .s-capa { position: relative; }
+  .s[data-estilo="barbearia"] .s-f1, .s[data-estilo="academia"] .s-f1, .s[data-estilo="hamburgueria"] .s-f1, .s[data-estilo="oficina"] .s-f1 { height: 92cqw; }
+  .s[data-estilo="barbearia"] .s-capa::after, .s[data-estilo="academia"] .s-capa::after, .s[data-estilo="hamburgueria"] .s-capa::after, .s[data-estilo="oficina"] .s-capa::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--s-fundo) 55%, transparent), color-mix(in srgb, var(--s-fundo) 10%, transparent) 30%, color-mix(in srgb, var(--s-fundo) 96%, transparent) 88%); }
+  .s[data-estilo="barbearia"] .s-texto, .s[data-estilo="academia"] .s-texto, .s[data-estilo="hamburgueria"] .s-texto, .s[data-estilo="oficina"] .s-texto { position: absolute; z-index: 1; left: 0; right: 0; bottom: 3cqw; }
+  .s[data-estilo="barbearia"] .s-nome, .s[data-estilo="academia"] .s-nome, .s[data-estilo="hamburgueria"] .s-nome, .s[data-estilo="oficina"] .s-nome { font-size: calc(14cqw * var(--escala)); white-space: nowrap; }
+  .s[data-estilo="barbearia"] .s-item b, .s[data-estilo="academia"] .s-item b, .s[data-estilo="hamburgueria"] .s-item b, .s[data-estilo="oficina"] .s-item b { color: var(--s-cor); }
+  .s[data-estilo="salao"] .s-f1, .s[data-estilo="confeitaria"] .s-f1, .s[data-estilo="estetica"] .s-f1 { width: 74cqw; height: 66cqw; margin-inline: auto; border-radius: 37cqw 37cqw 0 0; }
+  .s[data-estilo="salao"] .s-capa, .s[data-estilo="confeitaria"] .s-capa, .s[data-estilo="estetica"] .s-capa { display: flex; flex-direction: column; }
+  .s[data-estilo="salao"] .s-texto, .s[data-estilo="confeitaria"] .s-texto, .s[data-estilo="estetica"] .s-texto { order: -1; padding-bottom: 4cqw; }
+  .s[data-estilo="petshop"] .s-f1, .s[data-estilo="lavajato"] .s-f1, .s[data-estilo="idiomas"] .s-f1 { width: 66cqw; height: 66cqw; margin: 1cqw auto 0; border-radius: 50%; outline: 3cqw solid var(--s-extra); }
+  .s[data-estilo="roupa"] .s-marca, .s[data-estilo="floricultura"] .s-marca, .s[data-estilo="imobiliaria"] .s-marca { letter-spacing: .18em; text-transform: uppercase; }
+  .s[data-estilo="restaurante"] .s-nome, .s[data-estilo="padaria"] .s-nome, .s[data-estilo="pizzaria"] .s-nome, .s[data-estilo="cafeteria"] .s-nome { color: var(--s-cor); }
+  .s[data-estilo="restaurante"] .s-item i, .s[data-estilo="padaria"] .s-item i, .s[data-estilo="pizzaria"] .s-item i, .s[data-estilo="cafeteria"] .s-item i { display: block; flex: 1; border-bottom: 1.5px dotted color-mix(in srgb, var(--s-tinta) 40%, transparent); margin-bottom: 1cqw; }
+  .s[data-estilo="restaurante"] .s-item, .s[data-estilo="padaria"] .s-item, .s[data-estilo="pizzaria"] .s-item, .s[data-estilo="cafeteria"] .s-item { border: 0; align-items: flex-end; }
+  .s[data-estilo="mercado"] .s-marca, .s[data-estilo="acaiteria"] .s-marca { color: var(--s-cor); }
+  .s[data-estilo="mercado"] .s-capa, .s[data-estilo="acaiteria"] .s-capa { margin: 0 4cqw; border-radius: 4cqw; overflow: hidden; background: var(--s-cor); color: var(--s-sobre-cor); }
+  .s[data-estilo="mercado"] .s-f1, .s[data-estilo="acaiteria"] .s-f1 { height: 40cqw; }
+  .s[data-estilo="mercado"] .s-texto, .s[data-estilo="acaiteria"] .s-texto { padding-bottom: 4cqw; }
+  .s[data-estilo="mercado"] .s-botao, .s[data-estilo="acaiteria"] .s-botao { background: var(--s-extra); color: var(--s-tinta); }
+  .s[data-estilo="mercado"] .s-item b, .s[data-estilo="acaiteria"] .s-item b { color: var(--s-cor); }
+  .s[data-estilo="clinica"] .s-f1, .s[data-estilo="advocacia"] .s-f1, .s[data-estilo="contabilidade"] .s-f1, .s[data-estilo="dentista"] .s-f1 { width: 90cqw; margin-inline: auto; border-radius: 4cqw; }
+  .s[data-estilo="maquiagem"] .s-f1, .s[data-estilo="manicure"] .s-f1, .s[data-estilo="fotografia"] .s-f1 { height: 74cqw; }
 }
 .cel .s { aspect-ratio: auto; height: 100%; }
 .cel [data-sitio] { height: 100%; }
 .cel .s-barra { padding-top: 15cqw; }
 .cel .s-f1 { height: 76cqw; }
 .cel .s-rodape { display: block; padding: 3cqw 5cqw 0; font-size: 3.8cqw; opacity: .8; }
-.cel .s[data-estilo="barbearia"] .s-f1 { height: 150cqw; }
-.cel .s[data-estilo="salao"] .s-f1 { height: 64cqw; }
-.cel .s[data-estilo="mercado"] .s-f1 { height: 42cqw; }
+.cel .s[data-estilo="barbearia"] .s-f1, .cel .s[data-estilo="academia"] .s-f1, .cel .s[data-estilo="hamburgueria"] .s-f1, .cel .s[data-estilo="oficina"] .s-f1 { height: 150cqw; }
+.cel .s[data-estilo="salao"] .s-f1, .cel .s[data-estilo="confeitaria"] .s-f1, .cel .s[data-estilo="estetica"] .s-f1 { height: 64cqw; }
+.cel .s[data-estilo="mercado"] .s-f1, .cel .s[data-estilo="acaiteria"] .s-f1 { height: 42cqw; }
 
 /* ---------- moldura larga: o layout de cada ramo ---------- */
 @container (min-width: 561px) {
@@ -451,131 +470,131 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
   .s-item { font-size: 1.4cqw; }
 
   /* barbearia: escura, foto de ponta a ponta, nome em caixa alta */
-  [data-estilo="barbearia"] .s-barra { position: absolute; left: 0; right: 0; top: 0; letter-spacing: .1em; text-transform: uppercase; font-size: 1.1cqw; }
-  [data-estilo="barbearia"] .s-marca { letter-spacing: .16em; font-weight: 700; font-size: 1.5cqw; }
-  [data-estilo="barbearia"] .s-acao { background: none; border: 1px solid var(--s-cor); color: var(--s-cor); }
-  [data-estilo="barbearia"] .s-capa { position: relative; height: 47cqw; }
-  [data-estilo="barbearia"] .s-f1 { position: absolute; inset: 0; width: 100%; height: 100%; }
-  [data-estilo="barbearia"] .s-capa::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, color-mix(in srgb, var(--s-fundo) 94%, transparent), color-mix(in srgb, var(--s-fundo) 62%, transparent) 46%, color-mix(in srgb, var(--s-fundo) 8%, transparent) 82%), linear-gradient(0deg, var(--s-fundo), transparent 26%); }
-  [data-estilo="barbearia"] .s-texto { position: absolute; z-index: 1; left: 3.4cqw; bottom: 3.6cqw; }
-  [data-estilo="barbearia"] .s-nome { font-size: calc(10cqw * var(--escala)); line-height: 1; white-space: nowrap; }
-  [data-estilo="barbearia"] .s-frase { margin-top: .8cqw; max-width: 40cqw; font-weight: 500; color: color-mix(in srgb, var(--s-tinta) 88%, transparent); }
-  [data-estilo="barbearia"] .s-botao { margin-top: 1.8cqw; text-transform: uppercase; letter-spacing: .06em; font-size: 1.2cqw; padding: 1.2cqw 2.4cqw; }
-  [data-estilo="barbearia"] .s-itens { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 3.4cqw; border-top: 1px solid color-mix(in srgb, var(--s-cor) 40%, transparent); }
-  [data-estilo="barbearia"] .s-item { display: flex; justify-content: space-between; align-items: baseline; padding: 1.5cqw 2.4cqw 1.5cqw 0; margin-right: 2.4cqw; border-right: 1px solid color-mix(in srgb, var(--s-cor) 25%, transparent); letter-spacing: .08em; text-transform: uppercase; font-size: 1.15cqw; }
-  [data-estilo="barbearia"] .s-item:last-child { margin-right: 0; border-right: 0; padding-right: 0; }
-  [data-estilo="barbearia"] .s-item b { color: var(--s-cor); font: 500 2.2cqw var(--titulo); letter-spacing: -.01em; }
-  [data-estilo="barbearia"] .s-rodape { display: none; }
+  [data-estilo="barbearia"] .s-barra, [data-estilo="academia"] .s-barra, [data-estilo="hamburgueria"] .s-barra, [data-estilo="oficina"] .s-barra { position: absolute; left: 0; right: 0; top: 0; letter-spacing: .1em; text-transform: uppercase; font-size: 1.1cqw; }
+  [data-estilo="barbearia"] .s-marca, [data-estilo="academia"] .s-marca, [data-estilo="hamburgueria"] .s-marca, [data-estilo="oficina"] .s-marca { letter-spacing: .16em; font-weight: 700; font-size: 1.5cqw; }
+  [data-estilo="barbearia"] .s-acao, [data-estilo="academia"] .s-acao, [data-estilo="hamburgueria"] .s-acao, [data-estilo="oficina"] .s-acao { background: none; border: 1px solid var(--s-cor); color: var(--s-cor); }
+  [data-estilo="barbearia"] .s-capa, [data-estilo="academia"] .s-capa, [data-estilo="hamburgueria"] .s-capa, [data-estilo="oficina"] .s-capa { position: relative; height: 47cqw; }
+  [data-estilo="barbearia"] .s-f1, [data-estilo="academia"] .s-f1, [data-estilo="hamburgueria"] .s-f1, [data-estilo="oficina"] .s-f1 { position: absolute; inset: 0; width: 100%; height: 100%; }
+  [data-estilo="barbearia"] .s-capa::after, [data-estilo="academia"] .s-capa::after, [data-estilo="hamburgueria"] .s-capa::after, [data-estilo="oficina"] .s-capa::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, color-mix(in srgb, var(--s-fundo) 94%, transparent), color-mix(in srgb, var(--s-fundo) 62%, transparent) 46%, color-mix(in srgb, var(--s-fundo) 8%, transparent) 82%), linear-gradient(0deg, var(--s-fundo), transparent 26%); }
+  [data-estilo="barbearia"] .s-texto, [data-estilo="academia"] .s-texto, [data-estilo="hamburgueria"] .s-texto, [data-estilo="oficina"] .s-texto { position: absolute; z-index: 1; left: 3.4cqw; bottom: 3.6cqw; }
+  [data-estilo="barbearia"] .s-nome, [data-estilo="academia"] .s-nome, [data-estilo="hamburgueria"] .s-nome, [data-estilo="oficina"] .s-nome { font-size: calc(10cqw * var(--escala)); line-height: 1; white-space: nowrap; }
+  [data-estilo="barbearia"] .s-frase, [data-estilo="academia"] .s-frase, [data-estilo="hamburgueria"] .s-frase, [data-estilo="oficina"] .s-frase { margin-top: .8cqw; max-width: 40cqw; font-weight: 500; color: color-mix(in srgb, var(--s-tinta) 88%, transparent); }
+  [data-estilo="barbearia"] .s-botao, [data-estilo="academia"] .s-botao, [data-estilo="hamburgueria"] .s-botao, [data-estilo="oficina"] .s-botao { margin-top: 1.8cqw; text-transform: uppercase; letter-spacing: .06em; font-size: 1.2cqw; padding: 1.2cqw 2.4cqw; }
+  [data-estilo="barbearia"] .s-itens, [data-estilo="academia"] .s-itens, [data-estilo="hamburgueria"] .s-itens, [data-estilo="oficina"] .s-itens { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 3.4cqw; border-top: 1px solid color-mix(in srgb, var(--s-cor) 40%, transparent); }
+  [data-estilo="barbearia"] .s-item, [data-estilo="academia"] .s-item, [data-estilo="hamburgueria"] .s-item, [data-estilo="oficina"] .s-item { display: flex; justify-content: space-between; align-items: baseline; padding: 1.5cqw 2.4cqw 1.5cqw 0; margin-right: 2.4cqw; border-right: 1px solid color-mix(in srgb, var(--s-cor) 25%, transparent); letter-spacing: .08em; text-transform: uppercase; font-size: 1.15cqw; }
+  [data-estilo="barbearia"] .s-item:last-child, [data-estilo="academia"] .s-item:last-child, [data-estilo="hamburgueria"] .s-item:last-child, [data-estilo="oficina"] .s-item:last-child { margin-right: 0; border-right: 0; padding-right: 0; }
+  [data-estilo="barbearia"] .s-item b, [data-estilo="academia"] .s-item b, [data-estilo="hamburgueria"] .s-item b, [data-estilo="oficina"] .s-item b { color: var(--s-cor); font: 500 2.2cqw var(--titulo); letter-spacing: -.01em; }
+  [data-estilo="barbearia"] .s-rodape, [data-estilo="academia"] .s-rodape, [data-estilo="hamburgueria"] .s-rodape, [data-estilo="oficina"] .s-rodape { display: none; }
 
   /* salão: claro e delicado, letra fina e foto em arco */
-  [data-estilo="salao"] .s-marca { font-weight: 500; letter-spacing: -.01em; }
-  [data-estilo="salao"] .s-f1 { position: absolute; right: 6.4cqw; top: 6.4cqw; width: 33cqw; height: 58cqw; border-radius: 16.5cqw 16.5cqw 0 0; }
-  [data-estilo="salao"] .s-f2 { display: block; position: absolute; z-index: 2; right: 33cqw; top: 33cqw; width: 13cqw; height: 13cqw; border-radius: 50%; border: .6cqw solid var(--s-fundo); }
-  [data-estilo="salao"] .s-texto { padding: 3.4cqw 3.4cqw 0; width: 54cqw; }
-  [data-estilo="salao"] .s-nome { font-size: calc(9.2cqw * var(--escala-q)); line-height: .98; }
-  [data-estilo="salao"] .s-frase { margin-top: 1.4cqw; max-width: 26cqw; font-weight: 400; }
-  [data-estilo="salao"] .s-botao { margin-top: 1.8cqw; }
-  [data-estilo="salao"] .s-lista { position: absolute; left: 3.4cqw; bottom: 2.6cqw; width: 42cqw; }
-  [data-estilo="salao"] .s-item { display: flex; justify-content: space-between; padding-block: .8cqw; border-top: 1px solid color-mix(in srgb, var(--s-tinta) 20%, transparent); }
-  [data-estilo="salao"] .s-item b { font-weight: 600; }
-  [data-estilo="salao"] .s-rodape { display: none; }
-  [data-estilo="salao"] .s-acao { background: none; border: 1px solid var(--s-cor); color: var(--s-cor); }
+  [data-estilo="salao"] .s-marca, [data-estilo="confeitaria"] .s-marca, [data-estilo="estetica"] .s-marca { font-weight: 500; letter-spacing: -.01em; }
+  [data-estilo="salao"] .s-f1, [data-estilo="confeitaria"] .s-f1, [data-estilo="estetica"] .s-f1 { position: absolute; right: 6.4cqw; top: 6.4cqw; width: 33cqw; height: 58cqw; border-radius: 16.5cqw 16.5cqw 0 0; }
+  [data-estilo="salao"] .s-f2, [data-estilo="confeitaria"] .s-f2, [data-estilo="estetica"] .s-f2 { display: block; position: absolute; z-index: 2; right: 33cqw; top: 33cqw; width: 13cqw; height: 13cqw; border-radius: 50%; border: .6cqw solid var(--s-fundo); }
+  [data-estilo="salao"] .s-texto, [data-estilo="confeitaria"] .s-texto, [data-estilo="estetica"] .s-texto { padding: 3.4cqw 3.4cqw 0; width: 54cqw; }
+  [data-estilo="salao"] .s-nome, [data-estilo="confeitaria"] .s-nome, [data-estilo="estetica"] .s-nome { font-size: calc(9.2cqw * var(--escala-q)); line-height: .98; }
+  [data-estilo="salao"] .s-frase, [data-estilo="confeitaria"] .s-frase, [data-estilo="estetica"] .s-frase { margin-top: 1.4cqw; max-width: 26cqw; font-weight: 400; }
+  [data-estilo="salao"] .s-botao, [data-estilo="confeitaria"] .s-botao, [data-estilo="estetica"] .s-botao { margin-top: 1.8cqw; }
+  [data-estilo="salao"] .s-lista, [data-estilo="confeitaria"] .s-lista, [data-estilo="estetica"] .s-lista { position: absolute; left: 3.4cqw; bottom: 2.6cqw; width: 42cqw; }
+  [data-estilo="salao"] .s-item, [data-estilo="confeitaria"] .s-item, [data-estilo="estetica"] .s-item { display: flex; justify-content: space-between; padding-block: .8cqw; border-top: 1px solid color-mix(in srgb, var(--s-tinta) 20%, transparent); }
+  [data-estilo="salao"] .s-item b, [data-estilo="confeitaria"] .s-item b, [data-estilo="estetica"] .s-item b { font-weight: 600; }
+  [data-estilo="salao"] .s-rodape, [data-estilo="confeitaria"] .s-rodape, [data-estilo="estetica"] .s-rodape { display: none; }
+  [data-estilo="salao"] .s-acao, [data-estilo="confeitaria"] .s-acao, [data-estilo="estetica"] .s-acao { background: none; border: 1px solid var(--s-cor); color: var(--s-cor); }
 
   /* pet shop: redondo e alegre */
-  [data-estilo="petshop"] .s-barra { margin: 1.6cqw 3.4cqw 0; padding: 1cqw 1.2cqw 1cqw 2.4cqw; background: #fff; border-radius: 99px; }
-  [data-estilo="petshop"] .s-deco { display: block; position: absolute; right: -4cqw; top: 8cqw; width: 50cqw; height: 50cqw; border-radius: 50%; background: var(--s-extra); }
-  [data-estilo="petshop"] .s-f1 { position: absolute; z-index: 1; right: 2cqw; top: 10cqw; width: 42cqw; height: 42cqw; border-radius: 50%; }
-  [data-estilo="petshop"] .s-f2 { display: block; position: absolute; z-index: 2; right: 39cqw; top: 36cqw; width: 14cqw; height: 14cqw; border-radius: 50%; border: .7cqw solid #fff; }
-  [data-estilo="petshop"] .s-texto { padding: 3.6cqw 3.4cqw 0; width: 54cqw; }
-  [data-estilo="petshop"] .s-nome { font-size: calc(8cqw * var(--escala-q)); line-height: .98; }
-  [data-estilo="petshop"] .s-frase { margin-top: 1.4cqw; max-width: 30cqw; font-weight: 500; }
-  [data-estilo="petshop"] .s-botao { margin-top: 1.8cqw; padding: 1.2cqw 2.8cqw; }
-  [data-estilo="petshop"] .s-lista { position: absolute; z-index: 3; left: 3.4cqw; bottom: 2.6cqw; }
-  [data-estilo="petshop"] .s-itens { display: flex; gap: 1cqw; }
-  [data-estilo="petshop"] .s-item { display: grid; gap: .2cqw; padding: 1cqw 1.8cqw; background: #fff; border-radius: 1.6cqw; min-width: 12cqw; }
-  [data-estilo="petshop"] .s-item b { color: var(--s-cor); }
-  [data-estilo="petshop"] .s-rodape { display: none; }
+  [data-estilo="petshop"] .s-barra, [data-estilo="lavajato"] .s-barra, [data-estilo="idiomas"] .s-barra { margin: 1.6cqw 3.4cqw 0; padding: 1cqw 1.2cqw 1cqw 2.4cqw; background: #fff; border-radius: 99px; }
+  [data-estilo="petshop"] .s-deco, [data-estilo="lavajato"] .s-deco, [data-estilo="idiomas"] .s-deco { display: block; position: absolute; right: -4cqw; top: 8cqw; width: 50cqw; height: 50cqw; border-radius: 50%; background: var(--s-extra); }
+  [data-estilo="petshop"] .s-f1, [data-estilo="lavajato"] .s-f1, [data-estilo="idiomas"] .s-f1 { position: absolute; z-index: 1; right: 2cqw; top: 10cqw; width: 42cqw; height: 42cqw; border-radius: 50%; }
+  [data-estilo="petshop"] .s-f2, [data-estilo="lavajato"] .s-f2, [data-estilo="idiomas"] .s-f2 { display: block; position: absolute; z-index: 2; right: 39cqw; top: 36cqw; width: 14cqw; height: 14cqw; border-radius: 50%; border: .7cqw solid #fff; }
+  [data-estilo="petshop"] .s-texto, [data-estilo="lavajato"] .s-texto, [data-estilo="idiomas"] .s-texto { padding: 3.6cqw 3.4cqw 0; width: 54cqw; }
+  [data-estilo="petshop"] .s-nome, [data-estilo="lavajato"] .s-nome, [data-estilo="idiomas"] .s-nome { font-size: calc(8cqw * var(--escala-q)); line-height: .98; }
+  [data-estilo="petshop"] .s-frase, [data-estilo="lavajato"] .s-frase, [data-estilo="idiomas"] .s-frase { margin-top: 1.4cqw; max-width: 30cqw; font-weight: 500; }
+  [data-estilo="petshop"] .s-botao, [data-estilo="lavajato"] .s-botao, [data-estilo="idiomas"] .s-botao { margin-top: 1.8cqw; padding: 1.2cqw 2.8cqw; }
+  [data-estilo="petshop"] .s-lista, [data-estilo="lavajato"] .s-lista, [data-estilo="idiomas"] .s-lista { position: absolute; z-index: 3; left: 3.4cqw; bottom: 2.6cqw; }
+  [data-estilo="petshop"] .s-itens, [data-estilo="lavajato"] .s-itens, [data-estilo="idiomas"] .s-itens { display: flex; gap: 1cqw; }
+  [data-estilo="petshop"] .s-item, [data-estilo="lavajato"] .s-item, [data-estilo="idiomas"] .s-item { display: grid; gap: .2cqw; padding: 1cqw 1.8cqw; background: #fff; border-radius: 1.6cqw; min-width: 12cqw; }
+  [data-estilo="petshop"] .s-item b, [data-estilo="lavajato"] .s-item b, [data-estilo="idiomas"] .s-item b { color: var(--s-cor); }
+  [data-estilo="petshop"] .s-rodape, [data-estilo="lavajato"] .s-rodape, [data-estilo="idiomas"] .s-rodape { display: none; }
 
   /* loja: vitrine, nome enorme e fino, peças com preço */
-  [data-estilo="roupa"] .s-barra { text-transform: uppercase; letter-spacing: .08em; font-size: 1.05cqw; }
-  [data-estilo="roupa"] .s-links { order: 1; flex: 1; }
-  [data-estilo="roupa"] .s-marca { order: 2; margin: 0; letter-spacing: .22em; font-weight: 600; font-size: 1.5cqw; }
-  [data-estilo="roupa"] .s-acao { order: 3; flex: 1; background: none; color: inherit; padding: 0; font-size: 1.05cqw; text-align: right; text-decoration: underline; text-underline-offset: .4cqw; }
-  [data-estilo="roupa"] .s-capa { position: static; }
-  [data-estilo="roupa"] .s-texto { display: grid; grid-template-columns: minmax(0, 1fr) 21cqw; align-items: end; gap: 2cqw; padding: .6cqw 3.4cqw 0; }
-  [data-estilo="roupa"] .s-nome { grid-row: 1 / 3; font-size: calc(11.6cqw * var(--escala)); line-height: 1; white-space: nowrap; overflow: hidden; padding-bottom: .4cqw; }
-  [data-estilo="roupa"] .s-frase { font-size: 1.5cqw; }
-  [data-estilo="roupa"] .s-botao { justify-self: start; padding: .9cqw 1.8cqw; font-size: 1.15cqw; font-weight: 600; margin-bottom: 1.4cqw; }
-  [data-estilo="roupa"] .s-f1 { position: absolute; left: 3.4cqw; top: 19.4cqw; width: 28cqw; height: 37cqw; object-position: 50% 20%; }
-  [data-estilo="roupa"] .s-lista { position: absolute; left: 32.8cqw; right: 3.4cqw; top: 19.4cqw; }
-  [data-estilo="roupa"] .s-itens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4cqw; }
-  [data-estilo="roupa"] .s-item { display: grid; grid-template-columns: 1fr auto; column-gap: .6cqw; font-size: 1.3cqw; }
-  [data-estilo="roupa"] .s-item img { display: block; grid-column: 1 / -1; width: 100%; height: 31cqw; margin-bottom: .8cqw; }
-  [data-estilo="roupa"] .s-item b { font-weight: 500; }
-  [data-estilo="roupa"] .s-rodape { display: none; }
+  [data-estilo="roupa"] .s-barra, [data-estilo="floricultura"] .s-barra, [data-estilo="imobiliaria"] .s-barra { text-transform: uppercase; letter-spacing: .08em; font-size: 1.05cqw; }
+  [data-estilo="roupa"] .s-links, [data-estilo="floricultura"] .s-links, [data-estilo="imobiliaria"] .s-links { order: 1; flex: 1; }
+  [data-estilo="roupa"] .s-marca, [data-estilo="floricultura"] .s-marca, [data-estilo="imobiliaria"] .s-marca { order: 2; margin: 0; letter-spacing: .22em; font-weight: 600; font-size: 1.5cqw; }
+  [data-estilo="roupa"] .s-acao, [data-estilo="floricultura"] .s-acao, [data-estilo="imobiliaria"] .s-acao { order: 3; flex: 1; background: none; color: inherit; padding: 0; font-size: 1.05cqw; text-align: right; text-decoration: underline; text-underline-offset: .4cqw; }
+  [data-estilo="roupa"] .s-capa, [data-estilo="floricultura"] .s-capa, [data-estilo="imobiliaria"] .s-capa { position: static; }
+  [data-estilo="roupa"] .s-texto, [data-estilo="floricultura"] .s-texto, [data-estilo="imobiliaria"] .s-texto { display: grid; grid-template-columns: minmax(0, 1fr) 21cqw; align-items: end; gap: 2cqw; padding: .6cqw 3.4cqw 0; }
+  [data-estilo="roupa"] .s-nome, [data-estilo="floricultura"] .s-nome, [data-estilo="imobiliaria"] .s-nome { grid-row: 1 / 3; font-size: calc(11.6cqw * var(--escala)); line-height: 1; white-space: nowrap; overflow: hidden; padding-bottom: .4cqw; }
+  [data-estilo="roupa"] .s-frase, [data-estilo="floricultura"] .s-frase, [data-estilo="imobiliaria"] .s-frase { font-size: 1.5cqw; }
+  [data-estilo="roupa"] .s-botao, [data-estilo="floricultura"] .s-botao, [data-estilo="imobiliaria"] .s-botao { justify-self: start; padding: .9cqw 1.8cqw; font-size: 1.15cqw; font-weight: 600; margin-bottom: 1.4cqw; }
+  [data-estilo="roupa"] .s-f1, [data-estilo="floricultura"] .s-f1, [data-estilo="imobiliaria"] .s-f1 { position: absolute; left: 3.4cqw; top: 19.4cqw; width: 28cqw; height: 37cqw; object-position: 50% 20%; }
+  [data-estilo="roupa"] .s-lista, [data-estilo="floricultura"] .s-lista, [data-estilo="imobiliaria"] .s-lista { position: absolute; left: 32.8cqw; right: 3.4cqw; top: 19.4cqw; }
+  [data-estilo="roupa"] .s-itens, [data-estilo="floricultura"] .s-itens, [data-estilo="imobiliaria"] .s-itens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4cqw; }
+  [data-estilo="roupa"] .s-item, [data-estilo="floricultura"] .s-item, [data-estilo="imobiliaria"] .s-item { display: grid; grid-template-columns: 1fr auto; column-gap: .6cqw; font-size: 1.3cqw; }
+  [data-estilo="roupa"] .s-item img, [data-estilo="floricultura"] .s-item img, [data-estilo="imobiliaria"] .s-item img { display: block; grid-column: 1 / -1; width: 100%; height: 31cqw; margin-bottom: .8cqw; }
+  [data-estilo="roupa"] .s-item b, [data-estilo="floricultura"] .s-item b, [data-estilo="imobiliaria"] .s-item b { font-weight: 500; }
+  [data-estilo="roupa"] .s-rodape, [data-estilo="floricultura"] .s-rodape, [data-estilo="imobiliaria"] .s-rodape { display: none; }
 
   /* restaurante: foto de um lado, cardápio do outro */
-  [data-estilo="restaurante"] .s-barra { width: 54cqw; }
-  [data-estilo="restaurante"] .s-links { display: none; }
-  [data-estilo="restaurante"] .s-marca { max-width: 30cqw; }
-  [data-estilo="restaurante"] .s-acao { background: none; color: var(--s-cor); padding: 0; text-decoration: underline; text-underline-offset: .4cqw; }
-  [data-estilo="restaurante"] .s-f1 { position: absolute; right: 0; top: 0; width: 46cqw; height: 100%; border-radius: 0 0 0 7cqw; }
-  [data-estilo="restaurante"] .s-texto { padding: 1.8cqw 4cqw 0 3.4cqw; width: 54cqw; }
-  [data-estilo="restaurante"] .s-nome { color: var(--s-cor); font-size: calc(8cqw * var(--escala-q)); line-height: .98; }
-  [data-estilo="restaurante"] .s-frase { margin-top: 1.4cqw; font-weight: 500; font-size: 1.9cqw; }
-  [data-estilo="restaurante"] .s-botao { position: absolute; left: 3.4cqw; bottom: 3.4cqw; }
-  [data-estilo="restaurante"] .s-lista { position: absolute; left: 3.4cqw; width: 46cqw; bottom: 8.6cqw; }
-  [data-estilo="restaurante"] .s-rot { display: block; margin-bottom: .6cqw; font: 700 1.5cqw var(--titulo); }
-  [data-estilo="restaurante"] .s-item { display: flex; align-items: flex-end; gap: .7cqw; padding-block: .55cqw; font-size: 1.55cqw; }
-  [data-estilo="restaurante"] .s-item i { display: block; flex: 1; margin-bottom: .35cqw; border-bottom: 1.5px dotted color-mix(in srgb, var(--s-tinta) 40%, transparent); }
-  [data-estilo="restaurante"] .s-rodape { display: none; }
+  [data-estilo="restaurante"] .s-barra, [data-estilo="padaria"] .s-barra, [data-estilo="pizzaria"] .s-barra, [data-estilo="cafeteria"] .s-barra { width: 54cqw; }
+  [data-estilo="restaurante"] .s-links, [data-estilo="padaria"] .s-links, [data-estilo="pizzaria"] .s-links, [data-estilo="cafeteria"] .s-links { display: none; }
+  [data-estilo="restaurante"] .s-marca, [data-estilo="padaria"] .s-marca, [data-estilo="pizzaria"] .s-marca, [data-estilo="cafeteria"] .s-marca { max-width: 30cqw; }
+  [data-estilo="restaurante"] .s-acao, [data-estilo="padaria"] .s-acao, [data-estilo="pizzaria"] .s-acao, [data-estilo="cafeteria"] .s-acao { background: none; color: var(--s-cor); padding: 0; text-decoration: underline; text-underline-offset: .4cqw; }
+  [data-estilo="restaurante"] .s-f1, [data-estilo="padaria"] .s-f1, [data-estilo="pizzaria"] .s-f1, [data-estilo="cafeteria"] .s-f1 { position: absolute; right: 0; top: 0; width: 46cqw; height: 100%; border-radius: 0 0 0 7cqw; }
+  [data-estilo="restaurante"] .s-texto, [data-estilo="padaria"] .s-texto, [data-estilo="pizzaria"] .s-texto, [data-estilo="cafeteria"] .s-texto { padding: 1.8cqw 4cqw 0 3.4cqw; width: 54cqw; }
+  [data-estilo="restaurante"] .s-nome, [data-estilo="padaria"] .s-nome, [data-estilo="pizzaria"] .s-nome, [data-estilo="cafeteria"] .s-nome { color: var(--s-cor); font-size: calc(8cqw * var(--escala-q)); line-height: .98; }
+  [data-estilo="restaurante"] .s-frase, [data-estilo="padaria"] .s-frase, [data-estilo="pizzaria"] .s-frase, [data-estilo="cafeteria"] .s-frase { margin-top: 1.4cqw; font-weight: 500; font-size: 1.9cqw; }
+  [data-estilo="restaurante"] .s-botao, [data-estilo="padaria"] .s-botao, [data-estilo="pizzaria"] .s-botao, [data-estilo="cafeteria"] .s-botao { position: absolute; left: 3.4cqw; bottom: 3.4cqw; }
+  [data-estilo="restaurante"] .s-lista, [data-estilo="padaria"] .s-lista, [data-estilo="pizzaria"] .s-lista, [data-estilo="cafeteria"] .s-lista { position: absolute; left: 3.4cqw; width: 46cqw; bottom: 8.6cqw; }
+  [data-estilo="restaurante"] .s-rot, [data-estilo="padaria"] .s-rot, [data-estilo="pizzaria"] .s-rot, [data-estilo="cafeteria"] .s-rot { display: block; margin-bottom: .6cqw; font: 700 1.5cqw var(--titulo); }
+  [data-estilo="restaurante"] .s-item, [data-estilo="padaria"] .s-item, [data-estilo="pizzaria"] .s-item, [data-estilo="cafeteria"] .s-item { display: flex; align-items: flex-end; gap: .7cqw; padding-block: .55cqw; font-size: 1.55cqw; }
+  [data-estilo="restaurante"] .s-item i, [data-estilo="padaria"] .s-item i, [data-estilo="pizzaria"] .s-item i, [data-estilo="cafeteria"] .s-item i { display: block; flex: 1; margin-bottom: .35cqw; border-bottom: 1.5px dotted color-mix(in srgb, var(--s-tinta) 40%, transparent); }
+  [data-estilo="restaurante"] .s-rodape, [data-estilo="padaria"] .s-rodape, [data-estilo="pizzaria"] .s-rodape, [data-estilo="cafeteria"] .s-rodape { display: none; }
 
   /* mercado: faixa, banner verde e ofertas com preço */
-  [data-estilo="mercado"] .s-aviso { display: block; padding: .55cqw; background: var(--s-tinta); color: #fff; font-size: 1.1cqw; text-align: center; }
-  [data-estilo="mercado"] .s-marca { color: var(--s-cor); }
-  [data-estilo="mercado"] .s-barra { padding-block: 1.2cqw; }
-  [data-estilo="mercado"] .s-capa { position: relative; height: 26.5cqw; margin: 0 3.4cqw; border-radius: 1.6cqw; overflow: hidden; background: var(--s-cor); color: var(--s-sobre-cor); }
-  [data-estilo="mercado"] .s-f1 { position: absolute; right: 0; top: 0; width: 52%; height: 100%; }
-  [data-estilo="mercado"] .s-texto { position: relative; padding: 2.6cqw 3cqw; width: 48%; }
-  [data-estilo="mercado"] .s-nome { font-size: calc(5.2cqw * var(--escala-q)); line-height: 1; }
-  [data-estilo="mercado"] .s-frase { margin-top: 1cqw; font-size: 1.7cqw; font-weight: 500; }
-  [data-estilo="mercado"] .s-botao { margin-top: 1.4cqw; background: var(--s-extra); color: var(--s-tinta); }
-  [data-estilo="mercado"] .s-lista { padding: 1.5cqw 3.4cqw 0; }
-  [data-estilo="mercado"] .s-rot { display: block; margin-bottom: .8cqw; font: 700 1.7cqw var(--titulo); }
-  [data-estilo="mercado"] .s-itens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2cqw; }
-  [data-estilo="mercado"] .s-item { display: grid; grid-template-columns: 11cqw 1fr; align-items: center; column-gap: 1.2cqw; padding: .7cqw; border: 1px solid color-mix(in srgb, var(--s-tinta) 14%, transparent); border-radius: 1.2cqw; font-size: 1.35cqw; font-weight: 500; }
-  [data-estilo="mercado"] .s-item img { display: block; grid-row: 1 / 3; width: 11cqw; height: 9.4cqw; border-radius: .7cqw; }
-  [data-estilo="mercado"] .s-item span { align-self: end; }
-  [data-estilo="mercado"] .s-item b { align-self: start; color: var(--s-cor); font-size: 1.7cqw; }
-  [data-estilo="mercado"] .s-rodape { display: none; }
+  [data-estilo="mercado"] .s-aviso, [data-estilo="acaiteria"] .s-aviso { display: block; padding: .55cqw; background: var(--s-tinta); color: #fff; font-size: 1.1cqw; text-align: center; }
+  [data-estilo="mercado"] .s-marca, [data-estilo="acaiteria"] .s-marca { color: var(--s-cor); }
+  [data-estilo="mercado"] .s-barra, [data-estilo="acaiteria"] .s-barra { padding-block: 1.2cqw; }
+  [data-estilo="mercado"] .s-capa, [data-estilo="acaiteria"] .s-capa { position: relative; height: 26.5cqw; margin: 0 3.4cqw; border-radius: 1.6cqw; overflow: hidden; background: var(--s-cor); color: var(--s-sobre-cor); }
+  [data-estilo="mercado"] .s-f1, [data-estilo="acaiteria"] .s-f1 { position: absolute; right: 0; top: 0; width: 52%; height: 100%; }
+  [data-estilo="mercado"] .s-texto, [data-estilo="acaiteria"] .s-texto { position: relative; padding: 2.6cqw 3cqw; width: 48%; }
+  [data-estilo="mercado"] .s-nome, [data-estilo="acaiteria"] .s-nome { font-size: calc(5.2cqw * var(--escala-q)); line-height: 1; }
+  [data-estilo="mercado"] .s-frase, [data-estilo="acaiteria"] .s-frase { margin-top: 1cqw; font-size: 1.7cqw; font-weight: 500; }
+  [data-estilo="mercado"] .s-botao, [data-estilo="acaiteria"] .s-botao { margin-top: 1.4cqw; background: var(--s-extra); color: var(--s-tinta); }
+  [data-estilo="mercado"] .s-lista, [data-estilo="acaiteria"] .s-lista { padding: 1.5cqw 3.4cqw 0; }
+  [data-estilo="mercado"] .s-rot, [data-estilo="acaiteria"] .s-rot { display: block; margin-bottom: .8cqw; font: 700 1.7cqw var(--titulo); }
+  [data-estilo="mercado"] .s-itens, [data-estilo="acaiteria"] .s-itens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2cqw; }
+  [data-estilo="mercado"] .s-item, [data-estilo="acaiteria"] .s-item { display: grid; grid-template-columns: 11cqw 1fr; align-items: center; column-gap: 1.2cqw; padding: .7cqw; border: 1px solid color-mix(in srgb, var(--s-tinta) 14%, transparent); border-radius: 1.2cqw; font-size: 1.35cqw; font-weight: 500; }
+  [data-estilo="mercado"] .s-item img, [data-estilo="acaiteria"] .s-item img { display: block; grid-row: 1 / 3; width: 11cqw; height: 9.4cqw; border-radius: .7cqw; }
+  [data-estilo="mercado"] .s-item span, [data-estilo="acaiteria"] .s-item span { align-self: end; }
+  [data-estilo="mercado"] .s-item b, [data-estilo="acaiteria"] .s-item b { align-self: start; color: var(--s-cor); font-size: 1.7cqw; }
+  [data-estilo="mercado"] .s-rodape, [data-estilo="acaiteria"] .s-rodape { display: none; }
 
   /* clínica: limpa e confiável, com o horário em destaque */
-  [data-estilo="clinica"] .s-f1 { position: absolute; right: 3.4cqw; top: 6.4cqw; width: 42cqw; height: 37cqw; border-radius: 2cqw; object-position: 50% 18%; }
-  [data-estilo="clinica"] .s-texto { padding: 3.4cqw 3.4cqw 0; width: 52cqw; }
-  [data-estilo="clinica"] .s-nome { font-size: calc(7.8cqw * var(--escala-q)); line-height: 1; color: var(--s-cor); }
-  [data-estilo="clinica"] .s-frase { margin-top: 1.6cqw; max-width: 38cqw; font-size: 2.5cqw; font-weight: 500; }
-  [data-estilo="clinica"] .s-botao { margin-top: 2cqw; padding: 1.2cqw 2.6cqw; }
-  [data-estilo="clinica"] .s-rodape { position: absolute; z-index: 2; right: 5cqw; top: 36cqw; max-width: 25cqw; padding: 1cqw 1.6cqw; background: #fff; border-radius: 1.2cqw; box-shadow: 0 1cqw 3cqw rgba(14, 58, 74, .18); font-size: 1.25cqw; font-weight: 600; }
-  [data-estilo="clinica"] .s-lista { position: absolute; left: 3.4cqw; right: 3.4cqw; bottom: 2.6cqw; }
-  [data-estilo="clinica"] .s-itens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2cqw; }
-  [data-estilo="clinica"] .s-item { display: grid; gap: .1cqw; padding: 1.2cqw 1.8cqw; background: color-mix(in srgb, var(--s-cor) 12%, #fff); border-radius: 1.4cqw; font-size: 1.3cqw; }
-  [data-estilo="clinica"] .s-item span { font: 600 1.7cqw var(--titulo); }
-  [data-estilo="clinica"] .s-item b { font-weight: 500; }
+  [data-estilo="clinica"] .s-f1, [data-estilo="advocacia"] .s-f1, [data-estilo="contabilidade"] .s-f1, [data-estilo="dentista"] .s-f1 { position: absolute; right: 3.4cqw; top: 6.4cqw; width: 42cqw; height: 37cqw; border-radius: 2cqw; object-position: 50% 18%; }
+  [data-estilo="clinica"] .s-texto, [data-estilo="advocacia"] .s-texto, [data-estilo="contabilidade"] .s-texto, [data-estilo="dentista"] .s-texto { padding: 3.4cqw 3.4cqw 0; width: 52cqw; }
+  [data-estilo="clinica"] .s-nome, [data-estilo="advocacia"] .s-nome, [data-estilo="contabilidade"] .s-nome, [data-estilo="dentista"] .s-nome { font-size: calc(7.8cqw * var(--escala-q)); line-height: 1; color: var(--s-cor); }
+  [data-estilo="clinica"] .s-frase, [data-estilo="advocacia"] .s-frase, [data-estilo="contabilidade"] .s-frase, [data-estilo="dentista"] .s-frase { margin-top: 1.6cqw; max-width: 38cqw; font-size: 2.5cqw; font-weight: 500; }
+  [data-estilo="clinica"] .s-botao, [data-estilo="advocacia"] .s-botao, [data-estilo="contabilidade"] .s-botao, [data-estilo="dentista"] .s-botao { margin-top: 2cqw; padding: 1.2cqw 2.6cqw; }
+  [data-estilo="clinica"] .s-rodape, [data-estilo="advocacia"] .s-rodape, [data-estilo="contabilidade"] .s-rodape, [data-estilo="dentista"] .s-rodape { position: absolute; z-index: 2; right: 5cqw; top: 36cqw; max-width: 25cqw; padding: 1cqw 1.6cqw; background: #fff; border-radius: 1.2cqw; box-shadow: 0 1cqw 3cqw rgba(14, 58, 74, .18); font-size: 1.25cqw; font-weight: 600; }
+  [data-estilo="clinica"] .s-lista, [data-estilo="advocacia"] .s-lista, [data-estilo="contabilidade"] .s-lista, [data-estilo="dentista"] .s-lista { position: absolute; left: 3.4cqw; right: 3.4cqw; bottom: 2.6cqw; }
+  [data-estilo="clinica"] .s-itens, [data-estilo="advocacia"] .s-itens, [data-estilo="contabilidade"] .s-itens, [data-estilo="dentista"] .s-itens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2cqw; }
+  [data-estilo="clinica"] .s-item, [data-estilo="advocacia"] .s-item, [data-estilo="contabilidade"] .s-item, [data-estilo="dentista"] .s-item { display: grid; gap: .1cqw; padding: 1.2cqw 1.8cqw; background: color-mix(in srgb, var(--s-cor) 12%, #fff); border-radius: 1.4cqw; font-size: 1.3cqw; }
+  [data-estilo="clinica"] .s-item span, [data-estilo="advocacia"] .s-item span, [data-estilo="contabilidade"] .s-item span, [data-estilo="dentista"] .s-item span { font: 600 1.7cqw var(--titulo); }
+  [data-estilo="clinica"] .s-item b, [data-estilo="advocacia"] .s-item b, [data-estilo="contabilidade"] .s-item b, [data-estilo="dentista"] .s-item b { font-weight: 500; }
 
   /* maquiagem: editorial, rosto grande e letra fina em caixa alta */
-  [data-estilo="maquiagem"] .s-f1 { position: absolute; left: 0; top: 0; width: 43cqw; height: 100%; object-position: 40% 50%; }
-  [data-estilo="maquiagem"] .s-barra { margin-left: 43cqw; text-transform: uppercase; letter-spacing: .08em; font-size: 1.05cqw; }
-  [data-estilo="maquiagem"] .s-marca { letter-spacing: .14em; font-weight: 600; font-size: 1.4cqw; }
-  [data-estilo="maquiagem"] .s-links { display: none; }
-  [data-estilo="maquiagem"] .s-acao { background: none; color: inherit; padding: 0; text-decoration: underline; text-underline-offset: .4cqw; }
-  [data-estilo="maquiagem"] .s-texto { margin-left: 43cqw; padding: 5cqw 3.4cqw 0 4cqw; }
-  [data-estilo="maquiagem"] .s-nome { font-size: calc(8.2cqw * var(--escala)); line-height: 1; white-space: nowrap; }
-  [data-estilo="maquiagem"] .s-frase { margin-top: 2cqw; font-size: 2.1cqw; font-weight: 400; }
-  [data-estilo="maquiagem"] .s-botao { margin-top: 2cqw; font-weight: 600; font-size: 1.2cqw; text-transform: uppercase; letter-spacing: .08em; padding: 1.2cqw 2.4cqw; }
-  [data-estilo="maquiagem"] .s-lista { position: absolute; left: 47cqw; right: 3.4cqw; bottom: 3cqw; }
-  [data-estilo="maquiagem"] .s-item { display: flex; justify-content: space-between; padding-block: .85cqw; border-top: 1px solid color-mix(in srgb, var(--s-tinta) 25%, transparent); }
-  [data-estilo="maquiagem"] .s-item b { font-weight: 600; }
-  [data-estilo="maquiagem"] .s-rodape { display: none; }
+  [data-estilo="maquiagem"] .s-f1, [data-estilo="manicure"] .s-f1, [data-estilo="fotografia"] .s-f1 { position: absolute; left: 0; top: 0; width: 43cqw; height: 100%; object-position: 40% 50%; }
+  [data-estilo="maquiagem"] .s-barra, [data-estilo="manicure"] .s-barra, [data-estilo="fotografia"] .s-barra { margin-left: 43cqw; text-transform: uppercase; letter-spacing: .08em; font-size: 1.05cqw; }
+  [data-estilo="maquiagem"] .s-marca, [data-estilo="manicure"] .s-marca, [data-estilo="fotografia"] .s-marca { letter-spacing: .14em; font-weight: 600; font-size: 1.4cqw; }
+  [data-estilo="maquiagem"] .s-links, [data-estilo="manicure"] .s-links, [data-estilo="fotografia"] .s-links { display: none; }
+  [data-estilo="maquiagem"] .s-acao, [data-estilo="manicure"] .s-acao, [data-estilo="fotografia"] .s-acao { background: none; color: inherit; padding: 0; text-decoration: underline; text-underline-offset: .4cqw; }
+  [data-estilo="maquiagem"] .s-texto, [data-estilo="manicure"] .s-texto, [data-estilo="fotografia"] .s-texto { margin-left: 43cqw; padding: 5cqw 3.4cqw 0 4cqw; }
+  [data-estilo="maquiagem"] .s-nome, [data-estilo="manicure"] .s-nome, [data-estilo="fotografia"] .s-nome { font-size: calc(8.2cqw * var(--escala)); line-height: 1; white-space: nowrap; }
+  [data-estilo="maquiagem"] .s-frase, [data-estilo="manicure"] .s-frase, [data-estilo="fotografia"] .s-frase { margin-top: 2cqw; font-size: 2.1cqw; font-weight: 400; }
+  [data-estilo="maquiagem"] .s-botao, [data-estilo="manicure"] .s-botao, [data-estilo="fotografia"] .s-botao { margin-top: 2cqw; font-weight: 600; font-size: 1.2cqw; text-transform: uppercase; letter-spacing: .08em; padding: 1.2cqw 2.4cqw; }
+  [data-estilo="maquiagem"] .s-lista, [data-estilo="manicure"] .s-lista, [data-estilo="fotografia"] .s-lista { position: absolute; left: 47cqw; right: 3.4cqw; bottom: 3cqw; }
+  [data-estilo="maquiagem"] .s-item, [data-estilo="manicure"] .s-item, [data-estilo="fotografia"] .s-item { display: flex; justify-content: space-between; padding-block: .85cqw; border-top: 1px solid color-mix(in srgb, var(--s-tinta) 25%, transparent); }
+  [data-estilo="maquiagem"] .s-item b, [data-estilo="manicure"] .s-item b, [data-estilo="fotografia"] .s-item b { font-weight: 600; }
+  [data-estilo="maquiagem"] .s-rodape, [data-estilo="manicure"] .s-rodape, [data-estilo="fotografia"] .s-rodape { display: none; }
 }
 
 /* ---------- iPhone: aro de metal, borda preta, ilha, barra de status e Safari ---------- */
@@ -614,6 +633,23 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
 .capa-acoes .chips { margin: 0; justify-content: center; }
 .capa-acoes .chip { min-height: 44px; padding: 8px 16px; font-size: 16px; }
 .capa-acoes .botao { margin-left: 10px; }
+/* todos os tipos de negócio: painel aberto pelo chip "Mais tipos" */
+.capa-acoes { position: relative; }
+.chip--mais { display: inline-flex; align-items: center; gap: 6px; border-style: dashed; border-color: var(--tinta-3); }
+.chip--mais svg { flex: none; transition: transform .25s var(--suave); }
+.chip--mais[aria-expanded="true"] { border-style: solid; border-color: var(--tinta); }
+.chip--mais[aria-expanded="true"] svg { transform: rotate(45deg); }
+.ramos-mais { position: absolute; z-index: 26; left: 50%; top: calc(100% + 10px); translate: -50% 0; width: min(760px, calc(100vw - 32px)); padding: 18px; border-radius: var(--r-medio); background: #fff; box-shadow: 0 0 0 1px rgba(15, 39, 66, .06), var(--sombra-2); text-align: left; }
+.ramos-mais[hidden] { display: none; }
+.ramos-busca { position: relative; }
+.ramos-busca svg { position: absolute; left: 14px; top: 50%; translate: 0 -50%; color: var(--tinta-2); pointer-events: none; }
+.ramos-busca input { width: 100%; min-height: 46px; padding: 10px 14px 10px 42px; border: 1.5px solid var(--tinta-3); border-radius: var(--r-peq); background: #fff; color: var(--tinta); font: 500 16px var(--corpo); caret-color: var(--azul); }
+.ramos-busca input::placeholder { color: var(--tinta-3); font-weight: 400; }
+.ramos-busca input:focus { outline: none; border-color: var(--azul); box-shadow: 0 0 0 3px rgba(11, 95, 224, .18); }
+.ramos-grade { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; max-height: min(320px, 46vh); overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--tinta-3) transparent; }
+.ramos-grade .chip[hidden], .chip[hidden] { display: none; }
+.ramos-vazio { margin-top: 12px; font-size: 14px; color: var(--tinta-2); }
+.ramos-vazio[hidden] { display: none; }
 .capa-nome .nota { margin-top: 10px; color: var(--tinta); }
 .capa-palco { position: relative; margin: 26px auto 0; padding-bottom: 70px; }
 .capa-cena { position: relative; width: min(74vw, 1060px); margin-inline: auto; }
@@ -648,6 +684,8 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
   .capa-acoes .chips { flex-wrap: nowrap; justify-content: flex-start; margin-inline: calc(var(--margem) * -1); padding: 2px var(--margem); overflow-x: auto; scrollbar-width: none; }
   .capa-acoes .chips::-webkit-scrollbar { display: none; }
   .capa-acoes .chip { flex: none; }
+  .ramos-mais { position: fixed; left: 0; right: 0; top: auto; bottom: 0; translate: none; width: auto; max-height: 78vh; padding: 18px 20px calc(18px + env(safe-area-inset-bottom)); border-radius: var(--r-medio) var(--r-medio) 0 0; z-index: 60; }
+  .ramos-grade { max-height: 52vh; }
   .capa-acoes .botao { margin: 12px 0 0; width: 100%; }
 }
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
@@ -934,9 +972,9 @@ h3 { font-family: var(--titulo); font-weight: 500; letter-spacing: -.02em; font-
 @container (min-width: 561px) {
   .s-pag { padding: 2cqw 3.4cqw 2.4cqw; }
   .s .s-links { display: flex; }
-  [data-estilo="restaurante"] .s-acao { display: none; }
-  [data-estilo="maquiagem"] .s-barra { gap: 1.6cqw; }
-  [data-estilo="maquiagem"] .s-acao { display: none; }
+  [data-estilo="restaurante"] .s-acao, [data-estilo="padaria"] .s-acao, [data-estilo="pizzaria"] .s-acao, [data-estilo="cafeteria"] .s-acao { display: none; }
+  [data-estilo="maquiagem"] .s-barra, [data-estilo="manicure"] .s-barra, [data-estilo="fotografia"] .s-barra { gap: 1.6cqw; }
+  [data-estilo="maquiagem"] .s-acao, [data-estilo="manicure"] .s-acao, [data-estilo="fotografia"] .s-acao { display: none; }
 }
 @container (max-width: 560px) {
   .s-barra { flex-wrap: wrap; }

@@ -32,7 +32,15 @@
   try { pedido = JSON.parse(localStorage.getItem('actech-pedido')) || {}; } catch (e) { pedido = {}; }
   var ramo = pedido.ramo;
   if (pedido.nome) campoNome.value = String(pedido.nome).slice(0, 40);
-  q('[data-ramo="' + (A.RAMOS[ramo] ? ramo : 'barbearia') + '"]').click();
+  var chave = A.RAMOS[ramo] ? ramo : 'barbearia';
+  if (!q('[data-ramo="' + chave + '"]')) {
+    var grupo = q('[aria-labelledby="r-ramo"]'), novo = document.createElement('button');
+    novo.className = 'chip'; novo.type = 'button'; novo.setAttribute('data-ramo', chave); novo.setAttribute('aria-pressed', 'false');
+    novo.textContent = A.ROTULO[chave] || chave;
+    novo.addEventListener('click', function () { A.escolheRamo(chave); });
+    grupo.insertBefore(novo, grupo.firstChild);
+  }
+  A.escolheRamo(chave);
   campoNome.dispatchEvent(new Event('input'));
 
   /* ---------- WhatsApp ---------- */

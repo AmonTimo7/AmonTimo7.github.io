@@ -5,7 +5,7 @@
      SELECT * FROM contatos ORDER BY atualizado_em DESC; */
 
 const ORIGENS = new Set(['https://actechsystems.com.br', 'https://www.actechsystems.com.br']);
-const RAMOS = new Set(['barbearia', 'salao', 'petshop', 'roupa', 'restaurante', 'mercado', 'clinica', 'maquiagem']);
+const RAMOS = new Set(['barbearia', 'salao', 'petshop', 'roupa', 'restaurante', 'mercado', 'clinica', 'maquiagem', 'academia', 'hamburgueria', 'oficina', 'lavajato', 'idiomas', 'padaria', 'pizzaria', 'cafeteria', 'confeitaria', 'estetica', 'manicure', 'fotografia', 'floricultura', 'imobiliaria', 'acaiteria', 'advocacia', 'contabilidade', 'dentista']);
 const ETAPAS = new Set(['pagamento', 'disse_que_pagou']);
 
 function resposta(status) {

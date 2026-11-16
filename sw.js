@@ -14,7 +14,7 @@
      São versionados pelo deploy e não mudam no meio do dia.
 */
 
-var VERSAO = 'actech-v40';
+var VERSAO = 'actech-v41';
 var C_CASCA = VERSAO + '-casca';
 var C_USO = VERSAO + '-uso';
 
@@ -47,10 +47,10 @@ var CASCA = [
   'manifest.webmanifest',
   'favicon.ico',
   'imgs/favicon-96.png',
-  'site.css?v=10',
-  'site.js?v=9',
+  'site.css?v=11',
+  'site.js?v=10',
   'extras/assinar.css?v=1',
-  'extras/assinar.js?v=1',
+  'extras/assinar.js?v=2',
   'extras/aceite.js?v=4',
   'extras/estudio.js?v=4',
   'extras/estudio.css?v=2',

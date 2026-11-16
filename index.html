@@ -106,7 +106,7 @@
 <link rel="preload" href="fontes/red-hat-display.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="imgs/ramos/barbearia-2.webp" as="image" fetchpriority="high">
 <script>(function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches||sessionStorage.getItem('actech-viu')||location.hash)return;var h=document.documentElement;h.classList.add('vai-montar');setTimeout(function(){h.classList.remove('vai-montar')},3000)}catch(e){}})();</script>
-<link rel="stylesheet" href="site.css?v=10">
+<link rel="stylesheet" href="site.css?v=11">
 </head>
 <body>
 
@@ -152,12 +152,45 @@
         <div class="chips" role="group" aria-label="Escolha o tipo de negócio">
           <button class="chip" type="button" data-ramo="barbearia" aria-pressed="true">Barbearia</button>
           <button class="chip" type="button" data-ramo="salao" aria-pressed="false">Salão</button>
+          <button class="chip" type="button" data-ramo="restaurante" aria-pressed="false">Restaurante</button>
+          <button class="chip" type="button" data-ramo="academia" aria-pressed="false">Academia</button>
           <button class="chip" type="button" data-ramo="petshop" aria-pressed="false">Pet shop</button>
           <button class="chip" type="button" data-ramo="roupa" aria-pressed="false">Loja</button>
-          <button class="chip" type="button" data-ramo="restaurante" aria-pressed="false">Restaurante</button>
-          <button class="chip" type="button" data-ramo="mercado" aria-pressed="false">Mercado</button>
           <button class="chip" type="button" data-ramo="clinica" aria-pressed="false">Clínica</button>
-          <button class="chip" type="button" data-ramo="maquiagem" aria-pressed="false">Maquiagem</button>
+          <button class="chip" type="button" data-ramo-extra aria-pressed="true" hidden></button>
+          <button class="chip chip--mais" type="button" data-ramos-abre aria-expanded="false" aria-controls="ramos-painel"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Mais tipos</button>
+        </div>
+        <div class="ramos-mais" id="ramos-painel" data-ramos-painel role="dialog" aria-label="Todos os tipos de negócio" hidden>
+          <label class="ramos-busca"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" data-ramos-busca placeholder="Procure o seu tipo de negócio" aria-label="Procure o seu tipo de negócio" autocomplete="off"></label>
+          <div class="ramos-grade" role="group" aria-label="Todos os tipos de negócio">
+            <button class="chip" type="button" data-ramo="academia" aria-pressed="false">Academia</button>
+            <button class="chip" type="button" data-ramo="acaiteria" aria-pressed="false">Açaí</button>
+            <button class="chip" type="button" data-ramo="advocacia" aria-pressed="false">Advocacia</button>
+            <button class="chip" type="button" data-ramo="barbearia" aria-pressed="true">Barbearia</button>
+            <button class="chip" type="button" data-ramo="cafeteria" aria-pressed="false">Cafeteria</button>
+            <button class="chip" type="button" data-ramo="clinica" aria-pressed="false">Clínica</button>
+            <button class="chip" type="button" data-ramo="confeitaria" aria-pressed="false">Confeitaria</button>
+            <button class="chip" type="button" data-ramo="contabilidade" aria-pressed="false">Contabilidade</button>
+            <button class="chip" type="button" data-ramo="dentista" aria-pressed="false">Dentista</button>
+            <button class="chip" type="button" data-ramo="idiomas" aria-pressed="false">Escola de idiomas</button>
+            <button class="chip" type="button" data-ramo="estetica" aria-pressed="false">Estética</button>
+            <button class="chip" type="button" data-ramo="floricultura" aria-pressed="false">Floricultura</button>
+            <button class="chip" type="button" data-ramo="fotografia" aria-pressed="false">Fotografia</button>
+            <button class="chip" type="button" data-ramo="hamburgueria" aria-pressed="false">Hamburgueria</button>
+            <button class="chip" type="button" data-ramo="imobiliaria" aria-pressed="false">Imobiliária</button>
+            <button class="chip" type="button" data-ramo="lavajato" aria-pressed="false">Lava-jato</button>
+            <button class="chip" type="button" data-ramo="roupa" aria-pressed="false">Loja</button>
+            <button class="chip" type="button" data-ramo="manicure" aria-pressed="false">Manicure</button>
+            <button class="chip" type="button" data-ramo="maquiagem" aria-pressed="false">Maquiagem</button>
+            <button class="chip" type="button" data-ramo="mercado" aria-pressed="false">Mercado</button>
+            <button class="chip" type="button" data-ramo="oficina" aria-pressed="false">Oficina mecânica</button>
+            <button class="chip" type="button" data-ramo="padaria" aria-pressed="false">Padaria</button>
+            <button class="chip" type="button" data-ramo="petshop" aria-pressed="false">Pet shop</button>
+            <button class="chip" type="button" data-ramo="pizzaria" aria-pressed="false">Pizzaria</button>
+            <button class="chip" type="button" data-ramo="restaurante" aria-pressed="false">Restaurante</button>
+            <button class="chip" type="button" data-ramo="salao" aria-pressed="false">Salão</button>
+          </div>
+          <p class="ramos-vazio" data-ramos-vazio hidden>Não achou o seu? Escolha o mais parecido: o site é feito para o seu negócio.</p>
         </div>
         <a class="botao botao--azul" href="#preco">Quero o meu site</a>
       </div>
@@ -414,7 +447,7 @@
 
 <a class="zap-fixo" href="https://wa.me/5561994299823?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20site%20da%20ACTech." target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20z"/><path d="M8.6 7.3c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.3 0 .5-.1.6l-.5.6c-.1.2-.2.3 0 .6.3.5 1 1.6 2.4 2.2.4.2.6.1.8-.1l.5-.6c.2-.2.4-.2.6-.1l1.8.9c.3.2.4.3.4.5 0 .3-.1 1-.6 1.4-.4.4-1 .6-1.6.6-1 0-2.7-.6-4.3-2.1-1.6-1.5-2.4-3-2.5-4 0-.7.2-1.4.6-1.9z"/></svg></a>
 
-<script src="site.js?v=9"></script>
+<script src="site.js?v=10"></script>
 <script src="extras/mouses.js?v=1" defer></script>
 <script src="extras/sistemas.js?v=3" defer></script>
 <script src="extras/aceite.js?v=4" defer></script>

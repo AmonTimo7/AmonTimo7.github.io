@@ -14,7 +14,25 @@
     restaurante: {"nome": "Cantina da Esquina", "hora": "Todo dia, 11h às 15h", "fundo": "#FBE2D2", "tinta": "#4A1A08", "frase": "Comida de casa, todo dia.", "botao": "Ver o cardápio", "rot": "Hoje na cozinha", "f1": "restaurante-1", "f2": "restaurante-3", "itens": [["Prato do dia", "R$ 32"], ["Marmita", "R$ 25"], ["Sobremesa", "R$ 12"]], "posts": [["restaurante-3", "Prato do dia R$ 32"], ["", "Marmita da semana"]]},
     mercado: {"nome": "Mercado do Bairro", "hora": "Todo dia, 7h às 21h. Entrega no bairro.", "fundo": "#E2F2CF", "tinta": "#183A0F", "frase": "Produtos frescos, perto da sua casa.", "botao": "Ver as ofertas", "rot": "Ofertas da semana", "f1": "mercado-2", "f2": "mercado-1", "itens": [["Frutas da estação", "R$ 7,90/kg", "mercado-1"], ["Feira completa", "R$ 49", "mercado-3"], ["Cesta da semana", "R$ 189", "mercado-2"]], "posts": [["mercado-1", "Oferta de terça"], ["", "Cesta da semana R$ 189"]]},
     clinica: {"nome": "Clínica Vida", "hora": "Atendimento de seg a sex, 8h às 18h", "fundo": "#D6F1EA", "tinta": "#0E3A4A", "frase": "Consulta marcada sem ligar para ninguém.", "botao": "Agendar consulta", "rot": "Atendimento", "f1": "clinica-3", "f2": "clinica-2", "itens": [["Consulta", "particular e convênio"], ["Retorno", "em 30 dias"], ["Exames", "no local"]], "posts": [["clinica-1", "Agenda aberta nesta semana"], ["", "Retorno em 30 dias"]]},
-    maquiagem: {"nome": "Bia Make", "hora": "Atendimento com hora marcada", "fundo": "#F3E3D8", "tinta": "#2B1A14", "frase": "Make de noiva, festa e formatura.", "botao": "Reservar data", "rot": "Pacotes", "f1": "maquiagem-2", "f2": "maquiagem-1", "itens": [["Social", "R$ 150"], ["Madrinha", "R$ 220"], ["Noiva", "R$ 650"]], "posts": [["maquiagem-1", "Datas abertas para dezembro"], ["", "Make social R$ 150"]]}
+    maquiagem: {"nome": "Bia Make", "hora": "Atendimento com hora marcada", "fundo": "#F3E3D8", "tinta": "#2B1A14", "frase": "Make de noiva, festa e formatura.", "botao": "Reservar data", "rot": "Pacotes", "f1": "maquiagem-2", "f2": "maquiagem-1", "itens": [["Social", "R$ 150"], ["Madrinha", "R$ 220"], ["Noiva", "R$ 650"]], "posts": [["maquiagem-1", "Datas abertas para dezembro"], ["", "Make social R$ 150"]]},
+    academia: {"nome": "Forma Gym", "hora": "Seg a sex, 5h às 23h. Sáb, 8h às 14h", "fundo": "#E6F2B0", "tinta": "#1A1F12", "frase": "Seu treino começa hoje.", "botao": "Aula grátis", "rot": "Planos", "f1": "academia-1", "f2": "academia-3", "itens": [["Mensal", "R$ 99"], ["Trimestral", "R$ 270"], ["Aula experimental", "grátis"]], "posts": [["academia-2", "Horário estendido no feriado"], ["", "Plano trimestral R$ 270"]], "escuro": true},
+    hamburgueria: {"nome": "Brasa Burger", "hora": "Ter a dom, 18h às 23h", "fundo": "#FBE3C2", "tinta": "#2A140A", "frase": "Hambúrguer na brasa, do jeito certo.", "botao": "Pedir agora", "rot": "Cardápio", "f1": "hamburgueria-1", "f2": "hamburgueria-3", "itens": [["Clássico", "R$ 32"], ["Duplo cheddar", "R$ 39"], ["Combo com fritas", "R$ 45"]], "posts": [["hamburgueria-2", "Combo da semana"], ["", "Duplo cheddar R$ 39"]], "escuro": true},
+    oficina: {"nome": "Motor Certo", "hora": "Seg a sex, 8h às 18h. Sáb, 8h às 12h", "fundo": "#FFE1D2", "tinta": "#1E1410", "frase": "Revisão com orçamento antes de mexer.", "botao": "Agendar revisão", "rot": "Serviços", "f1": "oficina-1", "f2": "oficina-3", "itens": [["Troca de óleo", "R$ 120"], ["Alinhamento", "R$ 80"], ["Revisão completa", "R$ 290"]], "posts": [["oficina-2", "Revisão antes da viagem"], ["", "Troca de óleo R$ 120"]], "escuro": true},
+    lavajato: {"nome": "Brilho Car", "hora": "Seg a sáb, 8h às 18h", "fundo": "#D7ECFB", "tinta": "#0A2A45", "frase": "Carro limpo sem fila, com hora marcada.", "botao": "Agendar lavagem", "rot": "Lavagens", "f1": "lavajato-1", "f2": "lavajato-3", "itens": [["Simples", "R$ 40"], ["Completa", "R$ 70"], ["Polimento", "R$ 180"]], "posts": [["lavajato-2", "Agenda de sábado aberta"], ["", "Lavagem completa R$ 70"]]},
+    idiomas: {"nome": "Fala Inglês", "hora": "Seg a sex, 8h às 21h", "fundo": "#FFF0C7", "tinta": "#1D2B4F", "frase": "Inglês para a vida real, em turmas pequenas.", "botao": "Aula experimental", "rot": "Cursos", "f1": "idiomas-1", "f2": "idiomas-3", "itens": [["Kids", "R$ 290/mês"], ["Adultos", "R$ 320/mês"], ["Conversação", "R$ 250/mês"]], "posts": [["idiomas-2", "Matrículas abertas para 2027"], ["", "Aula experimental grátis"]]},
+    padaria: {"nome": "Pão da Vila", "hora": "Todo dia, 6h às 21h", "fundo": "#F6E7CF", "tinta": "#3B2412", "frase": "Pão quentinho toda manhã.", "botao": "Encomendar", "rot": "Fornadas do dia", "f1": "padaria-2", "f2": "padaria-3", "itens": [["Pão francês", "R$ 0,90"], ["Pão de queijo", "R$ 3,50"], ["Bolo caseiro", "R$ 28"]], "posts": [["padaria-1", "Fornada nova às 17h"], ["", "Café da manhã completo"]]},
+    pizzaria: {"nome": "Forno Nono", "hora": "Todo dia, 18h às 23h30", "fundo": "#FCE0D6", "tinta": "#3A0F0A", "frase": "Pizza de forno a lenha, quentinha na sua casa.", "botao": "Pedir pizza", "rot": "Sabores", "f1": "pizzaria-1", "f2": "pizzaria-3", "itens": [["Margherita", "R$ 49"], ["Calabresa", "R$ 52"], ["Quatro queijos", "R$ 58"]], "posts": [["pizzaria-2", "Terça de pizza em dobro"], ["", "Margherita R$ 49"]]},
+    cafeteria: {"nome": "Grão Café", "hora": "Todo dia, 7h às 20h", "fundo": "#EFE1D2", "tinta": "#2A1C14", "frase": "Café especial e pão de queijo na hora.", "botao": "Ver o cardápio", "rot": "Cardápio", "f1": "cafeteria-1", "f2": "cafeteria-2", "itens": [["Espresso", "R$ 7"], ["Cappuccino", "R$ 12"], ["Pão de queijo", "R$ 5"]], "posts": [["cafeteria-2", "Latte da estação"], ["", "Cappuccino R$ 12"]]},
+    confeitaria: {"nome": "Doce Lia", "hora": "Ter a sáb, 10h às 19h", "fundo": "#FADDE6", "tinta": "#4A1F2C", "frase": "Bolos e doces feitos para a sua festa.", "botao": "Encomendar bolo", "rot": "Encomendas", "f1": "confeitaria-1", "f2": "confeitaria-2", "itens": [["Bolo de festa", "R$ 120"], ["Cento de docinhos", "R$ 95"], ["Fatia do dia", "R$ 14"]], "posts": [["confeitaria-3", "Encomendas para dezembro"], ["", "Cento de docinhos R$ 95"]]},
+    estetica: {"nome": "Pele Viva", "hora": "Ter a sáb, 9h às 19h", "fundo": "#F1E6DD", "tinta": "#3A2A22", "frase": "Cuidado com a pele, com hora marcada.", "botao": "Agendar avaliação", "rot": "Tratamentos", "f1": "estetica-1", "f2": "estetica-2", "itens": [["Limpeza de pele", "R$ 150"], ["Drenagem", "R$ 120"], ["Peeling", "R$ 220"]], "posts": [["estetica-3", "Horários livres nesta semana"], ["", "Limpeza de pele R$ 150"]]},
+    manicure: {"nome": "Ana Nails", "hora": "Ter a sáb, 9h às 19h", "fundo": "#F5E1E4", "tinta": "#3D1A24", "frase": "Unhas feitas com capricho.", "botao": "Marcar horário", "rot": "Serviços", "f1": "manicure-2", "f2": "manicure-3", "itens": [["Pé e mão", "R$ 60"], ["Esmaltação em gel", "R$ 90"], ["Alongamento", "R$ 160"]], "posts": [["manicure-1", "Horários livres no sábado"], ["", "Pé e mão R$ 60"]]},
+    fotografia: {"nome": "Luz Fotografia", "hora": "Atendimento com hora marcada", "fundo": "#E8E6E1", "tinta": "#1B1B1B", "frase": "Ensaios, eventos e retratos.", "botao": "Reservar data", "rot": "Pacotes", "f1": "fotografia-1", "f2": "fotografia-2", "itens": [["Ensaio", "R$ 350"], ["Aniversário", "R$ 800"], ["Casamento", "sob consulta"]], "posts": [["fotografia-3", "Datas abertas para dezembro"], ["", "Ensaio R$ 350"]]},
+    floricultura: {"nome": "Jardim Flor", "hora": "Seg a sáb, 8h às 19h", "fundo": "#E7F0E2", "tinta": "#1F2A1C", "frase": "Flores frescas, entregues no mesmo dia.", "botao": "Encomendar flores", "rot": "Arranjos", "f1": "floricultura-1", "f2": "floricultura-3", "itens": [["Buquê de rosas", "R$ 120", "floricultura-1"], ["Arranjo de mesa", "R$ 90", "floricultura-3"], ["Cesta presente", "R$ 160", "floricultura-2"]], "posts": [["floricultura-3", "Entrega no mesmo dia"], ["", "Buquê de rosas R$ 120"]]},
+    imobiliaria: {"nome": "Lar Imóveis", "hora": "Seg a sáb, 9h às 18h", "fundo": "#E9EEE6", "tinta": "#1E2B2A", "frase": "O imóvel certo, perto de você.", "botao": "Ver imóveis", "rot": "Destaques", "f1": "imobiliaria-1", "f2": "imobiliaria-2", "itens": [["Apartamento", "R$ 2.300/mês", "imobiliaria-2"], ["Casa", "R$ 650 mil", "imobiliaria-1"], ["Studio", "R$ 1.700/mês", "imobiliaria-3"]], "posts": [["imobiliaria-3", "Novidade perto de você"], ["", "Visita com hora marcada"]]},
+    acaiteria: {"nome": "Açaí da Praça", "hora": "Todo dia, 13h às 22h", "fundo": "#E8DDF5", "tinta": "#2B0F3A", "frase": "Açaí cremoso, do seu jeito.", "botao": "Montar meu açaí", "rot": "Copos e tigelas", "f1": "acaiteria-2", "f2": "acaiteria-1", "itens": [["Copo 300 ml", "R$ 14", "acaiteria-2"], ["Tigela 500 ml", "R$ 22", "acaiteria-1"], ["Combo família", "R$ 45", "acaiteria-3"]], "posts": [["acaiteria-1", "Promoção de terça"], ["", "Tigela 500 ml R$ 22"]]},
+    advocacia: {"nome": "Rocha Advocacia", "hora": "Seg a sex, 9h às 18h", "fundo": "#EFE6D2", "tinta": "#1C2433", "frase": "Orientação jurídica clara, do começo ao fim.", "botao": "Agendar conversa", "rot": "Áreas", "f1": "advocacia-1", "f2": "advocacia-2", "itens": [["Trabalhista", "consulta"], ["Família", "consulta"], ["Consumidor", "consulta"]], "posts": [["advocacia-3", "Seus direitos no trabalho"], ["", "Atendimento com hora marcada"]]},
+    contabilidade: {"nome": "Conta Clara", "hora": "Seg a sex, 8h às 18h", "fundo": "#DCEAF7", "tinta": "#10283F", "frase": "Sua empresa em dia, sem dor de cabeça.", "botao": "Pedir orçamento", "rot": "Serviços", "f1": "contabilidade-2", "f2": "contabilidade-1", "itens": [["Abertura de empresa", "sob consulta"], ["MEI", "R$ 89/mês"], ["Imposto de Renda", "R$ 150"]], "posts": [["contabilidade-3", "Prazo do Imposto de Renda"], ["", "MEI em dia por R$ 89"]]},
+    dentista: {"nome": "Sorriso Odonto", "hora": "Seg a sex, 8h às 19h", "fundo": "#DDF0F6", "tinta": "#0F3346", "frase": "Consulta marcada, sorriso cuidado.", "botao": "Agendar consulta", "rot": "Tratamentos", "f1": "dentista-1", "f2": "dentista-2", "itens": [["Avaliação", "particular e convênio"], ["Limpeza", "em 30 minutos"], ["Clareamento", "sob consulta"]], "posts": [["dentista-3", "Agenda aberta nesta semana"], ["", "Avaliação com hora marcada"]]}
   };
 
   var RAIZ = ((document.currentScript && document.currentScript.src) || '').replace(/site\.js.*$/, '');
@@ -45,9 +63,10 @@
   }
 
   /* O site de exemplo funciona: Início, Serviços, Contato e o pedido, sem sair da página. */
+  var ROTULO = {"barbearia": "Barbearia", "salao": "Salão", "petshop": "Pet shop", "roupa": "Loja", "restaurante": "Restaurante", "mercado": "Mercado", "clinica": "Clínica", "maquiagem": "Maquiagem", "academia": "Academia", "hamburgueria": "Hamburgueria", "oficina": "Oficina mecânica", "lavajato": "Lava-jato", "idiomas": "Escola de idiomas", "padaria": "Padaria", "pizzaria": "Pizzaria", "cafeteria": "Cafeteria", "confeitaria": "Confeitaria", "estetica": "Estética", "manicure": "Manicure", "fotografia": "Fotografia", "floricultura": "Floricultura", "imobiliaria": "Imobiliária", "acaiteria": "Açaí", "advocacia": "Advocacia", "contabilidade": "Contabilidade", "dentista": "Dentista"};
   var HORAS = ['09:00', '10:30', '14:00', '16:30'];
-  var ABA = { barbearia: 'Serviços', salao: 'Serviços', petshop: 'Serviços', roupa: 'Novidades', restaurante: 'Cardápio', mercado: 'Ofertas', clinica: 'Atendimento', maquiagem: 'Pacotes' };
-  var PEDIDO = { barbearia: 'Agendar horário', salao: 'Marcar horário', petshop: 'Agendar banho', roupa: 'Reservar uma peça', restaurante: 'Fazer um pedido', mercado: 'Fazer um pedido', clinica: 'Agendar consulta', maquiagem: 'Reservar data' };
+  var ABA = { barbearia: 'Serviços', salao: 'Serviços', petshop: 'Serviços', roupa: 'Novidades', restaurante: 'Cardápio', mercado: 'Ofertas', clinica: 'Atendimento', maquiagem: 'Pacotes', academia: 'Planos', hamburgueria: 'Cardápio', oficina: 'Serviços', lavajato: 'Lavagens', idiomas: 'Cursos', padaria: 'Cardápio', pizzaria: 'Cardápio', cafeteria: 'Cardápio', confeitaria: 'Encomendas', estetica: 'Tratamentos', manicure: 'Serviços', fotografia: 'Pacotes', floricultura: 'Arranjos', imobiliaria: 'Imóveis', acaiteria: 'Cardápio', advocacia: 'Áreas', contabilidade: 'Serviços', dentista: 'Tratamentos' };
+  var PEDIDO = { barbearia: 'Agendar horário', salao: 'Marcar horário', petshop: 'Agendar banho', roupa: 'Reservar uma peça', restaurante: 'Fazer um pedido', mercado: 'Fazer um pedido', clinica: 'Agendar consulta', maquiagem: 'Reservar data', academia: 'Agendar aula grátis', hamburgueria: 'Fazer um pedido', oficina: 'Agendar revisão', lavajato: 'Agendar lavagem', idiomas: 'Agendar aula experimental', padaria: 'Fazer uma encomenda', pizzaria: 'Fazer um pedido', cafeteria: 'Fazer um pedido', confeitaria: 'Encomendar', estetica: 'Agendar avaliação', manicure: 'Marcar horário', fotografia: 'Reservar data', floricultura: 'Encomendar flores', imobiliaria: 'Agendar visita', acaiteria: 'Fazer um pedido', advocacia: 'Agendar conversa', contabilidade: 'Pedir orçamento', dentista: 'Agendar consulta' };
   function vivifica(s) {
     if (s.hasAttribute('data-pag')) return;
     var k = s.getAttribute('data-estilo'), r = RAMOS[k];
@@ -143,7 +162,7 @@
     todos('[data-sitio]').forEach(function (el) { el.innerHTML = sitio(chave, nome); });
     todos('[data-sitio] .s').forEach(vivifica);
     var tela = q('.cel-tela');
-    if (tela) { if (chave === 'barbearia') tela.setAttribute('data-escuro', ''); else tela.removeAttribute('data-escuro'); }
+    if (tela) { if (chave === 'barbearia' || r.escuro) tela.setAttribute('data-escuro', ''); else tela.removeAttribute('data-escuro'); }
     var posts = q('.capa-posts');
     if (posts) { posts.style.setProperty('--cor-fundo', r.fundo); posts.style.setProperty('--cor-tinta', r.tinta); }
     todos('[data-post]').forEach(function (el, n) {
@@ -165,15 +184,61 @@
       if (window.ACTECH.montar) window.ACTECH.montar();
     });
   });
+  /* "Mais tipos": painel com todos os ramos e busca. O ramo escolhido ali
+     aparece na fileira, no lugar do chip extra. */
+  var painel = q('[data-ramos-painel]'), abreBt = q('[data-ramos-abre]'), extra = q('[data-ramo-extra]');
+  function marcaExtra(k) {
+    if (!extra) return;
+    if (q('.capa-acoes .chips [data-ramo="' + k + '"]')) { extra.hidden = true; return; }
+    extra.textContent = ROTULO[k] || k; extra.hidden = false;
+  }
+  if (painel && abreBt) {
+    var busca = q('[data-ramos-busca]');
+    var semAcento = function (t) { return (t.normalize ? t.normalize('NFD') : t).replace(/[\u0300-\u036f]/g, '').toLowerCase(); };
+    var filtra = function () {
+      var t = semAcento(busca ? busca.value.trim() : ''), n = 0;
+      todos('[data-ramos-painel] [data-ramo]').forEach(function (b) { var ok = semAcento(b.textContent).indexOf(t) > -1; b.hidden = !ok; if (ok) n++; });
+      q('[data-ramos-vazio]').hidden = n > 0;
+    };
+    var fecha = function (volta) { painel.hidden = true; abreBt.setAttribute('aria-expanded', 'false'); if (volta) abreBt.focus(); };
+    var abre = function () {
+      painel.hidden = false; abreBt.setAttribute('aria-expanded', 'true');
+      if (busca) { busca.value = ''; filtra(); if (!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches)) busca.focus(); }
+    };
+    abreBt.addEventListener('click', function () { if (painel.hidden) abre(); else fecha(); });
+    if (extra) extra.addEventListener('click', abre);
+    if (busca) {
+      busca.addEventListener('input', filtra);
+      busca.addEventListener('keydown', function (ev) {
+        if (ev.key !== 'Enter') return;
+        ev.preventDefault();
+        var primeiro = q('[data-ramos-painel] [data-ramo]:not([hidden])');
+        if (primeiro) primeiro.click();
+      });
+    }
+    painel.addEventListener('click', function (ev) {
+      var b = ev.target.closest && ev.target.closest('[data-ramo]');
+      if (!b) return;
+      marcaExtra(b.getAttribute('data-ramo'));
+      fecha(true);
+    });
+    document.addEventListener('click', function (ev) {
+      if (painel.hidden || painel.contains(ev.target) || abreBt.contains(ev.target) || (extra && extra.contains(ev.target))) return;
+      fecha(false);
+    });
+    document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && !painel.hidden) fecha(true); });
+    todos('.capa-acoes .chips [data-ramo]').forEach(function (b) { b.addEventListener('click', function () { if (extra) extra.hidden = true; }); });
+  }
   if (q('[data-ramo]')) window.addEventListener('load', function () {
     // adianta as fotos dos outros ramos para a troca ser instantânea
-    Object.keys(RAMOS).forEach(function (k) { new Image().src = foto(RAMOS[k].f1); });
+    todos('.capa-acoes .chips [data-ramo]').forEach(function (b) { var r = RAMOS[b.getAttribute('data-ramo')]; if (r) new Image().src = foto(r.f1); });
   });
 
   /* Modelos: o clique abre o estúdio de personalização. O link continua sendo da
      página do ramo, para o Google, para abrir em nova aba e para quem está sem JS. */
   window.ACTECH = {
     RAMOS: RAMOS, WHATS: WHATS, ASSINAR: ASSINAR, raiz: RAIZ, foto: foto, sitio: sitio, escalas: escalas, endereco: endereco, vivifica: vivifica,
+    ROTULO: ROTULO, escolheRamo: function (k) { if (RAMOS[k]) pintaRamo(k); },
     nomeDigitado: function () { return campo ? campo.value.trim() : ''; },
     definirNome: function (n) { if (campo && n !== undefined) { campo.value = n; pintaNome(); } }
   };
